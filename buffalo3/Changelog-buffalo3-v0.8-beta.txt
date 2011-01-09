@@ -1,0 +1,15 @@
+------------------------------------------------------------------------
+r30 | nimbal | 2009-08-23 11:27:42 +0000 (Sun, 23 Aug 2009) | 1 line
+Changed paths:
+   A /tags/v0.8-beta (from /trunk:29)
+
+Tagging as v0.8-beta
+------------------------------------------------------------------------
+r29 | nimbal | 2009-08-23 11:27:06 +0000 (Sun, 23 Aug 2009) | 2 lines
+Changed paths:
+   M /trunk/BuffButton.lua
+   M /trunk/Container.lua
+
+* Fixed timers showing when not necessary
+* Fixed a nil error when playing around with expansion-options
+------------------------------------------------------------------------

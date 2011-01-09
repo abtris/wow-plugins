@@ -1,0 +1,189 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\..\FrameXML\UI.xsd">
+	<Script file="TitanReputation.lua"/>
+	<Frame parent="UIParent">
+		<Frames>
+			<Button name="TitanPanelReputationButton" inherits="TitanPanelComboTemplate" frameStrata="FULLSCREEN" toplevel="true">
+				<Layers>
+					<Layer level="OVERLAY">
+					</Layer>
+				</Layers>
+				<Scripts>
+					<OnLoad>
+						TitanPanelReputationButton_OnLoad(self);
+						TitanPanelButton_OnLoad(self);
+					</OnLoad>
+					<OnEvent>
+						TitanPanelReputationButton_OnEvent(event, ...);
+					</OnEvent>
+					<OnClick>
+						TitanPanelReputationButton_OnClick(self, button);
+						TitanPanelButton_OnClick(self, button);
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+	</Frame>
+	<Frame name="TitanReputationFrame" parent="UIParent" hidden="true" frameStrata="TOOLTIP"> 
+		<Size> 
+			<AbsDimension x="400" y="63" /> 
+		</Size> 
+		<Anchors> 
+			<Anchor point="CENTER" relativePoint="BOTTOM" relativeTo="UIErrorsFrame"/> 
+			<Offset> 
+				<AbsDimension x="0" y="-100"/> 
+			</Offset> 
+		</Anchors> 
+		<Backdrop bgFile="Interface\AchievementFrame\UI-Achievement-Parchment-Horizontal" edgeFile="Interface\AchievementFrame\UI-Achievement-WoodBorder" tile="false"> 
+			<EdgeSize> 
+				<AbsValue val="8"/> 
+			</EdgeSize> 
+			<BackgroundInsets> 
+				<AbsInset left="0" right="0" top="0" bottom="0"/> 
+			</BackgroundInsets> 
+		</Backdrop> 
+		<Animations>
+			<AnimationGroup name="$parentAnimIn" parentKey="animIn">
+				<Alpha change="-1" duration="0" order="1"/>
+				<Alpha change="1" duration="0.2" order="2"/>
+			</AnimationGroup>
+			<AnimationGroup name="$parentWaitAndAnimOut" parentKey="waitAndAnimOut">
+				<Alpha startDelay="4.05" change="-1" duration="1.5" parentKey="animOut">
+					<Scripts>
+						<OnFinished>
+							TitanReputationFrame_Hide();
+						</OnFinished>
+					</Scripts>
+				</Alpha>
+			</AnimationGroup>
+		</Animations>
+		<Layers> 
+			<Layer level="OVERLAY"> 
+				<FontString name="TitanReputation_Title" inherits="GameFontHighlightLarge" text="Booty Bay - Neutral"> 
+					<Anchors> 
+						<Anchor point="TOP"> 
+							<Offset>
+								<AbsDimension x="0" y="-4"/>
+							</Offset>
+						</Anchor> 
+					</Anchors> 
+				</FontString> 
+				<FontString name="TitanReputation_Desc" inherits="AchievementDescriptionFont" text="You have obtained Neutral standing with Booty Bay." > 
+					<Size> 
+						<AbsDimension x="240" y="66" /> 
+					</Size> 
+					<Anchors> 
+						<Anchor point="CENTER"> 
+							<Offset>
+								<AbsDimension x="0" y="-30"/>
+							</Offset>
+						</Anchor> 
+					</Anchors> 
+				</FontString> 
+				<Texture name="TitanReputationLogo1Frame" file="Interface\AchievementFrame\UI-Achievement-IconFrame" tile="false"> 
+					<Size>
+						<AbsDimension x="96" y="96"/>
+					</Size>
+					<Anchors>
+						<Anchor point="LEFT">
+							<Offset>
+								<AbsDimension x="6" y="-20"/>
+							</Offset>
+			 			</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="TitanReputationLogo1FrameBG"> 
+					<Size>
+						<AbsDimension x="40" y="40"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" RelativeTo="TitanReputationLogo1Frame">
+							<Offset>
+								<AbsDimension x="5" y="-5"/>
+							</Offset>
+			 			</Anchor>
+					</Anchors>
+					<Color r="0" g="0" b="0" a="1.0"/>
+				</Texture>
+				<Texture name="TitanReputationLogo1Logo" file="Interface\AddOns\TitanReputation\TitanReputation" tile="false">
+					<Size>
+						<AbsDimension x="24" y="24"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" RelativeTo="TitanReputationLogo1Frame">
+							<Offset>
+								<AbsDimension x="14" y="-14"/>
+							</Offset>
+			 			</Anchor>
+					</Anchors>
+				</Texture>
+
+				<Texture name="TitanReputationLogo2Frame" file="Interface\AchievementFrame\UI-Achievement-IconFrame" tile="false"> 
+					<Size>
+						<AbsDimension x="96" y="96"/>
+					</Size>
+					<Anchors>
+						<Anchor point="RIGHT">
+							<Offset>
+								<AbsDimension x="36" y="-20"/>
+							</Offset>
+			 			</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="TitanReputationLogo2FrameBG"> 
+					<Size>
+						<AbsDimension x="40" y="40"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" RelativeTo="TitanReputationLogo2Frame">
+							<Offset>
+								<AbsDimension x="5" y="-5"/>
+							</Offset>
+			 			</Anchor>
+					</Anchors>
+					<Color r="0" g="0" b="0" a="1.0"/>
+				</Texture>
+				<Texture name="TitanReputationLogo2Logo" file="Interface\AddOns\TitanReputation\TitanReputation" tile="false">
+					<Size>
+						<AbsDimension x="24" y="24"/>
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" RelativeTo="TitanReputationLogo2Frame">
+							<Offset>
+								<AbsDimension x="14" y="-14"/>
+							</Offset>
+			 			</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer> 
+		</Layers> 
+		<Frames> 
+			<Frame name="$parentGlowFrame" setAllPoints="true">
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture name="$parentGlow" file="Interface\FriendsFrame\UI-Toast-Flair" alphaMode="ADD" alpha="0" parentKey="glow">
+							<Color r="0" g=".5" b="0" a="0"/>
+							<Size>
+								<AbsDimension x="402" y="69"/>
+							</Size>
+							<Anchors>
+								<Anchor point="TOPLEFT">
+									<Offset x="-1" y="3"/>
+								</Anchor>
+							</Anchors>
+							<Animations>
+								<AnimationGroup name="$parentAnimIn" parentKey="animIn">
+									<Alpha change="1" duration="0.2" order="1"/>
+									<Alpha change="-1" duration="0.5" order="2"/>
+								</AnimationGroup>
+							</Animations>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+		</Frames> 	
+	</Frame> 
+</Ui>
+

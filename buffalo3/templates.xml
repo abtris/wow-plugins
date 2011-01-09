@@ -1,0 +1,146 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+   <Button name="Buffalo3ButtonTemplate" frameStrata="HIGH" virtual="true">
+      <Size x="30" y="30"/>
+      <Layers>
+         <Layer level="BACKGROUND">
+            <FontString parentKey="duration" inherits="GameFontNormalSmall" hidden="true">
+               <Anchors>
+                  <Anchor point="TOP" relativePoint="BOTTOM" />
+               </Anchors>
+            </FontString>
+         </Layer>
+         <Layer level="ARTWORK">
+            <Texture parentKey="icon"/>
+            <FontString parentKey="count" inherits="NumberFontNormal">
+               <Anchors>
+                  <Anchor point="BOTTOMRIGHT">
+                     <Offset>
+                        <AbsDimension x="-2" y="2"/>
+                     </Offset>
+                  </Anchor>
+               </Anchors>
+            </FontString>
+         </Layer>
+         <Layer level="OVERLAY">
+            <Texture parentKey="border" file="Interface\Buttons\UI-Debuff-Overlays">
+               <Anchors>
+                  <Anchor point="BOTTOMLEFT"/>
+                  <Anchor point="TOPRIGHT"/>
+               </Anchors>
+               <TexCoords left="0.296875" right="0.5703125" top="0" bottom="0.515625"/>
+            </Texture>	
+            <FontString parentKey="symbol" inherits="TextStatusBarText">
+               <Anchors>
+                  <Anchor point="TOPLEFT">
+                     <Offset x="2" y="-2"/>
+                  </Anchor>
+               </Anchors>
+            </FontString>
+         </Layer>
+      </Layers>
+      <Scripts>
+         <OnEnter>
+            self.obj:OnEnter()
+         </OnEnter>
+         <OnLeave>
+            self.obj:OnLeave()
+         </OnLeave>
+         <OnClick>
+            self.obj:OnClick(button, down)
+         </OnClick>
+         <OnMouseDown>
+            if button == "LeftButton" and self.obj.container.showingReference then
+               self.obj.container:StartDrag()
+            end
+         </OnMouseDown>
+         <OnMouseUp>
+            if button == "LeftButton" and self.obj.container.showingReference then
+               self.obj.container:StopDrag()
+            end
+         </OnMouseUp>
+      </Scripts>
+   </Button>
+   
+   <Frame name="Buffalo3ContainerTemplate" frameStrata="LOW" virtual="true">
+      <Frames>
+         <Frame parentKey="reference" frameStrata="PARENT" hidden="true">
+            <Anchors>
+               <Anchor point="TOPLEFT">
+                  <Offset>
+                     <AbsDimension x="0" y="0"/>
+                  </Offset>
+               </Anchor>
+               <Anchor point="BOTTOMRIGHT">
+                  <Offset>
+                     <AbsDimension x="0" y="0"/>
+                  </Offset>
+               </Anchor>
+            </Anchors>
+            <!--
+            <Backdrop bgFile="Interface/Tooltips/UI-Tooltip-Background" edgeFile="Interface/Tooltips/UI-Tooltip-Border" tile="true">
+               <EdgeSize>
+                  <AbsValue val="16"/>
+               </EdgeSize>
+               <TileSize>
+                  <AbsValue val="32"/>
+               </TileSize>
+               <BackgroundInsets>
+                  <AbsInset left="5" right="5" top="5" bottom="5"/>
+               </BackgroundInsets>
+            </Backdrop>
+            -->
+            <Layers>
+               <Layer level="BACKGROUND">
+                  <FontString parentKey="title" inherits="NumberFontNormalSmall">
+                     <Anchors>
+                        <Anchor point="BOTTOM" relativePoint="TOP">
+                           <Offset>
+                              <AbsDimension x="0" y="0"/>
+                           </Offset>
+                        </Anchor>
+                     </Anchors>
+                  </FontString>
+                  <Texture parentKey="pane">
+                     <Anchors>
+                        <Anchor point="BOTTOMLEFT">
+                           <Offset>
+                              <AbsDimension x="-15" y="-15"/>
+                           </Offset>
+                        </Anchor>
+                        <Anchor point="TOPRIGHT">
+                           <Offset>
+                              <AbsDimension x="15" y="15"/>
+                           </Offset>
+                        </Anchor>
+                     </Anchors>
+                  </Texture>
+               </Layer>
+            </Layers>
+            <Scripts>
+               <OnMouseDown>
+                  if button == "LeftButton" then
+                     self:GetParent().obj:StartDrag()
+                  end
+               </OnMouseDown>
+               <OnMouseUp>
+                  if button == "LeftButton" then
+                     self:GetParent().obj:StopDrag()
+                  elseif button == "RightButton" then
+                     self:GetParent().obj:ShowDropdown()
+                  end
+               </OnMouseUp>
+               <OnHide>
+                  self:GetParent().obj:StopDrag()
+               </OnHide>
+               <OnEnter>
+                  self:GetParent().obj:OnEnter()
+               </OnEnter>
+               <OnLeave>
+                  self:GetParent().obj:OnLeave()
+               </OnLeave>
+            </Scripts>
+         </Frame>
+      </Frames>
+   </Frame>
+</Ui>

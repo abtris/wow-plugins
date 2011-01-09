@@ -1,0 +1,11 @@
+## Interface: 30300
+## Title: Titan Panel [|cffeda55fVuhdo|r] |cff00aa001.0|r
+## Author: TomasDR
+## Version: 1.0
+## Notes: Vuhdo interface for Titan Panel.
+## RequiredDeps: Titan, Vuhdo
+## DefaultState: Enabled
+## LoadOnDemand: 0
+TitanVuhDo.xml
+
+TPVlocalization.lua

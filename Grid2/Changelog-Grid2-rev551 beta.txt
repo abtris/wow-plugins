@@ -1,0 +1,29 @@
+------------------------------------------------------------------------
+r552 | jerry | 2011-01-06 07:39:17 +0000 (Thu, 06 Jan 2011) | 1 line
+Changed paths:
+   A /tags/rev551 beta (from /trunk:551)
+
+Tagging as rev551 beta
+------------------------------------------------------------------------
+r551 | jerry | 2011-01-05 21:33:28 +0000 (Wed, 05 Jan 2011) | 1 line
+Changed paths:
+   M /trunk/modules/StatusThreat.lua
+
+Temp fix for UnitThreatSituation() (thanks Potje)
+------------------------------------------------------------------------
+r550 | jerry | 2011-01-03 10:48:04 +0000 (Mon, 03 Jan 2011) | 2 lines
+Changed paths:
+   M /trunk/GridLayout.lua
+
+Another stab at fixing the pet template bug.
+
+------------------------------------------------------------------------
+r549 | zhTW | 2010-12-03 03:55:21 +0000 (Fri, 03 Dec 2010) | 3 lines
+Changed paths:
+   M /trunk/Options/locales/zhTW.lua
+   M /trunk/locales/zhTW.lua
+
+zhTW update
+
+
+------------------------------------------------------------------------

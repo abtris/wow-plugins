@@ -1,0 +1,6 @@
+Chris Heald:
+	Re-enable the damage text and unit name settings, since I've discovered it takes a relog, not a reload to enable them
+	Update the TOC
+	Fixes for borked libraries
+	Add Calibri
+	Initial commit.

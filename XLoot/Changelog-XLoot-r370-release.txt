@@ -1,0 +1,32 @@
+------------------------------------------------------------------------
+r371 | xuerian | 2010-10-14 09:02:47 +0000 (Thu, 14 Oct 2010) | 1 line
+Changed paths:
+   A /tags/r370-release (from /trunk:370)
+
+XLoot: Tagging LinkAll fix by oscarucb for release
+------------------------------------------------------------------------
+r370 | oscarucb | 2010-10-14 08:55:00 +0000 (Thu, 14 Oct 2010) | 2 lines
+Changed paths:
+   M /trunk/XLoot.lua
+
+fix a lua error on using the "Link all" button
+
+------------------------------------------------------------------------
+r368 | xuerian | 2010-10-13 22:17:57 +0000 (Wed, 13 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/XLoot.lua
+   M /trunk/XLoot.toc
+   M /trunk/XLootOptions.lua
+   M /trunk/XLootRowTools.lua
+   M /trunk/XLootSkin.lua
+   M /trunk/XLootTooltip.lua
+
+XLoot: 4.0 fix
+------------------------------------------------------------------------
+r367 | dridzt | 2009-12-18 18:21:57 +0000 (Fri, 18 Dec 2009) | 2 lines
+Changed paths:
+   M /trunk/XLoot.toc
+
+- .toc edit to repackage XLoot with fixed SEELoot for need before greed lootmethod 
+(thx to Narzuhl for debugging this one)
+------------------------------------------------------------------------

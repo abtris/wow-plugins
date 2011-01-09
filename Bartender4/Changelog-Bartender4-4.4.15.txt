@@ -1,0 +1,16 @@
+tag 4.4.15
+12964abe82293426b9f18168a1648206e68a99e8
+Hendrik Leppkes <h.leppkes@gmail.com>
+2010-11-22 19:03:48 +0100
+
+Tag as 4.4.15
+
+
+--------------------
+
+Hendrik Leppkes:
+	- Restructure FAQ and options loading to be able to work with locale scrapper.
+	- Rename button on the presets tab.
+	- Added an option to set buttons to fire on press instead of on release.
+	- Re-Added the Leave Vehicle button on Slot 12 of the possess/vehicle bar.
+	- Improve frame hiding by using a hidden parent frame.

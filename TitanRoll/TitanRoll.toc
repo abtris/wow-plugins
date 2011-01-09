@@ -1,0 +1,12 @@
+## Interface: 40000
+## Title: Titan Panel [Roll]
+## Notes: Clickable dice and roll overview for the Titan Panel AddOn.
+## Author: QuippeR
+## SavedVariables: 
+## OptionalDeps: 
+## Dependencies: Titan
+## X-Curse-Packaged-Version: v0.52
+## X-Curse-Project-Name: Titan Panel [Roll]
+## X-Curse-Project-ID: titan-panel-roll
+## X-Curse-Repository-ID: wow/titan-panel-roll/mainline
+TitanRoll.xml

@@ -1,0 +1,24 @@
+tag 1.4.0
+52848474a4ac33eb09a82262fa57e46d0fa493fc
+Hendrik Leppkes <h.leppkes@gmail.com>
+2010-11-27 10:43:28 +0100
+
+Tag as 1.4.0
+
+
+--------------------
+
+Hendrik Leppkes:
+	- Hide the "Track Quest" checkbox in mini mode and fix a collision with the "Show Digsites" checkbox.
+	- Allow usage of the "Toggle World Map Size" keybinding.
+	- Be gone ;
+	- Cache the returns of GetMapZones(id), as the function seems to be really slow, and the available zones per continent are not going to change while playing.
+	- Hide the overlay tiles when switching to a map without any, like the contintent selector.
+	- Remove the empty BC sections, they didnt get any maps =(
+	- Directly pass the zone data table isntead of unpacking and select'ing over it, what was i thinking o.O
+	- Fix scaling of the zone/continent dropdowns.
+	- Add Classic and Cataclysm instances/raids to the zone dropdown (no maps for BC instances *sad*)
+	- Improve performance in the FogClear module by caching texture references and disabling some Blizzard code that we overwrite anyway.
+	- Updated FogClear data for the cataclysmic world.
+	- Updated copyright header.
+	- Properly deal with the floor dropdown.

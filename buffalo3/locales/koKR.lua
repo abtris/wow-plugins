@@ -1,0 +1,69 @@
+local L = LibStub("AceLocale-3.0"):NewLocale("Buffalo3", "koKR")
+if not L then return end
+
+-- Untranslated entries -- 
+-- Don't worry about arranging them alphabetically with the existing
+-- translations or even uncommenting them, they will be sorted and uncommented
+-- automatically the next time the locales are built.
+-- Thank you for your contribution!
+-- L["Anchor point on the other container"] = "UNTRANSLATED"
+-- L["Anchor point on this container"] = "UNTRANSLATED"
+-- L["Anchor to container"] = "UNTRANSLATED"
+-- L["Anchoring"] = "UNTRANSLATED"
+-- L["Attach this container to another one"] = "UNTRANSLATED"
+-- L["Begin placing buff buttons to the bottom, then stack them up as more buffs are added."] = "UNTRANSLATED"
+-- L["Begin placing buff buttons to the right, then expand to the left as more buffs are added."] = "UNTRANSLATED"
+-- L["Bottom"] = "UNTRANSLATED"
+-- L["Bottom Left"] = "UNTRANSLATED"
+-- L["Bottom Right"] = "UNTRANSLATED"
+-- L["Buff Button Scale"] = "UNTRANSLATED"
+-- L["Buff container is locked. To move it freely, please unanchor it in the options menu."] = "UNTRANSLATED"
+-- L["Columns / Rows"] = "UNTRANSLATED"
+-- L["Containers"] = "UNTRANSLATED"
+-- L["Drag to reposition, right-click to show options"] = "UNTRANSLATED"
+-- L["Enable"] = "UNTRANSLATED"
+-- L["Enable this container"] = "UNTRANSLATED"
+-- L["Expand to the left"] = "UNTRANSLATED"
+-- L["Expand upwards"] = "UNTRANSLATED"
+-- L["Flash Warning"] = "UNTRANSLATED"
+-- L["Flash the buff icon when there is only little time left"] = "UNTRANSLATED"
+-- L["General settings"] = "UNTRANSLATED"
+-- L["Grow horizontally first"] = "UNTRANSLATED"
+-- L["Hide Default Blizzard Buffs"] = "UNTRANSLATED"
+-- L["Horizontal Offset"] = "UNTRANSLATED"
+-- L["Horizontal Padding"] = "UNTRANSLATED"
+-- L["Horizontal space between buff buttons"] = "UNTRANSLATED"
+-- L["Layout"] = "UNTRANSLATED"
+-- L["Left"] = "UNTRANSLATED"
+-- L["None"] = "UNTRANSLATED"
+-- L["Number of columns or rows before a 'linebreak'"] = "UNTRANSLATED"
+-- L["Options"] = "UNTRANSLATED"
+-- L["Other Point"] = "UNTRANSLATED"
+-- L["Place buffs horizontally first, then vertically."] = "UNTRANSLATED"
+-- L["Player Buffs"] = "UNTRANSLATED"
+-- L["Player Buffs and Weapon Buffs"] = "UNTRANSLATED"
+-- L["Player Debuffs"] = "UNTRANSLATED"
+-- L["Point"] = "UNTRANSLATED"
+-- L["Right"] = "UNTRANSLATED"
+-- L["Scale of the buff icons"] = "UNTRANSLATED"
+-- L["Show Timer"] = "UNTRANSLATED"
+-- L["Show timers beneath the buff"] = "UNTRANSLATED"
+-- L["Sort buffs by"] = "UNTRANSLATED"
+-- L["Toggle Reference"] = "UNTRANSLATED"
+-- L["Toggle reference frames for all buff containers"] = "UNTRANSLATED"
+-- L["Top"] = "UNTRANSLATED"
+-- L["Top Left"] = "UNTRANSLATED"
+-- L["Top Right"] = "UNTRANSLATED"
+-- L["Vertical Offset"] = "UNTRANSLATED"
+-- L["Vertical Padding"] = "UNTRANSLATED"
+-- L["Vertical space between buff buttons"] = "UNTRANSLATED"
+-- L["Weapon Buffs"] = "UNTRANSLATED"
+-- L["name"] = "UNTRANSLATED"
+-- L["time left"] = "UNTRANSLATED"
+
+-- Obsolete entries --
+-- These can probably be safely removed as they aren't present in the base locale anymore.
+-- If you are unsure, leave them, please.
+
+-- Translations --
+-- These should only be changed if they are incorrect or inaccurate

@@ -1,0 +1,19 @@
+﻿## Interface: 30100
+## LoadOnDemand: 0
+## Title: Lib: Buffet-1.0
+## Notes: A library for buffs and debuffs
+## Author: Nimbal
+## X-eMail: nimbal@gmx.net
+## X-Category: Library
+## X-License: LGPL v2.1
+## SavedVariables: LibBuffet10DB
+## X-Curse-Packaged-Version: r8
+## X-Curse-Project-Name: LibBuffet-1.0
+## X-Curse-Project-ID: libbuffet-1-0
+## X-Curse-Repository-ID: wow/libbuffet-1-0/mainline
+
+LibStub\LibStub.lua
+CallbackHandler-1.0\CallbackHandler-1.0.lua
+LibBuffet-1.0.lua
+EventHandling.lua
+BuffScanning.lua

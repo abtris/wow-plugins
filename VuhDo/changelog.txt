@@ -1,0 +1,368 @@
+since Version 2.71 (to 2.72):
+
+Bugfixes:
+-- Minor bugfixes
+-- "dropdown" also working on target bars
+-- Target and ToT side bars having their border back
+-- Fixed a glitch in Tooltip text sizing
+
+Improvements:
+-- Performance optimizations
+-- code cleanup
+-- Added some translatable texts
+-- Added additional ambiguous macro name warning message
+-- Increased readability of editable combo boxes
+-- Added "Inner Will" to buff watch
+
+
+Changes:
+
+
+Features:
+-- Added new feature for local/internal keyboard spell assignments
+   (Options=>Spells=>Keys local) in addition to traditional way, now:
+   (Options=>Spells=>Keys global)
+   Local spell assignments will ...
+   ... don't consume one macro slot per spell
+   ... are assignable directly through VuhDo, no WoW spell assignments
+       needed anymore
+   ... solely work with VuhDo frames (can be assigned to other commands
+       outside of VuhDo, but will no longer work with non-VuhDo
+       ui elements)
+   ... are fully fledged (not bound to 256 char limit, e.g. vehicle switching
+       etc. included)
+   ... can hold custom macros of unlimited length and using all templates
+       "vuhdo,vdtarget,vdtargettarget,vdpet,vdpettarget"
+-- Added an option make expiring hots flashing (options=>colors=>hots)
+
+--------------------------------------------------------------
+since Version 2.70 (to 2.71):
+
+Bugfixes:
+-- Fixed Hot icons sticking sometimes
+
+Improvements:
+
+
+Changes:
+
+
+Features:
+-- Added group "Own Pet" in options=>move
+
+
+--------------------------------------------------------------
+since Version 2.69 (to 2.70):
+
+Bugfixes:
+-- Minor bugfixes
+
+
+Improvements:
+-- Removed stutter when moving panels out of combat
+-- Added some translatable strings and some german translations
+
+
+Changes:
+
+
+Features:
+-- Added feature to lock panels while in combat
+   (Options=>General=>General, default: on)
+
+
+--------------------------------------------------------------
+since Version 2.68 (to 2.69):
+
+Bugfixes:
+-- Auto-target working also with cleanse spells
+-- Fixed some old options screens frame strata glitches
+-- Added missing color swatch for hot icon #7 (center)
+   (Options=>Coloes=>HoTs #1)
+-- Fixed a bug where cluster scanner only worked after
+   opening/closing options
+-- Minor bugfixes
+
+
+Improvements:
+-- Attempt to reduce stutter when panels are moved
+-- Increased bouquet max brightness to 4x.
+-- Performance optimizations
+
+
+Changes:
+
+
+Features:
+-- Added two new bars to indicators (side bar left + right)
+   Options=>General=>Indicators
+   Options=>Panels=>Bars
+
+
+--------------------------------------------------------------
+since Version 2.67 (to 2.68):
+
+Bugfixes:
+-- Fixed a bug in role assignments.
+
+Improvements:
+-- Clique compatibility mode will now also support mouse wheel
+   bindings
+
+Changes:
+
+Features:
+
+--------------------------------------------------------------
+since Version 2.66 (to 2.67):
+
+Bugfixes:
+-- Added two missing water totems for shamans
+-- Added "Echo of Light" to default HoT selection
+-- Fixed a bug with HoT icon scale in slots 4,5
+-- Minor bugfixes
+-- Fixed a bug with libButtonFacade
+-- Fixed vehicle switch condition
+
+Improvements:
+-- Chinese localizations updated (thanks yanwin)
+-- Options=>General=>Misc "Hide Blizz Party" will now
+   also hide compact party frame
+
+Changes:
+-- Performance optimizations
+-- Removed empty lines in spell Tooltips if not assigned
+-- Button Facade support is now optional
+   (Options=>General=>Misc, default: off)
+
+Features:
+-- You can now use spell-IDs instead of spell names in...
+   Options=>Panels=>HoT icons/bars,
+   Options=>Debuffs=>Custom
+-- Added BuffWatch support for multi cast (Shaman totems)
+   (Options=>Buffs=>Rebuff, check "Combinded" for "Call of
+   the Elements)
+
+--------------------------------------------------------------
+since Version 2.65 (to 2.66):
+
+Bugfixes:
+-- Fixed chinese localizations
+-- Fixed a bug where debuff abilities by talents not detected
+   correctly sometimes
+-- Minor bugfixes
+
+
+Improvements:
+-- Performance optimizations
+
+
+Changes:
+
+
+Features:
+-- Added support for custom addon "(lib)ButtonFacade"
+   (BuffWatch, HoT, custom debuff icons)
+-- Added bouquet item "Flag: Player Focus"
+
+--------------------------------------------------------------
+since Version 2.64 (to 2.65):
+
+Bugfixes:
+-- Fixed a bug with incoming heal indication not changing
+   after focus or target changed
+-- Fixed a bug with emergency color
+-- Fixed a bug with talent specific cleansing capabilities
+-- Fixed a bug where Blizz Raid UI would sometimes reappear
+-- Hovering over enemy targets via focus/target button will
+   no show hostile key assignments instead of friendly
+-- Fixed a bug with buttons sometimes appearing behind panel
+
+
+Improvements:
+-- Localized some options texts, added german translations
+-- Debuff scanner will recognize Priests "Body and Soul"
+
+
+Changes:
+-- BuffWatch will no longer scan pets, removed option
+   "Ignore Pets" from Options
+
+
+Features:
+-- Added "Custom Debuff" bouquet item type
+
+
+--------------------------------------------------------------
+since Version 2.63 (to 2.64):
+
+Bugfixes:
+-- Fixed a bug with macros not correctly assigned to target units
+-- Minor bugfixes
+
+Improvements:
+-- Performance optimizations
+
+
+Changes:
+-- Removed WL's Detect Invisibility, added Soul Link to BuffWatch
+
+
+Features:
+
+
+--------------------------------------------------------------
+since Version 2.62 (to 2.63):
+
+Bugfixes:
+-- Fixed frame strata bug
+
+
+Improvements:
+
+
+Changes:
+-- Swiftmend indicator will no longer scale with hot icon size
+   (Change size in options=>general=>indicators, special dot=>more)
+
+
+Features:
+-- Added Shadow Form to priest trackable buffs
+
+
+--------------------------------------------------------------
+since Version 2.61 (to 2.62):
+
+Bugfixes:
+-- Fixed paladin magic removal detection
+-- Fixed druid automatic battle rez feature
+-- Removed "Ablish Poison"
+-- Fixed BuffWatch for Warlocks and Mages
+-- Fixed direction arrow frame strata
+
+
+Improvements:
+
+
+Changes:
+
+
+Features:
+-- Added option to hide Blizz standard raid frames
+  (Options=>General=>Misc)
+
+
+--------------------------------------------------------------
+since Version 2.60 (to 2.61):
+
+Bugfixes:
+-- Fixed a bug where bars have partially
+   not been clickable
+
+Improvements:
+
+
+Changes:
+
+
+Features:
+-- Added panel frame strata selection
+   (Options=>Panels=>Misc)
+
+
+--------------------------------------------------------------
+since Version 2.59 (to 2.60):
+
+Bugfixes:
+-- Reflected changes of "Thorns" in BuffWatch
+-- Fixed bug in russian localization
+
+Improvements:
+-- Bouquets with clusters now can show # of players
+
+Changes:
+
+
+Features:
+
+
+--------------------------------------------------------------
+since Version 2.58 (to 2.59):
+
+Bugfixes:
+-- "Blood Pakt" will no longer mark "Powerword: Fortitude"
+   not buffed (Attempt)
+-- MotW will no longer mark Blessing of Kings not buffed
+   (and vice versa)
+-- Fixed a bug where main tanks appeared twice in panel
+
+Improvements:
+-- Added blizz raid role checking recognition
+-- Improved role checking in general
+-- Improved "dropdown" menu bindings
+
+Changes:
+
+
+Features:
+
+
+--------------------------------------------------------------
+since Version 2.57 (to 2.58):
+
+Bugfixes:
+-- Recognizing improved cleanse spirit for magic buff removal
+-- Attempt to fix bug with some buttons not reacting to clicks
+-- Fixed russian localization (Thanks to LordKuper!!!)
+-- Fixed: VuhDoNewOptionsGeneralBouquet.lua:348 attempt to index field '?' (a nil value)
+
+Improvements:
+
+Changes:
+
+
+Features:
+
+
+--------------------------------------------------------------
+since Version 2.56 alpha (to 2.57):
+
+Bugfixes:
+-- Attempt to fix bug with some buttons not
+   reacting to clicks
+-- Fixed a bug with BuffWatch buff selection lua error
+-- Fixed a bug with "dropdown" context menu not working
+-- Workaround for priest's chakra spells
+-- Minor bugfixes
+
+Improvements:
+
+Changes:
+-- More code cleanup
+
+Features:
+
+
+--------------------------------------------------------------
+since Version 2.55 alpha (to 2.56):
+
+Bugfixes:
+-- Fixed a bug with HoT Icons partially not removing HOT icons
+-- Fixed glitch in mouse wheel spells sticking sometimes
+
+
+Improvements:
+-- Made few texts localizable
+-- Improved custom macro integration
+-- Added context sensitivity to some options
+-- Cleaned up options texts
+-- Minor performance optimizations
+-- Minor code cleanup
+
+Changes:
+-- Removed obsolete/redundant/misplaced translations
+
+
+Features:
+
+

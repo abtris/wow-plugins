@@ -1,0 +1,39 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="localization.lua"/>
+	<Script file="TitanRoll.lua"/>
+	<Frame parent="UIParent">
+		<Frames>
+			<Button name="TitanPanelRollButton" inherits="TitanPanelComboTemplate" frameStrata="FULLSCREEN" toplevel="true">
+				<Scripts>
+					<OnLoad>
+						TitanPanelRollButton_OnLoad(self);
+						TitanPanelButton_OnLoad(self);
+					</OnLoad>
+					<OnEvent>
+						TitanPanelRollButton_OnEvent(self, event, ...);
+					</OnEvent>									
+					<OnUpdate>
+						TitanPanelRollButton_OnUpdate(self);
+					</OnUpdate>
+					<OnEnter>
+						TitanPanelButton_OnEnter(self);
+					</OnEnter>
+					<OnClick>
+						TitanPanelRollButton_OnClick(self, button);
+						TitanPanelButton_OnClick(self, button);					
+					</OnClick>													
+				</Scripts>
+			</Button>
+		</Frames>
+	</Frame>
+
+	<!-- Thanks for this trick to Taii (ToggleMe author) -->
+	<!-- This is our Faux Edit Box that our slash commands go to. -->
+	<EditBox name="TitanRoll_EditBox" inherits="ChatFrameEditBoxTemplate" parent="UIParent" hidden="true">       
+	     <Scripts>                           
+	        <OnLoad>                         
+	        </OnLoad>                        
+	     </Scripts>                          
+	</EditBox>
+</Ui>

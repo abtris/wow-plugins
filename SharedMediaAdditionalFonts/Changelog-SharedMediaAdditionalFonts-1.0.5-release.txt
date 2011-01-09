@@ -1,0 +1,22 @@
+------------------------------------------------------------------------
+r60 | pb_ee1 | 2010-10-30 16:57:51 +0000 (Sat, 30 Oct 2010) | 1 line
+Changed paths:
+   A /tags/1.0.5-release (from /trunk:59)
+
+Tagging as 1.0.5-release
+------------------------------------------------------------------------
+r59 | pb_ee1 | 2010-10-30 16:56:20 +0000 (Sat, 30 Oct 2010) | 3 lines
+Changed paths:
+   M /trunk/SharedMediaAdditionalFonts.toc
+   D /trunk/embeds.xml
+
+- Removing useless embeds.xml
+- Removing embeds.xml from TOC
+- Bugfix: path to LibStub in TOC
+------------------------------------------------------------------------
+r58 | pb_ee1 | 2010-10-30 16:47:33 +0000 (Sat, 30 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/SharedMediaAdditionalFonts.toc
+
+Updating TOC
+------------------------------------------------------------------------

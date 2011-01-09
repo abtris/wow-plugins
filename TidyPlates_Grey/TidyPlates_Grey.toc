@@ -1,0 +1,14 @@
+## Interface: 40000
+## Title: Tidy Plates: Grey Theme
+## Notes: Use apostrophes wisely. 
+## Author: A very very foolish man
+## Dependencies: TidyPlates
+## SavedVariablesPerCharacter: TidyPlatesGreyTankSavedVariables,TidyPlatesGreyDPSSavedVariables
+
+Tank\StylesTank.lua
+Tank\FunctionsTank.lua
+Tank\PanelTank.lua
+
+DPS\StylesDPS.lua
+DPS\FunctionsDPS.lua
+DPS\PanelDPS.lua

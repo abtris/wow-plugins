@@ -1,0 +1,12 @@
+tag v1.2.9-3
+45fd466819e6984dcbafb60a6eff001deebe6801
+Chris Heald <cheald@gmail.com>
+2010-10-13 18:11:26 -0700
+
+Tagging as 1.2.9-3
+
+
+--------------------
+
+Sal Scotto:
+	- Fixed url copy box

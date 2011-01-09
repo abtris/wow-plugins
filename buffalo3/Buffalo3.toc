@@ -1,0 +1,32 @@
+﻿## Interface: 30100
+## LoadOnDemand: 0
+## Title: Buffalo3
+## Notes: Customizing your buff display
+## Author: Nimbal
+## OptionalDependencies: Ace3, LibBuffet-1.0, ButtonFacade, LibStub, CallbackHandler-1.0
+## X-Category: Buffs
+## SavedVariables: Buffalo3DB
+## X-Curse-Packaged-Version: v0.8-beta
+## X-Curse-Project-Name: Buffalo3
+## X-Curse-Project-ID: buffalo3
+## X-Curse-Repository-ID: wow/buffalo3/mainline
+
+#@no-lib-strip@
+embeds.xml
+#@end-no-lib-strip@
+
+locales\enUS.lua
+locales\frFR.lua
+locales\deDE.lua
+locales\koKR.lua
+locales\esES.lua
+locales\zhTW.lua
+locales\zhCN.lua
+
+Buffalo3.lua
+Compost.lua
+templates.xml
+BuffButton.lua
+Container.lua
+Options.lua
+Defaults.lua

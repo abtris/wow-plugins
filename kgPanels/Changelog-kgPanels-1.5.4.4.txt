@@ -1,0 +1,65 @@
+------------------------------------------------------------------------
+r392 | kagaro | 2010-11-08 22:34:43 +0000 (Mon, 08 Nov 2010) | 1 line
+Changed paths:
+   A /tags/1.5.4.4 (from /trunk:391)
+
+Tagging as 1.5.4.4
+------------------------------------------------------------------------
+r391 | kagaro | 2010-10-21 21:30:55 +0000 (Thu, 21 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/kgPanels.toc
+   M /trunk/kgPanelsConfig/kgPanelGuideFrame.lua
+   M /trunk/kgPanelsConfig/kgPanelsConfig.toc
+
+Removed X-Compatible-With tag from toc since people dont wana trust the ingame Addon button to says an addon is loaded and working.
+------------------------------------------------------------------------
+r389 | kagaro | 2010-10-19 01:03:09 +0000 (Tue, 19 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/kgPanels.lua
+
+Forgot 1 fix
+------------------------------------------------------------------------
+r388 | kagaro | 2010-10-19 00:46:59 +0000 (Tue, 19 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/kgPanels.lua
+   M /trunk/kgPanelsConfig/kgPanelsConfig.lua
+
+Upgrades teh DB so if your style is set to SOLID or GRADIENT and bg texture is set to none, it will upgrade it to 'Solid' so your colors show
+------------------------------------------------------------------------
+r387 | kagaro | 2010-10-18 23:11:53 +0000 (Mon, 18 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/kgPanels.lua
+
+better fix.
+------------------------------------------------------------------------
+r386 | kagaro | 2010-10-18 23:09:52 +0000 (Mon, 18 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/kgPanels.lua
+
+Revert latest change.
+------------------------------------------------------------------------
+r384 | kagaro | 2010-10-18 20:49:21 +0000 (Mon, 18 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/kgPanels.lua
+
+Fix for reported bug with solid panels
+------------------------------------------------------------------------
+r382 | kagaro | 2010-10-13 02:43:15 +0000 (Wed, 13 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/kgPanels.lua
+
+Update to reparenting , just call show after we reset the parent .
+------------------------------------------------------------------------
+r380 | kagaro | 2010-10-12 13:14:32 +0000 (Tue, 12 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/kgPanels.toc
+   M /trunk/kgPanelsConfig/kgPanelsConfig.toc
+
+Toc update
+------------------------------------------------------------------------
+r379 | kagaro | 2010-09-21 13:29:31 +0000 (Tue, 21 Sep 2010) | 1 line
+Changed paths:
+   M /trunk/kgPanelsConfig/PanelHelper.lua
+
+Adjusted sublevels to match valid range as per forums
+------------------------------------------------------------------------

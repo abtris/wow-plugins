@@ -1,0 +1,16 @@
+------------------------------------------------------------------------
+r7 | slartibartfast | 2010-10-14 23:51:32 +0000 (Thu, 14 Oct 2010) | 1 line
+Changed paths:
+   A /tags/v0.52 (from /trunk:6)
+
+updated for wow patch 4.0
+------------------------------------------------------------------------
+r6 | slartibartfast | 2010-10-14 23:51:14 +0000 (Thu, 14 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/TitanRoll.lua
+   M /trunk/TitanRoll.toc
+   M /trunk/TitanRoll.xml
+   M /trunk/readme.txt
+
+updated for wow patch 4.0
+------------------------------------------------------------------------

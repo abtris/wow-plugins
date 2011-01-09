@@ -1,0 +1,21 @@
+tag v3.3.2
+71e6224b4b5fdbec1535adea4b99515dccbd5c59
+Hendrik Leppkes <h.leppkes@gmail.com>
+2010-11-16 19:24:20 +0100
+
+Tag as v3.3.2
+
+
+--------------------
+
+Hendrik Leppkes:
+	- Make the blizzard runebar work again.
+	- Add the Dungeon Role to the raid frames.
+	- Use UNIT_CONNECTION in range checker as well (not useful to poll range on offline people)
+	- Use UNIT_CONNECTION to detect connect/disconnect events.
+	- Fix up spell ids for range detection in the range fader.
+	- Remove Dire Bear Form from the druid form tag, as its all about Bear Form now.
+	- Allow larger values for frame width/height and scale.
+	- Add missing gfx.
+	- Add the ability to color the combo points, soul shards and holy power bars. Defaults to class colors.
+	- - Soul Shards now use a new, unique icon - Changed defaults for soul shards to look better - Fixed z-fighting between soulshard/holypower bars, and indicators.

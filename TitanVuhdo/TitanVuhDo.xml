@@ -1,0 +1,20 @@
+﻿<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+	<Script file="TitanVuhDo.lua"/>
+	<Script file="TPVlocalization.lua"/>
+	<Frame parent="UIParent">
+		<Frames>
+			<Button name="TitanPanelVuhDoButton" inherits="TitanPanelIconTemplate" frameStrata="FULLSCREEN" toplevel="true">
+				<Scripts>
+					<OnLoad>
+						TitanPanelVuhDoButton_OnLoad(self)
+						TitanPanelButton_OnLoad(self)
+					</OnLoad>
+					<OnClick>
+						TitanPanelVuhDoButton_OnClick(button)
+					</OnClick>
+				</Scripts>
+			</Button>
+		</Frames>
+	</Frame>
+</Ui>

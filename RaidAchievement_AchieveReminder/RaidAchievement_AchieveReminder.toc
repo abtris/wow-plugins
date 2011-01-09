@@ -1,0 +1,21 @@
+﻿## Interface: 40000
+## Title: Raid|cff7fff7fAchievement|r - Achieve Reminder
+## Title-ruRU: Raid|cff7fff7fAchievement|r - Список достижений по локациям
+## Author: Shurshik
+## Notes: Shows list of achieves that are avaible in a zone and tactics for them
+## Notes-ruRU: Отображает список групповых достижений, доступных в локации, а также тактики к ним
+## Dependencies: RaidAchievement
+## LoadOnDemand: 0
+## SavedVariables: ralllocationnames,ralltactics,ralltacticsver,ralltacticsdif
+## SavedVariablesPerCharacter: ralloptions,ralloptionsmanual,rallbosstooltip,rallbosschaton,ralloptionsmanual3
+Localization\localization-enEN.lua
+Localization\localization-ruRU.lua
+Localization\localization-deDE.lua
+Localization\localization-frFR.lua
+Localization\localization-esES.lua
+Localization\localization-esMX.lua
+Localization\localization-zhTW.lua
+Localization\localization-koKR.lua
+RaidAchievement_AchieveReminder.lua
+RaidAchievement_AR_database.lua
+RaidAchievement_AchieveReminder.xml

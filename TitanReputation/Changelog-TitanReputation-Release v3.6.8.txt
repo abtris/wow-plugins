@@ -1,0 +1,141 @@
+------------------------------------------------------------------------
+r26 | papsol | 2010-11-22 06:06:59 +0000 (Mon, 22 Nov 2010) | 1 line
+Changed paths:
+   A /tags/Release v3.6.8 (from /trunk:25)
+
+Tagging as Release v3.6.8
+------------------------------------------------------------------------
+r25 | papsol | 2010-11-22 06:06:23 +0000 (Mon, 22 Nov 2010) | 5 lines
+Changed paths:
+   M /trunk/.pkgmeta
+   M /trunk/TitanReputation.lua
+   M /trunk/TitanReputation.toc
+
+v3.6.8
+
+-- Fixed a bug with toggle options that start disabled by default, not saving their settings between sessions.
+-- Added an Event Throttle to prevent multiple event processing within the same second.
+-- Added Glamour version checking and dialog warning.
+------------------------------------------------------------------------
+r23 | papsol | 2010-11-16 14:24:54 +0000 (Tue, 16 Nov 2010) | 1 line
+Changed paths:
+   A /trunk/.pkgmeta
+
+added dependency for Glamour
+------------------------------------------------------------------------
+r21 | papsol | 2010-11-14 20:10:04 +0000 (Sun, 14 Nov 2010) | 7 lines
+Changed paths:
+   M /trunk/TitanReputation.lua
+   M /trunk/TitanReputation.toc
+
+v3.6.7
+-- Fix Bug: Auto Show Changed should be functioning as intended now.
+-- Enhancement: Tooltip Header reformat. (Cosmetic)
+-- Enhancement: external Glamour Icons will now use a color more indicative of the standing they are announcing.
+-- Enhancement: external Glamour Shine & Glow will now use a color more indicative of the standing they are announcing.
+-- Code Tweak: Removed redundant and uncessary event handles
+
+------------------------------------------------------------------------
+r19 | papsol | 2010-11-12 03:16:26 +0000 (Fri, 12 Nov 2010) | 3 lines
+Changed paths:
+   M /trunk/TitanReputation.lua
+   M /trunk/TitanReputation.toc
+
+v3.6.6
+
+-Bug Fix: Auto Show Change fails to function after gaining rep with one faction and then zoning through a loading screen into another zone.
+------------------------------------------------------------------------
+r18 | papsol | 2010-11-12 00:54:04 +0000 (Fri, 12 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/TitanReputation.toc
+
+toc update
+------------------------------------------------------------------------
+r16 | papsol | 2010-11-11 17:17:25 +0000 (Thu, 11 Nov 2010) | 4 lines
+Changed paths:
+   M /trunk/TitanReputation.lua
+   M /trunk/TitanReputation.toc
+
+v3.6.5
+
+-Removed debug output when firing an External Glamour alert.
+-External Glamour alerts now use the Blizzard built in faction standing Icons. These are different for each standing level.
+------------------------------------------------------------------------
+r14 | papsol | 2010-11-10 21:54:57 +0000 (Wed, 10 Nov 2010) | 5 lines
+Changed paths:
+   M /trunk/TitanReputation.lua
+   M /trunk/TitanReputation.toc
+
+v3.6.4
+
+--Fixed Alliance Vanguard and Horde Expedition factions misbehavior.
+--Removed the automatic toggling off of Auto Show Changed when selecting a faction manually. 
+-- Other minor internal fixes.
+------------------------------------------------------------------------
+r11 | papsol | 2010-11-10 18:28:03 +0000 (Wed, 10 Nov 2010) | 3 lines
+Changed paths:
+   M /trunk/TitanReputation.lua
+   M /trunk/TitanReputation.toc
+
+v3.6.3
+
+Updated for Glamor to Glamour Rename.
+------------------------------------------------------------------------
+r9 | papsol | 2010-11-10 07:07:50 +0000 (Wed, 10 Nov 2010) | 3 lines
+Changed paths:
+   M /trunk/TitanReputation.lua
+   M /trunk/TitanReputation.toc
+
+v3.6.2
+
+-- Added support for Glamor
+------------------------------------------------------------------------
+r7 | papsol | 2010-11-08 17:48:07 +0000 (Mon, 08 Nov 2010) | 3 lines
+Changed paths:
+   M /trunk/TitanReputation.lua
+   M /trunk/TitanReputation.toc
+   M /trunk/TitanReputation.xml
+
+v3.6.1
+
+-Fixed an event handling bug that would cause quest reputation gains not to be tracked immediately.
+------------------------------------------------------------------------
+r5 | papsol | 2010-11-08 05:43:11 +0000 (Mon, 08 Nov 2010) | 5 lines
+Changed paths:
+   M /trunk/TitanReputation.lua
+   M /trunk/TitanReputation.toc
+   M /trunk/TitanReputation.xml
+
+v3.6.0
+
+-Added Achievement style notifications for faction standing changes.
+-Added New Option: "Glamorize Standing Changes" this toggles the new built achievement style notification on/off.
+-Renamed "No Colors" option to "Basic Colors" since it more adequately describes it.
+------------------------------------------------------------------------
+r3 | papsol | 2010-11-03 00:50:05 +0000 (Wed, 03 Nov 2010) | 4 lines
+Changed paths:
+   M /trunk/TitanReputation.lua
+   M /trunk/TitanReputation.toc
+
+-Fixed A Typo
+-Added Toggles for Standing, Abbreviate Standing, Values and Percent to Tooltip Options menu. These effect the display of the tooltip.
+-Changed behavior of manually selecting a faction to automatically disable "Auto Change Faction".
+-Added Faction Standing changes announcement feature. This feature will announce a RaidWarning style message when a faction standing changes. This feature can be toggled on or off. This feature also supports Mik's Scrolling Battle Text addon and will push the message into the "Static" frame if MikSBT is detected as installed.
+------------------------------------------------------------------------
+r2 | papsol | 2010-11-02 16:35:46 +0000 (Tue, 02 Nov 2010) | 1 line
+Changed paths:
+   A /trunk/TitanReputation.lua
+   A /trunk/TitanReputation.tga
+   A /trunk/TitanReputation.toc
+   A /trunk/TitanReputation.xml
+
+import into SVN
+------------------------------------------------------------------------
+r1 | root | 2010-11-02 16:34:44 +0000 (Tue, 02 Nov 2010) | 1 line
+Changed paths:
+   A /branches
+   A /tags
+   A /trunk
+
+"titanrep/mainline: Initial Import"
+------------------------------------------------------------------------

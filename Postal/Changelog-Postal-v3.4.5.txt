@@ -1,0 +1,114 @@
+------------------------------------------------------------------------
+r323 | xinhuan | 2010-11-10 10:36:48 +0000 (Wed, 10 Nov 2010) | 1 line
+Changed paths:
+   A /tags/v3.4.5 (from /trunk:322)
+
+Tag release v3.4.5.
+------------------------------------------------------------------------
+r322 | xinhuan | 2010-10-28 03:27:47 +0000 (Thu, 28 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Modules/BlackBook.lua
+
+Move code slightly.
+------------------------------------------------------------------------
+r321 | xinhuan | 2010-10-25 19:40:12 +0000 (Mon, 25 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Modules/BlackBook.lua
+
+Fix error that happens when you have no friends on your friends list.
+------------------------------------------------------------------------
+r319 | xinhuan | 2010-10-18 15:54:58 +0000 (Mon, 18 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Postal.toc
+
+Update Postal version to 3.4.4. Special thanks to Cerala.
+------------------------------------------------------------------------
+r318 | xinhuan | 2010-10-18 15:53:31 +0000 (Mon, 18 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Modules/BlackBook.lua
+   M /trunk/Postal.lua
+
+Remove RealID friend features from the BlackBook module, along with deleting the realID friend database. Addons are no longer able to obtain real names or any unique realIDs in any manner since patch 4.0.1.
+------------------------------------------------------------------------
+r316 | xinhuan | 2010-10-18 11:06:49 +0000 (Mon, 18 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Postal.toc
+
+Update version to v3.4.3
+------------------------------------------------------------------------
+r315 | xinhuan | 2010-10-14 17:31:34 +0000 (Thu, 14 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Modules/OpenAll.lua
+
+In the OpenAll module, when the mailbox is refreshed during an OpenAll, delay the continuation of OpenAll by 3 seconds to allow for other addons (such as BeanCounter) to do stuff.
+------------------------------------------------------------------------
+r314 | xinhuan | 2010-10-14 16:50:23 +0000 (Thu, 14 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Modules/BlackBook.lua
+
+BlackBook module will now add your alt to the alts list on login rather than on visiting the mailbox unless Postal is LoD (due to AddonLoader or otherwise).
+------------------------------------------------------------------------
+r313 | xinhuan | 2010-10-14 16:46:29 +0000 (Thu, 14 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Modules/Rake.lua
+
+The Rake module will now properly report the amount of money taken from the mailbox if you right-clicked on the mailbox in the 3D world while it is already open (this bug is new in patch 4.0.1).
+------------------------------------------------------------------------
+r311 | xinhuan | 2010-10-12 18:21:07 +0000 (Tue, 12 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Postal.toc
+
+Update version to 3.4.2
+------------------------------------------------------------------------
+r310 | xinhuan | 2010-10-12 18:20:07 +0000 (Tue, 12 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Modules/Select.lua
+
+Err... The Select module shouldn't be referencing the Keep Free Space setting of the OpenAll module. Copy/paste for the lose.
+------------------------------------------------------------------------
+r308 | xinhuan | 2010-10-12 14:44:17 +0000 (Tue, 12 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Modules/OpenAll.lua
+   M /trunk/Modules/Select.lua
+
+Don't slow down checking mails to open after reaching "inventory full" status.
+------------------------------------------------------------------------
+r307 | xinhuan | 2010-10-12 11:27:34 +0000 (Tue, 12 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Modules/OpenAll.lua
+   M /trunk/Modules/Select.lua
+
+If your inventory is full, OpenAll and Select modules will now loot any items that can combine with any partial stacks in your bags instead of skipping them.
+------------------------------------------------------------------------
+r306 | xinhuan | 2010-10-12 10:58:37 +0000 (Tue, 12 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Modules/OpenAll.lua
+   M /trunk/Modules/Select.lua
+
+Don't slow down opening mails even when inventory is nearly full when looting gold from mails.
+------------------------------------------------------------------------
+r305 | xinhuan | 2010-10-12 10:23:28 +0000 (Tue, 12 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Postal.toc
+
+Update TOC interface to 40000, version to 3.4.1.
+------------------------------------------------------------------------
+r304 | xinhuan | 2010-10-12 10:22:37 +0000 (Tue, 12 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Postal.lua
+
+Update my current server's name in the Help.
+------------------------------------------------------------------------
+r303 | xinhuan | 2010-10-12 10:18:21 +0000 (Tue, 12 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Modules/OpenAll.lua
+   M /trunk/Modules/Select.lua
+
+In OpenAll and Select modules, when your bag space is nearly reaching the Keep Free Space setting (1 free above it), Postal will now slow down opening mails to 1 second (if opening speed is below 1 second) to avoid opening mails too quickly and thus avoid going below the Keep Free Space setting.
+------------------------------------------------------------------------
+r302 | xinhuan | 2010-09-28 09:04:28 +0000 (Tue, 28 Sep 2010) | 1 line
+Changed paths:
+   M /trunk/Modules/BlackBook.lua
+
+Add nil checks to scanning for RealID friends because some people get errors.
+------------------------------------------------------------------------

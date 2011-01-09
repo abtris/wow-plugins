@@ -1,0 +1,208 @@
+------------------------------------------------------------------------
+r295 | arkayenro | 2010-12-03 13:15:34 +0000 (Fri, 03 Dec 2010) | 4 lines
+Changed paths:
+   A /tags/3.02.72 (from /trunk:294)
+
+*3.02.72 (04-DEC-2010)*
+ * fixed - issue with item age display showing when past the cutoff
+ * fixed - issue with tracking shards for warlocks
+
+------------------------------------------------------------------------
+r294 | arkayenro | 2010-12-03 13:13:22 +0000 (Fri, 03 Dec 2010) | 4 lines
+Changed paths:
+   M /trunk/ArkInventory.lua
+   M /trunk/ArkInventoryStorage.lua
+   M /trunk/VersionHistory.txt
+
+*3.02.72 (04-DEC-2010)*
+ * fixed - issue with item age display showing when past the cutoff
+ * fixed - issue with tracking shards for warlocks
+
+------------------------------------------------------------------------
+r292 | arkayenro | 2010-12-03 06:52:27 +0000 (Fri, 03 Dec 2010) | 9 lines
+Changed paths:
+   M /trunk/ArkInventory.lua
+   M /trunk/ArkInventory.xml
+   M /trunk/ArkInventoryCompanion.lua
+   M /trunk/ArkInventoryLDB.lua
+   M /trunk/ArkInventoryMenu.lua
+   M /trunk/ArkInventoryStorage.lua
+   M /trunk/ArkInventoryUpgrades.lua
+   M /trunk/Libs/ArkCRC32/ArkCRC32-1.0.toc
+   M /trunk/Libs/ArkDewdrop/ArkDewdrop-3.0.toc
+   M /trunk/Locale/enUS.lua
+   M /trunk/Modules/ArkInventoryRules/ArkInventoryRules.lua
+   M /trunk/Modules/ArkInventoryRulesExample/ArkInventoryRulesExample.lua
+   M /trunk/VersionHistory.txt
+
+*3.02.71 (03-DEC-2010)*
+ * fixed - pet and mount selection menus
+ * fixed - scanning issue where some locations were being unnecessarily scanned multiple times
+ * fixed - issue with internal locations for spellbook and tradeskills
+ * changed - default value for item age cutoff to 0
+ * changed - item age display cutoff is now set in minutes instead of hours
+ * changed - graphical space for search label increased so it fits other languages in
+
+
+------------------------------------------------------------------------
+r290 | arkayenro | 2010-11-28 08:00:37 +0000 (Sun, 28 Nov 2010) | 4 lines
+Changed paths:
+   M /trunk/.pkgmeta
+   M /trunk/ArkInventory.lua
+   M /trunk/ArkInventory.toc
+   M /trunk/ArkInventoryCompanion.lua
+   M /trunk/ArkInventoryConfig.lua
+   M /trunk/ArkInventoryLDB.lua
+   M /trunk/ArkInventoryMenu.lua
+   A /trunk/Libs/ArkCRC32
+   A /trunk/Libs/ArkCRC32/ArkCRC32-1.0.lua
+   A /trunk/Libs/ArkCRC32/ArkCRC32-1.0.toc
+   A /trunk/Libs/ArkCRC32/LibStub.lua
+   A /trunk/Libs/ArkDewdrop/ArkDewdrop-3.0.toc
+   A /trunk/Libs/ArkDewdrop/LibStub.lua
+   M /trunk/Locale/deDE.lua
+   M /trunk/Locale/enUS.lua
+   M /trunk/Locale/esES.lua
+   M /trunk/Locale/esMX.lua
+   M /trunk/Locale/frFR.lua
+   M /trunk/Locale/koKR.lua
+   M /trunk/Locale/locale.xml
+   M /trunk/Locale/ruRU.lua
+   M /trunk/Locale/zhCN.lua
+   M /trunk/Locale/zhTW.lua
+   M /trunk/Modules/ArkInventoryRules/ArkInventoryRules.lua
+   M /trunk/VersionHistory.txt
+
+*3.02.70 (28-NOV-2010)*
+ * updated - zhTW locale
+ * changed - companion selection now allows you to ignore a companion so that it is never summoned via random
+
+------------------------------------------------------------------------
+r288 | arkayenro | 2010-11-22 08:01:17 +0000 (Mon, 22 Nov 2010) | 7 lines
+Changed paths:
+   M /trunk/ArkInventory.lua
+   M /trunk/ArkInventory.xml
+   M /trunk/ArkInventoryCompanion.lua
+   M /trunk/ArkInventoryConfig.lua
+   M /trunk/ArkInventoryLDB.lua
+   M /trunk/ArkInventoryMenu.lua
+   M /trunk/ArkInventoryStorage.lua
+   M /trunk/ArkInventoryUpgrades.lua
+   M /trunk/Locale/game.lua
+   M /trunk/Modules/ArkInventoryRules/ArkInventoryRules.lua
+   M /trunk/VersionHistory.txt
+
+*3.02.69 (22-NOV-2010)*
+ * fixed - issue with item count cache not being cleared after erasing data
+ * fixed - issue with pet cleanup code erasing all selected pets and returning it to full random
+ * fixed - potential issue with internal isflyable code when you have no flying only mount (ie only combination land and flying mounts)
+ * fixed - issue with companions being scanned too frequently due to event being triggered too often in populated places
+ * fixed - issue with scrap support in trash( ) rule function
+
+------------------------------------------------------------------------
+r286 | arkayenro | 2010-11-12 06:00:33 +0000 (Fri, 12 Nov 2010) | 6 lines
+Changed paths:
+   M /trunk/ArkInventory.lua
+   M /trunk/ArkInventoryUpgrades.lua
+   M /trunk/VersionHistory.txt
+
+*3.02.68 (12-NOV-2010)*
+ * note - auction house data purged to clean up invalid data left over from expiry code
+ 
+*3.02.67 (11-NOV-2010) ALPHA*
+ * fixed - issue with auction expiry code
+ * fixed - issue with itemref tooltip
+------------------------------------------------------------------------
+r285 | arkayenro | 2010-11-11 12:32:20 +0000 (Thu, 11 Nov 2010) | 2 lines
+Changed paths:
+   M /trunk/ArkInventoryStorage.lua
+   M /trunk/ArkInventoryUpgrades.lua
+   M /trunk/VersionHistory.txt
+
+ArkInventory:
+- 
+------------------------------------------------------------------------
+r284 | arkayenro | 2010-11-11 09:59:02 +0000 (Thu, 11 Nov 2010) | 4 lines
+Changed paths:
+   M /trunk/ArkInventory.lua
+   M /trunk/ArkInventoryStorage.lua
+   M /trunk/VersionHistory.txt
+
+*3.02.67 (11-NOV-2010) BETA 435*
+ * fixed - issue with auction expiry code
+
+
+------------------------------------------------------------------------
+r282 | arkayenro | 2010-11-10 13:23:15 +0000 (Wed, 10 Nov 2010) | 4 lines
+Changed paths:
+   M /trunk/.pkgmeta
+   M /trunk/ArkInventory.lua
+   M /trunk/ArkInventory.toc
+   M /trunk/ArkInventoryExternals.lua
+   M /trunk/ArkInventoryStorage.lua
+   M /trunk/Locale/game.lua
+   M /trunk/VersionHistory.txt
+   M /trunk/embeds.xml
+
+*3.02.66 (10-NOV-2010)*
+ * fixed - auction scanning
+ * removed - library libbabble-zone
+
+------------------------------------------------------------------------
+r281 | arkayenro | 2010-11-09 05:30:50 +0000 (Tue, 09 Nov 2010) | 2 lines
+Changed paths:
+   D /trunk/Modules/ArkInventoryRules/ArkInventoryRulesExample
+
+ArkInventory:
+- deleted folder that was no longer needed
+------------------------------------------------------------------------
+r279 | arkayenro | 2010-11-08 09:02:32 +0000 (Mon, 08 Nov 2010) | 4 lines
+Changed paths:
+   M /trunk/ArkInventory.lua
+   M /trunk/ArkInventory.toc
+   M /trunk/ArkInventory.xml
+   M /trunk/ArkInventoryLDB.lua
+   M /trunk/ArkInventoryMenu.lua
+   M /trunk/ArkInventoryStorage.lua
+   D /trunk/Modules/ArkInventoryRulesExample/ArkInventoryRules.lua
+   D /trunk/Modules/ArkInventoryRulesExample/ArkInventoryRules.toc
+   D /trunk/Modules/ArkInventoryRulesExample/ArkInventoryRules.xml
+   A /trunk/Modules/ArkInventoryRulesExample/ArkInventoryRulesExample.lua
+   A /trunk/Modules/ArkInventoryRulesExample/ArkInventoryRulesExample.toc
+   M /trunk/VersionHistory.txt
+
+*3.02.65 (08-NOV-2010)*
+ * fixed - mount and pet menus off the main menu for those windows (equivalent to the LDB menus)
+ * added - auction house (may or may not work with more than 50 active auctions)
+
+------------------------------------------------------------------------
+r278 | arkayenro | 2010-11-04 01:07:26 +0000 (Thu, 04 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/.pkgmeta
+   M /trunk/ArkInventory.lua
+   A /trunk/Modules/ArkInventoryRulesExample
+   A /trunk/Modules/ArkInventoryRulesExample/ArkInventoryRules.lua
+   A /trunk/Modules/ArkInventoryRulesExample/ArkInventoryRules.toc
+   A /trunk/Modules/ArkInventoryRulesExample/ArkInventoryRules.xml
+   M /trunk/VersionHistory.txt
+
+moved example rule mod into the modules directory so it can be expanded properly via curse
+------------------------------------------------------------------------
+r276 | arkayenro | 2010-11-03 22:55:30 +0000 (Wed, 03 Nov 2010) | 6 lines
+Changed paths:
+   M /trunk/ArkInventory.lua
+   M /trunk/ArkInventoryCompanion.lua
+   M /trunk/ArkInventoryConfig.lua
+   M /trunk/ArkInventoryLDB.lua
+   M /trunk/ArkInventoryStorage.lua
+   M /trunk/Libs/ArkDewdrop/ArkDewdrop-3.0.lua
+   M /trunk/Locale/game.lua
+   M /trunk/VersionHistory.txt
+
+*3.02.64 (04-NOV-2010)*
+ * fixed - cooldowns should now display properly when "on global cooldown" is enabled
+ * fixed - mount keybinding when used with a modifer should properly force an alterntive mount-type to be summoned, eg flying but you want ground.  swimming (at the surface) but you want flying
+ * changed - framelevel workaround warnings set to disabled by default, and the warnings will now print (they never appeared regardless of setting)
+ * reverted - crash code removed, it'll just crash now instead of trying to purge the corrupt data
+
+------------------------------------------------------------------------

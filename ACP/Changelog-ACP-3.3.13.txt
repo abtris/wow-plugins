@@ -1,0 +1,8 @@
+2010-12-26  sylvanaar  <sylvanaar>
+
+[dd0ed9c6ba06] [3.3.13]
+* ACP.lua:
+
+fix for some libraries which provide X-Category not showing up in the library section
+
+

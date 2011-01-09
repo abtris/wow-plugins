@@ -1,0 +1,56 @@
+------------------------------------------------------------------------
+r169 | abija | 2010-11-24 10:29:56 +0000 (Wed, 24 Nov 2010) | 1 line
+Changed paths:
+   A /tags/v.1.4.01.016 (from /trunk:168)
+
+Tagging as v.1.4.01.016
+------------------------------------------------------------------------
+r168 | abija | 2010-11-24 10:24:08 +0000 (Wed, 24 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/clcret.lua
+
+removed hp > 0 check for hol procs
+------------------------------------------------------------------------
+r166 | abija | 2010-11-17 11:34:26 +0000 (Wed, 17 Nov 2010) | 1 line
+Changed paths:
+   M /trunk/Options/options.lua
+   M /trunk/clcret.lua
+   M /trunk/sov.lua
+   M /trunk/swing.lua
+
+temporary hacks until blizzard fixes Hand of Light
+------------------------------------------------------------------------
+r164 | abija | 2010-10-30 20:55:12 +0000 (Sat, 30 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/clcret.lua
+
+IsSpellInRange fix
+------------------------------------------------------------------------
+r163 | abija | 2010-10-30 16:52:24 +0000 (Sat, 30 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/Options/options.lua
+   M /trunk/clcret.lua
+
+added ds to fillers list, use instead of tv if you do
+------------------------------------------------------------------------
+r161 | abija | 2010-10-30 14:23:44 +0000 (Sat, 30 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/.pkgmeta
+   M /trunk/Options/embeds.xml
+   M /trunk/Options/options.lua
+   M /trunk/clcret.lua
+
+option for inquisition (don't use on live)
+------------------------------------------------------------------------
+r159 | abija | 2010-10-29 13:46:18 +0000 (Fri, 29 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/clcret.lua
+
+hopefuly fixes some errors
+------------------------------------------------------------------------
+r157 | abija | 2010-10-28 08:10:49 +0000 (Thu, 28 Oct 2010) | 1 line
+Changed paths:
+   M /trunk/clcret.lua
+
+some tweaks, might be possible it works right for lower level characters or without zealotry but no promises
+------------------------------------------------------------------------

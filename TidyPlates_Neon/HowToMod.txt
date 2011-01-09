@@ -1,0 +1,25 @@
+
+
+Create a folder under World of Warcraft\Interface\Addons called, "MyTidyPlatesMod"
+Create two text files, and save them under that folder.  Call them, "MyTidyPlatesMod.toc" and "MyTidyPlatesMod.lua"
+
+In "MyTidyPlatesMod.toc"...
+
+## Interface: 40000
+## Title: My Tidy Plates Modifications
+## Dependencies: TidyPlates_Neon
+MyTidyPlatesMod.lua
+
+
+In "MyTidyPlatesMod.lua"...
+
+local theme = TidyPlatesThemeList["Neon/DPS"]
+local OriginalWidgetInitFunction = theme.OnInitialize
+
+local NewWidgetInitFunction(plate)
+	OriginalWidgetInitFunction(plate)
+	if plate.widgets.WidgetCombo then
+		plate.widgets.WidgetCombo:SetPoint("CENTER", plate, 0, -10)
+	end
+end
+
