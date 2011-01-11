@@ -1,4 +1,4 @@
--- ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 
 if FW.CLASS == "DEATHKNIGHT" then
 	local FW = FW;
@@ -35,7 +35,6 @@ if FW.CLASS == "DEATHKNIGHT" then
 		ST:RegisterSpell(56222,	1,003,0,ST.UNIQUE); -- Dark Command
 		
 		ST:RegisterSpell(49016,	1,030,0,ST.BUFF); -- Hysteria
-		ST:RegisterSpell(49005,	1,020,0,ST.DEFAULT); -- Mark of Blood
 		ST:RegisterSpell(57532,	0,300,0,ST.PET); -- "Eye of Acherus"
 			
 		ST:RegisterSpell(43265, 0,010,0,ST.DEFAULT); -- D&D

@@ -1,4 +1,4 @@
--- ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 
 local FW = FW;
 local FWL = FW.L;
@@ -1554,7 +1554,7 @@ local function NewSoundOption(parent,o,s,d)
 	return obj;
 end
 
-local function NewCreateTabFrame(parent)
+--[[local function NewCreateTabFrame(parent)
 	local obj = CreateFrame("Frame",nil,parent);
 	obj.parent = parent;
 	
@@ -1571,7 +1571,7 @@ local function NewCreateTabFrame(parent)
 		obj:SetWidth(obj.button:GetWidth());
 	end
 	return obj;
-end
+end]]
 
 local function NewTabFrame(parent)
 	local obj = CreateFrame("Frame",nil,parent);
@@ -1635,6 +1635,7 @@ local function NewTabFrame(parent)
 	end
 	
 	obj.SetText = function(self,txt)
+		obj.displayname = txt; -- for easier access
 		obj.button:SetText(txt);
 		obj.button:SetWidth(obj.button.text:GetWidth()+5+3);
 		obj:SetWidth(obj.button:GetWidth()+rightspace);
@@ -4275,7 +4276,8 @@ function FW:LocalizedData()
 			FW:CreateProfile(savename,FW:FullName());
 		end,
 		function(obj) -- remove
-			FW:DeleteProfile(obj.savename);
+			_G.StaticPopupDialogs["FX_CONFIRM_DELETE_PROFILE"].obj = obj; -- passing vars this way because otherwise it's not available yet on Show
+			_G.StaticPopup_Show("FX_CONFIRM_DELETE_PROFILE");
 		end,
 		function(obj,txt) -- rename
 			FW:RenameProfile(obj.savename,txt);
@@ -4284,6 +4286,50 @@ function FW:LocalizedData()
 			FW:UseProfile(obj.savename)
 		end,
 		nil,-- tab options table, make sure that this is updated when a profile is changed
+	};
+
+	_G.StaticPopupDialogs["FX_CONFIRM_DELETE_PROFILE"] = {
+		text = "",
+		button1 = _G.ACCEPT,
+		button2 = _G.CANCEL,
+		OnAccept = function(self)
+			if _G.StaticPopupDialogs["FX_CONFIRM_DELETE_PROFILE"].obj then
+				FW:DeleteProfile(_G.StaticPopupDialogs["FX_CONFIRM_DELETE_PROFILE"].obj.savename);
+				_G.StaticPopupDialogs["FX_CONFIRM_DELETE_PROFILE"].obj = nil;
+			end
+		end,
+		OnCancel = function(self)
+			_G.StaticPopupDialogs["FX_CONFIRM_DELETE_PROFILE"].obj = nil;
+		end,
+		OnShow = function(self)
+			self.text:SetFormattedText(FWL.CONFIRM_DELETE_PROFILE,(_G.StaticPopupDialogs["FX_CONFIRM_DELETE_PROFILE"].obj.displayname));
+		end,
+		showAlert = 1,
+		timeout = 0,
+		whileDead = true,
+		hideOnEscape = 1
+	};
+	
+	_G.StaticPopupDialogs["FX_CONFIRM_DELETE_CLONE"] = {
+		text = "",
+		button1 = _G.ACCEPT,
+		button2 = _G.CANCEL,
+		OnAccept = function(self)
+			if _G.StaticPopupDialogs["FX_CONFIRM_DELETE_CLONE"].obj then
+				_G.StaticPopupDialogs["FX_CONFIRM_DELETE_CLONE"].func(_G.StaticPopupDialogs["FX_CONFIRM_DELETE_CLONE"].obj);
+				_G.StaticPopupDialogs["FX_CONFIRM_DELETE_CLONE"].obj = nil;
+			end
+		end,
+		OnCancel = function(self)
+			_G.StaticPopupDialogs["FX_CONFIRM_DELETE_CLONE"].obj = nil;
+		end,
+		OnShow = function(self)
+			self.text:SetFormattedText(FWL.CONFIRM_DELETE_CLONE,(_G.StaticPopupDialogs["FX_CONFIRM_DELETE_CLONE"].obj.displayname));
+		end,
+		showAlert = 1,
+		timeout = 0,
+		whileDead = true,
+		hideOnEscape = 1
 	};
 	
 	FW:SetMainCategory(FWL.GENERAL,FW.ICON.DEFAULT,1,"DEFAULT","FWOptions",nil,FW.tab_data);
@@ -4344,7 +4390,7 @@ function FW:LocalizedData()
 	
 	FW:SetMainCategory(FWL.ABOUT,FW.ICON.HINT,100,"DEFAULT");
 		FW:SetSubCategory(FW.NIL,FW.NIL,1);
-			FW:RegisterOption(FW.IMG,2,FW.NON,"Copyright (C) 2006-2010 Xus (xuswow@hotmail.com)","","Interface\\AddOns\\Forte_Core\\Textures\\ForteXorcist",4,nil,100);
+			FW:RegisterOption(FW.IMG,2,FW.NON,"Copyright (C) 2006-2011 Xus (xuswow@hotmail.com)","","Interface\\AddOns\\Forte_Core\\Textures\\ForteXorcist",4,nil,100);
 		FW:SetSubCategory("ForteXorcist on the Web",FW.ICON.HINT,1);
 			FW:RegisterOption(FW.INF,2,FW.NON,"You can find additional documentation and news at my ForteXorcist portal.");
 			FW:RegisterOption(FW.INF,2,FW.NON,"Please post bugs and suggestions on this portal as well.");

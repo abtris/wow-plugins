@@ -1,4 +1,4 @@
--- ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 
 local CD = FW:Module("Cooldown");
 local FW = FW;
@@ -29,7 +29,6 @@ CD.FLAG_ENCHANT = FLAG_ENCHANT;
 CD.LAST_FLAG = FLAG_ENCHANT;
 
 local ORA3_COOLDOWN = FW.ORA3_COOLDOWN;
---local IgnoreCooldown = 2.99; -- must be ~3 for wand global cooldown crap, beware for higher!
 local focustime = 0.5;
 
 local abs = math.abs;
@@ -405,6 +404,7 @@ function CD:CheckCooldown(spell,start,duration,texture,flag)
 					CD_EndCooldown(index);
 				end
 			elseif duration > IgnoreCooldown then
+				FW:Debug("DIFF: "..start-cooldowns[spell][1]);
 				index = cd:find3(spell,1, flag,6, 0,15) or cd:find3(spell,1, flag,6, 1,15);
 				if index then
 					FW:Debug("Change cd: "..spell);
@@ -419,7 +419,7 @@ function CD:CheckCooldown(spell,start,duration,texture,flag)
 					CD_StartCooldown(spell,start,duration,texture,flag);
 				end
 			end
-			FW:Debug("DIFF: "..start-cooldowns[spell][1]);
+			--FW:Debug("DIFF: "..start-cooldowns[spell][1]);
 			cooldowns[spell][1] = start;
 			cooldowns[spell][2] = duration;
 			cooldowns[spell][3] = texture;
@@ -907,9 +907,20 @@ function CD:RegisterMeleePowerupCooldowns()
 	CD:RegisterHiddenCooldown(54590,75456,45); -- Sharpened Twilight Scale, Piercing Twilight
 	CD:RegisterHiddenCooldown(54591,75480,45); -- Petrified Twilight Scale, Scaly Nimbleness
 	
+	CD:RegisterHiddenCooldown(56102,92096,50); -- Left Eye of Rajh, Eye of Vengeance 
+	CD:RegisterHiddenCooldown(55795,92069,75); -- Key to the Endless Chamber, Final Key
+	CD:RegisterHiddenCooldown(59473,92126,50); -- Essence of the Cyclone, Twisted 
+	CD:RegisterHiddenCooldown(59520,92108,50); -- Unheeded Warning, Heedless Carnage 
+	CD:RegisterHiddenCooldown(59441,92124,75); -- Prestor's Talisman of Machination, Nefarious Plot 
+	CD:RegisterHiddenCooldown(55266,92052,100); -- Grace of the Herald, Herald of Doom
+	CD:RegisterHiddenCooldown(59506,91821,100); -- Crushing Weight, Race Against Death
+	CD:RegisterHiddenCooldown(59224,91816,75); -- Heart of Rage, Rageheart
+	
 	CD:RegisterHiddenCooldown(nil,59626,35); -- Black Magic
 	CD:RegisterHiddenCooldown(nil,59620,35); -- Berserk, Enchant Weapon - Berserking
 	CD:RegisterHiddenCooldown(nil,28093,35); -- Lightning Speed, Enchant Weapon - Mongoose
+	
+	CD:RegisterHiddenCooldown(nil,55775,55); -- Enchant Cloak - Swordguard Embroidery, Swordguard Embroidery
 end
 
 -- global caster trinket names
@@ -946,6 +957,11 @@ function CD:RegisterCasterPowerupCooldowns()
 	CD:RegisterHiddenCooldown(50360,71605,90); -- Phylactery of the Nameless Lich, Siphoned Power
 	CD:RegisterHiddenCooldown(54588,75473,45); -- Charred Twilight Scale, Twilight Flames
 	CD:RegisterHiddenCooldown(54589,75494,45); -- Glowing Twilight Scale, Twilight Renewal
+	
+	CD:RegisterHiddenCooldown(55819,91138,45); -- Tear of Blood, Cleansing Tears
+	CD:RegisterHiddenCooldown(55995,91147,105); -- Blood of Isiset, Blessing of Isiset
+	CD:RegisterHiddenCooldown(62470,91047,75); -- Stump of Time, Battle Magic
+	CD:RegisterHiddenCooldown(62047,89091,75); -- Darkmoon Card: Volcano, Volcanic Destruction
 	
 	CD:RegisterHiddenCooldown(nil,59626,35); -- Black Magic
 	CD:RegisterHiddenCooldown(nil,55637,45); -- Lightweave

@@ -1,4 +1,4 @@
--- ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 
 if FW.CLASS == "WARRIOR" then
 	local FW = FW;
@@ -30,7 +30,10 @@ if FW.CLASS == "WARRIOR" then
 		ST:RegisterSpell(6343,	0,030,0,ST.UNIQUE); -- Thunder Clap
 		ST:RegisterSpell(12323,	0,006,0,ST.UNIQUE); -- Piercing Howl	 
 		ST:RegisterSpell(50720,	1,1800,0,ST.BUFF); -- Vigilance
-
+		
+		ST:RegisterSpell(86346,	1,006,0,ST.DEFAULT); -- Colossus Smash
+		ST:RegisterSpell(85388,	1,005,0,ST.DEFAULT); -- Throwdown
+		
 		--buffname,duration
 		ST:RegisterBuff(29131); -- Bloodrage
 		ST:RegisterBuff(469); -- Commanding Shout
@@ -48,6 +51,11 @@ if FW.CLASS == "WARRIOR" then
 		-- Slam!
 		ST:RegisterBuff(46916);	
 		
+		ST:RegisterBuff(85730); -- Deadly Calm
+		ST:RegisterBuff(1134); -- Inner Rage
+		ST:RegisterBuff(50685); -- Incite
+		ST:RegisterBuff(84584); -- Slaughter
+		
 		--debuffs
 		ST:RegisterDebuff(58567); -- Sunder Armor
 		ST:RegisterDebuff(12294); -- Mortal Strike
@@ -56,6 +64,9 @@ if FW.CLASS == "WARRIOR" then
 		ST:RegisterDebuff(1160); -- Demoralizing Shout    
 		ST:RegisterDebuff(20511); -- Intimidating Shout
 		ST:RegisterDebuff(12323); -- Piercing Howl
+		
+		ST:RegisterDebuff(86346); -- Colossus Smash
+		ST:RegisterDebuff(85388); -- Throwdown
 		
 		ST:RegisterMeleeBuffs();
 	end

@@ -1,4 +1,4 @@
--- ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 
 if FW.CLASS == "WARLOCK" then
 	local FW = FW;
@@ -55,7 +55,6 @@ if FW.CLASS == "WARLOCK" then
 		ST:RegisterSpell(1098,	1,300,0,ST.CHARM); -- Enslave Demon
 		ST:RegisterSpell(1122,	0,060,0,ST.PET); -- Inferno
 		ST:RegisterSpell(5697,	1,600,0,ST.BUFF); -- Unending Breath
-		ST:RegisterSpell(132,	1,600,0,ST.BUFF); -- Detect Invisibility
 		ST:RegisterSpell(48181,	1,000,0,ST.DEFAULT); -- Haunt (12sec set to 0 for travel time)
 		ST:RegisterSpell(27243,	1,018,1,ST.DEFAULT); -- SoC
 		ST:RegisterSpell(30283,	0,003,0,ST.UNIQUE); -- Shadowfury
@@ -80,10 +79,10 @@ if FW.CLASS == "WARLOCK" then
 		ST:RegisterBuff(51439); -- Backlash
 		ST:RegisterBuff(47197); -- Eradication
 		ST:RegisterBuff(61610); -- Metamorphosis
-		ST:RegisterBuff(54278,1); -- Empowered Imp (set to non-stacking)
+		ST:RegisterBuff(47283,1); -- Empowered Imp (set to non-stacking)
 		ST:RegisterBuff(47383); -- Molten Core
 		ST:RegisterBuff(63158); -- Decimation
-		ST:RegisterBuff(47260); -- backdraft
+		ST:RegisterBuff(54277); -- backdraft
 		--ST:RegisterBuff(61595); -- demonic soul (t7 bonus)
 		--ST:RegisterBuff(61082); -- spirits of the damned (t7 bonus)
 		ST:RegisterBuff(63321); -- glyph of life tap buff
@@ -345,7 +344,7 @@ if FW.CLASS == "WARLOCK" then
 		end);
 		
 		CD:RegisterCooldownBuff(28176); -- fel armor
-		CD:RegisterCooldownBuff(706); -- demon armor
+		CD:RegisterCooldownBuff(687); -- demon armor
 		
 		CD:RegisterCooldownBuff(18789); -- burning wish
 		CD:RegisterCooldownBuff(18792); -- fel energy

@@ -1,7 +1,7 @@
 ## Interface: 40000
 ## Author: Xus (Xussie of Kazzak EU)
 ## Title: Forte|c0000ff00Xorcist|r II
-## Version: 1.973.1
+## Version: 1.974
 ## Notes: Powerful Class AddOn for Raiders
 ## SavedVariables: FC_Saved
 ## OptionalDeps: LibSharedMedia-3.0, oRA3

@@ -1,4 +1,4 @@
--- ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 
 local FW = FW;
 local FWL = FW.L;
@@ -1983,7 +1983,7 @@ local function ST_NewTimerFrame(name,displayname)
 				end
 			end
 		end
-end
+	end
 	frame.Draw = function(self)
 		if not self:IsShown() then return; end
 		local s = self.s;
@@ -2046,9 +2046,9 @@ end
 			links:sort(SORT_TIMER_ORDER2,SORT_TIMER_ASC2);
 		else
 			if s.Outwands then
-				SORT_TIMER_ASC[2]=true;
+				SORT_TIMER_ASC[1]=true;
 			else
-				SORT_TIMER_ASC[2]=false;
+				SORT_TIMER_ASC[1]=false;
 			end
 			links:sort(SORT_TIMER_ORDER,SORT_TIMER_ASC);
 		end
@@ -2564,10 +2564,16 @@ local function ST_SelectTimerInstance(obj)
 	FW:RefreshOptions();
 end
 
+local function ST_RemoveTimerInstanceDialog(obj)
+	_G.StaticPopupDialogs["FX_CONFIRM_DELETE_CLONE"].obj = obj;
+	_G.StaticPopupDialogs["FX_CONFIRM_DELETE_CLONE"].func = ST_RemoveTimerInstance;
+	_G.StaticPopup_Show("FX_CONFIRM_DELETE_CLONE");
+end
+
 local tab_data = {
 	"Timer", -- default selected value
 	ST_CreateTimerInstance,
-	ST_RemoveTimerInstance,
+	ST_RemoveTimerInstanceDialog,
 	ST_RenameTimerInstance,
 	ST_SelectTimerInstance,
 	nil,-- tab options table, make sure that this is loaded and updated when a profile is changed
@@ -2659,6 +2665,16 @@ function ST:RegisterMeleeBuffs()
 	ST:RegisterBuff(75456); -- Piercing Twilight
 	ST:RegisterBuff(75480); -- Scaly Nimbleness
 	
+	ST:RegisterBuff(92096); -- Left Eye of Rajh, Eye of Vengeance 
+	ST:RegisterBuff(92069); -- Key to the Endless Chamber, Final Key
+	ST:RegisterBuff(92126); -- Essence of the Cyclone, Twisted 
+	ST:RegisterBuff(92108); -- Unheeded Warning, Heedless Carnage 
+	ST:RegisterBuff(92124); -- Prestor's Talisman of Machination, Nefarious Plot 
+	ST:RegisterBuff(92052); -- Grace of the Herald, Herald of Doom
+	ST:RegisterBuff(91821); -- Crushing Weight, Race Against Death
+	ST:RegisterBuff(91816); -- Heart of Rage, Rageheart
+	ST:RegisterBuff(55775); -- Enchant Cloak - Swordguard Embroidery, Swordguard Embroidery
+	
 	-- IMPORTANT DEBUFFS FROM OTHERS I WANT TO TRACK
 	-- Death Knight
 	ST:RegisterDebuff(81130); -- Scarlet Fever
@@ -2737,6 +2753,10 @@ function ST:RegisterCasterBuffs()
 	ST:RegisterBuff(75494); -- Twilight Renewal
 	ST:RegisterBuff(64741); -- Pandora's Plea
 	
+	ST:RegisterBuff(91138); -- Tear of Blood, Cleansing Tears
+	ST:RegisterBuff(91147); -- Blood of Isiset, Blessing of Isiset
+	ST:RegisterBuff(91047); -- Stump of Time, Battle Magic
+	ST:RegisterBuff(89091); -- Darkmoon Card: Volcano, Volcanic Destruction
 	
 	-- IMPORTANT DEBUFFS FROM OTHERS I WANT TO TRACK
 	ST:RegisterDebuff(26017); -- Vindication, Retribution Debuff -10/20% stats on target
@@ -2752,7 +2772,7 @@ function ST:RegisterCasterBuffs()
 	ST:RegisterDebuff(60433, FW.STACK_DAMAGE_MAGIC,1); -- Earth and Moon
 	ST:RegisterDebuff(50510); -- Crypt Fever
 	
-	ST:RegisterDebuff(17800, FW.STACK_CRIT_MAGIC,5);-- shadow mastery +5% crit all schools	
+	ST:RegisterDebuff(17800, FW.STACK_CRIT_MAGIC,5); -- Shadow and Flame +5% crit all schools	
 	ST:RegisterDebuff(22959, FW.STACK_CRIT_MAGIC,5); -- Improved Scorch, +5% crit all schools
 	ST:RegisterDebuff(12579, FW.STACK_CRIT_MAGIC,1); -- Winter's Chill, +1% crit all schools per stack (5max)
 	

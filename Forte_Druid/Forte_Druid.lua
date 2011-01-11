@@ -1,4 +1,4 @@
--- ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 -- Module started by Lurosara
 
 -- TODO:
@@ -183,11 +183,8 @@ if FW.CLASS == "DRUID" then
 		CD:RegisterHiddenCooldown(nil,48517,30); -- Eclipse (Solar)
 		CD:RegisterHiddenCooldown(nil,48518,30); -- Eclipse (Lunar)
 		
-		-- other idols
-		--CD:RegisterHiddenCooldown(47668,67354,45); -- Idol of Mutilation, Evasion
-		--CD:RegisterHiddenCooldown(47670,67360,05); -- Idol of Lunar Fury, Blessing of the Moon Goddess
-		--CD:RegisterHiddenCooldown(47671,67358,05); -- Idol of Flaring Growth, Rejuvenating
-  
+		CD:RegisterHiddenCooldown(nil,61346,60); -- Nature's Grace 
+		
 		-- Powerups
 		CD:RegisterCasterPowerupCooldowns();
 		CD:RegisterMeleePowerupCooldowns();

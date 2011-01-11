@@ -1,4 +1,4 @@
--- ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 
 if FW.CLASS == "ROGUE" then
 	local FW = FW;
@@ -27,7 +27,10 @@ if FW.CLASS == "ROGUE" then
 		ST:RegisterSpell(51722, 1, 000,0,ST.UNIQUE); -- Dismantle
 		ST:RegisterSpell(30981, 1, 000,0,ST.UNIQUE); -- Crippling Poison
 		ST:RegisterSpell( 5760, 1, 000,0,ST.UNIQUE); -- Mind-numbing Poison
-		ST:RegisterSpell(13218, 1, 000,0,ST.UNIQUE); -- Wound Poison		
+		ST:RegisterSpell(13218, 1, 000,0,ST.UNIQUE); -- Wound Poison
+
+		ST:RegisterSpell(57293, 1, 000,0,ST.UNIQUE); -- Revealing Strike
+		ST:RegisterSpell(31126, 1, 000,0,ST.UNIQUE); -- Blade Twisting
 		
 		ST:RegisterSpell(  703, 1, 000,1,ST.DEFAULT); -- Garrote
 		ST:RegisterSpell( 1943, 1, 000,1,ST.DEFAULT); -- Rupture

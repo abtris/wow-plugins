@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+﻿-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 
 --[[
 "frFR": French
@@ -17,7 +17,7 @@
 
 --[[>> still needs translating]]
 
---[[if FW.CLASS == "PRIEST" then
+if FW.CLASS == "HUNTER" then
 	local FWL = FW.L;
 	if GetLocale() == "ruRU" then
 	-- FR
@@ -33,4 +33,6 @@
 	-- ENGLISH
 	else
 	end
-end]]
+	FWL.SNAKE1 = "Viper";
+	--FWL.SNAKE2 = "Venomous Snake";
+end

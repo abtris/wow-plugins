@@ -1,4 +1,4 @@
--- ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 -- Paladin module for ForteXorcist started by Arono of Skywall
 
 if FW.CLASS == "PALADIN" then
@@ -20,7 +20,7 @@ if FW.CLASS == "PALADIN" then
 	if ST then
 		-- istype: ST.DEFAULT ST.SHARED ST.UNIQUE ST.PET ST.CHARM ST.COOLDOWN ST.HEAL ST.BUFF
 		-- spell, hastarget, duration, isdot, istype, reducedinpvp, hasted, stack
-
+	
 		-- NEW:
 		
 		-- Protection Spells

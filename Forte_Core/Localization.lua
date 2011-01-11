@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+﻿-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 
 --[[
 "frFR": French
@@ -2054,5 +2054,8 @@ else
 	FWL.RAID_DEBUFFS = "Raid Debuffs (my target only)";
 	FWL.ALL_OTHER_COOLDOWNS = "All other Cooldowns";
 end
+
+FWL.CONFIRM_DELETE_PROFILE = "Are you sure you want to delete the profile '%s'?";
+FWL.CONFIRM_DELETE_CLONE = "Are you sure you want to delete the clone '%s'?";
 
 FW:LocalizedData();

@@ -1,4 +1,4 @@
--- ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 
 if FW.CLASS == "PRIEST" then
 	local FW = FW;
@@ -34,8 +34,7 @@ if FW.CLASS == "PRIEST" then
  		ST:RegisterSpell(9484,	1,050,0,ST.UNIQUE); -- Shackle Undead
 		ST:RegisterSpell(453,	1,015,0,ST.UNIQUE); -- Mind Soothe
 		ST:RegisterSpell(17,	1,030,0,ST.BUFF); -- Power Word: Shield
-		ST:RegisterSpell(139,	1,015,0,ST.HEAL); -- Renew
-			ST:RegisterSpellModGlph(139, 56178, -3); -- Glyph of Renew
+		ST:RegisterSpell(139,	1,012,0,ST.HEAL); -- Renew
 
 		ST:RegisterSpell(2944,	1,024,1,ST.UNIQUE); -- Devouring Plague 
 		ST:RegisterSpell(15487,	1,005,0,ST.UNIQUE); -- Silence
@@ -44,7 +43,7 @@ if FW.CLASS == "PRIEST" then
 		
 		ST:RegisterSpell(33076,	1,030,0,ST.BUFF); -- Prayer of Mending
 		ST:RegisterSpell(14893,	1,015,0,ST.BUFF); -- Inspiration
-		ST:RegisterSpell(  552, 1,012,0,ST.BUFF); -- Abolish Disease		
+		--ST:RegisterSpell(  552, 1,012,0,ST.BUFF); -- Abolish Disease		
 		ST:RegisterSpell(33206, 1,008,0,ST.BUFF); -- Pain Suppression
 		ST:RegisterSpell(10060, 1,015,0,ST.BUFF); -- Power Infusion
 		ST:RegisterSpell(47788, 1,010,0,ST.BUFF); -- Guardian Spirit
@@ -52,6 +51,7 @@ if FW.CLASS == "PRIEST" then
 		ST:RegisterSpell(47509, 1,012,0,ST.BUFF); -- Divine Aegis
 		ST:RegisterSpell(47516, 1,015,0,ST.BUFF,000,1,3); -- Grace
 		ST:RegisterSpell(70772, 1,009,0,ST.HEAL); -- Blessed Healing (2 set T10)
+		ST:RegisterSpell(87178, 1,012,0,ST.DEFAULT,000,1,3); -- Mind Spike
 		
 		ST:RegisterCooldown(8092,008); -- Mind Blast
 			ST:RegisterCooldownModTlnt(8092,	15273, 1, -0.5); -- Improved Mind Blast
@@ -88,6 +88,7 @@ if FW.CLASS == "PRIEST" then
 		ST:RegisterBuff(34754); -- Holy Concentration
 		ST:RegisterBuff(586); -- Fade
 		ST:RegisterBuff(588); -- Inner fire
+		ST:RegisterBuff(73413); -- Inner Will
 		ST:RegisterBuff(15257); -- Shadow Weaving
 		ST:RegisterBuff(47585); -- Dispersion
 		ST:RegisterBuff(27839); -- Vampiric Embrace
@@ -116,6 +117,7 @@ if FW.CLASS == "PRIEST" then
 	
 		CD:RegisterCooldownBuff(15290); -- Vampiric Embrace
 		CD:RegisterCooldownBuff(48168); -- Inner Fire
+		CD:RegisterCooldownBuff(73413); -- Inner Will
 		CD:RegisterCasterPowerupCooldowns();
 	end
 end

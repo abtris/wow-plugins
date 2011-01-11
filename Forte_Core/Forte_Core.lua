@@ -1,4 +1,4 @@
--- ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 
 FW = {}; -- core table
 FC_Saved = {}; -- save table
@@ -47,7 +47,7 @@ local type = type;
 local _G = _G;
 
 FW.TITLE = "ForteXorcist";
-local VERSION = "v1.973.1";
+local VERSION = "v1.974";
 local ENABLE = false;
 FW.GROUPED = false;
 FW.RAID = false;
@@ -775,8 +775,8 @@ do
 		FW[unit] = UnitGUID(unit);
 	end
 	
-	local GameTooltip = GameTooltip;
-	local GameTooltip_SetDefaultAnchor = GameTooltip_SetDefaultAnchor;
+	local GameTooltip = _G.GameTooltip;
+	local GameTooltip_SetDefaultAnchor = _G.GameTooltip_SetDefaultAnchor;
 	function FW:ShowTip(self)
 		if self.tip and self.title and FW.Settings.Tips then
 			GameTooltip_SetDefaultAnchor(GameTooltip, self);

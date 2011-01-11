@@ -1,4 +1,4 @@
-ForteXorcist v1.973.1 by Xus 26-12-2010 for 4.0.3
+ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
 
 Check http://www.wowinterface.com/portal.php?&uid=65900 for detailed info and the latest version.
 
@@ -6,9 +6,9 @@ Please post any bugs and problems you may encounter here as well.
 
 If your download didn't come from wowinterface.com or curse.com I can't guarantee the contents!
 
-Copyright (C) 2006-2010 Xus (xuswow@hotmail.com)
+Copyright (C) 2006-2011 Xus (xuswow@hotmail.com)
 
-This program is free software: you can redistribute it and/or modifyi
+This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or
 any later version.
