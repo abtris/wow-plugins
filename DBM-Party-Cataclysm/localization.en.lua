@@ -123,6 +123,10 @@ L:SetGeneralLocalization({
 	name = "Vanessa VanCleef"
 })
 
+L:SetTimerLocalization({
+	achievementGauntlet	= "Gauntlet"
+})
+
 ------------------
 --  Grim Batol  --
 ---------------------
@@ -131,8 +135,16 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("GeneralUmbriss")
 
 L:SetGeneralLocalization({
-	name = "General Umbriss"
+	name 		= "General Umbriss"
 })
+
+L:SetOptionLocalization{
+	PingBlitz	= "Ping the minimap when General Umbriss is about to blitz you"
+}
+
+L:SetMiscLocalization{
+	Blitz		= "sets his eyes on |cFFFF0000(%S+)"
+}
 
 --------------------------
 -- Forgemaster Throngus --
@@ -186,6 +198,10 @@ L:SetGeneralLocalization({
 	name = "Earthrager Ptah"
 })
 
+L:SetMiscLocalization{
+	Kill		= "Ptah... is... no more..."
+}
+
 --------------
 -- Anraphet --
 --------------
@@ -193,6 +209,14 @@ L = DBM:GetModLocalization("Anraphet")
 
 L:SetGeneralLocalization({
 	name = "Anraphet"
+})
+
+L:SetTimerLocalization({
+	achievementGauntlet	= "Gauntlet"
+})
+
+L:SetMiscLocalization({
+	Brann		= "Right, let's go! Just need to input the final entry sequence into the door mechanism... and..."
 })
 
 ------------
@@ -457,6 +481,14 @@ L = DBM:GetModLocalization("Asaad")
 
 L:SetGeneralLocalization({
 	name = "Asaad"
+})
+
+L:SetOptionLocalization({
+	SpecWarnStaticCling	= "Show special warning for $spell:87618"
+})
+
+L:SetWarningLocalization({
+	SpecWarnStaticCling	= "JUMP!"
 })
 
 ---------------------------

@@ -1,4 +1,4 @@
--- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
+-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
 
 if FW.CLASS == "PRIEST" then
 	local FW = FW;
@@ -93,6 +93,9 @@ if FW.CLASS == "PRIEST" then
 		ST:RegisterBuff(47585); -- Dispersion
 		ST:RegisterBuff(27839); -- Vampiric Embrace
 		ST:RegisterBuff(45237); -- Focused Will
+		ST:RegisterBuff(77487); -- Shadow Orb
+		ST:RegisterBuff(95799); -- Empowered Shadow
+		ST:RegisterBuff(87118); -- Dark Evangelism
 
 		--debuffname,mineonly
 			

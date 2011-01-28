@@ -1,3 +1,22 @@
+--[[
+
+Tasks:
+- Add Spell Catch by Raid Icon
+- Filter out Spell events for the current target  *done*
+--]]
+local RaidTargetReference = {
+	["STAR"] = 0x00100000,
+	["CIRCLE"] = 0x00200000,
+	["DIAMOND"] = 0x00400000,
+	["TRIANGLE"] = 0x00800000,
+	["MOON"] = 0x01000000,
+	["SQUARE"] = 0x02000000,
+	["CROSS"] = 0x04000000,
+	["SKULL"] = 0x08000000,
+}
+										
+
+
 -------------------------------------------------------------------------
 -- Spell Cast Event Watcher.
 -------------------------------------------------------------------------
@@ -23,13 +42,35 @@ local function SearchNameplateByName(SearchFor)
 		end
 	end
 end
+
+local function SearchNameplateByIcon(UnitFlags)
+	local UnitIcon
+	for iconname, bitmask in pairs(RaidTargetReference) do
+		if bit.band(UnitFlags, bitmask) > 0  then
+			UnitIcon = iconname
+			break
+		end
+	end	
+
+	local VisiblePlate = nil
+	for VisiblePlate in pairs(TidyPlates.NameplatesByVisible) do
+		if VisiblePlate.extended.unit.isMarked and (VisiblePlate.extended.unit.raidIcon == UnitIcon) then	-- BY Icon
+			return VisiblePlate
+		end
+	end
+end
+
 --------------------------------------
--- Handle "SPELL_CAST_START" events
---  Send cast event to an available nameplate
+-- OnSpellCast
+-- Sends cast event to an available nameplate
 --------------------------------------
-function CombatEventHandlers.SPELL_CAST_START(...)
-	local timestamp, combatevent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellid, spellname = ...
-	local FoundPlate
+local function OnSpellCast(sourceGUID, sourceName, sourceFlags, spellid, spellname, channeled)
+	local FoundPlate = nil
+	
+	-- Gather Spell Info
+	local spell, displayName, icon, castTime
+	spell, displayName, icon, _, _, _, castTime, _, _ = GetSpellInfo(spellid)
+	if not (castTime > 0) then return end
 	
 	if bit.band(sourceFlags, COMBATLOG_OBJECT_REACTION_HOSTILE) > 0 then 
 		if bit.band(sourceFlags, COMBATLOG_OBJECT_CONTROL_PLAYER) > 0 then 
@@ -38,35 +79,33 @@ function CombatEventHandlers.SPELL_CAST_START(...)
 		elseif bit.band(sourceFlags, COMBATLOG_OBJECT_CONTROL_NPC) > 0 then 
 			--	destination plate, by GUID
 			FoundPlate = SearchNameplateByGUID(sourceGUID)
+			if not FoundPlate then FoundPlate = SearchNameplateByIcon(sourceFlags) end
 		else return	end
 	else return end
 
-	local currentTime = GetTime()
-	local spell, displayName, icon, castTime
-	
-	-- If the unit's nameplate is visible, engage the cast bar, warp 6!
+	-- If the unit's nameplate is visible, show the cast bar
 	if FoundPlate then 
+		local currentTime = GetTime()
 		FoundPlateUnit = FoundPlate.extended.unit
 		if FoundPlateUnit.isTarget then return end
-		-- Gather Spell Info
-		spell, displayName, icon, _, _, _, castTime, _, _ = GetSpellInfo(spellid)
+		
 		castTime = (castTime / 1000)	-- Convert to seconds
-		StartCastAnimationOnNameplate(FoundPlate, spell, spell, icon, currentTime, currentTime+castTime, false, false)
-		--print("Starting Cast Animation on", SearchFor, spell, spell, icon, currentTime, currentTime+castTime)
+		StartCastAnimationOnNameplate(FoundPlate, spell, spell, icon, currentTime, currentTime+castTime, false, channeled)
 	end
 end
 
---------------------------------------
--- Handle "SPELL_CAST_STOP" events
---  Need to handle STOP events, and interuptions, if possible
--- http://www.wowwiki.com/API_COMBAT_LOG_EVENT
---[[
-_CAST_START
-_CAST_FAILED	"Interrupted:
-_INTERRUPT
---]]
---------------------------------------
-	
+-- SPELL_CAST_START -- Non-channeled spells
+function CombatEventHandlers.SPELL_CAST_START(...)
+	local timestamp, combatevent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellid, spellname = ...
+	OnSpellCast(sourceGUID, sourceName, sourceFlags, spellid, spellname, false)
+end
+
+-- SPELL_CAST_SUCCESS -- Channeled and Instant spells
+function CombatEventHandlers.SPELL_CAST_SUCCESS(...)
+	local timestamp, combatevent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellid, spellname = ...
+	OnSpellCast(sourceGUID, sourceName, sourceFlags, spellid, spellname, true)
+end
+
 --------------------------------------
 -- Watch Combat Log Events
 --------------------------------------
@@ -98,8 +137,8 @@ end
 TidyPlates.StartSpellCastWatcher = StartSpellCastWatcher
 TidyPlates.StopSpellCastWatcher = StopSpellCastWatcher
 
--- To test spell cast: /run TestTidyPlatesCastBar("Boognish", 133)		-- The spell ID number of Fireball is 133
-function TestTidyPlatesCastBar(SearchFor, SpellID)
+-- To test spell cast: /run TestTidyPlatesCastBar("Boognish", 133, true)		-- The spell ID number of Fireball is 133
+function TestTidyPlatesCastBar(SearchFor, SpellID, Shielded)
 	local VisiblePlate, FoundPlate
 	local currentTime = GetTime()
 	local spell, displayName, icon, _, _, _, castTime, _, _ = GetSpellInfo(SpellID)
@@ -113,5 +152,5 @@ function TestTidyPlatesCastBar(SearchFor, SpellID)
 	end
 
 	-- If found, display the cast bar
-	if FoundPlate then StartCastAnimationOnNameplate(FoundPlate, spell, spell, icon, currentTime, currentTime+(castTime/1000), false, false) end
+	if FoundPlate then StartCastAnimationOnNameplate(FoundPlate, spell, spell, icon, currentTime, currentTime+(castTime/1000), Shielded, false) end
 end

@@ -72,7 +72,11 @@ DBM_CORE_RANGECHECK_HIDE			= "隱藏"
 DBM_CORE_RANGECHECK_SETRANGE_TO			= "%d碼"
 DBM_CORE_RANGECHECK_LOCK			= "鎖定框架"
 
+DBM_CORE_INFOFRAME_HIDE				= "隱藏"
+DBM_CORE_INFOFRAME_LOCK				= "鎖定框架"
+
 DBM_LFG_INVITE					= "地城準備確認"
+DBM_LOOT_MSG					= "(.+)拾取了物品:.*Hitem:(%d+)"
 
 DBM_CORE_SLASHCMD_HELP				= {
 	"可用命令：",

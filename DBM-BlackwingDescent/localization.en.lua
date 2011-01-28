@@ -10,15 +10,23 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	SpecWarnInferno	= "Blazing Bone Construct Soon (~4s)",
+	WarnPhase2Soon	= "Phase 2 soon"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetMiscLocalization({
+	Slump			= "%s slumps forward, exposing his pincers!",
+	HeadExposed		= "%s becomes impaled on the spike, exposing his head!",
+	YellPhase2		= "Inconceivable! You may actually defeat my lava worm! Perhaps I can help... tip the scales."
 })
 
 L:SetOptionLocalization({
+	SpecWarnInferno	= "Show pre-special warning for $spell:92190 (~4s)",
+	WarnPhase2Soon	= "Show a prewarning for Phase 2",
+	RangeFrame		= "Show range frame in Phase 2 (8)"
 })
 
 -------------------------------
@@ -34,22 +42,24 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
-})
-
-L:SetMiscLocalization({
-	Magmatron	= "Magmatron",
-	Electron	= "Electron",
-	Toxitron	= "Toxitron",
-	Arcanotron	= "Arcanotron",
-	SayBomb		= "Poison Bomb on me!"
+	timerArcaneBlowbackCast		= "Arcane Blowback",
+	timerShadowConductorCast	= "Shadow Conductor"
 })
 
 L:SetOptionLocalization({
-	SayBombTarget	= "Shout in SAY that you are targeted for $spell:80157",
+	timerShadowConductorCast	= "Show timer for $spell:92053 cast",
+	timerArcaneBlowbackCast	= "Show timer for $spell:91879 cast",
 	AcquiringTargetIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79501),
 	ConductorIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79888),
 	BombTargetIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(80094),
-	ShadowInfusionIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(92048)
+	ShadowConductorIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(92053)
+})
+
+L:SetMiscLocalization({
+	Magmatron		= "Magmatron",
+	Electron		= "Electron",
+	Toxitron		= "Toxitron",
+	Arcanotron		= "Arcanotron"
 })
 
 ----------------
@@ -74,7 +84,7 @@ L:SetMiscLocalization({
 	YellRed			= "red|r vial into the cauldron!",--Partial matchs, no need for full strings unless you really want em, mod checks for both.
 	YellBlue		= "blue|r vial into the cauldron!",
 	YellGreen		= "green|r vial into the cauldron!",
-	YellDark		= "dark|r vial into the cauldron!",--guesswork, this isn't confirmed but if it's consistent with other strings is probably right.
+	YellDark		= "dark|r magic into the cauldron!",
 	Red			= "Red",
 	Blue			= "Blue",
 	Green			= "Green",
@@ -109,11 +119,15 @@ L:SetTimerLocalization({
 })
 
 L:SetMiscLocalization({
+	HealthInfo	= "Health Info"
 })
 
 L:SetOptionLocalization({
 	WarnPhase2Soon	= "Show a prewarning for Phase 2",
-	WarnBreak	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(82881, GetSpellInfo(82881) or "unknown")
+	RangeFrame		= "Show range frame (6)",
+	WarnBreak		= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(82881, GetSpellInfo(82881) or "unknown"),
+	SetIconOnSlime	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(82935),
+	InfoFrame	= "Show info frame for health (<10k hp)"
 })
 
 -----------------
@@ -138,7 +152,8 @@ L:SetTimerLocalization({
 
 L:SetMiscLocalization({
 	AncientDwarvenShield	= "Ancient Dwarven Shield",
-	Airphase		= "Yes, run! With every step your heart quickens. The beating, loud and thunderous... Almost deafening. You cannot escape!"
+	Soundlevel				= "Sound Level",
+	Airphase				= "Yes, run! With every step your heart quickens. The beating, loud and thunderous... Almost deafening. You cannot escape!"
 })
 
 L:SetOptionLocalization({
@@ -147,7 +162,8 @@ L:SetOptionLocalization({
 	WarnShieldsLeft		= "Show warning when a Ancient Dwarven Shield gets used",
 	TimerAirphase		= "Show timer for next airphase",
 	TimerGroundphase	= "Show timer for next groundphase",
-	TrackingIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(78092)
+	InfoFrame			= "Show info frame for sound levels",
+	TrackingIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(78092)
 })
 
 ----------------
@@ -160,15 +176,36 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	OnyTailSwipe		= "Tail Lash (Onyxia)",
+	NefTailSwipe		= "Tail Lash (Nefarian)",
+	OnyBreath			= "Breath (Onyxia)",
+	NefBreath			= "Breath (Nefarian)"
 })
 
 L:SetTimerLocalization({
-})
-
-L:SetMiscLocalization({
-	YellPhase2			= "Curse you, mortals! Such a callous disregard for one's possessions must be met with extreme force!",
-	ChromaticPrototype	= "Chromatic Prototype"
+	OnySwipeTimer		= "Tail Lash CD (Ony)",
+	NefSwipeTimer		= "Tail Lash CD (Nef)",
+	OnyBreathTimer		= "Breath CD (Ony)",
+	NefBreathTimer		= "Breath CD (Nef)"
 })
 
 L:SetOptionLocalization({
+	OnyTailSwipe		= "Show warning for Onyxia's $spell:77827",
+	NefTailSwipe		= "Show warning for Nefarian's $spell:77827",
+	OnyBreath			= "Show warning for Onyxia's $spell:94124",
+	NefBreath			= "Show warning for Nefarian's $spell:94124",
+	OnySwipeTimer		= "Show timer for Onyxia's $spell:77827 cooldown",
+	NefSwipeTimer		= "Show timer for Nefarian's $spell:77827 cooldown",
+	OnyBreathTimer		= "Show timer for Onyxia's $spell:94124 cooldown",
+	NefBreathTimer		= "Show timer for Nefarian's $spell:94124 cooldown",
+	YellOnCinder		= "Yell on $spell:79339",
+	RangeFrame			= "Show range frame (10) when you have $spell:79339",
+	SetIconOnCinder		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79339)
+})
+
+L:SetMiscLocalization({
+	NefAoe				= "The air crackles with electricity!",
+	YellPhase2			= "Curse you, mortals! Such a callous disregard for one's possessions must be met with extreme force!",
+	YellPhase3			= "I have tried to be an accommodating host, but you simply will not die! Time to throw all pretense aside and just... KILL YOU ALL!",
+	YellCinder			= "Explosive Cinders on me!"
 })

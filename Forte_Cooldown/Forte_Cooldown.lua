@@ -1,4 +1,4 @@
--- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
+-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
 
 local CD = FW:Module("Cooldown");
 local FW = FW;
@@ -312,7 +312,7 @@ local function CD_StartCooldown(spell, start, duration, texture, flag)
 	local frame = frame1;
 	-- in the cooldown timer it's always important to know what's hidden and what's not, not only for the draw func!
 	local action = FlagToAction(frame,spell,flag);
-	cd:insert( spell,duration,start,duration,texture, flag ,0,0,0,0,0,0,0,0,0,GetTime(),(action == FILTER_HIDE and 1) or 0,action,"",0);
+	cd:insert( spell,duration,start,duration,texture, flag ,0,0,0,0,0,0,0,0,0,GetTime(),0,action,"",0,(action == FILTER_HIDE and 1) or 0);
 	CD_MakeMasters();
 	for i,f in ipairs(FW_OnCooldownUsed) do
 		f(spell,duration,flag,texture);
@@ -468,11 +468,12 @@ end
 14: Visibility (0 to 1)
 15: Focussed (0,1 or -1 for fading)
 16: last update (REMOVE PLX)
-17: filter (0 or 1) 0 actually means visible (not being filtered)
+17: filter (0 or 1) 0 actually means visible (not being filtered) this includes time filtering now
 18: custom filter/color (any filter value)
 
 19: master texture, "" for no master texture, "slave" for slave of master
 20: grab attention time remaining (Change to not use lastupdate plx)
+21: hidden based on standard filter (0 or 1) 0 actually means visible (not being filtered)
 ]]
 local function CD_TimeFilterRemaining(frame,t) 
 	return (not frame.s.MinRemainingEnable or frame.s.MinRemaining <= t)
@@ -532,10 +533,20 @@ local function CD_CreateCooldowns(frame)
 	erase(last);
 	erase(focus);
 	i=1;
+	-- filter by time is still quick n dirty!
+	while i<=cd.rows do
+		if cd[i][21] == 1 or not CD_TimeFilterRemaining(frame,cd[i][2]) or not CD_TimeFilterDuration(frame,cd[i][4]) then
+			cd[i][17] = 1;
+		else
+			cd[i][17] = 0;
+		end
+		i = i + 1;
+	end
+	i=1;
 	while i<=cd.rows do
 		local t1,t2,t3,t4,_,_,t7,t8,t9,t10,_,t12,_,_,t15,_,t17,_,t19,t20 = unpack(cd[i]);
-		if t17 == 0 and CD_TimeFilterRemaining(frame,t2) and CD_TimeFilterDuration(frame,t4) then -- determine if this timer will be visible
-		-- filter by time is still quick n dirty!
+		if t17 == 0 then -- determine if this timer will be visible
+		
 			if i > 1 and ((s9 > t10 and t2~=0) or (t2==0 and abs(t3-s3)<GROUP_TIME) ) then -- more than half an icon overlap
 				-- for runes t3==s3 seems not to work well enough, a margin is needed
 				last[group] = i;
@@ -581,10 +592,12 @@ local function CD_CreateCooldowns(frame)
 	i=1;
 	-- add group specific code below
 	-- if at least one group master icon is present, only switch between those!
-	
 	while i<=cd.rows do
 		local t13,t14 = cd[i][13],cd[i][14];	
 		if cd[i][15] == 1 and cd[i][17] == 0 then
+			--if not CD_TimeFilterRemaining(frame,cd[i][2]) or not CD_TimeFilterDuration(frame,cd[i][4]) then
+			--	FW:Show("have to fix");
+			--end
 			t14 = t14+(tim-cd[i][16]);
 			if t14 >= 1 then
 				t14 = 1;
@@ -913,14 +926,15 @@ function CD:RegisterMeleePowerupCooldowns()
 	CD:RegisterHiddenCooldown(59520,92108,50); -- Unheeded Warning, Heedless Carnage 
 	CD:RegisterHiddenCooldown(59441,92124,75); -- Prestor's Talisman of Machination, Nefarious Plot 
 	CD:RegisterHiddenCooldown(55266,92052,100); -- Grace of the Herald, Herald of Doom
-	CD:RegisterHiddenCooldown(59506,91821,100); -- Crushing Weight, Race Against Death
+	CD:RegisterHiddenCooldown(59506,91821,75); -- Crushing Weight, Race Against Death
 	CD:RegisterHiddenCooldown(59224,91816,75); -- Heart of Rage, Rageheart
+	CD:RegisterHiddenCooldown(59519,91024,90); -- Theralion's Mirror, Revelation
 	
 	CD:RegisterHiddenCooldown(nil,59626,35); -- Black Magic
 	CD:RegisterHiddenCooldown(nil,59620,35); -- Berserk, Enchant Weapon - Berserking
 	CD:RegisterHiddenCooldown(nil,28093,35); -- Lightning Speed, Enchant Weapon - Mongoose
 	
-	CD:RegisterHiddenCooldown(nil,55775,55); -- Enchant Cloak - Swordguard Embroidery, Swordguard Embroidery
+	CD:RegisterHiddenCooldown(nil,55775,55); -- Enchant Cloak - Swordguard Embroidery
 end
 
 -- global caster trinket names
@@ -941,6 +955,7 @@ function CD:RegisterCasterPowerupCooldowns()
 	CD:RegisterCooldownPowerup(48722,67683); -- Shard of the Crystal Heart, Celerity
 	CD:RegisterCooldownPowerup(41093,54758); -- Hyperspeed Accelerators, Hyperspeed Acceleration	
 	CD:RegisterCooldownPowerup(37873,60480); -- Mark of the War Prisoner, Mark of the War Prisoner	
+	CD:RegisterCooldownPowerup(59514,91041); -- Heart of Ignacious, Heart's Judgement
 	
 	CD:RegisterHiddenCooldown(27683,44605,18); -- Quagmirran's Eye, Spell Haste
 	CD:RegisterHiddenCooldown(30626,38348,45); -- Sextant of Unstable Currents, Unstable Currents
@@ -961,10 +976,11 @@ function CD:RegisterCasterPowerupCooldowns()
 	CD:RegisterHiddenCooldown(55819,91138,45); -- Tear of Blood, Cleansing Tears
 	CD:RegisterHiddenCooldown(55995,91147,105); -- Blood of Isiset, Blessing of Isiset
 	CD:RegisterHiddenCooldown(62470,91047,75); -- Stump of Time, Battle Magic
-	CD:RegisterHiddenCooldown(62047,89091,75); -- Darkmoon Card: Volcano, Volcanic Destruction
-	
+	CD:RegisterHiddenCooldown(62047,89091,45); -- Darkmoon Card: Volcano, Volcanic Destruction
+
 	CD:RegisterHiddenCooldown(nil,59626,35); -- Black Magic
 	CD:RegisterHiddenCooldown(nil,55637,45); -- Lightweave
+	CD:RegisterHiddenCooldown(nil,74241,45); -- Enchant Weapon - Power Torrent
 end
 
 if not _G["oRA3"] then -- don't do this if you have ora3
@@ -1547,7 +1563,6 @@ end
 
 local function CD_CooldownFilterChange(frame) --this needs to include the entire fix
 	-- dirty - but works for now
-	
 	local i = 1;
 	while i <= cd.rows do
 		if cd[i][6] == FLAG_BUFF then
@@ -1562,9 +1577,9 @@ local function CD_CooldownFilterChange(frame) --this needs to include the entire
 	for i=1,cd.rows,1 do
 		local action = FlagToAction(frame1,cd[i][1],cd[i][6]);
 		if action == FILTER_HIDE then
-			cd[i][17] = 1;
+			cd[i][21] = 1;
 		else
-			cd[i][17] = 0;
+			cd[i][21] = 0;
 		end
 		cd[i][18] = action;
 	end

@@ -343,7 +343,7 @@ function AtrSearch:AnalyzeResultsPage()
 
 	self.processing_state = KM_ANALYZING;
 
-	if (self.query.numDupPages > 10) then 	 -- hopefully this will never happen but need check to avoid looping
+	if (self.query.numDupPages > 50) then 	 -- hopefully this will never happen but need check to avoid looping
 		return true;						 -- done
 	end
 
@@ -358,10 +358,10 @@ function AtrSearch:AnalyzeResultsPage()
 	local slistItemName = Atr_GetShoppingListItem (self, self.searchText)
 	if (slistItemName) then
 		
-		local pageText = "";
-		if (self.current_page > 1) then
+--		local pageText = "";
+--		if (self.current_page > 1) then
 			pageText = string.format (ZT(": page %d"), self.current_page)
-		end
+--		end
 
 		Atr_SetMessage (string.format (ZT("Scanning auctions for %s%s"), slistItemName, pageText));
 	elseif (totalAuctions >= 50) then
@@ -628,14 +628,6 @@ function AtrSearch:Continue()
 		local minLevel		= nil;
 		local maxLevel		= nil;
 		
-		if (self.exactMatchText) then
-			local scn	= self:GetFirstScan();
-			if (scn) then
-				itemClass		= scn.itemClass;
-				itemSubclass	= scn.itemSubclass;
-			end
-		end
-
 		if (Atr_IsCompoundSearch(self.searchText)) then
 			queryString, itemClass, itemSubclass, minLevel, maxLevel = Atr_ParseCompoundSearch (self.searchText);
 			
@@ -643,7 +635,6 @@ function AtrSearch:Continue()
 			queryString = Atr_GetShoppingListItem (self, self.searchText)
 			
 			self.exactMatchText = GetExactMatchText(queryString)
---zz (self.exactMatchText)
 			if (self.exactMatchText) then
 				queryString = self.exactMatchText
 			end
@@ -667,7 +658,7 @@ function AtrSearch:Continue()
 
 		queryString = zc.UTF8_Truncate (queryString,63);	-- attempting to reduce number of disconnects
 
---	zc.md (queryString, "  page:", self.current_page);
+	--	zz (queryString, "  page:", self.current_page);
 		
 		QueryAuctionItems (queryString, minLevel, maxLevel, nil, itemClass, itemSubclass, self.current_page, nil, nil);
 
@@ -1794,8 +1785,8 @@ function Atr_BuildSortedScanHistoryList (itemName)
 
 	if (gAtr_ScanDB[itemName]) then
 		local n = 1;
-		local key, price, char1, day, when;
-		for key, price in pairs (gAtr_ScanDB[itemName]) do
+		local key, highlowprice, char1, day, when;
+		for key, highlowprice in pairs (gAtr_ScanDB[itemName]) do
 		
 			char1 = string.sub (key, 1, 1);
 		
@@ -1807,12 +1798,14 @@ function Atr_BuildSortedScanHistoryList (itemName)
 
 				local lowlowprice = gAtr_ScanDB[itemName]["L"..day];
 				if (lowlowprice == nil) then
-					lowlowprice = price;
+					lowlowprice = highlowprice;
 				end
 
+				highlowprice = tonumber (highlowprice)
+				lowlowprice  = tonumber (lowlowprice)
+
 				currentPane.sortedHist[n]				= {};
-				currentPane.sortedHist[n].itemPrice		= price;
-				currentPane.sortedHist[n].lowlowPrice	= lowlowprice;
+				currentPane.sortedHist[n].itemPrice		= zc.round ((highlowprice + lowlowprice) / 2);
 				currentPane.sortedHist[n].when			= when;
 				currentPane.sortedHist[n].yours			= true;
 				currentPane.sortedHist[n].type			= "n";

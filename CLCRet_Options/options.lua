@@ -1,29 +1,10 @@
 local _, trueclass = UnitClass("player")
 if trueclass ~= "PALADIN" then return end
 
-local function bprint(...)
-	local t = {}
-	for i = 1, select("#", ...) do
-		t[i] = tostring(select(i, ...))
-	end
-	DEFAULT_CHAT_FRAME:AddMessage("CLCRet.options: " .. table.concat(t, " "))
-end
-
 clcret.optionsLoaded = true
 
 local MAX_AURAS = 20
 local MAX_SOVBARS = 5
-local MAX_PRESETS = 10
-
-local function GetSpellChoice()
-	local spellChoice = { none = "None" }
-	for alias, data in pairs(clcret.fillers) do
-		spellChoice[alias] = data.name
-	end
-	
-	return spellChoice
-end
-
 
 local db = clcret.db.profile
 local root
@@ -208,44 +189,20 @@ function abgs:ByPlayerSet(val)
 	abgs:UpdateAll()
 end
 
+local function RotationGet(info)
+	local xdb = clcret.db.profile.rotation
+	return xdb[info[3]]
+end
+
+local function RotationSet(info, val)
+	local xdb = clcret.db.profile.rotation
+	xdb[info[3]] = val
+end
+
 local options = {
 	type = "group",
 	name = "CLCRet",
 	args = {
-		info = {
-			type = "group",
-			name = "Info",
-			args = {
-				__i1 = {
-					type = "description",
-					name = "Commands:\n\n    /clcret\n        * opens the options frame \n    /clcreteq\n        * allows editing the FCFS through command line\n        * usage: /clcreteq shortcut1 shortcut2 shortcut3 ....\n        * shortcuts:\n            how - hammer of wrath\n            cs - crusader strike\n            jol - judgement\n            ds - divine storm\n            cons - consecration\n            exo - exorcism\n            ss - sacred shield\n            dp - divine plea\n            hw - holy wrath\n            sor - shield of righteousness\n    /clcretlp\n        * loads a specified preset for retribution\n        * usage: /clcretlp preset_name"
---[[					
-Commands:
-\n
-\n    /clcret
-\n        * opens the options frame" 
-\n    /clcreteq
-\n        * allows editing the FCFS through command line
-\n        * usage: /clcreteq shortcut1 shortcut2 shortcut3 ....
-\n        * shortcuts:
-\n            how - hammer of wrath
-\n            cs - crusader strike
-\n            jol - judgement
-\n            ds - divine storm
-\n            cons - consecration
-\n            exo - exorcism
-\n            ss - sacred shield
-\n            dp - divine plea
-\n            hw - holy wrath
-\n            sor - shield of righteousness
-\n    /clcretlp
-\n        * loads a specified preset for retribution
-\n        * usage: /clcretlp preset_name
---]]
-
-				},
-			},
-		},
 		global = {
 			type = "group",
 			name = "Global",
@@ -583,263 +540,80 @@ Commands:
 					get = function(info) return db.rangePerSkill end,
 					set = function(info, val) db.rangePerSkill = val end,
 				},
-				__delayedStart = {
-					order = 20,
-					type = "header",
-					name = "Delayed Start",
-				},
-				____delayedStart = {
-					order = 21,
-					type = "description",
-					name = "Sometimes the talent checks fail at load. If that happens adjust this slider to a higher value.",
-				},
-				delayedStart = {
-					order = 22,
-					type = "range",
-					name = "Delay start by (seconds)",
-					min = 0,
-					max = 30,
-					step = 1,
-					get = function(info) return db.delayedStart end,
-					set = function(info, val) db.delayedStart = val end,
-				},
-				__csBoost = {
-					order = 50,
-					type = "header",
-					name = "Boost CS",
-				},
-				____csBoost = {
-					order = 51,
-					type = "description",
-					name = "When you want to make sure fillers do not clip into the next CS.",
-				},
-				csBoost = {
-					order = 52,
-					type = "range",
-					min = 0,
-					max = 1.5,
-					step = 0.1,
-					name = "Extra delay (in seconds)",
-					get = function(info) return db.csBoost end,
-					set = function(info, val) db.csBoost = val end,
-				},
-				__inq = {
-					order = 60,
-					type = "header",
-					name = "Inquisition",
-				},
-				useInq = {
-					order = 61, 
-					type = "toggle",
-					name = "Enabled",
-					get = function(info) return db.useInq end,
-					set = function(info, val) db.useInq = val end,
-				},
-				preInq = {
-					order = 62,
-					type = "range",
-					min = 0,
-					max = 15,
-					step = 0.1,
-					name = "Time before expiration",
-					get = function(info) return db.preInq end,
-					set = function(info, val) db.preInq = val end,
-				},
 			},
 		},
 		
-		
-		-- fcfs edit
-		fcfs = {
-			order = 10,
-			name = "FCFS",
-			type = "group",
+		rotation = {
+			type = "group", name = "Rotation",
 			args = {
-				ret = {
-					order = 1,
-					name = "Retribution",
-					type = "group",
-					args = {},
-				},
-			},
-		},
-		
-		-- presets
-		presets = {
-			order = 20,
-			name = "Presets",
-			type = "group",
-			args = {
-				____info = {
-					order = 1,
-					type = "description",
-					name = "This is a rudimentary presets module. Works only for retribution. It allows you to save current FCFS to a preset and to load it from there. You can also load the preset with |cffffff00/clcretlp preset name|cffffffff.\n"					
-				},
-				____presetFrameToggle = {
-					order = 10,
-					type = "description",
-					name = "The Preset Frame shows the name of the active preset. Second option allows you to select the preset from the frame with a popup menu.",
-				},
-				toggle = {
-					order = 11,
-					type = "execute",
-					name = "Toggle Preset Frame",
-					func = function() clcret:PresetFrame_Toggle() end,
-				},
-				enableMouse = {
-					order = 12,
-					type = "toggle",
-					name = "Select from frame",
-					get = function(info) return db.presetFrame.enableMouse end,
-					set = function(info, val)
-						db.presetFrame.enableMouse = val
-						clcret:PresetFrame_UpdateMouse()
-					end,
-				},
-				
-				-- preset frame Settings
-				presetFrameLayout = {
-					order = 50,
-					type = "group",
-					name = "Frame Layout",
+				igInquisition = {
+					order = 2, type = "group", inline = true, name = "Inquisition",
 					args = {
-						expandDown = {
-							order = 20,
-							type = "toggle",
-							name = "Expand Down",
-							get = function(info) return db.presetFrame.expandDown end,
-							set = function(info, val)
-								db.presetFrame.expandDown = val
-								clcret:PresetFrame_UpdateLayout()
-							end,
+						useInq = {
+							type = "toggle", name = "Enable",
+							get = RotationGet, set = RotationSet,
 						},
-						backdropColor = {
-							order = 30,
-							type = "color",
-							name = "Backdrop Color",
-							hasAlpha = true,
-							get = function(info) return unpack(db.presetFrame.backdropColor) end,
-							set = function(info, r, g, b, a)
-								db.presetFrame.backdropColor = {r, g, b, a}
-								clcret:PresetFrame_UpdateLayout()
-							end,
-						},
-						backdropBorderColor = {
-							order = 31,
-							type = "color",
-							name = "Backdrop Border Color",
-							hasAlpha = true,
-							get = function(info) return unpack(db.presetFrame.backdropBorderColor) end,
-							set = function(info, r, g, b, a)
-								db.presetFrame.backdropBorderColor = {r, g, b, a}
-								clcret:PresetFrame_UpdateLayout()
-							end,
-						},
-						fontSize = {
-							order = 40,
-							type = "range",
-							name = "Font Size",
-							min = 1,
-							max = 50,
-							step = 1,
-							get = function(info) return db.presetFrame.fontSize end,
-							set = function(info, val)
-								db.presetFrame.fontSize = val
-								clcret:PresetFrame_UpdateLayout()
-							end,
-						},
-						fontColor = {
-							order = 41,
-							type = "color",
-							name = "Font Color",
-							hasAlpha = true,
-							get = function(info) return unpack(db.presetFrame.fontColor) end,
-							set = function(info, r, g, b, a)
-								db.presetFrame.fontColor = {r, g, b, a}
-								clcret:PresetFrame_UpdateLayout()
-							end,
-						},
-						anchor = {
-							order = 50,
-							type = "select",
-							name = "Anchor",
-							get = function(info) return db.presetFrame.point end,
-							set = function(info, val)
-								db.presetFrame.point = val
-								clcret:PresetFrame_UpdateLayout()
-							end,
-							values = anchorPoints,
-						},
-						anchorTo = {
-							order = 51,
-							type = "select",
-							name = "Anchor To",
-							get = function(info) return db.presetFrame.pointParent end,
-							set = function(info, val)
-								db.presetFrame.pointParent = val
-								clcret:PresetFrame_UpdateLayout()
-							end,
-							values = anchorPoints,
-						},
-						x = {
-							order = 60,
-							type = "range",
-							name = "X",
-							min = -1000,
-							max = 1000,
-							step = 1,
-							get = function(info) return db.presetFrame.x end,
-							set = function(info, val)
-								db.presetFrame.x = val
-								clcret:PresetFrame_UpdateLayout()
-							end,
-						},
-						y = {
-							order = 61,
-							type = "range",
-							name = "Y",
-							min = -1000,
-							max = 1000,
-							step = 1,
-							get = function(info) return db.presetFrame.y end,
-							set = function(info, val)
-								db.presetFrame.y = val
-								clcret:PresetFrame_UpdateLayout()
-							end,
-						},
-						width = {
-							order = 70,
-							type = "range",
-							name = "Width",
-							min = 1,
-							max = 1000,
-							step = 1,
-							get = function(info) return db.presetFrame.width end,
-							set = function(info, val)
-								db.presetFrame.width = val
-								clcret:PresetFrame_UpdateLayout()
-							end,
-						},
-						height = {
-							order = 71,
-							type = "range",
-							name = "Height",
-							min = 1,
-							max = 500,
-							step = 1,
-							get = function(info) return db.presetFrame.height end,
-							set = function(info, val)
-								db.presetFrame.height = val
-								clcret:PresetFrame_UpdateLayout()
-							end,
+					preInq = {
+							type = "range", min = 1, max = 15, step = 0.1, name = "Time before refresh",
+							get = RotationGet, set = RotationSet,
 						},
 					},
 				},
-				
+				igLocalization = {
+					order = 3, type = "group", inline = true, name = "Creature type localization",
+					args = {
+						undead = {
+							order = 1, type = "input", name = "Undead",
+							get = RotationGet, set = RotationSet,
+						},
+						demon = {
+							order = 2, type = "input", name = "Demon",
+							get = RotationGet, set = RotationSet,
+						},
+					},
+				},
+				igFillers = {
+					order = 4, type = "group", inline = true, name = "Fillers",
+					args = {
+						infoClash = {
+							order = 1, type = "description", name = "Clash means the value of CS cooldown before the filler is used.",
+						},
+						jClash = {
+							order = 2, type = "range", min = 0, max = 1.5, step = 0.1, name = "Judgement Clash",
+							get = RotationGet, set = RotationSet,
+						},
+						spacing1 = {
+							order = 3, type = "description", name = "",
+						},
+						hw = {
+							order = 4, type = "toggle", name = "Use Holy Wrath",
+							get = RotationGet, set = RotationSet,
+						},
+						hwClash = {
+							order = 5, type = "range", min = 0, max = 1.5, step = 0.1, name = "Holy Wrath Clash",
+							get = RotationGet, set = RotationSet,
+						},
+						spacing2 = {
+							order = 6, type = "description", name = "",
+						},
+						cons = {
+							order = 7, type = "toggle", name = "Use Consecration",
+							get = RotationGet, set = RotationSet,
+						},
+						consClash = {
+							order = 8, type = "range", min = 0, max = 1.5, step = 0.1, name = "Consecration Clash",
+							get = RotationGet, set = RotationSet,
+						},
+						consMana = {
+							order = 9, type = "range", min = 0, max = 30000, step = 1, name = "Minimum mana required",
+							get = RotationGet, set = RotationSet,
+						},
+					},
+				},
 			},
 		},
 		
-					-- aura buttons
+		-- aura buttons
 		auras = {
 			order = 30,
 			name = "Aura Buttons",
@@ -1060,160 +834,8 @@ Commands:
 				},
 			},
 		},
-		
-		-- swing timer
-		swing = {
-			order = 50,
-			name = "Swing Timer",
-			type = "group",
-			args = {
-				____info = {
-					order = 1,
-					type = "description",
-					name = "Minimalist swing timer.",
-				},
-				enabled = {
-					order = 2,
-					type = "toggle",
-					name = "Enable",
-					get = function(info) return db.swing.enabled end,
-					set = function(info, val) clcret:ToggleSwingTimer() end,
-				},
-				color = {
-					order = 22,
-					type = "color",
-					name = "Color of the bar",
-					hasAlpha = true,
-					get = function(info) return unpack(db.swing.color) end,
-					set = function(info, r, g, b, a)
-						db.swing.color = {r, g, b, a}
-						clcret:UpdateSwingBarLayout()
-					end,
-				},
-				
-				anchor = {
-					order = 80,
-					type = "select",
-					name = "Anchor",
-					get = function(info) return db.swing.point end,
-					set = function(info, val)
-						db.swing.point = val
-						clcret:UpdateSwingBarLayout()
-					end,
-					values = anchorPoints,
-				},
-				anchorTo = {
-					order = 81,
-					type = "select",
-					name = "Anchor To",
-					get = function(info) return db.swing.pointParent end,
-					set = function(info, val)
-						db.swing.pointParent = val
-						clcret:UpdateSwingBarLayout()
-					end,
-					values = anchorPoints,
-				},
-				x = {
-					order = 82,
-					type = "range",
-					name = "X",
-					min = -1000,
-					max = 1000,
-					step = 1,
-					get = function(info) return db.swing.x end,
-					set = function(info, val)
-						db.swing.x = val
-						clcret:UpdateSwingBarLayout()
-					end,
-				},
-				y = {
-					order = 83,
-					type = "range",
-					name = "Y",
-					min = -1000,
-					max = 1000,
-					step = 1,
-					get = function(info) return db.swing.y end,
-					set = function(info, val)
-						db.swing.y = val
-						clcret:UpdateSwingBarLayout()
-					end,
-				},
-				width = {
-					order = 90,
-					type = "range",
-					name = "Width",
-					min = 1,
-					max = 1000,
-					step = 1,
-					get = function(info) return db.swing.width end,
-					set = function(info, val)
-						db.swing.width = val
-						clcret:UpdateSwingBarLayout()
-					end,
-				},
-				height = {
-					order = 91,
-					type = "range",
-					name = "Height (Size for Icons)",
-					min = 1,
-					max = 500,
-					step = 1,
-					get = function(info) return db.swing.height end,
-					set = function(info, val)
-						db.swing.height = val
-						clcret:UpdateSwingBarLayout()
-					end,
-				},
-			},
-		},
 	},
 }
-
--- add the presets
-root = options.args.presets.args
-for i = 1, MAX_PRESETS do
-	root["p" .. i] = {
-		order = 50 + i,
-		name = "Preset" .. i,
-		type = "group",
-		args = {
-			name = {
-				order = 10,
-				type = "input",
-				name = "Name",
-				get = function(info) return db.presets[i].name end,
-				set = function(info, val)
-					db.presets[i].name = strtrim(val)
-				end,
-			},
-			data = {
-				order = 20,
-				type = "input",
-				name = "Rotation",
-				get = function(info) return db.presets[i].data end,
-				set = function(info, val)
-					db.presets[i].data = strtrim(val)
-				end
-			},
-			load = {
-				order = 30,
-				width = "half",
-				type = "execute",
-				name = "Load",
-				func = function() clcret:Preset_Load(i) end,
-			},
-			save = {
-				order = 40,
-				width = "half",
-				type = "execute",
-				name = "Save",
-				func = function() clcret:Preset_SaveCurrent(i) end,
-			},
-		},
-	}
-end
-
 
 	-- add main buttons to layout
 for i = 1, 2 do
@@ -1418,24 +1040,6 @@ for i = 1, MAX_AURAS do
 	}
 end
 
-root = options.args.fcfs.args.ret.args
-for i = 1, 10 do
-	root["p"..i] = {
-		order = i,
-		name = "",
-		type = "select",
-		get = function(info) return db.fcfs[i] end,
-		set = function(info, val)
-			db.fcfs[i] = val
-			clcret:UpdateFCFS()
-			clcret:PresetFrame_Update()
-		end,
-		values = GetSpellChoice,
-	}
-end
-
--- the init stuff
-
 -- remove the first one we added
 for i = 1, #INTERFACEOPTIONS_ADDONCATEGORIES do
 	if 	INTERFACEOPTIONS_ADDONCATEGORIES[i]
@@ -1450,16 +1054,13 @@ local AceConfig = LibStub("AceConfig-3.0")
 AceConfig:RegisterOptionsTable("CLCRet", options)
 
 local AceConfigDialog = LibStub("AceConfigDialog-3.0")
-AceConfigDialog:AddToBlizOptions("CLCRet", "CLCRet", nil, "info")
-AceConfigDialog:AddToBlizOptions("CLCRet", "Global", "CLCRet", "global")
+AceConfigDialog:AddToBlizOptions("CLCRet", "CLCRet", nil, "global")
 AceConfigDialog:AddToBlizOptions("CLCRet", "Appearance", "CLCRet", "appearance")
+AceConfigDialog:AddToBlizOptions("CLCRet", "Rotation", "CLCRet", "rotation")
 AceConfigDialog:AddToBlizOptions("CLCRet", "Behavior", "CLCRet", "behavior")
-AceConfigDialog:AddToBlizOptions("CLCRet", "FCFS", "CLCRet", "fcfs")
-AceConfigDialog:AddToBlizOptions("CLCRet", "Presets", "CLCRet", "presets")
 AceConfigDialog:AddToBlizOptions("CLCRet", "Aura Buttons", "CLCRet", "auras")
 AceConfigDialog:AddToBlizOptions("CLCRet", "Layout", "CLCRet", "layout")
 AceConfigDialog:AddToBlizOptions("CLCRet", "SoV Tracking", "CLCRet", "sov")
-AceConfigDialog:AddToBlizOptions("CLCRet", "Swing Timer", "CLCRet", "swing")
 
 -- profiles
 options.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(clcret.db)

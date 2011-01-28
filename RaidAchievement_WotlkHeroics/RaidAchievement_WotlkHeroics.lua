@@ -11,7 +11,6 @@ whralocaleboss()
 end
 
 
-	whrabilresnut=0
 	whraachdone1=true
 	whratime1=0
 	whrabosson=0
@@ -73,12 +72,12 @@ function whraonevent(self,event,...)
 local arg1, arg2, arg3,arg4,arg5,arg6 = ...
 
 if event == "PLAYER_ALIVE" then
-whrabilresnut=1
+whrabilresnut=GetTime()
 end
 
 
 if event == "PLAYER_REGEN_DISABLED" then
-if whrabilresnut==1 then
+if (whrabilresnut and GetTime()<whrabilresnut+4.5) or racheckbossincombat then
 else
 --обнулять все данные при начале боя тут:
 
@@ -165,16 +164,10 @@ if event == "COMBAT_LOG_EVENT_UNFILTERED" then
 local arg1, arg2, arg3,arg4,arg5,arg6,arg7,arg8,arg9,arg10,arg11,arg12,arg13,arg14,arg15,arg16,arg17,arg18,arg19,arg20 = ...
 
 
---обнуление после реса
-if whrabilresnut==1 then
-	if whratimeresnut==nil then whratimeresnut=arg1+4 end
-	if arg1>whratimeresnut then whrabilresnut=0 whratimeresnut=nil end
-end
-
 
 --проверка на возможный выход с боя
 if arg4==whramyname and arg2=="SPELL_AURA_REMOVED" and (arg9==58984 or arg9==66 or arg9==26888 or arg9==11327 or arg9==11329) then
-whrabilresnut=1
+whrabilresnut=GetTime()
 end
 
 SetMapToCurrentZone()
@@ -229,7 +222,7 @@ if whraspisokon[16]=="yes" and whraachdone1 then
 whratime1=whratime1+1
 if whratime1>2 then
 whraachdone1=nil
-whrabilresnut=1
+whrabilresnut=GetTime()
 end
 end
 end

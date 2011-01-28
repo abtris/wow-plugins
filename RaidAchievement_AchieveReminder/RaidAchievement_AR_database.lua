@@ -146,7 +146,7 @@ ralltrack  ={{1,0,0,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0},--icc10
 {1,0,1,0},--HallsOfStone
 {0,0},--utgard5
 {0,0,0,1,0},--utgard5
-{1,1,1,1,1,1,0},--The Deadmines
+{1,0,1,1,1,1,0},--The Deadmines
 {1,1,1,0},--Shadowfang Keep
 {0,0,0},--Throne of the Tides
 {1,1,1,1,0},--Blackrock Caverns

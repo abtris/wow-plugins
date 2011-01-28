@@ -91,12 +91,19 @@ do -- OPieAutoQuest
 		fastClickItem = select(7, OneRingLib:GetRingInfo(rid));
 		fastClickItem = rdesc and rdesc[fastClickItem] and rdesc[fastClickItem][2];
 
+		-- Search quests for activation items
+		local questItemIDs = {};
+		for i=1,GetNumQuestLogEntries() do
+			local link, icon, charges, showWhenComplete = GetQuestLogSpecialItemInfo(i);
+			if link and (showWhenComplete or not select(7, GetQuestLogTitle(i))) then questItemIDs[tonumber(link:match("item:(%d+)"))] = true; end
+		end
+
 		-- Shuffle through the bags
 		for bag=0,4 do
 			for slot=1,GetContainerNumSlots(bag) do
 				local iid = GetContainerItemID(bag, slot);
 				local isQuest, startQuestId, isQuestActive = GetContainerItemQuestInfo(bag, slot);
-				isQuest = iid and ((isQuest and GetItemSpell(iid)) or whitelist[iid] or (startQuestId and not isQuestActive));
+				isQuest = iid and ((isQuest and GetItemSpell(iid)) or whitelist[iid] or questItemIDs[iid] or (startQuestId and not isQuestActive));
 				if isQuest then
 					if not inring[iid] then
 						rdesc[#rdesc+1], inring[iid], changed = {"item", "item:" .. iid, used=true, xiid=iid}, #rdesc+1, true;

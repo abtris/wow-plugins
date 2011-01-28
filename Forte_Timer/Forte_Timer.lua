@@ -1,4 +1,4 @@
--- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
+-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
 
 local FW = FW;
 local FWL = FW.L;
@@ -387,6 +387,77 @@ local FW_RaidIconCoords  = {
 };
 
 --[[
+7362.726
+0
+6
+Consume Shadows
+0
+6
+Interface\Icons\Spell_Shadow_AntiShadow
+Consume Shadows
+0
+0
+
+0
+0
+2
+1
+0
+7362.732
+filter
+0 
+7362.726
+6
+1
+0
+
+8949.669
+0
+30
+Rogue Wizard
+0
+6
+Interface\Icons\Spell_Shadow_MindSteal
+Seduction
+0
+0
+0xF13001DA00536324
+0
+1
+0
+1
+0
+0
+filter
+0
+8949.669
+30
+1
+0
+
+8601.724
+0
+30
+Summon Gargoyle
+0
+6
+INTERFACE\ICONS\ability_deathknight_summongargoyle
+Summon Gargoyle
+0
+0
+none
+0
+0
+0 
+1
+0
+0
+filter
+0
+8601.724
+30
+1
+0
 
 st
 
@@ -1150,7 +1221,7 @@ local function ST_CorrectionScan(unit)
 				elseif st[i][11] == guid then
 				
 					local t6 = st[i][6];
-					if t6<=UNIQUE or t6 >=HEAL then -- only check the 'normal' buff/debuff types
+					if t6<=UNIQUE or t6 >=HEAL or (Track[t8] and Track[t8][1]==1) then -- only check the 'normal' buff/debuff types
 						local expire,index,stacks,total,rank; -- can be unfriendly or friendly now!
 						if t6<HEAL then
 							expire,index,stacks,total,rank = FW:UnitHasYourDebuff(unit,t8);
@@ -2673,7 +2744,7 @@ function ST:RegisterMeleeBuffs()
 	ST:RegisterBuff(92052); -- Grace of the Herald, Herald of Doom
 	ST:RegisterBuff(91821); -- Crushing Weight, Race Against Death
 	ST:RegisterBuff(91816); -- Heart of Rage, Rageheart
-	ST:RegisterBuff(55775); -- Enchant Cloak - Swordguard Embroidery, Swordguard Embroidery
+	ST:RegisterBuff(55775); -- Enchant Cloak - Swordguard Embroidery
 	
 	-- IMPORTANT DEBUFFS FROM OTHERS I WANT TO TRACK
 	-- Death Knight
@@ -2757,6 +2828,10 @@ function ST:RegisterCasterBuffs()
 	ST:RegisterBuff(91147); -- Blood of Isiset, Blessing of Isiset
 	ST:RegisterBuff(91047); -- Stump of Time, Battle Magic
 	ST:RegisterBuff(89091); -- Darkmoon Card: Volcano, Volcanic Destruction
+	ST:RegisterBuff(91027); -- Heart of Ignacious, Heart's Revelation
+	ST:RegisterBuff(91041); -- Heart of Ignacious, Heart's Judgement
+	ST:RegisterBuff(74241); -- Enchant Weapon - Power Torrent
+	ST:RegisterBuff(91024); -- Theralion's Mirror, Revelation
 	
 	-- IMPORTANT DEBUFFS FROM OTHERS I WANT TO TRACK
 	ST:RegisterDebuff(26017); -- Vindication, Retribution Debuff -10/20% stats on target
@@ -2792,7 +2867,8 @@ elseif FW.RACE == "Troll" then
 elseif FW.RACE == "Dwarf" then
 	ST:RegisterBuff(20594);
 end
-ST:RegisterBuff(55503);--lifeblood
+ST:RegisterBuff(55503); -- Lifeblood
+ST:RegisterBuff(7001); -- Lightwell Renew
 	
 do
 	local PLAYER = FW.PLAYER;

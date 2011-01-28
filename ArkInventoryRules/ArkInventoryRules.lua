@@ -1,6 +1,6 @@
 ﻿-- (c) 2009-2010, all rights reserved.
--- $Revision: 487 $
--- $Date: 2010-12-03 17:35:11 +1100 (Fri, 03 Dec 2010) $
+-- $Revision: 507 $
+-- $Date: 2010-12-12 13:04:47 +1100 (Sun, 12 Dec 2010) $
 
 ArkInventoryRules = LibStub( "AceAddon-3.0" ):NewAddon( "ArkInventoryRules" )
 

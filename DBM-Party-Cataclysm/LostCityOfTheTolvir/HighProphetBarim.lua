@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("HighProphetBarim", "DBM-Party-Cataclysm", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4816 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 4840 $"):sub(12, -3))
 mod:SetCreatureID(43612)
 mod:SetZone()
 
@@ -65,9 +65,9 @@ function mod:SPELL_AURA_REMOVED(args)
 end
 
 function mod:SPELL_DAMAGE(args)
-	if args:IsSpellID(81942) and args:IsPlayer() and GetTime() - spamHeavenFury > 5 then
+	if args:IsSpellID(81942, 90040) and args:IsPlayer() and GetTime() - spamHeavenFury > 5 then
 		spamHeavenFury = GetTime()
-		SpecWarnHeavenFury:Show()
+		specWarnHeavenFury:Show()
 	end
 end
 

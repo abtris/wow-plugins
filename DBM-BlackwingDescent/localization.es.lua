@@ -12,15 +12,24 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	SpecWarnInferno	= "Ensamblaje osario llameante pronto (~4s)",
+	WarnPhase2Soon	= "Fase 2 pronto"
 })
 
 L:SetTimerLocalization({
 })
 
 L:SetMiscLocalization({
+	Slump			= "¡%s cae hacia delante y deja expuestas sus tenazas!",
+	HeadExposed		= "¡%s acaba empalado en el pincho y deja expuesta la cabeza!",
+	YellPhase2		= "Inconceivable! You may actually defeat my lava worm! Perhaps I can help... tip the scales."--translate
 })
 
 L:SetOptionLocalization({
+	SpecWarnInferno	= "Mostrar pre-aviso especial para $spell:92190 (~4s)",
+	WarnPhase2Soon	= "Mostrar pre-aviso para Fase 2",
+	RangeFrame		= "Mostrar distancia en Fase 2 (8 yardas)"
+
 })
 
 -------------------------------
@@ -36,22 +45,24 @@ L:SetWarningLocalization({
 })
 
 L:SetTimerLocalization({
+	timerArcaneBlowbackCast		= "Retorno Arcano",
+	timerShadowConductorCast	= "Conductor de las Sombras"
+})
+
+L:SetOptionLocalization({
+	timerShadowConductorCast	= "Mostrar tiempo para lanzamiento de $spell:92053",
+	timerArcaneBlowbackCast	= "Mostrar tiempo para lanzamiento de $spell:91879",
+	AcquiringTargetIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79501),
+	ConductorIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79888),
+	BombTargetIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(80094),
+	ShadowConductorIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(92053)
 })
 
 L:SetMiscLocalization({
 	Magmatron	= "Magmatron",
 	Electron	= "Electron",
 	Toxitron	= "Toxitron",
-	Arcanotron	= "Arcanotron",
-	SayBomb		= "¡Bomba de veneno en mi!"
-})
-
-L:SetOptionLocalization({
-	SayBombTarget	= "Gritar en el chat cuando seas el objetivo de $spell:80157",
-	AcquiringTargetIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79501),
-	ConductorIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79888),
-	BombTargetIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(80094),
-	ShadowInfusionIcon	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(92048)
+	Arcanotron	= "Arcanotron"
 })
 
 ----------------
@@ -73,14 +84,14 @@ L:SetTimerLocalization({
 })
 
 L:SetMiscLocalization({
-	YellRed			= "red|r vial into the cauldron!",--translate
-	YellBlue		= "blue|r vial into the cauldron!",--translate
-	YellGreen		= "green|r vial into the cauldron!",--translate
-	YellDark		= "dark|r vial into the cauldron!",--translate
-	Red				= "Roja",
+	YellRed			= "rojo|r a la caldera!",
+	YellBlue		= "azul|r a la caldera!",
+	YellGreen		= "verde|r a la caldera!",
+	YellDark		= "oscuro|r a la caldera!",--translate
+	Red				= "Rojo",
 	Blue			= "Azul",
 	Green			= "Verde",
-	Dark			= "Oscura"
+	Dark			= "Oscuro"
 })
 
 L:SetOptionLocalization({
@@ -112,11 +123,15 @@ L:SetTimerLocalization({
 })
 
 L:SetMiscLocalization({
+	HealthInfo	= "Información de vida"
 })
 
 L:SetOptionLocalization({
 	WarnPhase2Soon	= "Mostrar un preaviso para la fase 2",
-	WarnBreak	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(82881, GetSpellInfo(82881) or "unknown")
+	RangeFrame		= "Mostrar distancia (6 yardas)",
+	WarnBreak	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(82881, GetSpellInfo(82881) or "unknown"),
+	SetIconOnSlime	= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(82935),
+	InfoFrame	= "Mostrar información sobre la vida (<10k vida)"
 })
 
 -----------------
@@ -131,7 +146,7 @@ L:SetGeneralLocalization({
 L:SetWarningLocalization({
 	WarnAirphase		= "Fase aerea",
 	WarnGroundphase		= "Fase en tierra",
-	WarnShieldsLeft		= "Ancient Dwarven Shield used - %d left"--translate
+	WarnShieldsLeft		= "Antiguo escudo enano usado - %d restantes"
 })
 
 L:SetTimerLocalization({
@@ -140,16 +155,18 @@ L:SetTimerLocalization({
 })
 
 L:SetMiscLocalization({
-	AncientDwarvenShield	= "Ancient Dwarven Shield",--translate
-	Airphase		= "Yes, run! With every step your heart quickens. The beating, loud and thunderous... Almost deafening. You cannot escape!"--translate
+	AncientDwarvenShield	= "Antiguo escudo enano",
+	Soundlevel				= "Nivel de sonido",
+	Airphase		= "¡Sí, corred! Con cada paso, vuestros corazones se aceleran. El latido, fuerte y clamoroso... Casi ensordecedor. ¡No podéis escapar!"
 })
 
 L:SetOptionLocalization({
 	WarnAirphase		= "Mostrar aviso cuando Atramedes levanta el vuelo",
 	WarnGroundphase		= "Mostrar aviso cuando Atramedes aterriza",
-	WarnShieldsLeft		= "Show warning when a Ancient Dwarven Shield gets used",--translate
+	WarnShieldsLeft		= "Mostrar aviso cuando Antiguo escudo enano sea usado",
 	TimerAirphase		= "Mostrar tiempo para siguiente Fase aerea",
 	TimerGroundphase	= "Mostrar tiempo para siguiente Fase en tierra",
+	InfoFrame			= "Mostrar información de los niveles de sonido",
 	TrackingIcon		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(78092)
 })
 
@@ -163,15 +180,36 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	OnyTailSwipe		= "Latigazo de cola (Onyxia)",
+	NefTailSwipe		= "Latigazo de cola (Nefarian)",
+	OnyBreath			= "Aliento (Onyxia)",
+	NefBreath			= "Aliento (Nefarian)"
 })
 
 L:SetTimerLocalization({
-})
-
-L:SetMiscLocalization({
-	YellPhase2		= "Curse you, mortals! Such a callous disregard for one's possessions must be met with extreme force!",--translate
-	ChromaticPrototype	= "Chromatic Prototype"--translate
+	OnySwipeTimer		= "Latigazo de cola CD (Ony)",
+	NefSwipeTimer		= "Latigazo de cola CD (Nef)",
+	OnyBreathTimer		= "Aliento CD (Ony)",
+	NefBreathTimer		= "Aliento CD (Nef)"
 })
 
 L:SetOptionLocalization({
+	OnyTailSwipe		= "Mostrar aviso para el $spell:77827 de Onyxia",
+	NefTailSwipe		= "Mostrar aviso para el $spell:77827 de Nefarian",
+	OnyBreath			= "Mostrar aviso para el $spell:94124 de Onyxia",
+	NefBreath			= "Mostrar aviso para el $spell:94124 de Nefarian",
+	OnySwipeTimer		= "Mostrar tiempo de cooldown de $spell:77827 de Onyxia",
+	NefSwipeTimer		= "Mostrar tiempo de cooldown de $spell:77827 de Nefarian",
+	OnyBreathTimer		= "Mostrar tiempo de cooldown de $spell:94124 de Onyxia",
+	NefBreathTimer		= "Mostrar tiempo de cooldown de $spell:94124 de Nefarian",
+	YellOnCinder		= "Gritar cuando tengas $spell:79339",
+	RangeFrame			= "Mostrar distancia (10 yardas) cuando tengas $spell:79339",
+	SetIconOnCinder		= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(79339)
+})
+
+L:SetMiscLocalization({
+	NefAoe				= "The air crackles with electricity!",--translate
+	YellPhase2		= "Curse you, mortals! Such a callous disregard for one's possessions must be met with extreme force!",--translate
+	YellPhase3			= "I have tried to be an accommodating host, but you simply will not die! Time to throw all pretense aside and just... KILL YOU ALL!",--translate
+	YellCinder			= "Explosive Cinders on me!"--translate
 })

@@ -69,14 +69,18 @@ local function LoadTheme(incomingtheme)
 		TidyPlates:ActivateTheme(theme)	
 		if theme.OnActivateTheme then theme.OnActivateTheme(theme, incomingtheme) end
 		currentThemeName = incomingtheme
+		return theme
 	else
 		TidyPlatesOptions[activespec] = "None"
 		currentThemeName = "None"
 		TidyPlates:ActivateTheme(TidyPlatesThemeList["None"])
-		return 
+		return nil
 	end
 		
 end
+
+TidyPlates.LoadTheme = LoadTheme
+TidyPlates._LoadTheme = LoadTheme
 
 function TidyPlates:ReloadTheme()
 	LoadTheme(TidyPlatesOptions[activespec])
@@ -118,14 +122,18 @@ local function ConfigureTheme(spec)
 	if themename then 
 		local theme = TidyPlatesThemeList[themename]
 		--print("Opening Interface Panel for", themename, theme)
-		if theme and theme.InterfacePanel then InterfaceOptionsFrame_OpenToCategory(theme.InterfacePanel) end
+		if theme and theme.ShowConfigPanel and type(theme.ShowConfigPanel) == 'function' then theme.ShowConfigPanel() end
 	end
 end
+
+-- The usual function:
+-- local function ShowConfigPanelDelegate() InterfaceOptionsFrame_OpenToCategory(panel) end
+-- theme.ShowConfigPanel = ShowConfigPanelDelegate
 
 local function ThemeHasPanelLink(themename)
 	if themename then
 		local theme = TidyPlatesThemeList[themename]
-		if theme and theme.InterfacePanel then return true end
+		if theme and theme.ShowConfigPanel and type(theme.ShowConfigPanel) == 'function' then return true end
 	end
 end
 		
@@ -383,7 +391,7 @@ function panelevents:PLAYER_LOGIN()
 	SetSpellCastWatcher(TidyPlatesOptions.EnableCastWatcher)
 	UpdateThemeNames()
 	ActivateInterfacePanel()
-	ActivateHelpPanel()
+	--ActivateHelpPanel()
 	LoadTheme("None")
 	--panelevents:ACTIVE_TALENT_GROUP_CHANGED()
 	--SetCVar("bloattest", 1)			-- Possibly fixes problems

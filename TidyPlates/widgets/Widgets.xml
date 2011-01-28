@@ -13,4 +13,6 @@
 	<Script file="SelectionWidget.lua"/>
 	<Script file="SpellCastMonitor.lua"/>
 	<Script file="Tanks.lua"/>
+	<Script file="Aggro.lua"/>
+	<Script file="Group.lua"/>
 </Ui>

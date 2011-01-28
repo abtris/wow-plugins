@@ -3,19 +3,7 @@
 ## Notes: Retribution FCFS helper
 ## Author: Calcute of Ravencrest
 ## SavedVariables: clcretDB
-## X-Curse-Packaged-Version: r133
-## X-Curse-Project-Name: Retribution FCFS helper (clcret)
-## X-Curse-Project-ID: clcret
-## X-Curse-Repository-ID: wow/clcret/mainline
-## X-Curse-Packaged-Version: v.1.3.03.025
-## X-Curse-Project-Name: Retribution FCFS helper (clcret)
-## X-Curse-Project-ID: clcret
-## X-Curse-Repository-ID: wow/clcret/mainline
-## X-Curse-Packaged-Version: v.1.4.01.003
-## X-Curse-Project-Name: Retribution FCFS helper (clcret)
-## X-Curse-Project-ID: clcret
-## X-Curse-Repository-ID: wow/clcret/mainline
-## X-Curse-Packaged-Version: v.1.4.01.016
+## X-Curse-Packaged-Version: v.1.4.03.002
 ## X-Curse-Project-Name: Retribution FCFS helper (clcret)
 ## X-Curse-Project-ID: clcret
 ## X-Curse-Repository-ID: wow/clcret/mainline
@@ -25,5 +13,5 @@ embeds.xml
 #@end-no-lib-strip@
 
 clcret.lua
+rotation.lua
 sov.lua
-swing.lua

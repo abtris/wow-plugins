@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Romogg", "DBM-Party-Cataclysm", 1)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4706 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 4929 $"):sub(12, -3))
 mod:SetCreatureID(39665)
 mod:SetZone()
 
@@ -49,7 +49,7 @@ function mod:SPELL_CAST_START(args)
 		warnChainsWoe:Show()
 	elseif args:IsSpellID(75543, 93453) then
 		if mod:IsDifficulty("heroic5") then
-			timerSkullcracker:Start(10)
+			timerSkullcracker:Start(8)
 		else
 			timerSkullcracker:Start()
 		end

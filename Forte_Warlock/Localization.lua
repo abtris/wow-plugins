@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
+﻿-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
 
 --[[
 "frFR": French
@@ -18,6 +18,9 @@
 
 if FW.CLASS == "WARLOCK" then
 	local FWL = FW.L;
+	
+	FWL.DARK_INTENT = GetSpellInfo(85768);
+	FWL.DARK_INTENT_BUFF = FWL.DARK_INTENT..FWL._BUFF;
 	
 	-- THESE ARE INTERFACE STRINGS ONLY AND TRANSLATING THEM IS OPTIONAL
 
@@ -435,5 +438,4 @@ if FW.CLASS == "WARLOCK" then
 	
 		FWL.RITUAL_OF_DOOM = "Ritual of Doom";
 	end
-
 end

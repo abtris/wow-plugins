@@ -3,6 +3,10 @@ local LocalVars = TidyPlatesNeonDPSVariables
 local theme = TidyPlatesThemeList["Neon/DPS"]
 local valueToString = TidyPlatesUtility.abbrevNumber
 
+--TidyPlatesUtility:EnableGroupWatcher()
+--TidyPlatesWidgets:EnableAggroWatch() -- TidyPlatesWidgets:DisableAggroWatch()
+--local GetThreatCondition = TidyPlatesWidgets.GetThreatCondition
+
 ---------------
 -- Text Delegates
 ---------------
@@ -34,7 +38,6 @@ end
 -- Graphics Delegates
 ---------------
 local function DPSScale(unit)
-	--if unit.name == "Relikan" then return 1.4 end
 
 	if InCombatLockdown() and unit.reaction == "HOSTILE" and  unit.threatSituation ~= "LOW" and unit.type == "NPC" then
 		if LocalVars.ScaleIgnoreNonElite then
@@ -46,46 +49,73 @@ end
 	
 local function DPSAlpha(unit)
 
-	if unit.isTarget then return 1
+--[[		Aggro Highlighting for Friendlies
+	if unit.reaction == "FRIENDLY" then
+			if GetThreatCondition(unit.name) then
+				return 1
+			end
+	end
+--]]
+
+
+	if unit.isTarget or unit.isCasting then return 1
 	else 	
 		if unit.name == "Fanged Pit Viper" then return 0 end
 		if LocalVars.OpacityHideNeutral and unit.reaction == "NEUTRAL" then return 0 end
 		if LocalVars.OpacityHideNonElites and not unit.isElite then return 0 end
 		if not UnitExists("target") then return 1 end
-		return LocalVars.OpacityNonTarget, true
+	end
+	return LocalVars.OpacityNonTarget, true
+end
+
+
+local function HealthColorDelegate(unit)
+	local color	
+	-- Aggro Coloring
+	if LocalVars.AggroHealth and unit.reaction ~= "FRIENDLY" then
+		if InCombatLockdown() and unit.type == "NPC" then
+			if unit.threatSituation ~= "LOW"  then color = LocalVars.AggroDangerColor
+			else color = LocalVars.AggroSafeColor end
+		end
+	-- Class Colors for friendlies
+	--[[
+	elseif unit.reaction == "FRIENDLY" and unit.type == "PLAYER" then
+		local class = TidyPlatesUtility.GroupMembers.Class[unit.name]
+		if class then color = RAID_CLASS_COLORS[class] end	
+	--]]
 	end
 	
-
+	if color then return color.r, color.g, color.b 
+	else return unit.red, unit.green, unit.blue end
 end
 
-local currentcolor
-local function HealthColorDelegate(unit)
-	if LocalVars.AggroHealth then
-		if InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" then
-				if unit.threatSituation ~= "LOW"  then 
-					currentcolor = LocalVars.AggroDangerColor
-					return currentcolor.r, currentcolor.g, currentcolor.b
-				else 
-					currentcolor = LocalVars.AggroSafeColor
-					return currentcolor.r, currentcolor.g, currentcolor.b 
-				end
 
-		end
-	end
-	return unit.red, unit.green, unit.blue
-end
 
 local function ThreatColorDelegate(unit)
+	local color
+--[[		Aggro Highlighting for Friendlies
+	if unit.reaction == "FRIENDLY" then
+			if GetThreatCondition(unit.name) then
+				return 1, 0, 0, 1
+			end
+	end
+--]]
+
 	if LocalVars.AggroBorder then
 		if InCombatLockdown() and unit.reaction ~= "FRIENDLY" and unit.type == "NPC" then
 			if unit.threatSituation ~= "LOW" then 
-				currentcolor = LocalVars.AggroDangerColor
-				return currentcolor.r, currentcolor.g, currentcolor.b, 1
+				color = LocalVars.AggroDangerColor
+				return color.r, color.g, color.b, 1
 			end
 		end
 	end
+
+	--return 1, 0, 0, 1			-- For testing Borders
 	return 0, 0, 0, 0
 end
+
+
+
 
 ---------------
 -- Widgets
@@ -104,16 +134,26 @@ local function OnContextUpdateDelegate(plate, unit)
 	if LocalVars.WidgetCombo then plate.widgets.WidgetCombo:UpdateContext(unit) end
 	-- Tug-o-Threat
 	if LocalVars.WidgetTug then plate.widgets.WidgetTug:UpdateContext(unit) end
+	
+	--plate.widgets.WidgetCC:UpdateContext(unit)
 end
 
 local function OnInitializeDelegate(plate)
+--[[   Crowd control
+	if not plate.widgets.WidgetCC then
+		plate.widgets.WidgetCC = WidgetLib.CreateCrowdControlWidget(plate)
+		plate.widgets.WidgetCC:SetPoint("CENTER", plate, 0, 16)
+	end
+	--]]
+	
 	-- Tug-o-Threat
 	if LocalVars.WidgetTug then
 		if not plate.widgets.WidgetTug then 
 			plate.widgets.WidgetTug = WidgetLib.CreateThreatLineWidget(plate)
 			plate.widgets.WidgetTug:SetPoint("CENTER", plate, 0, 4)
 			plate.widgets.WidgetTug._LowColor = LocalVars.TugWidgetLooseColor
-			plate.widgets.WidgetTug._HighColor = LocalVars.TugWidgetAggroColor
+			plate.widgets.WidgetTug._HighColor = LocalVars.TugWidgetAggroColor	
+			
 		end
 	end
 	
@@ -165,7 +205,7 @@ local function OnInitializeDelegate(plate)
 end
 
 
-local function OnUpdateDelegate(plate, unit)
+local function OnUpdateDelegate(plate, unit)	
 	-- Short Debuffs
 	if LocalVars.WidgetDebuff then plate.widgets.AuraIcon:Update(unit) 	end
 	-- Range
@@ -190,4 +230,41 @@ theme.OnContextUpdate = OnContextUpdateDelegate		-- 5.14
 --theme.OnActivateTheme = OnActivateTheme			-- 6.0
 
 
+--theme.SetNameColor = function (unit) return unit.red, unit.green, unit.blue, 1 end
 
+local BlueColor = {r = 60/255, g =  168/255, b = 255/255, }
+local GreenColor = { r = 96/255, g = 224/255, b = 37/255, }
+local RedColor = { r = 255/255, g = 51/255, b = 32/255, }
+local YellowColor = { r = 252/255, g = 220/255, b = 27/255, }
+local GoldColor = { r = 252/255, g = 140/255, b = 0, }
+local OrangeColor = { r = 255/255, g = 64/255, b = 0, }
+local WhiteColor = { r = 250/255, g = 250/255, b = 250/255, }
+
+--[[
+local function NameColorDelegate(unit)
+	local color
+	if unit.reaction == "HOSTILE" then color = RedColor
+	elseif unit.reaction == "FRIENDLY" then
+		if unit.type == "NPC" then	color = GreenColor
+		else color = BlueColor end
+	elseif unit.reaction == "NEUTRAL" then
+		color = YellowColor
+	else return 1, 1, 1, 1 end
+	return color.r, color.g, color.b, 1
+end
+
+theme.SetNameColor = NameColorDelegate
+--]]
+
+-- SetCastbarColor
+local function CastBarDelegate(unit)
+	local color
+	-- unit.isCasting
+	-- unit.spellName
+	-- unit.spellIsShielded
+	if unit.spellIsShielded then color = OrangeColor -- OrangeColor or WhiteColor
+	else color = GoldColor end 
+	return color.r, color.g, color.b, 1
+end
+
+theme.SetCastbarColor = CastBarDelegate

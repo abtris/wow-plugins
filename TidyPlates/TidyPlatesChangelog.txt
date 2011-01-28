@@ -1,5 +1,22 @@
 6.0
 -------------
+
+r101-103:
+- Bugs and nitpicking
+- Detection of Channeled spells in spell cast watcher.  Not sure if it works.  Haven't tested it, and I haven't done anything to make the spell cast bar go backward for channeling.  Bite me.
+- Started work on CC widget.  It's neato.
+- Started work on group info system.
+- Started work on party member aggro highlighting (similar to how raid frames show you a red border.)
+
+r92-100:
+- The LoadTheme function is now accessible to external software, via: TidyPlates.LoadTheme("name").  
+- Removed the '.InterfacePanel' interface panel pointer variable.  Replaced with .ShowConfigPanel, which is a function that is called when the wrench icon is clicked
+- Threat Line (Tug) widget scales to frame width (default of 100)
+- Added Name text color delegate, SetNameColor
+- Sets a unique frame level for each plate (up to 125)
+- Raises frame level of current target to a high frame level (126), and return it to previous when done.
+
+
 r83-91:
 - bug fixes
 - layering tweaks

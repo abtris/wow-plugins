@@ -1,4 +1,4 @@
--- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
+-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
 
 if FW.CLASS == "WARLOCK" then
 	local FW = FW;
@@ -11,8 +11,11 @@ if FW.CLASS == "WARLOCK" then
 	local ST = FW.Modules.Timer;
 	local CD = FW.Modules.Cooldown;
 	
-	FW:RegisterSet("Voidheart Raiment",28963,28968,28966,28967,28964);	
-
+	--FW:RegisterSet("Voidheart Raiment",28963,28968,28966,28967,28964);
+	
+	--FW:RegisterCustomName(94310,"Dark Intent (Effect)");
+	FW:RegisterCustomName(85768,FWL.DARK_INTENT_BUFF);
+	
 	if ST then
 		-- istype: ST.DEFAULT ST.SHARED ST.UNIQUE ST.PET ST.CHARM ST.COOLDOWN ST.HEAL ST.BUFF
 		-- spell, hastarget, duration, isdot, istype, reducedinpvp, hasted, stack
@@ -28,33 +31,37 @@ if FW.CLASS == "WARLOCK" then
 		ST:RegisterSpell(85112,	1,007,1,ST.DEFAULT,000,0); -- Burning Embers
 			ST:RegisterTickSpeed(85112, 1); -- set tick speed to 1 instead of 3
 			
-		ST:RegisterSpell(348,	1,015,1,ST.DEFAULT); -- Immolate
-			ST:RegisterSpellModSetB(348, 	"Voidheart Raiment", 4,  3);
-			ST:RegisterSpellModTlnt(348,47247,1,3); -- Molten Core
-			ST:RegisterSpellModTlnt(348,47247,2,6);
-			ST:RegisterSpellModTlnt(348,47247,3,9);
-		ST:RegisterSpell(172,	1,018,1,ST.DEFAULT);-- Corruption
-			ST:RegisterSpecialRefresh(172);-- Corruption
-			ST:RegisterSpellModSetB(172,	"Voidheart Raiment", 4,  3);
+		ST:RegisterSpell(  348,	1,015,1,ST.DEFAULT); -- Immolate
+			ST:RegisterSpecialRefresh(348);-- Immolate, refresh by Fel Flame
+			--ST:RegisterSpellModSetB(348, 	"Voidheart Raiment", 4,  3);
+		ST:RegisterSpell(  172,	1,018,1,ST.DEFAULT);-- Corruption
+			ST:RegisterSpecialRefresh(172);-- Corruption refresh by Life Drain, Drain Soul, Haunt
+			--ST:RegisterSpellModSetB(172,	"Voidheart Raiment", 4,  3);
 		ST:RegisterSpell(30108,	1,015,1,ST.DEFAULT); -- Unstable Affliction
+			ST:RegisterSpecialRefresh(30108);-- Unstable Affliction, refresh by Fel Flame
 		
 		ST:RegisterSpell(80240,	1,300,0,ST.UNIQUE); -- Bane of Havoc
-		ST:RegisterSpell(980,	1,024,1,ST.SHARED2); -- Bane of Agony
+		ST:RegisterSpell(  980,	1,024,1,ST.SHARED2); -- Bane of Agony
 			ST:RegisterTickSpeed(980, 2); -- set tick speed to 2 instead of 3
 			ST:RegisterSpellModGlph(980, 56282, 4);
-		ST:RegisterSpell(603,	1,060,1,ST.UNIQUE,000,0); -- Bane of Doom
+		ST:RegisterSpell(  603,	1,060,1,ST.UNIQUE,000,0); -- Bane of Doom
 			ST:RegisterTickSpeed(603, 15); -- set tick speed to 15 instead of 3
 		
-		ST:RegisterSpell(1490,	1,300,0,ST.SHARED); -- Curse of the Elements
-		ST:RegisterSpell(702,	1,120,0,ST.SHARED); -- Curse of Weakness
-		ST:RegisterSpell(1714,	1,030,0,ST.SHARED,010); -- Curse of Tongues
+		ST:RegisterSpell( 1490,	1,300,0,ST.SHARED); -- Curse of the Elements
+		ST:RegisterSpell(  702,	1,120,0,ST.SHARED); -- Curse of Weakness
+		ST:RegisterSpell( 1714,	1,030,0,ST.SHARED,010); -- Curse of Tongues
 		ST:RegisterSpell(46434,	1,030,0,ST.SHARED,012); -- Curse of Exhaustion
-		ST:RegisterSpell(710,	1,030,0,ST.UNIQUE,010); -- Banish
-		ST:RegisterSpell(5782,	1,020,0,ST.UNIQUE,010); -- Fear
-		ST:RegisterSpell(5484, 0,008,0,ST.UNIQUE); -- Howl of Terror
-		ST:RegisterSpell(1098,	1,300,0,ST.CHARM); -- Enslave Demon
-		ST:RegisterSpell(1122,	0,060,0,ST.PET); -- Inferno
-		ST:RegisterSpell(5697,	1,600,0,ST.BUFF); -- Unending Breath
+		ST:RegisterSpell(  710,	1,030,0,ST.UNIQUE,010); -- Banish
+		ST:RegisterSpell( 5782,	1,020,0,ST.UNIQUE,010); -- Fear
+		ST:RegisterSpell( 5484,	0,008,0,ST.UNIQUE); -- Howl of Terror
+		ST:RegisterSpell( 1098,	1,300,0,ST.CHARM); -- Enslave Demon
+		ST:RegisterSpell( 1122,	0,045,0,ST.PET); -- Infernal
+			ST:RegisterSpellModTlnt(1122,85109,1,10);
+			ST:RegisterSpellModTlnt(1122,85109,2,20);
+		ST:RegisterSpell(18540,	0,045,0,ST.PET); -- Doomguard
+			ST:RegisterSpellModTlnt(18540,85109,1,10);
+			ST:RegisterSpellModTlnt(18540,85109,2,20);
+		ST:RegisterSpell( 5697,	1,600,0,ST.BUFF); -- Unending Breath
 		ST:RegisterSpell(48181,	1,000,0,ST.DEFAULT); -- Haunt (12sec set to 0 for travel time)
 		ST:RegisterSpell(27243,	1,018,1,ST.DEFAULT); -- SoC
 		ST:RegisterSpell(30283,	0,003,0,ST.UNIQUE); -- Shadowfury
@@ -63,13 +70,16 @@ if FW.CLASS == "WARLOCK" then
 			ST:RegisterTickSpeed(47897, 2); -- set tick speed to 2 instead of 3
 		ST:RegisterSpell(32385,	1,000,0,ST.DEFAULT); -- Shadow Embrace
 		
-		ST:RegisterSpell(80398,	1,1800,0,ST.BUFF); -- Dark Intent
+		ST:RegisterSpell(85768,	1,1800,0,ST.BUFF); -- Dark Intent
+		ST:RegisterSpell(71521,	0,015,0,ST.DEFAULT); -- Hand of Gul'dan
 		
 		ST:RegisterCooldown(17962,010); -- Conflag
 			ST:RegisterCooldownModGlph(17962,56235,-2);
 		ST:RegisterCooldown(50796,012); -- Chaos Bolt
 		ST:RegisterCooldown(48181,008); -- Haunt
 		ST:RegisterCooldown(71521,012); -- Hand of Gul'dan
+		
+		ST:RegisterSpell(6358,	1,030,0,ST.PET); -- Seduction
 				
 		--buffname
 		ST:RegisterBuff(48018); -- Demonic Circle: Summon
@@ -98,7 +108,13 @@ if FW.CLASS == "WARLOCK" then
 		
 		ST:RegisterBuff(85383); -- Improved Soul Fire
 		ST:RegisterBuff(57669); -- Replenishment
-		ST:RegisterBuff(85767); -- Dark Intent
+		ST:RegisterBuff(94310); -- Dark Intent
+		ST:RegisterBuff(79464); -- Demon Soul
+		ST:RegisterBuff(79463); -- Demon Soul
+		ST:RegisterBuff(79462); -- Demon Soul
+		ST:RegisterBuff(79460); -- Demon Soul
+		ST:RegisterBuff(79459); -- Demon Soul
+
 
 		-- important debuffs from others i want to track
 		ST:RegisterDebuff(44836); -- Banish
@@ -115,9 +131,6 @@ if FW.CLASS == "WARLOCK" then
 	local t1,t2,t3,t4,t5,t6;
 	local BP = {};
 	
-	local PetTarget = "";
-	local PetSpell = "";
-	local PetTime = -1;
 	local bp = FW:SpellName(47982);
 	
 	local function WL_ScanBloodpact(unit)
@@ -159,50 +172,20 @@ if FW.CLASS == "WARLOCK" then
 	end);
 	
 	local devour = FW:SpellName(19505);
-	local spelllock = FW:SpellName(19244);
+	local spelllock = FW:SpellName(19647);
 	local consume = FW:SpellName(17767);
 	local seduction = FW:SpellName(6358);
 	
 	if CA then
+		local PetTarget = "";
+	
 		local sscast = FW:SpellName(20707);
 		local summon = FW:SpellName(46546);
 		local meeting = FW:SpellName(23598);
 		local ritual = FW:SpellName(34143);
-		local doom = FW:SpellName(18540);
 		
 		CA:RegisterIsChannel(summon);
 		
-		local function WL_UpdatePetTarget()
-			if PetTime ~= -1 and PetTime <= GetTime() then
-				PetTime = -1;
-				PetTarget = UnitName("pettarget");
-				if PetTarget then
-					if PetSpell == seduction then
-						CA:CastShow("SeduceStart",PetTarget);
-					end
-				end
-			end
-		end
-		FW:RegisterUpdatedEvent(WL_UpdatePetTarget);
-		FW:RegisterToEvent("UNIT_SPELLCAST_CHANNEL_START",
-		function(event,arg1)
-			if arg1 == "pet" then
-				local spellName, _, _, spellTexture, startTime, endTime = UnitChannelInfo("pet");
-				t1,t2,t3,t4 = 0,0,0,"";
-				if spellName == consume then
-					PetTarget = spellName;
-				elseif spellName == seduction then
-					PetTarget = UnitName("pettarget");
-					CA:CastShow("SeduceSuccess",PetTarget);
-					t1,t2,t3,t4 = CA:CastTargetInfo(PetTarget);
-				else
-					PetTarget = UnitName("pettarget") or spellName;
-				end
-				if ST then
-					ST.ST:insert(endTime*0.001,0,(endTime-startTime)*0.001,PetTarget,0,ST.PET,spellTexture,spellName,t1,0,t4,0,t2,0,1,0,0,ST:GetFilterType(spellName,ST.PET),t3,endTime*0.001,(endTime-startTime)*0.001,1.0,0);
-				end
-			end
-		end);
 		CA:RegisterOnSelfCastStart(function(s,t)
 			if s == summon then
 				CA:CastShow("SummonStart",t);
@@ -225,8 +208,8 @@ if FW.CLASS == "WARLOCK" then
 				CA:CastShow("SummonFinish",t);
 			elseif s == ritual then
 				CA:CastShow("SoulwellStart");
-			elseif s == doom then
-				CA:CastShow("RitualOfDoomStart");
+			elseif s == seduction then
+				CA:CastShow("SeduceSuccess",t);
 			end
 		end);
 		CA:RegisterOnPetCastSuccess(function(spell)
@@ -247,8 +230,14 @@ if FW.CLASS == "WARLOCK" then
 		end);
 		CA:RegisterOnPetCastStart(function(spell)
 			if spell == seduction then
-				PetTime = GetTime() + FW.Settings.PetTargetDelay;
-				PetSpell = spell;
+				FW:DelayedExec(FW.Settings.PetTargetDelay,1,
+					function()
+						PetTarget = UnitName("pettarget");
+						if PetTarget then
+							CA:CastShow("SeduceStart",PetTarget);
+						end
+					end
+				);
 			end
 		end);
 	end
@@ -256,31 +245,7 @@ if FW.CLASS == "WARLOCK" then
 		local fear = FW:SpellName(5782);
 		local banish = FW:SpellName(710);
 		local enslave = FW:SpellName(1098);
-	
-		FW:RegisterToEvent("UNIT_SPELLCAST_CHANNEL_STOP",
-		function(event,arg1)
-			local t = GetTime();
-			if arg1 == "pet" then
-				for i=1,ST.ST.rows,1 do
-					if ST.ST[i][6] == 4 then
-						if ST.ST[i][1]-t > 0.75 then
-						
-							ST.ST[i][14] = 3;
-							ST.ST[i][17] = t;
-							
-							if ST.ST[i][8] == seduction then
-								local unit = ST.ST[i][4];
-								local mark = ST.ST[i][19];
-								if mark~=0 then unit=FW.RaidIcons[mark]..unit;end
-								CA:CastShow("SeduceBreak",unit);
-								FW:PlaySound("TimerBreakSound");
-							end
-						end
-						break;
-					end
-				end
-			end
-		end);
+
 		ST:RegisterOnTimerBreak(function(unit,mark,spell)
 			if spell == fear then
 				if mark~=0 then unit=FW.RaidIcons[mark]..unit;end
@@ -293,6 +258,10 @@ if FW.CLASS == "WARLOCK" then
 			elseif spell == enslave then
 				if mark~=0 then unit=FW.RaidIcons[mark]..unit;end
 				CA:CastShow("EnslaveBreak",unit);
+				return 1;
+			elseif spell == seduction then
+				if mark~=0 then unit=FW.RaidIcons[mark]..unit;end
+				CA:CastShow("SeduceBreak",unit);
 				return 1;
 			end
 		end);
@@ -352,6 +321,8 @@ if FW.CLASS == "WARLOCK" then
 		CD:RegisterCooldownBuff(18790); -- fel stamina
 		
 		CD:RegisterHiddenCooldown(nil,34935,08); -- Backlash	
+		CD:RegisterHiddenCooldown(nil,85113,15); -- Improved Soul Fire
+		
 		CD:RegisterCasterPowerupCooldowns();
 	end
 	
@@ -376,8 +347,6 @@ if FW.CLASS == "WARLOCK" then
 			
 		FW:SetSubCategory(FWL.SOULWELL,FW.ICON.SPECIFIC,2);
 			FW:RegisterOption(FW.MS2,2,FW.NON,FWL.SOULWELL,		"",	"SoulwellStart");
-		FW:SetSubCategory(FWL.RITUAL_OF_DOOM,FW.ICON.SPECIFIC,2);
-			FW:RegisterOption(FW.MS2,2,FW.NON,FWL.RITUAL_OF_DOOM,	"",	"RitualOfDoomStart");
 		end
 
 		FW:SetSubCategory(FWL.PET,FW.ICON.SPECIFIC,2);

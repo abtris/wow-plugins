@@ -109,48 +109,40 @@ L["Enter the script for OnUpdate callback."] = "Introduzca la secuencia de coman
 L["Export"] = "Exportar"
 L["Export this layout to the clipboard to copy and send to friends."] = "Exportar este marco al portapales para copiar y enviar a tus amigos." -- Needs review
 L["FAQ"] = "FAQ"
-L["FAQ_1_1"] = [=[|cffffffffWhat is this layout stuff?|r
+L["FAQ_1_1"] = [=[|cffffffff¿Qué es un diseño?|r
 
-kgPanels organizes panels to a layout. Each layout is stored globally, and any given character simply sets the active layout you wish to use.
-]=] -- Requires localization
+kgPanels organiza los paneles en diseños. Cada diseño es guardado globalmente, y cualquier personaje puede usar el diseño activo.]=]
 L["FAQ_1_2"] = [=[
-|cffffffffI want to add a panel, but the create button(s) are greyed out. What am I doing wrong?|r
+|cffffffffI quiero añadir un panel, pero el botón de crear está griseado. ¿Qué estoy haciendo mal?|r
 
-You have to have a layout selected. In the layout menu, click the layout you want to use, and activate it.
-]=] -- Requires localization
+Tienes que tener un diseño seleccionado. En el menú de diseño, haz clic en el diseño que quieres usar y actívalo.]=]
 L["FAQ_1_3"] = [=[
-|cffffffffParenting and Anchoring|r
+|cffffffffEmparentado y Anclaje|r
 
-kgPanels supports using YOUR defined panel name for parenting. 
-Do not use kgPanelsxxx for a parent name. Doing so may cause unspecified behavior, as kgPanels recycles frames as needed. 
-So again if you create a panel called 'silly panel' you can use 'silly panel' as the parent and anchor name.
-]=] -- Requires localization
+kgPanels soporta el uso de TU PROPIO nombre de panel para emparentar.
+No uses kgPanelsxxx para un nombre padre. Si lo haces puedes provocar un comportamiento extraño, como que kgPanels recicle marcos que necesites.
+Si creas un panel llamado 'panel tonto' puedes usar 'panel tonto' como nombre para emparentar y anclar.]=]
 L["FAQ_1_4"] = [=[
-|cffffffffFinding frame names|r
+|cffffffffBuscando nombres de marcos|r
 
-kgPanels configuration system, adds a keybinding for the Framefinder. Under keybinding define a key for the frame finder
-After that its as simple as hitting the key to bring up the frame finder and show you what frames are under the mouse.
-]=] -- Requires localization
+El sistema de configuración de kgPanels incluye una combinación de teclas para el Buscador de Marcos.
+Después puedes poner el cursor encima de un marco y pulsar la combinación de teclas asignada para ver el nombre de dicho marco.]=]
 L["FAQ_2_1"] = [=[
-|cffffffffHow do I add Artwork?|r
+|cffffffff¿Cómo añado mi Arte?|r
 
-You use the artwork library to add new peices as you need. If you have shared media installed those items will also appear in the dropdown list.
-]=] -- Requires localization
+Usa la librería de arte para añadir nuevas piezas que necesites. Si tienes instalado 'shared media' los elementos aparecerán en las listas desplegables.]=]
 L["FAQ_2_2"] = [=[
-|cffffffffWhy dont I see my color blending when I have a texture set?|r
+|cffffffff¿Porqué no veo mis colores cuando tengo un conjunto de texturas?|r
 
-Set your background style to gradiant or solid to blend the color into the texture.
-]=] -- Requires localization
+Ajusta el estilo de fondo a gradiente o sólido para mezclar el color dentro de la textura.]=]
 L["FAQ_2_3"] = [=[
-|cffffffffHow do I change the border color?|r
+|cffffffff¿Cómo cambio el color del borde?|r
 
-Set the color in the main section for a given panel.
-]=] -- Requires localization
+Ajusta el color en la sección principal para dicho panel.]=]
 L["FAQ_2_4"] = [=[
-|cffffffffWhen i change the opacity I get mixed results|r
+|cffffffffCuando cambio la opacidad obtengo resultados mezclados|r
 
-The main Opacity setting overrids the color opactiy.
-]=] -- Requires localization
+El ajuste de opacidad principal anula la opacidad del color.]=]
 L["FAQ_3_1"] = [=[
 |cffffffffI just added a texture to the library but I dont see it. What am I doing wrong?|r
 
@@ -227,12 +219,11 @@ At this current time, Non WoW generated events are not available. So receiving A
 However if you so choose you can could embed AceEvent-3.0 into the frame reference. Please be aware this may cause you to receive events twice.|r
 ]=] -- Requires localization
 L["FAQ_5_5"] = [=[
-|CffffffffI added an OnClick/OnEnter/OnLeave script 
-but nothing happens. What am I doing wrong?|r
+|CffffffffI he añadido scripts OnClick/OnEnter/OnLeave 
+pero no funciona.¿Qué hago mal?|r
 
-You need to enable the mouse for the panel to receive those events.
-
-]=] -- Requires localization
+Necesitas habilitar el ratón para el panel para recibir estos eventos.
+]=]
 L["FAQ_5_6"] = [=[
 |cffffffffAre tehre some sample scripts?|r
 
@@ -274,7 +265,7 @@ L["Gradient style of this panel."] = "Estilo gradiente de este panel" -- Needs r
 L["High"] = "Alto"
 L["Horizontal"] = "Horizontal"
 L["Horizontal Justification"] = "Justificación Horizontal"
-L["Horizontal Tiling"] = "Horizontal Tiling" -- Requires localization
+L["Horizontal Tiling"] = "Azulejado Horizontal"
 L["Import"] = "Importar"
 L["Import As.."] = "Importar como..."
 L["Import Layout"] = "Importar Marco" -- Needs review
@@ -361,8 +352,8 @@ L["Size of each tile."] = "Tamaño de cada título."
 L["Size of the text in points."] = "Tamaño de los textos en los puntos." -- Needs review
 L["Solid"] = "Sólido"
 L["Strata"] = "Capa"
-L["Sublevel"] = "Sublevel" -- Requires localization
-L["Sublevel allows you to have multiple backgrounds in the same draw layer for stacking effects"] = "Sublevel allows you to have multiple backgrounds in the same draw layer for stacking effects" -- Requires localization
+L["Sublevel"] = "Subnivel"
+L["Sublevel allows you to have multiple backgrounds in the same draw layer for stacking effects"] = "Subnivel te permite tener múltiples fondos en la misma capa para crear diferentes efectos."
 L["Text"] = "Texto"
 L["Text Options"] = "Opciones de Texto"
 L["Text Positioning"] = "Posicionamiento de Texto"
@@ -379,9 +370,9 @@ L["This will import a layout into your configuration."] = "Esto importará un ma
 L["This will toggle SetTexCoordModifiesRect."] = "Esto cambiará SetTexCoordModifiesRect."
 L["Tile Background"] = "Fondo de mosaico" -- Needs review
 L["Tile Size"] = "Tamaño del mosaico" -- Needs review
-L["Tile the background horizontally."] = "Tile the background horizontally." -- Requires localization
+L["Tile the background horizontally."] = "Repite el fondo horizontalmente."
 L["Tile the background texture, NOTE: this disables rotation and flipping."] = "Repetir en mosaico la textura de fondo. NOTA: Esto desactiva la rotación y el volteado." -- Needs review
-L["Tile the background vertically."] = "Tile the background vertically." -- Requires localization
+L["Tile the background vertically."] = "Repite el fondo verticalmente."
 L["To create a panel you are required to have a layout active."] = "Para crear un panel debes tener un marco activo."
 L["Tooltip"] = "Ventana emergente"
 L["Top"] = "Arriba" -- Needs review
@@ -398,7 +389,7 @@ L["Use custom TexCoords. This is an adavance feature."] = "Usar Texto de Coorden
 L["User defined Panel"] = "Panel definido" -- Needs review
 L["Vertical"] = "Vertical"
 L["Vertical Justification"] = "Justificación Vertical"
-L["Vertical Tiling"] = "Vertical Tiling" -- Requires localization
+L["Vertical Tiling"] = "Azulejado Vertical"
 L["What you would like to appear on the panel."] = "Qué quieres que aparezca en el panel."
 L["X Offset"] = "Compensación de X" -- Needs review
 L["X offset from center. NOTE: postive for up, negative for down."] = "Compensar X desde el centro. NOTA: Positivo para subirlo, negativo para bajarlo," -- Needs review

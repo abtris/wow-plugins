@@ -4,7 +4,7 @@
 ## Author: foxlit
 ## SavedVariables: OneRing_Config, OPie_Locale
 ## OptionalDeps: ButtonFacade
-## X-Version-Name: Golf 2
+## X-Version-Name: Golf 4
 ## X-Update-FeedURL: http://www.go-hero.net/opie/rss/beta
 ## X-Website: http://www.go-hero.net/opie/
 ## X-API-Docs: http://www.go-hero.net/opie/api

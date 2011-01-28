@@ -14,27 +14,16 @@ local borderType = {
 	"Interface\\AddOns\\clcret\\textures\\border_heavy"				-- heavy
 }
 
-local buffTheArtOfWar = GetSpellInfo(59578)
-local buffHandOfLight = GetSpellInfo(90174)
-local buffZealotry = GetSpellInfo(85696)
-
-local gcdSpell = 85256
-
 local myppb -- paladinpowerbar
 clcret.myppbParent = CreateFrame("Frame")
 clcret.myppbParent.unit = "player"
 
--- priority queue generated from fcfs
-local pq
-local ppq
--- number of spells in the queue
-local numSpells
--- display queue
-local cleanseSpellName = GetSpellInfo(85256) -- replaced cleanse with tv
 local dq = { 85256, 85256 }
 local nq = {}
 nq[1] = GetSpellInfo(85256)
 nq[2] = GetSpellInfo(85256)
+
+local csname = GetSpellInfo(35395)
 
 -- main and secondary skill buttons
 local buttons = {}
@@ -60,33 +49,6 @@ clcret.auraButtons = auraButtons
 clcret.icd = icd
 --]]
 
--- spells used
-local spells = {
-	how		= { id = 24275 	},		-- hammer of wrath
-	cs 		= { id = 35395 	},		-- crusader strike
-	tv 		= { id = 85256 	},		-- templar's verdict
-	inq 	= { id = 84963	},		-- inquisition
-	ds 		= { id = 53385 	},		-- divine storm
-	j 		= { id = 20271 	},		-- judgement
-	cons 	= { id = 26573 	},		-- consecration
-	exo 	= { id = 879 		},		-- exorcism
-	hw		= { id = 2812  	},		-- holy wrath
-}
-clcret.spells = spells
-
-local fillers = { tv = {}, cs = {}, exo = {}, how = {}, j = {}, hw = {}, cons = {}, ds = {} }
-clcret.fillers = fillers
-
--- used for the highlight lock on skill use
-local lastgcd = 0
-local startgcd = -1
-local lastMS = ""
-local gcdMS = 0
-
-
--- presets
-local MAX_PRESETS = 10
-
 local strataLevels = {
 	"BACKGROUND",
 	"LOW",
@@ -104,7 +66,8 @@ local strataLevels = {
 -- ---------------------------------------------------------------------------------------------------------------------
 local defaults = {
 	profile = {
-		version = 4,
+		version = 5,
+		
 		-- layout settings for the main frame (the black box you toggle on and off)\
 		zoomIcons = true,
 		noBorder = false,
@@ -140,44 +103,27 @@ local defaults = {
 			},
 		},
 		
-		-- fcfs
-		fcfs = {
-			"tv", "how", "cs", "exo", "j", "hw",
-			"none",
-			"none",
-			"none",
-			"none",
-		},
-		
-		-- presets for ret fcfs
-		presets = {},
-		
-		presetFrame = {
-			visible = false,
-			enableMouse = false,
-			expandDown = false,
-			alpha = 1,
-			width = 200,
-			height = 25,
-			x = 0,
-			y = 0,
-			point = "TOP",
-			pointParent = "BOTTOM",
-			backdropColor = { 0.1, 0.1, 0.1, 0.5 },
-			backdropBorderColor = { 0.4, 0.4, 0.4 },
-			fontSize = 13,
-			fontColor = { 1, 1, 1, 1 },
+		-- rotation
+		rotation = {
+			useInq = true,
+			preInq = 5,
+			tolerance = 0.1,
+			jClash = 0.5,
+			hw = true,
+			hwClash = 0.5,
+			cons = false,
+			consClash = 1,
+			consMana = 20000,
+			hpDelay = 0.5,
+			undead = "Undead",
+			demon = "Demon",
 		},
 		
 		-- behavior
 		updatesPerSecond = 10,
 		updatesPerSecondAuras = 5,
-		delayedStart = 5,
 		rangePerSkill = false,
-		csBoost = 0.5,
-		useInq = false,
-		preInq = 3,
-		
+
 		-- layout of the 2 skill buttons
 		layout = {
 			button1 = {
@@ -219,17 +165,6 @@ local defaults = {
 			targetDifference = false,
 			useButtons = false,
 		},
-		
-		swing = {
-			enabled = false,
-			width = 200,
-			height = 10,
-			color = {1, 1, 0, 1},
-			point = "BOTTOM",
-			pointParent = "TOP",
-			x = 0,
-			y = 50,
-		},
 	}
 }
 -- blank rest of the auras buttons in default options
@@ -250,13 +185,6 @@ for i = 1, MAX_AURAS do
 			point = "BOTTOM",
 			pointParent = "TOP",
 		},
-	}
-end
--- blank presets
-for i = 1, MAX_PRESETS do 
-	defaults.profile.presets[i] = {
-		name = "",
-		data = "",
 	}
 end
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -293,152 +221,8 @@ local function OnUpdate(self, elapsed)
 			clcret:UpdateSovBars()
 		end
 	end
-	
-	if db.swing.enabled then
-		clcret:UpdateSwingBar()
-	end
-	
-	--[[ DEBUG
-	clcret:UpdateDebugFrame()
-	--]]
 end
 -- ---------------------------------------------------------------------------------------------------------------------
-
---[[ DEBUG
-
-function clcret:GetFastLeft(spell)
-	local start, duration = GetSpellCooldown(spell)
-	if start > 0 then
-		return duration - (GetTime() - start)
-	end
-	return 0
-end
-
-function clcret:UpdateDebugFrame()
-	local line, gcd
-	line = clcret.debugLines[1]
-	
-	gcd = self:GetFastLeft("Cleanse")
-	
-	line:Show()
-	line.icon:SetTexture(GetSpellTexture("Cleanse"))
-	line.text1:Show()
-	line.text1:SetText(string.format("%.3f", gcd))
-	line.text2:Show()
-	line.text2:SetText(string.format("%.3f", lastgcd))
-	line.text3:Show()
-	line.text3:SetText(string.format("%.3f", startgcd))
-	line.text4:Show()
-	line.text4:SetText(string.format("%.3f", gcdMS))
-	
-	for i = 1, 9 do
-		line = clcret.debugLines[i + 1]
-		if pq[i] and pq[i].cd and pq[i].xcd then
-			line:Show()
-			line.icon:SetTexture(GetSpellTexture(pq[i].name))
-			line.text1:Show()
-			line.text1:SetText(string.format("%.3f", self:GetFastLeft(pq[i].name)))
-			line.text2:Show()
-			line.text2:SetText(string.format("%.3f", self:GetFastLeft(pq[i].name) - gcd))
-			line.text3:Show()
-			line.text3:SetText(string.format("%.3f", pq[i].xcd))
-			line.text4:Show()
-			line.text4:SetText(string.format("%.3f", pq[i].cd))
-			-- line.text5:Show()
-			-- line.text5:SetText(string.format("%.3f", pq[i].cd + 1.5))
-		else
-			line:Hide()
-		end
-	end
-end
-
-function clcret:InitDebugFrame()
-	local frame = CreateFrame("Frame", nil, UIParent)
-	frame:SetWidth(300)
-	frame:SetHeight(200)
-	local texture = frame:CreateTexture(nil, "BACKGROUND")
-	texture:SetAllPoints()
-	texture:SetVertexColor(0, 0, 0, 1)
-	texture:SetTexture(BGTEX)
-	frame:SetPoint("RIGHT")
-	
-	clcret.debugLines = {}
-	local line, fs
-	for i = 1, 10 do
-		local line = CreateFrame("Frame", nil, frame)
-		line:SetWidth(300)
-		line:SetHeight(20)
-		line:SetPoint("TOPLEFT", 0, -(i * 20 - 20))
-		
-		texture = line:CreateTexture(nil, "BACKGROUND")
-		texture:SetAllPoints()
-		texture:SetVertexColor(0.1, 0.1, 0.1, 1)
-		texture:SetTexture(BGTEX)
-		
-		texture = line:CreateTexture(nil, "ARTWORK")
-		texture:SetWidth(18)
-		texture:SetHeight(18)
-		texture:SetPoint("BOTTOMLEFT", 1, 1)
-		texture:SetVertexColor(1, 1, 1, 1)
-		line.icon = texture
-		
-		fs = line:CreateFontString(nil, nil, "GameFontHighlight")
-		fs:SetFont(STANDARD_TEXT_FONT, 10)
-		fs:SetJustifyH("RIGHT")
-		fs:SetWidth(50)
-		fs:SetHeight(18)
-		fs:SetPoint("RIGHT", line, "LEFT", 70, 0)
-		fs:SetText("1.234")
-		fs:Hide()
-		line.text1 = fs
-		
-		fs = line:CreateFontString(nil, nil, "GameFontHighlight")
-		fs:SetFont(STANDARD_TEXT_FONT, 10)
-		fs:SetJustifyH("RIGHT")
-		fs:SetWidth(50)
-		fs:SetHeight(18)
-		fs:SetPoint("RIGHT", line, "LEFT", 120, 0)
-		fs:SetText("1.234")
-		fs:Hide()
-		line.text2 = fs
-		
-		fs = line:CreateFontString(nil, nil, "GameFontHighlight")
-		fs:SetFont(STANDARD_TEXT_FONT, 10)
-		fs:SetJustifyH("RIGHT")
-		fs:SetWidth(50)
-		fs:SetHeight(18)
-		fs:SetPoint("RIGHT", line, "LEFT", 170, 0)
-		fs:SetText("1.234")
-		fs:Hide()
-		line.text3 = fs
-		
-		fs = line:CreateFontString(nil, nil, "GameFontHighlight")
-		fs:SetFont(STANDARD_TEXT_FONT, 10)
-		fs:SetJustifyH("RIGHT")
-		fs:SetWidth(50)
-		fs:SetHeight(18)
-		fs:SetPoint("RIGHT", line, "LEFT", 220, 0)
-		fs:SetText("1.234")
-		fs:Hide()
-		line.text4 = fs
-		
-		fs = line:CreateFontString(nil, nil, "GameFontHighlight")
-		fs:SetFont(STANDARD_TEXT_FONT, 10)
-		fs:SetJustifyH("RIGHT")
-		fs:SetWidth(50)
-		fs:SetHeight(18)
-		fs:SetPoint("RIGHT", line, "LEFT", 270, 0)
-		fs:SetText("1.234")
-		fs:Hide()
-		line.text5 = fs
-		
-		clcret.debugLines[i] = line
-		line:Hide()
-	end
-	
-	clcret.debugFrame = frame
-end
---]]
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- INIT
@@ -453,14 +237,6 @@ local function ShowOptions()
 	InterfaceOptionsFrame_OpenToCategory("CLCRet")
 end
 function clcret:OnInitialize()
-	-- try to change from char to profile
-	if clcretDB then
-		if clcretDB.char then
-			clcretDB.profiles = clcretDB.char
-			clcretDB.char = nil
-		end
-	end
-
 	-- SAVEDVARS
 	self.db = LibStub("AceDB-3.0"):New("clcretDB", defaults)
 	self.db.RegisterCallback(self, "OnProfileChanged", "ProfileChanged")
@@ -468,29 +244,29 @@ function clcret:OnInitialize()
 	self.db.RegisterCallback(self, "OnProfileReset", "ProfileChanged")
 	db = self.db.profile
 
-	-- TODO: worth using acetimer just for this ?
-	LibStub("AceTimer-3.0"):ScheduleTimer(self.Init, db.delayedStart, self)
+	-- this would give a proper init
+	self:RegisterEvent("QUEST_LOG_UPDATE")
 end
-function clcret:Init()
+function clcret:QUEST_LOG_UPDATE()
+	self:UnregisterEvent("QUEST_LOG_UPDATE")
 	-- test if it's a paladin or not
+	
 	-- version check
-	if not db.stupidCheck2 then
+	if not db.versionCheck4031 then
 		-- static popup dialog
 		StaticPopupDialogs["CLCRET"] = {
-			text = "CLCRet:\nCS and TV are again included into the rotation. Make sure to adjust your settings.\nHoly Power Bar settings have been moved to the appearance tab.",
+			text = "CLCRet:\nA lot of stuff has changed. Rotation is mostly fixed now, according to EJ info. Check the options.\nIt's very likely you will get errors at lower levels.",
 			button1 = OKAY,
 			timeout = 0,
 		}
 		StaticPopup_Show("CLCRET")
-		db.fcfs = { "tv", "how", "cs", "exo", "j", "hw", "none", "none", "none", "none", }
-		db.stupidCheck2 = true
+		db.versionCheck4031 = true
 	end
 	
-	playerName = UnitName("player")
-
 	-- get player name for sov tracking 
-	self.spec = "Holy"
-	self["CheckQueue"] = self["CheckQueueHoly"]
+	playerName = UnitName("player")
+	
+	self.CheckQueue = self.DoNothing
 	
 	self.LBF = LibStub('LibButtonFacade', true)
 	
@@ -498,8 +274,6 @@ function clcret:Init()
 	self.scanFrequency = 1 / db.updatesPerSecond
 	self.scanFrequencyAuras = 1 / db.updatesPerSecondAuras
 	self.scanFrequencySov = 1 / db.sov.updatesPerSecond
-
-	self:InitSpells()
 	
 	-- blank options page for title
 	local optionFrame = CreateFrame("Frame", nil, UIParent)
@@ -514,18 +288,12 @@ function clcret:Init()
 	-- chat command that points to our category
 	self:RegisterChatCommand("clcret", ShowOptions)
 	
-	self:RegisterChatCommand("clcreteq", "EditQueue") -- edit the queue from command line
-	self:RegisterChatCommand("clcretpq", "DisplayFCFS") -- display the queue
-	self:RegisterChatCommand("clcretlp", "Preset_LoadByName") -- load the specified preset
-	self:RegisterChatCommand("clcreportmincd", "ICDReportMinCd") -- report the min cd for that button
-	
 	self:UpdateEnabledAuraButtons()
 	
 	-- create the power bar
 	self.CreatePPB()
 	self:UpdatePPB()
-	
-	self:UpdateFCFS()
+
 	self:InitUI()
 	self:UpdateAuraButtonsCooldown()
 	self:PLAYER_TALENT_UPDATE()
@@ -538,39 +306,18 @@ function clcret:Init()
 	
 	if not db.fullDisable then
 		self:RegisterEvent("PLAYER_TALENT_UPDATE")
-		self:RegisterEvent("UNIT_ENTERED_VEHICLE", "VEHICLE_CHECK")
-		self:RegisterEvent("UNIT_EXITED_VEHICLE", "VEHICLE_CHECK")
 	end
 	
 	-- init sov bars
 	-- TODO: Make it dynamic later
 	self:InitSovBars()
 	
-	-- init swing bar
-	-- TODO: Make it dynamic
-	self:InitSwingBar()
-	
 	-- icd stuff
 	self:AuraButtonUpdateICD()
 	
-	-- preset frame
-	if db.presetFrame.visible then
-		self:PresetFrame_Init()
-	end
 	--[[ DEBUG
 	self:InitDebugFrame()
 	--]]
-end
--- get the spell names from ids
-function clcret:InitSpells()
-	for alias, data in pairs(self.spells) do
-		data.name = GetSpellInfo(data.id)
-	end
-	
-	for alias, data in pairs(self.fillers) do
-		data.id = spells[alias].id
-		data.name = spells[alias].name
-	end
 end
 function clcret:OnSkin(skin, glossAlpha, gloss, group, _, colors)
 	local styleDB
@@ -591,87 +338,6 @@ function clcret:OnSkin(skin, glossAlpha, gloss, group, _, colors)
 	self:UpdateSkillButtonsLayout()
 end
 -- ---------------------------------------------------------------------------------------------------------------------
-
-
--- ---------------------------------------------------------------------------------------------------------------------
--- FCFS Helpers
--- ---------------------------------------------------------------------------------------------------------------------
--- print fcfs
-function clcret:DisplayFCFS()
-	print("clcret:", "Active Retribution FCFS:")
-	for i, data in ipairs(pq) do
-		print("clcret:", i .. " " .. data.name)
-	end
-end
-
--- make a fcfs from a command line list of arguments
-function clcret:EditQueue(args)
-	local list = { strsplit(" ", args) }
-	
-	-- add args to options
-	local num = 0
-	for i, arg in ipairs(list) do
-		if self.fillers[arg] then
-			num = num + 1
-			db.fcfs[num] = arg
-		else
-			print("clcret:", arg .. " not found")
-		end
-	end
-	
-	-- none on the rest
-	if num < MAX_PRESETS then
-		for i = num + 1, MAX_PRESETS do
-			db.fcfs[i] = "none"
-		end
-	end
-	
-	-- redo queue
-	self:UpdateFCFS()
-	self:DisplayFCFS()
-	
-	if InterfaceOptionsFrame:IsVisible() then
-		InterfaceOptionsFrame_OpenToCategory("FCFS")
-	end
-	
-	if self.presetFrame then
-		self:PresetFrame_Update()
-	end
-end
-
--- update pq from fcfs
-function clcret:UpdateFCFS()
-	local newpq = {}
-	local check = {}
-	numSpells = 0
-	
-	for i, alias in ipairs(db.fcfs) do
-		if not check[alias] then -- take care of double entries
-			check[alias] = true
-			if alias ~= "none" then
-				if not self.fillers[alias] then
-					db.fcfs[i] = "none"
-				else
-					numSpells = numSpells + 1
-					newpq[numSpells] = { id = spells[alias].id, alias = alias, name = self.fillers[alias].name }
-				end
-			end
-		end
-	end
-	
-	pq = newpq
-	
-	-- check if people added enough spells
-	if numSpells < 2 then
-		print("clcret:", "You need at least 2 skills in the queue.")
-		-- toggle it off
-		db.fullDisable = false
-		self:FullDisableToggle()
-	end
-end
--- ---------------------------------------------------------------------------------------------------------------------
-
-
 
 -- ---------------------------------------------------------------------------------------------------------------------
 -- SHOW WHEN SETTINGS
@@ -744,15 +410,8 @@ function clcret:UNIT_FACTION(event, unit)
 end
 
 -- disable/enable according to spec
--- use the same function for vehicle check
 function clcret:PLAYER_TALENT_UPDATE()
 	if db.fullDisable then
-		self:Disable()
-		return
-	end
-
-	-- vehicle check
-	if UnitUsingVehicle("player") then
 		self:Disable()
 		return
 	end
@@ -761,26 +420,16 @@ function clcret:PLAYER_TALENT_UPDATE()
 	local ptt = GetPrimaryTalentTree()
 	
 	if ptt == 3 then
-		self.spec = "Ret"
-		dq[1] = pq[1].name
-		dq[2] = pq[2].name
+		self.CheckQueue = self.CheckQueueRet
+		dq[1], dq[2] = 85256, 85256
 		self:Enable()
 		self:UpdateShowMethod()
 		
 		myppb:SetParent(self.frame)
 	else
-		self.spec = "Holy"
+		self.CheckQueue = self.DoNothing
 		myppb:SetParent(clcret.myppbParent)
 		self:Disable()
-	end
-	
-	self["CheckQueue"] = self["CheckQueue" .. self.spec]
-end
-
--- check if we need to update vehicle status
-function clcret:VEHICLE_CHECK(event, unit)
-	if unit == "player" then
-		self:PLAYER_TALENT_UPDATE()
 	end
 end
 -- ---------------------------------------------------------------------------------------------------------------------
@@ -1152,7 +801,7 @@ function clcret:CheckRange()
 		end
 	else
 		-- both skills show melee range
-		range = IsSpellInRange(self.spells.cs.name, "target")	
+		range = IsSpellInRange(csname, "target")	
 		if range ~= nil and range == 0 then
 			for i = 1, 2 do
 				buttons[i].texture:SetVertexColor(0.8, 0.1, 0.1)
@@ -1171,141 +820,14 @@ end
 -- QUEUE LOGIC
 -- ---------------------------------------------------------------------------------------------------------------------
 -- holy blank function
-function clcret:CheckQueueHoly()
+function clcret:DoNothing()
 	self:Disable()
-	-- print("clcret:", "This message shouldn't be here")
 end
 
 
 
 function clcret:CheckQueueRet()
-	csBoost = db.csBoost
-
-	local ctime, cdStart, cdDuration, cs, gcd
-	ctime = GetTime()
-	
-	local preCS = true -- skils before CS are boosted too
-
-	-- get HP, HoL
-	local hp = UnitPower("player", SPELL_POWER_HOLY_POWER)
-	local hol = UnitBuff("player", buffHandOfLight) or false
-	local zeal = UnitBuff("player", buffZealotry) or false
-	
-	-- gcd
-	cdStart, cdDuration = GetSpellCooldown(gcdSpell)
-	if cdStart > 0 then
-		gcd = cdStart + cdDuration - ctime
-	else
-		gcd = 0
-	end
-	
-	-- get cooldowns for fillers
-	local v, cd, index
-	
-	for i = 1, #pq do
-		v = pq[i]
-		
-		cdStart, cdDuration = GetSpellCooldown(v.id)
-		if cdStart > 0 then
-			v.cd = cdStart + cdDuration - ctime - gcd
-		else
-			v.cd = 0
-		end
-		
-		-- boost skills before CS
-		if preCS then v.cd = v.cd - csBoost end
-		
-		if v.alias == "how" then
-			if not IsUsableSpell(v.name) then
-				v.cd = 100
-			end
-		elseif v.alias == "tv" then
-			if not (hol or hp >= 3) then
-				v.cd = 15
-			end
-		elseif v.alias == "cs" or v.alias == "ds" then
-			preCS = false
-		elseif v.alias == "exo" then
-			if UnitBuff("player", buffTheArtOfWar) == nil then v.cd = 100 end
-		end
-		
-		-- clamp so sorting is proper
-		if v.cd < 0 then v.cd = 0 end
-	end
-	
-	-- sort cooldowns once, get min cd and the index in the table
-	index = 1
-	cd = pq[1].cd
-	for i = 1, #pq do
-		v = pq[i]
-		if (v.cd < cd) or ((v.cd == cd) and (i < index)) then
-			index = i
-			cd = v.cd
-		end
-	end
-	
-	dq[1] = pq[index].id
-	
-	-- adjust hp for next skill
-	if dq[1] == spells.cs.id then
-		if zeal then
-			hp = hp + 3
-		else
-			hp = hp + 1
-		end
-	elseif dq[1] == spells.tv.id and not hol then
-		hp = 0
-	end
-	pq[index].cd = 101 -- put first one at end of queue
-	
-	-- get new clamped cooldowns
-	for i = 1, #pq do
-		v = pq[i]
-		if v.id == spells.tv.id then
-			if hp >= 3 then
-				v.cd = 0
-			else
-				v.cd = 100
-			end
-		else
-			v.cd = v.cd - 1.5 - cd
-			if v.cd < 0 then v.cd = 0 end
-		end
-	end
-	
-	-- sort again
-	index = 1
-	cd = pq[1].cd
-	for i = 1, #pq do
-		v = pq[i]
-		if (v.cd < cd) or ((v.cd == cd) and (i < index)) then
-			index = i
-			cd = v.cd
-		end
-	end
-	dq[2] = pq[index].id
-	
-	-- inquisition, if active and needed -> change first tv in dq1 or dq2 with inquisition
-	local useInq = db.useInq
-	local preInq = db.preInq
-	
-	if useInq then
-		local inqLeft = 0
-		local name, rank, icon, count, debuffType, duration, expirationTime = UnitBuff("player", spells.inq.name)
-		if name then 
-			inqLeft = expirationTime - ctime
-		end
-		
-		-- test time for 2nd skill
-		-- check for spell gcd?
-		if (inqLeft - 1.5) <= preInq then
-			if dq[1] == spells.tv.id and (inqLeft <= preInq) then
-				dq[1] = spells.inq.id
-			elseif dq[2] == spells.tv.id and ((inqLeft - 1.5) <= preInq) then
-				dq[2] = spells.inq.id
-			end
-		end
-	end
+	dq[1], dq[2] = clcret.RetRotation()
 	
 	nq[1] = GetSpellInfo(dq[1])
 	nq[2] = GetSpellInfo(dq[2])
@@ -1552,9 +1074,6 @@ function clcret:FullDisableToggle()
 		
 		-- register events
 		self:RegisterEvent("PLAYER_TALENT_UPDATE")
-		self:RegisterEvent("UNIT_ENTERED_VEHICLE", "VEHICLE_CHECK")
-		self:RegisterEvent("UNIT_EXITED_VEHICLE", "VEHICLE_CHECK")
-		
 		self:RegisterCLEU()
 		
 		-- do the normal load rutine
@@ -1565,8 +1084,6 @@ function clcret:FullDisableToggle()
 		
 		-- unregister events
 		self:UnregisterEvent("PLAYER_TALENT_UPDATE")
-		self:UnregisterEvent("UNIT_ENTERED_VEHICLE", "VEHICLE_CHECK")
-		self:UnregisterEvent("UNIT_EXITED_VEHICLE", "VEHICLE_CHECK")
 		
 		self:UnregisterEvent("PLAYER_REGEN_ENABLED")
 		self:UnregisterEvent("PLAYER_REGEN_DISABLED")
@@ -1582,249 +1099,6 @@ function clcret:FullDisableToggle()
 end
 
 -- ---------------------------------------------------------------------------------------------------------------------
-
--- PRESET FUNCTIONS
--- ---------------------------------------------------------------------------------------------------------------------
-
-function clcret:PresetFrame_Init()
-	local opt = db.presetFrame
-	
-	local backdrop = {
-		bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
-		edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-		tile = true, tileSize = 16, edgeSize = 16,
-		insets = { left = 3, right = 3, top = 5, bottom = 3 }
-	}
-
-	-- frame
-	local frame = CreateFrame("Button", nil, clcretFrame)
-	self.presetFrame = frame
-	
-	frame:EnableMouse(opt.enableMouse)
-	frame:SetBackdrop(backdrop)
-	frame:SetFrameStrata("FULLSCREEN_DIALOG")
-	
-	-- fontstring
-	local fs = frame:CreateFontString(nil, nil, "GameFontHighlight")
-	frame.text = fs
-	
-	-- popup frame
-	local popup = CreateFrame("Frame", nil, frame)
-	self.presetPopup = popup
-	
-	popup:Hide()
-	popup:SetBackdrop(backdrop)
-	popup:SetFrameStrata("FULLSCREEN_DIALOG")
-	
-	-- buttons for the popup frame
-	local button
-	self.presetButtons = {}
-	for i = 1, MAX_PRESETS do
-		button = CreateFrame("Button", nil, popup)
-		self.presetButtons[i] = button
-		
-		button.highlightTexture = button:CreateTexture(nil, "HIGHLIGHT")
-		button.highlightTexture:SetTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight")
-		button.highlightTexture:SetBlendMode("ADD")
-		button.highlightTexture:SetAllPoints()
-		
-		button.name = button:CreateFontString(nil, nil, "GameFontHighlight")
-		button.name:SetText(db.presets[i].name)
-		
-		button:SetScript("OnClick", function()
-			self:Preset_Load(i)
-			popup:Hide()
-		end)
-	end
-	
-	-- toggle popup on click
-	frame:SetScript("OnClick", function()
-		if popup:IsVisible() then
-			popup:Hide()
-		else
-			popup:Show()
-		end
-	end)
-	
-	-- update the layout
-	self:PresetFrame_UpdateLayout()
-	
-	-- update the preset
-	self:PresetFrame_Update()
-end
-
-function clcret:PresetFrame_UpdateMouse()
-	if self.presetFrame then
-		self.presetFrame:EnableMouse(db.presetFrame.enableMouse)
-	end
-end
-
--- update layout
-function clcret:PresetFrame_UpdateLayout()
-	local opt = db.presetFrame
-
-	-- preset frame
-	local frame = self.presetFrame
-		
-	frame:SetWidth(opt.width)
-	frame:SetHeight(opt.height)
-	frame:ClearAllPoints()
-	frame:SetPoint(opt.point, clcretFrame, opt.pointParent, opt.x, opt.y)
-	
-	frame:SetBackdropColor(unpack(opt.backdropColor))
-	frame:SetBackdropBorderColor(unpack(opt.backdropBorderColor))
-	
-	frame.text:SetFont(STANDARD_TEXT_FONT, opt.fontSize)
-	frame.text:SetVertexColor(unpack(opt.fontColor))
-	
-	frame.text:SetAllPoints(frame)
-	frame.text:SetJustifyH("CENTER")
-	frame.text:SetJustifyV("MIDDLE")
-	
-	-- popup
-	local popup = self.presetPopup
-	popup:SetBackdropColor(unpack(opt.backdropColor))
-	popup:SetBackdropBorderColor(unpack(opt.backdropBorderColor))
-	
-	popup:SetWidth(opt.width)
-	popup:SetHeight((opt.fontSize + 7) * MAX_PRESETS + 40)
-	popup:ClearAllPoints()
-	if opt.expandDown then
-		popup:SetPoint("TOP", frame, "BOTTOM", 0, 0)
-	else
-		popup:SetPoint("BOTTOM", frame, "TOP", 0, 0)
-	end
-	
-	local button
-	for i = 1, MAX_PRESETS do
-		button = self.presetButtons[i]
-	
-		button:SetWidth(opt.width - 20)
-		button:SetHeight(opt.fontSize + 7)
-		button:ClearAllPoints()
-		button:SetPoint("TOPLEFT", popup, "TOPLEFT", 10, -10 - (opt.fontSize + 9) * (i - 1))
-
-		button.name:SetJustifyH("LEFT")
-		button.name:SetJustifyV("MIDDLE")
-		button.name:SetAllPoints()
-		button.name:SetVertexColor(unpack(opt.fontColor))
-		
-		button.name:SetFont(STANDARD_TEXT_FONT, opt.fontSize)
-	end
-	
-end
-
--- checks if the current rotation is in any of the presets and updates text
-function clcret:PresetFrame_Update()
-	if not self.presetFrame then return end
-
-	local t = {}
-	for i = 1, #pq do
-		t[i] = pq[i].alias
-	end
-	local rotation = table.concat(t, " ")
-	
-	local preset = "no preset"
-	for i = 1, MAX_PRESETS do
-		-- print("clcret:", rotation, " | ", db.presets[i].data)
-		if db.presets[i].data == rotation and rotation ~= "" then
-			preset = db.presets[i].name
-			break
-		end
-	end
-	
-	self.presetFrame.text:SetText(preset)
-	
-	-- update the buttons
-	if self.presetButtons then
-		local button
-		for i = 1, MAX_PRESETS do
-			button = self.presetButtons[i]
-			if db.presets[i].name ~= "" then
-				button.name:SetText(db.presets[i].name)
-				button:Show()
-			else
-				button:Hide()
-			end
-		end
-	end
-end
-
--- toggles show and hide
-function clcret:PresetFrame_Toggle()
-	-- the frame is not loaded by default, so check if init took place
-	if not self.presetFrame then
-		-- need to do init
-		self:PresetFrame_Init()
-		self.presetFrame:Show()
-		db.presetFrame.visible = true
-		return
-	end
-		
-
-
-	if self.presetFrame:IsVisible() then
-		self.presetFrame:Hide()
-		db.presetFrame.visible = false
-	else
-		self.presetFrame:Show()
-		db.presetFrame.visible = true
-	end
-end
-
--- load a preset
-function clcret:Preset_Load(index)
-	if db.presets[index].name == "" then return end
-
-	if (not self.presetFrame) or (not self.presetFrame:IsVisible()) then
-		print("clcret:", "Loading preset:", db.presets[index].name)
-	end
-	
-	local list = { strsplit(" ", db.presets[index].data) }
-
-	local num = 0
-	for i = 1, #list do
-		if self.fillers[list[i]] then
-			num = num + 1
-			db.fcfs[num] = list[i]
-		end
-	end
-	
-	-- none on the rest
-	if num < MAX_PRESETS then
-		for i = num + 1, MAX_PRESETS do
-			db.fcfs[i] = "none"
-		end
-	end
-	
-	-- redo queue
-	self:UpdateFCFS()
-	self:PresetFrame_Update()
-end
-
--- loads a prset by name (used for cmd function)
-function clcret:Preset_LoadByName(name)
-	name = string.lower(strtrim(name))
-	if name == "" then return end
-	for i = 1, MAX_PRESETS do
-		if name == string.lower(db.presets[i].name) then return self:Preset_Load(i) end
-	end
-end
-
--- save current to preset
-function clcret:Preset_SaveCurrent(index)
-	local t = {}
-	for i = 1, #pq do
-		t[i] = pq[i].alias
-	end
-	local rotation = table.concat(t, " ")
-	db.presets[index].data = rotation
-	
-	self:PresetFrame_Update()
-end
-
--- ---------------------------------------------------------------------------------------------------------------------
-
 
 
 -- HELPER FUNCTIONS
@@ -1919,7 +1193,7 @@ end
 
 
 function clcret:RegisterCLEU()
-	if icd.cleu or db.sov.enabled or db.swing.enabled then
+	if icd.cleu or db.sov.enabled then
 		self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	else
 		self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
@@ -1932,11 +1206,6 @@ function clcret:COMBAT_LOG_EVENT_UNFILTERED(event, timestamp, combatEvent, sourc
 	-- pass info for the sov function
 	if db.sov.enabled then
 		clcret:SOV_COMBAT_LOG_EVENT_UNFILTERED(event, timestamp, combatEvent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellId, spellName, spellSchool, spellType, dose, ...)
-	end
-	
-	-- swing timer
-	if db.swing.enabled then
-		clcret:SWING_COMBAT_LOG_EVENT_UNFILTERED(event, timestamp, combatEvent, sourceGUID, sourceName, sourceFlags, destGUID, destName, destFlags, spellId, spellName, spellSchool, spellType, dose, ...)
 	end
 	
 	-- return if no icd

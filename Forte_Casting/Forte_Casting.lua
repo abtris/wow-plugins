@@ -1,4 +1,4 @@
--- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
+-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
 
 local FW = FW;
 local FWL = FW.L;
@@ -53,7 +53,6 @@ CA.GlobalCooldown = 1.5;
 function CA:RegisterGCDStance(requires_stace, new_gcd)
 	TrackGCD[requires_stace] = new_gcd;
 end
-
 local hastebuffs = {
 	["ALL"] = {
 		[FW:SpellName(32182)] = 1.30, -- heroism
@@ -63,6 +62,7 @@ local hastebuffs = {
 		[FW:SpellName(49868)] = 1.05, -- Mind Quikening
 		[FW:SpellName(10060)] = 1.20, -- power infusion
 		[FW:SpellName(63277)] = 2.00, -- shadow crash
+		[FW:SpellName(85768)] = 1.03, -- dark intent
 	},
 	["WARLOCK"] = {
 		[FW:SpellName(64368)] = 1.20, -- eradication
@@ -89,7 +89,7 @@ local hastetalents = {
 local function CA_AddSpecialHasteBuffs(group,haste)
 	if hastebuffs[group] then
 		for k, v in pairs(hastebuffs[group]) do
-			if UnitAura("player",k) then
+			if UnitAura("player",k) then -- WATCH OUT WITH CUSTOM NAMES, THIS WON'T WORK IF THE ORIGINAL UNITAURA ISNT USED
 				haste = haste * v;
 			end
 		end
@@ -801,7 +801,7 @@ local function CA_VariablesLoaded()
 		
 	do
 		local PLAYER = FW.PLAYER;
-		local pet = FW.pet;
+		local FW = FW;
 		local select = select;
 		
 		local function CA_CombatLogEvent(event,...)
@@ -809,7 +809,8 @@ local function CA_VariablesLoaded()
 				if select(2,...) == "SPELL_MISSED" then
 					CA_SelfResist(...);
 				end
-			elseif select(3,...) == pet then
+			elseif select(3,...) == FW.pet then
+				--FW:Show("moo");
 				local arg2 = select(2,...);
 				if arg2 == "SPELL_MISSED" then
 					for i,f in ipairs(FW_OnPetCastFailed) do

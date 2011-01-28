@@ -471,8 +471,10 @@ end
 -- Initialize the thing
 local TankPanel = CreateInterfacePanel( "TidyPlatesNeonTankOptionsPanel", "Tidy Plates: Neon/Tank", nil) -- TidyPlatesNeonTankVariables, TidyPlatesNeonTankSavedVariables ) 
 
--- Register the Panel in the Theme
-TidyPlatesThemeList["Neon/Tank"].InterfacePanel = TankPanel
+-- Panel Link
+local function ShowConfigPanelDelegate() InterfaceOptionsFrame_OpenToCategory(TankPanel) end
+TidyPlatesThemeList["Neon/Tank"].ShowConfigPanel = ShowConfigPanelDelegate
+
 
 -- Slash Command
 function slash_NEONTANK(arg) InterfaceOptionsFrame_OpenToCategory(TankPanel); end

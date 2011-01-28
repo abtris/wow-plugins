@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Atramedes", "DBM-BlackwingDescent", 5)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4812 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 5068 $"):sub(12, -3))
 mod:SetCreatureID(41442)
 mod:SetZone()
 mod:SetUsedIcons(8)
@@ -29,13 +29,16 @@ local timerSearingFlame		= mod:NewNextTimer(46.5, 77840)
 local timerAirphase			= mod:NewTimer(90, "TimerAirphase")
 local timerGroundphase		= mod:NewTimer(35, "TimerGroundphase")
 
+local berserkTimer			= mod:NewBerserkTimer(600)
+
 local soundTracking			= mod:NewSound(78092)
 
 mod:AddBoolOption("TrackingIcon")
+mod:AddBoolOption("InfoFrame")
 
 local shieldsLeft = 10
 
-local groundphase = function()
+local function groundphase()
 	timerAirphase:Start()
 	timerSonicBreath:Start(25)
 	timerSearingFlame:Start()
@@ -44,8 +47,21 @@ end
 function mod:OnCombatStart(delay)
 	timerSonicBreath:Start(25-delay)
 	timerSearingFlame:Start(45-delay)
+	if mod:IsDifficulty("heroic10") or mod:IsDifficulty("heroic25") then
+		berserkTimer:Start(-delay)
+	end
 	shieldsLeft = 10
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:SetHeader(L.Soundlevel)
+		DBM.InfoFrame:Show(5, "power", 30, ALTERNATE_POWER_INDEX)
+	end
 end
+
+function mod:OnCombatEnd()
+	if self.Options.InfoFrame then
+		DBM.InfoFrame:Hide()
+	end
+end 
 
 function mod:SPELL_AURA_APPLIED(args)
 	if args:IsSpellID(78092) then
@@ -74,7 +90,7 @@ function mod:SPELL_CAST_SUCCESS(args)
 		warnSonicBreath:Show()
 	elseif args:IsSpellID(77840) then
 		specWarnSearingFlame:Show()
-		timerSearingFlame:Start()
+--		timerSearingFlame:Start()
 	elseif args:IsSpellID(77611) and not args:IsSrcTypePlayer() then
 		shieldsLeft = shieldsLeft - 1
 		warnShieldsLeft:Show(shieldsLeft)

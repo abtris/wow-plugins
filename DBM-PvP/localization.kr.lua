@@ -156,8 +156,8 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization({
-	BgStart60 = "1분 후 전쟁노래 협곡 전투가 시작됩니다!",
-	BgStart30 = "30초 후 전쟁노래 협곡 전투가 시작됩니다. 준비하십시오!",
+	BgStart60 = "1분 후 전투가 시작됩니다!",
+	BgStart30 = "30초 후 전투가 시작됩니다. 준비하십시오!",
 	Alliance = "얼라이언스",
 	Horde = "호드",	
 	InfoErrorText 		= "전투에서 벗어나면 깃발 운반자 타겟팅 기능이 복구됩니다.",
@@ -214,7 +214,7 @@ L:SetMiscLocalization({
 	BgStart60				= "60초 후 전투가 시작됩니다.",
 	BgStart30				= "30초 후 전투가 시작됩니다.",
 	BgStart15				= "15초 후 전투가 시작됩니다.",
-	SiegeEngine				= "Siege Engine",
+	SiegeEngine				= "공성 전차",
 	GoblinStartAlliance		= "See those seaforium bombs? Use them on the gates while I repair the siege engine!",
 	GoblinStartHorde		= "공성 전차를 수리하는 동안 날 좀 지켜 달라고. 필요하면 저기 있는 시포리움 폭약을 관문에 사용해!",
 	GoblinHalfwayAlliance	= "I'm halfway there! Keep the Horde away from here.  They don't teach fighting in engineering school!",
@@ -231,32 +231,66 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("TwinPeaks")
 
 L:SetGeneralLocalization({
-	name = "Twin Peaks"
+	name = "쌍둥이 봉우리"
 })
 
 L:SetMiscLocalization({
-	BgStart60 			= "The battle begins in 1 minute.",
-	BgStart30 			= "The battle begins in 30 seconds.  Prepare yourselves!",
-	ZoneName 			= "Twin",
-	Alliance 			= "Alliance",
-	Horde 				= "Horde",	
-	InfoErrorText		= "The flag carrier targeting function will be restored when you are out of combat.",
-	ExprFlagPickUp		= "The (%w+) .lag was picked up by (.+)!",
-	ExprFlagCaptured	= "(.+) captured the (%w+) flag!",
-	ExprFlagReturn		= "The (%w+) .lag was returned to its base by (.+)!",
-	FlagAlliance		= "Alliance Flag: ",
-	FlagHorde			= "Horde Flag: ",
-	FlagBase			= "Base"
+	BgStart60 			= "1분 후 전투가 시잡됩니다!",
+	BgStart30 			= "30초 후 전투가 시작됩니다! 준비하십시오!",
+	ZoneName 			= "쌍둥이",
+	Alliance 			= "얼라이언스",
+	Horde 				= "호드",	
+	InfoErrorText		= "전투에서 벗어나면 깃발 운반자 타겟팅 기능이 복구됩니다.",
+	ExprFlagPickUp		= "(.+)|1이;가; (.+) 깃발을 손에 넣었습니다!",
+	ExprFlagCaptured	= "(.+)|1이;가; (.+) 깃발 쟁탈에 성공했습니다!",
+	ExprFlagReturn		= "(.+)|1이;가; (.+) 깃발을 되찾았습니다!",
+	FlagAlliance		= "얼라이언스 깃발: ",
+	FlagHorde			= "호드 깃발: ",
+	FlagBase			= "기지"
 })
 
 L:SetTimerLocalization({
-	TimerStart	= "Game starts", 
-	TimerFlag	= "Flag respawn"
+	TimerStart	= "게임 시작", 
+	TimerFlag	= "깃발 재생성"
 })
 
 L:SetOptionLocalization({
-	TimerStart					= "Show start timer",
-	TimerFlag					= "Show flag respawn timer",
-	ShowFlagCarrier				= "Show flag carrier",
-	ShowFlagCarrierErrorNote	= "Show flag carrier error message while in combat"
+	TimerStart					= "시작 타이머 보기",
+	TimerFlag					= "깃발 재생성 타이머 보기",
+	ShowFlagCarrier				= "깃발 운반자 보기",
+	ShowFlagCarrierErrorNote	= "전투중 깃발 운반자 에러 메세지 보기"
+})
+
+
+--------------------------
+--  Battle for Gilneas  --
+--------------------------
+L = DBM:GetModLocalization("Gilneas")
+
+L:SetGeneralLocalization({
+	name = "길니아스 전투지"	-- translate
+})
+
+L:SetMiscLocalization({
+	BgStart60 		= "1분 후 전투가 시작됩니다.",
+	BgStart30 		= "30초 후 전투가 시작됩니다.",
+	ScoreExpr 		= "(%d+)/2000",
+	Alliance 		= "얼라이언스",
+	Horde 			= "호드",
+	WinBarText 		= "%s 획득",
+	BasesToWin		= "필요 점령 갯수 : %d",
+	Flag 			= "깃발"
+})
+
+L:SetTimerLocalization({
+	TimerStart 				= "게임 시작", 
+	TimerCap 				= "%s"
+})
+
+L:SetOptionLocalization({
+	TimerStart  				= "시작 타이머 보기",
+	TimerWin 					= "승리 예상 타이머 보기",
+	TimerCap 					= "깃발 점령 타이머 보기",
+	ShowGilneasEstimatedPoints 	= "승/패 예상 포인트 보기",
+	ShowGilneasBasesToWin 		= "필요 점령 갯수 보기"
 })

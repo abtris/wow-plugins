@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
+﻿-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
 
 --[[
 "frFR": French
@@ -38,6 +38,7 @@ if GetLocale() == "ruRU" then
 	--[[>>]]FWL._ARCANE = " (Arcane)";
 	--[[>>]]FWL._SHADOW = " (Shadow)";
 	--[[>>]]FWL._NATURE = " (Nature)";
+	--[[>>]]FWL._BUFF = " (Buff)";
 	
 -- FR
 elseif GetLocale() == "frFR" then
@@ -59,6 +60,7 @@ elseif GetLocale() == "frFR" then
 	--[[>>]]FWL._ARCANE = " (Arcane)";
 	--[[>>]]FWL._SHADOW = " (Shadow)";
 	--[[>>]]FWL._NATURE = " (Nature)";
+	--[[>>]]FWL._BUFF = " (Buff)";
 	
 -- DE
 elseif GetLocale() == "deDE" then
@@ -80,6 +82,7 @@ elseif GetLocale() == "deDE" then
 	--[[>>]]FWL._ARCANE = " (Arcane)";
 	--[[>>]]FWL._SHADOW = " (Shadow)";
 	--[[>>]]FWL._NATURE = " (Nature)";
+	--[[>>]]FWL._BUFF = " (Buff)";
 	
 -- SPANISH By Intxixu - SPQR - Tyrande
 elseif GetLocale() == "esES" then
@@ -101,6 +104,7 @@ elseif GetLocale() == "esES" then
 	--[[>>]]FWL._ARCANE = " (Arcane)";
 	--[[>>]]FWL._SHADOW = " (Shadow)";
 	--[[>>]]FWL._NATURE = " (Nature)";
+	--[[>>]]FWL._BUFF = " (Buff)";
 	
 elseif GetLocale() == "zhCN" then
 	--units
@@ -121,7 +125,8 @@ elseif GetLocale() == "zhCN" then
 	--[[>>]]FWL._ARCANE = " (Arcane)";
 	--[[>>]]FWL._SHADOW = " (Shadow)";
 	--[[>>]]FWL._NATURE = " (Nature)";
-
+	--[[>>]]FWL._BUFF = " (Buff)";
+	
 -- tradition Chinese
 elseif GetLocale() == "zhTW" then
 	--units
@@ -142,6 +147,7 @@ elseif GetLocale() == "zhTW" then
 	--[[>>]]FWL._ARCANE = " (Arcane)";
 	--[[>>]]FWL._SHADOW = " (Shadow)";
 	--[[>>]]FWL._NATURE = " (Nature)";
+	--[[>>]]FWL._BUFF = " (Buff)";
 	
 elseif GetLocale() == "koKR" then
 	--units
@@ -162,6 +168,7 @@ elseif GetLocale() == "koKR" then
 	--[[>>]]FWL._ARCANE = " (Arcane)";
 	--[[>>]]FWL._SHADOW = " (Shadow)";
 	--[[>>]]FWL._NATURE = " (Nature)";
+	--[[>>]]FWL._BUFF = " (Buff)";
 	
 else -- standard english version
 	--units
@@ -182,6 +189,8 @@ else -- standard english version
 	FWL._ARCANE = " (Arcane)";
 	FWL._SHADOW = " (Shadow)";
 	FWL._NATURE = " (Nature)";
+	FWL._BUFF = " (Buff)";
+	
 end
 	
 -- THESE ARE INTERFACE STRINGS ONLY AND TRANSLATING THEM IS OPTIONAL

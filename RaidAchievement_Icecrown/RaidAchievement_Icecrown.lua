@@ -234,7 +234,7 @@ local arg1, arg2, arg3,arg4,arg5,arg6 = ...
 
 
 if event == "PLAYER_REGEN_DISABLED" then
-if rabilresnut==1 then
+if (rabilresnut and GetTime()<rabilresnut+3) or racheckbossincombat then
 else
 --обнулять все данные при начале боя тут:
 

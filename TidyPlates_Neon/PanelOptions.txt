@@ -1,0 +1,33 @@
+Nameplate Indicators
+
+Level Text
+Enemy Class Icon
+Friendly Class Icon
+Selection Box
+Tug-O-Threat Widget
+Threat Wheel
+Combo Points
+Range Watcher
+Debuff Tracker
+
+
+Aggro Indicators:
+Health Bar Color
+Border Glow
+Color Raid Tanks
+
+Aggro Colors
+Tanked By Me
+Tanked By Other
+Loose
+
+Health Text
+Mode
+
+General Scale
+Loose Mob Scale
+Ignore Non-Elites
+
+Non-Target Opacity
+Hide Neutral Units
+Hide Non-Elites

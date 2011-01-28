@@ -40,7 +40,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetTimerLocalization({
-	TimerSuperheated 	= "$spell:75846 (%d)"	-- should work, no need for translation :)
+	TimerSuperheated 	= "Перегретая броня (%d)"	-- not work with $spell:75846 :)
 })
 
 L:SetOptionLocalization({
@@ -125,6 +125,10 @@ L:SetGeneralLocalization({
 	name = "Ванесса ван Клиф"
 })
 
+L:SetTimerLocalization({
+	achievementGauntlet	= "Великое воздаяние"
+})
+
 ------------------
 --  Grim Batol  --
 ---------------------
@@ -133,8 +137,16 @@ L:SetGeneralLocalization({
 L = DBM:GetModLocalization("GeneralUmbriss")
 
 L:SetGeneralLocalization({
-	name = "Генерал Умбрисс"
+	name		= "Генерал Умбрисс"
 })
+
+L:SetOptionLocalization{
+	PingBlitz	= "С эмитировать импульс на мини-карте, если Умбрисс собирается применить на вас $spell:74670"
+}
+
+L:SetMiscLocalization{
+	Blitz		= "останавливает взгяд на |cFFFF0000(%S+)" -- mb need use |3-3(%S+)
+}
 
 --------------------------
 -- Forgemaster Throngus --
@@ -188,6 +200,10 @@ L:SetGeneralLocalization({
 	name = "Пта Ярость Земли"
 })
 
+L:SetMiscLocalization{
+	Kill		= "Пта... Больше... Нет..."
+}
+
 --------------
 -- Anraphet --
 --------------
@@ -195,6 +211,14 @@ L = DBM:GetModLocalization("Anraphet")
 
 L:SetGeneralLocalization({
 	name = "Анрафет"
+})
+
+L:SetTimerLocalization({
+	achievementGauntlet	= "Скорость Света"
+})
+
+L:SetMiscLocalization({
+	Brann		= "Ага, ну поехали! Осталось ввести последний код для открывания двери...и..."
 })
 
 ------------
@@ -459,6 +483,14 @@ L = DBM:GetModLocalization("Asaad")
 
 L:SetGeneralLocalization({
 	name = "Асаад"
+})
+
+L:SetOptionLocalization({
+	SpecWarnStaticCling	= "Показывать особое предупреждение для $spell:87618"
+})
+
+L:SetWarningLocalization({
+	SpecWarnStaticCling	= "Хватка природы - ПРЫГАЙ!"	-- does $spell: work here ?
 })
 
 ---------------------------

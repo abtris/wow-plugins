@@ -244,7 +244,7 @@ end
 
 -----------------------------------------
 
-local function GetRealmFacInfoString()
+function GetRealmFacInfoString()
 
 	local	realm_fac, data
 	local	rf_string = ""
@@ -295,100 +295,6 @@ local function IsCataEnchanter()
 	return false
 end
 
------------------------------------------
-
-local function BuildAddonsString ()
-
-	local acnt = "";
-	
-	local familyNames = {};
-	local f, i, found;
-	
-	for i = 1, GetNumAddOns() do
-		local name, title, notes, enabled = GetAddOnInfo(i)
-		if (enabled) then
-			found = false;
-
-			if (zc.StringStartsWith (name, "DBM")) then
-				name = "DBM";
-			end
-			if (zc.StringStartsWith (name, "Auc-")) then
-				name = "AUCTIONEER";
-			end
-
-			for f = 1,#familyNames do
-				if (zc.StringStartsWith (name, familyNames[f])) then
-					found = true;
-				end
-			end
-			
-			if (not found) then
-				table.insert (familyNames, name);
-				acnt = acnt..", "..name;
-			end
-		end
-	end
-
-	return acnt;
-end
-
------------------------------------------
-
-local origErrorHandler;
-local inAtrErrorHandler = false;
-
-local function Atr_Error_Handler (...)
-
-	if (inAtrErrorHandler) then
-		if (origErrorHandler) then
-			origErrorHandler (...);
-		end
-		return;
-	end
-
-	inAtrErrorHandler = true;
-	
-	local msg		= zc.msg_str (...);
-	local funcnames	= zc.printstack ( { silent=true } );
-	local funcstr	= table.concat (funcnames, " > ");
-
-	local looksLikeAuctionatorError = (zc.StringContains (msg, "auctionator", "zcutils") and not zc.StringContains (msg, "Auctionator_RecipeList"));
-
-	if (zc.StringSame (select(1,...), "xxx")) then
-		msg = "Debugging Information";
-		looksLikeAuctionatorError = true;
-	end
-
-	if (looksLikeAuctionatorError) then
-
-		Atr_LUA_explanation:SetText ("Ooops.  Looks like you've run into a bug in Auctionator. "
-							.."You can help the author fix this bug by copying and pasting the information below, "
-							.."and sending it to him along with a short description of what you were doing at the time the bug occurred. "
-							.."|n|nSee |cffaaffffhttp://auctionatoraddon.com/bugs|r for instructions on where to send it."
-							.."|nIt would be even more helpful if you could disable all other addons and let the author know if this error still occurs.");
-	
-		Atr_LUA_Error:Show();
-		
-		local dcp = zc.Val (AUCTIONATOR_DC_PAUSE, "<nil>") ;
-		
-		local dbversion = 0;
-		if (AUCTIONATOR_PRICE_DATABASE and AUCTIONATOR_PRICE_DATABASE["__dbversion"]) then
-			dbversion = AUCTIONATOR_PRICE_DATABASE["__dbversion"];
-		end
-		
-		Atr_LUA_ErrorMsg:SetText (msg.."\n------------\nVERS:"..AuctionatorVersion.."   MEM:"..Atr_GetAuctionatorMemString().."   DB:"..Atr_GetDBsize()..
-										"   SE:"..GetCVar("scripterrors").."  DCP:"..dcp.."  DBVERS:"..dbversion..
-										"\n------------\nREALMS: "..GetRealmFacInfoString()..
-										"\n------------\nSTACK: "..funcstr..
-										"\n------------\nADDONS: "..BuildAddonsString());
-		
-	elseif (origErrorHandler) then
-		origErrorHandler (...);
-	end
-		
-	inAtrErrorHandler = false;
-		
-end
 
 -----------------------------------------
 --[[
@@ -930,9 +836,9 @@ function Atr_OnLoad()
 
 	EnableDisableDElogging (false, 15)
 
-	if (not AUCTIONATOR_SAVEDVARS.LOG_DE_DATA and IsCataEnchanter()) then
-		zc.msg_anm ("Help improve the disenchanting info in Auctionator.  Type |cff00ffff/atr dehelp|r for more info.")
-	end
+--	if (not AUCTIONATOR_SAVEDVARS.LOG_DE_DATA and IsCataEnchanter()) then
+--		zc.msg_anm ("Help improve the disenchanting info in Auctionator.  Type |cff00ffff/atr dehelp|r for more info.")
+--	end
 	
 	if ( IsAddOnLoaded("Blizzard_AuctionUI") ) then		-- need this for AH_QuickSearch since that mod forces Blizzard_AuctionUI to load at a startup
 		Atr_Init();
@@ -971,26 +877,12 @@ end
 function Atr_OnPlayerEnteringWorld()
 
 	Atr_InitOptionsPanels();
-
-	local installOurOwnErrorHandler = true
-	local i
+	Atr_Install_Error_Handler()
 	
-	for i = 1, GetNumAddOns() do
-		local name, title, notes, enabled = GetAddOnInfo(i)
-		if (enabled) then
-			if (zc.StringSame (name, "BugSack") or zc.StringSame (name, "!BugGrabber") or zc.StringSame (name, "!Swatter")) then
-				zz (name, "found - not installing errorhandler");
-				installOurOwnErrorHandler = false
-			end
-		end
+	if (Atr_IsDev) then
+		Atr_SendAddon_VREQ ("RAID");
 	end
 	
-	if (installOurOwnErrorHandler) then
-		origErrorHandler = geterrorhandler()
-		seterrorhandler (Atr_Error_Handler)
-	end
-
-
 --	Atr_MakeOptionsFrameOpaque();
 end
 
@@ -3778,16 +3670,7 @@ function Atr_ShowHistory (showPosts)
 			lineEntry_item:Show();
 			lineEntry_itemtext:Hide();
 			
---			lineEntry_stack:SetTextColor (0.5, 0.5, 0.5);
-			
---			if (showScanHist) then
---				lineEntry_stack:SetText (zc.priceToString(data.lowlowPrice));
---				if (data.lowlowPrice ~= data.itemPrice) then
---					lineEntry_stack:SetTextColor (1.0, 1.0, 1.0);
---				end
---			else
-				lineEntry_stack:SetText	("");
---			end
+			lineEntry_stack:SetText	("");
 			
 			Atr_SetMFcolor (lineEntry_item_tag);
 

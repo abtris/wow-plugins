@@ -1,6 +1,6 @@
 ## Interface: 40000
 ## Title: Auctionator
-## Version: 2.8.7
+## Version: 2.8.8
 ## Author: Zirco
 ## X-Website: http://auctionator-addon.com
 ## X-Localizations: enUS, deDE, ruRU, svSE, frFR, esES
@@ -17,6 +17,7 @@ Locales\esES.lua
 
 zcUtils.lua
 
+AtrErrorInspector.lua
 Auctionator.lua
 AuctionatorShop.lua
 

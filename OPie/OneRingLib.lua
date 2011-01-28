@@ -1,4 +1,4 @@
-local OR_AddonName, versionMajor, versionRev, OneRing = "OPie", 1, 54, {ext={}};
+local OR_AddonName, versionMajor, versionRev, OneRing = "OPie", 1, 55, {ext={}};
 local OR_Rings, OR_PendingUpdates, OR_ModifierLockState = {}, {}, "";
 local defaultConfig = {ClickActivation=false, IndicationOffsetX=0, IndicationOffsetY=0, RingAtMouse=false, RingScale=1, ClickPriority=true, CenterAction=true, MouseBucket=3, NoClose=false, SliceBinding=false, SliceBindingString="1 2 3 4 5 6 7 8 9 0"};
 local configRoot, configInstance, activeProfile, PersistentStorageInfo, optionValidators = {}, nil, nil, {}, {};
@@ -467,7 +467,7 @@ local function OR_SyncRing(name, props, forceSliceSync)
 					OR_SRSRings[actionID] = OR_SRSRings[actionID] or {};
 					table.insert(OR_SRSRings[actionID], name); -- Subscribe to be notified when the ghost becomes available
 				elseif props[i].rotation ~= 0 and type(props[i].rotation) == "number" then
-					postExec = postExec .. ([[local k="%d#%d.%d"; ORL_Rotation[k] = ORL_Rotation[k] or %d;]]):format(OR_Rings[actionID].ringID, ringID, i, props[i].rotation);
+					postExec = postExec .. ([[local k="%d#%d.%d"; ORL_Rotation[k] = %s or %d;]]):format(OR_Rings[actionID].ringID, ringID, i, props[i].forceRotation and "nil" or "ORL_Rotation[k]", props[i].rotation);
 				end
 				SetAttributes(OR_SecCore, mask:format("type"),"ring", mask:format("ring"),OR_Rings[actionID] and OR_Rings[actionID].ringID or 0);
 			else

@@ -1,4 +1,4 @@
-local L = LibStub( "AceLocale-3.0" ):NewLocale( "ArkInventory", "enUS", true, true )
+local L = LibStub( "AceLocale-3.0" ):NewLocale( "ArkInventory", "enUS", true, false )
 if not L then return end
 
 -- post updated translations at http://groups.google.com/group/wow-arkinventory (modify this file and include as an attachment)
@@ -105,6 +105,7 @@ if not L then return end
 	L["STATUS_NAME_MINING"] = "Ore"
 	L["STATUS_NAME_MOUNT"] = "Mount"
 	L["STATUS_NAME_TOKEN"] = "Tkn"
+	L["STATUS_NAME_TACKLE"] = "Tkl"
 	
 	
 --	main menu
@@ -635,16 +636,3 @@ if not L then return end
 	L["LDB_COMPANION_SELECT"] = "\nAdds the %s to the selected pool, limiting the companions that can be randomly summoned.\n\nIf all companions are selected then random mode will become enabled"
 	L["LDB_COMPANION_DESELECT"] = "\nRemoves the %s from the selected pool.\n\nIf all companions are deslected then random mode will become enabled"
 	L["LDB_COMPANION_IGNORE"] = "\nNever summon the %s in random mode"
-	
-	
-	
---	WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
---	WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
---	WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
---	WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING WARNING
-	
---	INTERNAL CODES AND TEXT
-	
---	DO NOT TRANSLATE ANYTHING UNDERNEATH THIS LINE
-	
---	REMOVE THESE ENTRIES FROM ALL OTHER LOCALE FILES

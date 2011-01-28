@@ -1,0 +1,19 @@
+------------------------------------------------------------------------
+r395 | kagaro | 2011-01-17 21:14:17 +0000 (Mon, 17 Jan 2011) | 1 line
+Changed paths:
+   A /tags/1.5.4.5 (from /trunk:394)
+
+Tagging as 1.5.4.5
+------------------------------------------------------------------------
+r394 | kagaro | 2011-01-17 00:42:48 +0000 (Mon, 17 Jan 2011) | 1 line
+Changed paths:
+   M /trunk/kgPanelsConfig/PanelHelper.lua
+
+Fixed font dropdown disabled check, it was checking for disembedded LSM and not if the lib was loaded
+------------------------------------------------------------------------
+r393 | kagaro | 2010-12-03 00:20:31 +0000 (Fri, 03 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/kgPanels.lua
+
+moved setup of LDB to onInit
+------------------------------------------------------------------------

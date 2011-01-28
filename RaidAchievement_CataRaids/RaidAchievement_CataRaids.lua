@@ -66,7 +66,7 @@ local arg1, arg2, arg3,arg4,arg5,arg6 = ...
 
 
 if event == "PLAYER_REGEN_DISABLED" then
-if rabilresnut==1 then
+if (rabilresnut and GetTime()<rabilresnut+3) or racheckbossincombat then
 else
 --обнулять все данные при начале боя тут:
 
@@ -193,7 +193,7 @@ end
 
 --The Bastion of Twilight
 if GetCurrentMapAreaID()==758 then
-if arg2=="SPELL_AURA_APPLIED_DOSE" and arg9==93187 then
+if arg2=="SPELL_AURA_APPLIED_DOSE" and arg9==93187 and arg13 and arg13>30 then
 	if crraspisokon[5]==1 and raachdone1 then
 		crrafailnoreason(5,arg7)
 	end

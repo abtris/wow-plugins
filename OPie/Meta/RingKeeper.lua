@@ -1,6 +1,7 @@
-local RingKeeper, assert, copy = {}, OneRingLib.xlu.assert, OneRingLib.xlu.copy;
-local RK_RingDesc, RK_RingData, RK_RingIDs, RK_Version, RK_Rev, SV = {}, {}, {}, 1, 25;
-local RK_ManagedRingNames, RK_ConditionedRings, RK_DeletedRings, RK_FastClick, RK_Rotation = {}, {item={},ring={},fly={},equipmentset={}};
+local RingKeeper, assert, copy, charId = {}, OneRingLib.xlu.assert, OneRingLib.xlu.copy, OneRingLib.xlu.charId;
+local RK_RingDesc, RK_RingData, RK_RingIDs, RK_Version, RK_Rev, SV = {}, {}, {}, 1, 26;
+local RK_ManagedRingNames, RK_ConditionedRings, RK_DeletedRings, RK_FastClick, RK_RotationStore = {}, {item={},ring={},fly={},equipmentset={}};
+local RK_ForceRotationUpdate, RK_SpellChangeBucket, RK_LeftWorld;
 local unlocked, queue = false, {}; -- Waiting for SVs
 
 -- ORL/API adapter functions
@@ -16,12 +17,13 @@ do -- Macro parser
 		local looseMatch = "";
 		for id in sidlist:gmatch("%d+") do
 			local sname, srank = GetSpellInfo(tonumber(id));
-			if (OneRingLib.xlu.companionSpellCache(sname))
-			or (sname and GetSpellInfo(sname, srank)) then
+			local sname2, srank2 = GetSpellInfo(sname or -1);
+			if sname and srank == srank2 then
+				return sname .. (sname:match("%(") and "()" or "");
+			elseif (sname and GetSpellInfo(sname, srank)) or (OneRingLib.xlu.companionSpellCache(sname)) then
 				return sname .. "(" .. srank .. ")"
-			elseif sname and GetSpellInfo(sname) then
-				sname, srank = GetSpellInfo(sname);
-				looseMatch = sname .. "(" .. srank .. ")"
+			elseif sname2 then
+				looseMatch = sname2 .. "(" .. srank2 .. ")"
 			end
 		end
 		return looseMatch;
@@ -55,11 +57,23 @@ end
 local function RK_DeferredLoad()
 	unlocked = true;
 	local pname, deleted, mousemap = UnitName("player"), SV.OPieDeletedRings or {}, {};
-	RK_DeletedRings, RK_FastClick, RK_Rotation, SV.OPieDeletedRings, SV.OPieFastClick, SV.OPieRotation = {}, SV.OPieFastClick or {}, SV.OPieRotation or {};
+	RK_DeletedRings, RK_FastClick, SV.OPieDeletedRings, SV.OPieFastClick = {}, SV.OPieFastClick or {};
 
 	if GetCVarBool("enableWowMouse") then
 		mousemap["BUTTON4"], mousemap["BUTTON5"] = "BUTTON12", "BUTTON13";
 	end
+	RK_RotationStore = {{}, {}, stored={}}
+	if type(SV.OPieRotation) == "table" then
+		for k,v in pairs(SV.OPieRotation) do
+			local c, s, ri = k:match("^([^#]+)#(%d)#([^#]+#[^#]+)$");
+			if c == charId then
+				RK_RotationStore[tonumber(s)][ri] = v;
+			elseif c then
+				RK_RotationStore.stored[k] = v;
+			end
+		end
+	end
+	SV.OPieRotation = nil;
 
 	for k, v in pairs(queue) do
 		if v.hotkey then v.hotkey = v.hotkey:gsub("[^-]+$", mousemap); end
@@ -73,35 +87,47 @@ local function RK_DeferredLoad()
 	for k, v in pairs(SV) do
 		EC_pcall("RingKeeper", k .. ".AddRingSV", RingKeeper.AddRing, RingKeeper, k, v);
 	end
+	collectgarbage("collect");
+end
+local function RK_SaveRotations(dest)
+	for k, v in pairs(RK_RingDesc) do
+		if type(v) == "table" and not RK_DeletedRings[k] then
+			local i, j = 1, 1;
+			while v[i] do local e = v[i];
+				if e.type and e.action then
+					dest[k .. "#" .. i], j = OneRingLib:GetSliceRotation(RK_RingIDs[k], j), j + 1;
+				end
+				i = i + 1;
+			end
+		end
+	end
 end
 local function RK_Initializer(event, name, sv)
 	if event == "LOGOUT" and unlocked then
 		for k, v in pairs(sv) do sv[k] = nil; end
-		RK_Rotation = {};
+
+		RK_SaveRotations(RK_RotationStore[GetActiveTalentGroup()]);
+		local rotation = RK_RotationStore.stored;
+		for i, t in ipairs(RK_RotationStore) do
+			for k,v in pairs(t) do
+				rotation[charId .. "#" .. i .. "#" .. k] = v;
+			end
+		end
+
 		for k, v in pairs(RK_RingDesc) do
-			if type(v) == "table" and not RK_DeletedRings[k] then
-				local i, j = 1, 1;
-				while v[i] do local e = v[i];
-					if e.type and e.action then
-						RK_Rotation[k .. "#" .. i], j = OneRingLib:GetSliceRotation(RK_RingIDs[k], j), j + 1;
-					end
-					i = i + 1;
+			if type(v) == "table" and not RK_DeletedRings[k] and v.save then
+				for i, v2 in ipairs(v) do
+					v2.c = ("%02x%02x%02x"):format((v2.r or 0) * 255, (v2.g or 0) * 255, (v2.b or 0) * 255);
+					v2.spell, v2.spell2, v2.type, v2.action, v2.b, v2.g, v2.r, v2.autocaption, v2.autoicon = nil;
 				end
-				if v.save then
-					for i, v2 in ipairs(v) do
-						v2.c = ("%02x%02x%02x"):format((v2.r or 0) * 255, (v2.g or 0) * 255, (v2.b or 0) * 255);
-						v2.spell, v2.spell2, v2.type, v2.action = nil, nil, nil, nil;
-						v2.b, v2.g, v2.r, v2.autocaption, v2.autoicon = nil, nil, nil, nil, nil;
-					end
-					sv[k] = v;
-				end
+				sv[k] = v;
 			end
 			if RK_RingIDs[k] then
 				local rslice = select(7, OneRingLib:GetRingInfo(RK_RingIDs[k])) or nil;
 				RK_FastClick[k] = rslice and RK_RingData[k][rslice] and RK_RingData[k][rslice].rkId or nil;
 			end
 		end
-		sv.OPieDeletedRings, sv.OPieFastClick, sv.OPieRotation = next(RK_DeletedRings) and RK_DeletedRings, next(RK_FastClick) and RK_FastClick, next(RK_Rotation) and RK_Rotation;
+		sv.OPieDeletedRings, sv.OPieFastClick, sv.OPieRotation = next(RK_DeletedRings) and RK_DeletedRings, next(RK_FastClick) and RK_FastClick, next(rotation) and rotation;
 	end
 end
 local function GetPlayerSpell(id)
@@ -166,9 +192,10 @@ local function RK_SyncRing(name, force)
 		end
 		
 		-- Copy well-defined ring entries from parsed description
+		local rot = RK_RotationStore[GetActiveTalentGroup() or 1];
 		for i, e in ipairs(desc) do
 			if e.type and e.action then
-				ring[#ring+1] = {e.type, e.action, e.target, r=e.r, g=e.g, b=e.b, psbind=e.psbind, caption=e.caption or e.autocaption, icon=e.icon or e.autoicon, rotation=e.rtype == "ring" and RK_Rotation[name .. "#" .. i] or nil, tipType=e.tipType, tipDetail=e.tipDetail, fastClick=e.fastClick, rkId=i};
+				ring[#ring+1] = {e.type, e.action, e.target, r=e.r, g=e.g, b=e.b, psbind=e.psbind, caption=e.caption or e.autocaption, icon=e.icon or e.autoicon, rotation=e.rtype == "ring" and rot[name .. "#" .. i] or nil, forceRotation=RK_ForceRotationUpdate, tipType=e.tipType, tipDetail=e.tipDetail, fastClick=e.fastClick, rkId=i};
 				if (e.fastClick and RK_FastClick[name] == i) then
 					ring.fastClickSlice = #ring;
 				end
@@ -211,16 +238,39 @@ function RK_RingPreClick(ring, slice)
 	RK_SyncRing(RK_RingIDs[ring]);
 end
 local rkEventMap = {PLAYER_REGEN_DISABLED="item", ["ORL.CREATE_RING"]="ring", EQUIPMENT_SETS_CHANGED="equipmentset", ["ORL.SYNC_RING"]="ring"};
+local function RK_SoftUpdateAll()
+	for k,v in pairs(RK_RingDesc) do
+		EC_pcall("RK.Sync", "Ring " .. k, RK_SyncRing, k);
+	end
+	EC_DelTimer("RingKeeper.SPELLS_CHANGED.Bucketing");
+	RK_SpellChangeBucket = nil;
+	return "remove";
+end
 local function RK_Event(event, ...)
-	if rkEventMap[event] then
+	if RK_LeftWorld or event == "PLAYER_LEAVING_WORLD" then
+		RK_LeftWorld = event ~= "PLAYER_ENTERING_WORLD";
+	elseif event == "PLAYER_REGEN_DISABLED" and RK_SpellChangeBucket then
+		RK_SoftUpdateAll();
+	elseif rkEventMap[event] then
 		for k in pairs(RK_ConditionedRings[rkEventMap[event]]) do
 			EC_pcall("RK.Sync", "Ring " .. k, RK_SyncRing, k);
 		end
+	elseif event == "SPELLS_CHANGED" then
+		if RK_SpellChangeBucket then EC_DelTimer("RingKeeper.SPELLS_CHANGED.Bucketing"); end
+		EC_Timer("RingKeeper.SPELLS_CHANGED.Bucketing", RK_SoftUpdateAll, 0.5);
+		RK_SpellChangeBucket = (RK_SpellChangeBucket or 0) + 1;
 	else
-		for k,v in pairs(RK_RingDesc) do
-			EC_pcall("RK.Sync", "Ring " .. k, RK_SyncRing, k);
-		end
+		RK_SoftUpdateAll();
 	end
+end
+local function RK_SwitchSpec(event, newSpec, oldSpec)
+	if not unlocked then return; end
+	RK_SaveRotations(RK_RotationStore[oldSpec]);
+	RK_ForceRotationUpdate = true;
+	for k in pairs(RK_ConditionedRings.ring) do
+		EC_pcall("RK.Sync", "Ring " .. k, RK_SyncRing, k, true);
+	end
+	RK_ForceRotationUpdate = nil;
 end
 
 -- Public API
@@ -315,4 +365,7 @@ if type(OneRingLib) == "table" then
 	EC_Register("EQUIPMENT_SETS_CHANGED", "RingKeeper.Update", RK_Event);
 	EC_Register("ORL.CREATE_RING", "RingKeeper.Update", RK_Event);
 	EC_Register("ORL.SYNC_RING", "RingKeeper.Update", RK_Event);
+	EC_Register("ACTIVE_TALENT_GROUP_CHANGED", "RingKeeper.SwitchSpec", RK_SwitchSpec);
+	EC_Register("PLAYER_LEAVING_WORLD", "RingKeeper.Update", RK_Event);
+	EC_Register("PLAYER_ENTERING_WORLD", "RingKeeper.Update", RK_Event);
 end

@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
+﻿-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
 -- Module by Lurosara
 -- Shamelessly cribbed from Xus' Forte Warrior module.
 
@@ -26,8 +26,6 @@ if FW.CLASS == "DRUID" then
 	FWL.MANGLE = GetSpellInfo(33876);
 	FWL.SKULL_BASH = GetSpellInfo(80964);
 	FWL.SWIPE = GetSpellInfo(779);
-	
-	-- THESE ARE INTERFACE STRINGS ONLY AND TRANSLATING THEM IS OPTIONAL
 	
 	-- French
 	if GetLocale() == "frFR" then
@@ -88,4 +86,7 @@ if FW.CLASS == "DRUID" then
 	FWL.SKULL_BASH_CAT = FWL.SKULL_BASH..FWL._CAT;
 	FWL.SWIPE_BEAR = FWL.SWIPE..FWL._BEAR;
 	FWL.SWIPE_CAT = FWL.SWIPE..FWL._CAT;
+	
+	-- THESE ARE INTERFACE STRINGS ONLY AND TRANSLATING THEM IS OPTIONAL
+
 end

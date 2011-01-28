@@ -5,11 +5,11 @@
 ## Author: kagaro, EvilElvis
 ## X-Category: Interface Enhancements
 ## Dependencies: kgPanels
-## Version: 1.5.4.4
+## Version: 1.5.4.5
 ## X-License: All Rights Reserved
 ## X-Email: sal.scotto@gmail.com
 ## OptionalDeps: Ace3, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets
-## X-Curse-Packaged-Version: 1.5.4.4
+## X-Curse-Packaged-Version: 1.5.4.5
 ## X-Curse-Project-Name: kgPanels
 ## X-Curse-Project-ID: kg-panels
 ## X-Curse-Repository-ID: wow/kg-panels/mainline

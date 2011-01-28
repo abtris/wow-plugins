@@ -32,7 +32,7 @@ L:SetMiscLocalization({
 L = DBM:GetModLocalization("Arenas")
 
 L:SetGeneralLocalization({
-	name = "Arena"
+	name = "Arenas"
 })
 
 L:SetTimerLocalization({
@@ -224,4 +224,73 @@ L:SetMiscLocalization({
 	GoblinFinishedHorde		= "¡La máquina de asedio está lista para la acción!",
 	GoblinBrokenAlliance	= "¿Ya está rota? No pasa nada. No es nada que no pueda arreglar.",
 	GoblinBrokenHorde		= "¿Está estropeada otra vez? La arreglaré... pero no esperes que la garantía cubra esto."
+})
+
+------------------
+--  Twin Peaks  --
+------------------
+L = DBM:GetModLocalization("TwinPeaks")
+
+L:SetGeneralLocalization({
+	name = "Cumbres Gemelas"
+})
+
+L:SetMiscLocalization({
+	BgStart60 			= "La batalla comienza en 1 minuto.",
+	BgStart30 			= "La batalla comienza en 30 segundos. ¡Preparaos!",
+	ZoneName 			= "Twin",	-- translate
+	Alliance 			= "Alianza",
+	Horde 				= "Horda",	
+	InfoErrorText		= "La función de targetear al portador de la bandera se restaurará cuando estés fuera de combate.",
+	ExprFlagPickUp		= "¡(.+) ha cogido la bandera de la (%w+)!",
+	ExprFlagCaptured	= "¡(.+) ha capturado la bandera de la (%w+)!",
+	ExprFlagReturn		= "¡(.+) ha devuelto la bandera de la (%w+) a su base!",
+	FlagAlliance		= "Bandera de la Alianza: ",
+	FlagHorde			= "Bandera de la Horda: ",
+	FlagBase			= "Base"
+})
+
+L:SetTimerLocalization({
+	TimerStart	= "Empieza la batalla", 
+	TimerFlag	= "Reaparición de la bandera"
+})
+
+L:SetOptionLocalization({
+	TimerStart					= "Mostrar tiempo de inicio",
+	TimerFlag					= "Mostrar tiempo de reaparición de bandera",
+	ShowFlagCarrier				= "Mostrar portador de la bandera",
+	ShowFlagCarrierErrorNote	= "Mostrar mensaje de error del portador de la bandera en combate"
+})
+
+--------------------------
+--  Battle for Gilneas  --
+--------------------------
+L = DBM:GetModLocalization("Gilneas")
+
+L:SetGeneralLocalization({
+	name = "La Batalla por Gilneas"
+})
+
+L:SetMiscLocalization({
+	BgStart60		= "La batalla comenzará en 1 minuto.",
+	BgStart30		= "La batalla comenzará en 30 segundos.",
+	ScoreExpr 		= "(%d+)/2000",
+	Alliance 		= "Alianza",
+	Horde 			= "Horda",
+	WinBarText 		= "%s ganara en",
+	BasesToWin 		= "Bases necesarias para ganar: %d",
+	Flag 			= "Bandera"
+})
+
+L:SetTimerLocalization({
+	TimerStart 		= "¡La batalla va Comenzar!", 
+	TimerCap 		= "%s"
+})
+
+L:SetOptionLocalization({
+	TimerStart  			= "Mostrar tiempo para que comienze la Batalla.",
+	TimerWin 			= "Mostrar tiempo para que una faccion Gane la Batalla.",
+	TimerCap 			= "Mostrar tiempo que tarda en conquistar Banderas.",
+	ShowGilneasEstimatedPoints	= "Mostrar recursos estimados a ganar.",
+	ShowGilneasBasesToWin		= "Mostrar bases para ganar."
 })

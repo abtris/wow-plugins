@@ -276,6 +276,7 @@ function Atr_Shop_OnFinishScan ()
 		
 		if (isRecentsShown) then
 			FauxScrollFrame_SetOffset (Atr_Hlist_ScrollFrame, 0);
+			Atr_Hlist_ScrollFrame:SetVerticalScroll(0);
 		end
 		
 	end

@@ -1152,6 +1152,8 @@ function ArkInventory.BagType( blizzard_id )
 					return ArkInventory.Const.Slot.Type.Leatherworking
 				elseif s == ArkInventory.Localise["WOW_ITEM_TYPE_CONTAINER_MINING"] then
 					return ArkInventory.Const.Slot.Type.Mining
+				elseif s == ArkInventory.Localise["WOW_ITEM_TYPE_CONTAINER_TACKLE"] then
+					return ArkInventory.Const.Slot.Type.Tackle
 				end
 				
 			end
@@ -2329,49 +2331,53 @@ function ArkInventory.ScanChanged( old, h, sb, count )
 	
 	-- return item has changed, new status, reset count
 
-	if not old then
-		--  the old slot doesnt exist - new bag is larger
-		--ArkInventory.Output( "changed, bag=", bag_id, ", slot=", i.slot_id, ", new slot" )
-		return true, ArkInventory.Const.Slot.New.No, false
-	end
-	
-	if h and not old.h then
-		-- item added to empty slot
-		--ArkInventory.Output( "changed, bag=", bag_id, ", slot=", i.slot_id, ", item added" )
-		return true, ArkInventory.Const.Slot.New.Yes, true
-	end
-	
-	if not h and old.h then
-		-- item removed, slot is now empty
-		--ArkInventory.Output( "changed, bag=", bag_id, ", slot=", i.slot_id, ", item removed" )
-		return true, ArkInventory.Const.Slot.New.No, true
-	end
-	
-	if h and old.h and h ~= old.h then
-		-- different item
-		--ArkInventory.Output( "changed, bag=", bag_id, ", slot=", i.slot_id, ", item swapped" )
-		return true, ArkInventory.Const.Slot.New.Yes, true
-	end
-	
-	if ( sb and not old.sb ) or ( not sb and old.sb ) then
-		-- soulbound changed
-		--ArkInventory.Output( "changed, bag=", bag_id, ", slot=", i.slot_id, ", soulbound changed" )
-		return true, ArkInventory.Const.Slot.New.Yes, false
-	end
-	
-	if h and old.h and count and old.count and count ~= old.count then
-		-- same item, previously existed, count has changed
-		if count > old.count then
-			--ArkInventory.Output( "changed, bag=", bag_id, ", slot=", i.slot_id, ", increased" )
-			return true, ArkInventory.Const.Slot.New.Inc, true
-		else
-			--ArkInventory.Output( "changed, bag=", bag_id, ", slot=", i.slot_id, ", decreased" )
-			return true, ArkInventory.Const.Slot.New.Dec, true
+	-- do not use the full hyperlink, pull out the itemstring part and check against that, theres a bug where the name isnt always included in the hyperlink
+
+	if not h then
+		
+		-- slot is empty
+		
+		if old.h then
+			-- previous item was removed
+			--ArkInventory.Output( "changed, bag=", bag_id, ", slot=", i.slot_id, ", item removed" )
+			return true, ArkInventory.Const.Slot.New.No, true
+		end
+		
+	else
+		
+		-- slot has an item
+		
+		if not old.h then
+			-- item added to previously empty slot
+			--ArkInventory.Output( "changed, bag=", bag_id, ", slot=", i.slot_id, ", item added" )
+			return true, ArkInventory.Const.Slot.New.Yes, true
+		end
+		
+		if ArkInventory.ObjectIDInternal( h ) ~= ArkInventory.ObjectIDInternal( old.h ) then
+			-- different item
+			--ArkInventory.Output( "changed, bag=", bag_id, ", slot=", i.slot_id, ", item swapped" )
+			return true, ArkInventory.Const.Slot.New.Yes, true
+		end
+		
+		if sb ~= old.sb then
+			-- soulbound changed
+			--ArkInventory.Output( "changed, bag=", bag_id, ", slot=", i.slot_id, ", soulbound changed" )
+			return true, ArkInventory.Const.Slot.New.Yes, false
+		end
+		
+		if count ~= old.count then
+			-- same item, previously existed, count has changed
+			if count > old.count then
+				--ArkInventory.Output( "changed, bag=", bag_id, ", slot=", i.slot_id, ", increased" )
+				return true, ArkInventory.Const.Slot.New.Inc, true
+			else
+				--ArkInventory.Output( "changed, bag=", bag_id, ", slot=", i.slot_id, ", decreased" )
+				return true, ArkInventory.Const.Slot.New.Dec, true
+			end
+			
 		end
 		
 	end
-	
-	return false, nil, false --, ArkInventory.Const.Slot.New.No
 	
 end
 
@@ -3031,10 +3037,10 @@ end
 
 function ArkInventory.ObjectIDInternal( h )
 
-	local class, id, suffix, enchant, j1, j2, j3, j4 = ArkInventory.ObjectStringDecode( h )
+	local class, id, enchant, j1, j2, j3, j4, suffix, _, _, reforge = ArkInventory.ObjectStringDecode( h )
 	
 	if class == "item" then
-		return string.format( "%s:%s:%s:%s:%s:%s:%s:%s", class, id, enchant, suffix, j1, j2, j3, j4 )
+		return string.format( "%s:%s:%s:%s:%s:%s:%s:%s:%s", class, id, enchant, suffix, j1, j2, j3, j4, reforge )
 	elseif class == "empty" or class == "spell" then
 		return string.format( "%s:%s", class, id )
 	elseif class == "token" then

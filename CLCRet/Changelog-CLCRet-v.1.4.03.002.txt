@@ -1,0 +1,29 @@
+------------------------------------------------------------------------
+r175 | abija | 2011-01-18 15:41:17 +0000 (Tue, 18 Jan 2011) | 1 line
+Changed paths:
+   A /tags/v.1.4.03.002 (from /trunk:174)
+
+Tagging as v.1.4.03.002
+------------------------------------------------------------------------
+r174 | abija | 2011-01-18 15:40:44 +0000 (Tue, 18 Jan 2011) | 1 line
+Changed paths:
+   M /trunk/rotation.lua
+
+minor fix to rotation.lua
+------------------------------------------------------------------------
+r172 | abija | 2011-01-14 12:48:24 +0000 (Fri, 14 Jan 2011) | 1 line
+Changed paths:
+   M /trunk/rotation.lua
+
+minor fix
+------------------------------------------------------------------------
+r170 | abija | 2010-12-26 21:06:38 +0000 (Sun, 26 Dec 2010) | 1 line
+Changed paths:
+   M /trunk/CLCRet.toc
+   M /trunk/Options/options.lua
+   M /trunk/clcret.lua
+   A /trunk/rotation.lua
+   D /trunk/swing.lua
+
+experimental rotation updates
+------------------------------------------------------------------------

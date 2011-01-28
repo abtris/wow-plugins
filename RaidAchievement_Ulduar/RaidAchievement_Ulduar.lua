@@ -128,7 +128,7 @@ end
 
 
 if event == "PLAYER_REGEN_DISABLED" then
-if rabilresnut==1 then
+if (rabilresnut and GetTime()<rabilresnut+3) or racheckbossincombat then
 
 else
 --обнулять все данные при начале боя тут:
@@ -180,7 +180,7 @@ end
 if ((arg2=="SPELL_DAMAGE" or arg2=="SPELL_MISSED") and (arg9==61916 or arg9==63482 or arg9==61879 or arg9==63479)) then
 if preaspisokon[4]=="yes" and raachdone1 then
 pseafailnoreason(4)
-rabilresnut=1
+rabilresnut=GetTime()
 end
 end
 

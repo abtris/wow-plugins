@@ -72,7 +72,11 @@ DBM_CORE_RANGECHECK_HIDE			= "Esconder"
 DBM_CORE_RANGECHECK_SETRANGE_TO		= "%d yd"
 DBM_CORE_RANGECHECK_LOCK			= "Bloquear ventana"
 
+DBM_CORE_INFOFRAME_HIDE				= "Esconder"
+DBM_CORE_INFOFRAME_LOCK				= "Bloquear ventana"
+
 DBM_LFG_INVITE						= "Invitación al grupo"
+DBM_LOOT_MSG						= "([^%s]+).*Hitem:(%d+)"
 
 DBM_CORE_SLASHCMD_HELP				= {
 	"Comandos disponibles:",

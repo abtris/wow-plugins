@@ -20,6 +20,7 @@ L:SetTimerLocalization({
 })
 
 L:SetMiscLocalization({
+	gatherstrength			= "%s begins to gather strength"
 })
 
 L:SetOptionLocalization({
@@ -39,13 +40,26 @@ L:SetGeneralLocalization({
 })
 
 L:SetWarningLocalization({
+	WarnFeedback	= "%s on >%s< (%d)",		-- Feedback on >args.destName< (args.amount)
+	WarnAdd			= "Stormling add spawned"
 })
 
 L:SetTimerLocalization({
-})
-
-L:SetMiscLocalization({
+	TimerFeedback 	= "Feedback (%d)",
+	TimerAddCD		= "Next add"
 })
 
 L:SetOptionLocalization({
+	WarnFeedback	= DBM_CORE_AUTO_ANNOUNCE_OPTIONS.spell:format(87904, GetSpellInfo(87904) or "unknown"),
+	LightningRodIcon= DBM_CORE_AUTO_ICONS_OPTION_TEXT:format(89668),
+	TimerFeedback	= "Show timer for $spell:87904 duration",
+	WarnAdd			= "Show warning when Stormling add spawns",
+	TimerAddCD		= "Show timer for new add"
 })
+
+L:SetMiscLocalization({
+	summonSquall	=	"Storms! I summon you to my side!",
+--	phase2		=	"Your futile persistance angers me!",--Not used, Acid rain is, but just in case there is reliability issues with that, localize this anyways.
+	phase3		=	"Enough! I will no longer be contained!"
+})
+

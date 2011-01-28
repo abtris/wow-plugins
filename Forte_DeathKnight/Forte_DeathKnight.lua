@@ -1,4 +1,4 @@
--- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
+-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
 
 if FW.CLASS == "DEATHKNIGHT" then
 	local FW = FW;
@@ -108,77 +108,11 @@ if FW.CLASS == "DEATHKNIGHT" then
 				end
 			end
 			if name ~= "" then
-				ST.ST:insert(startTime+duration,0,duration,name,0,ST.PET,icon,name,2,0,"none",0,ST.PRIOR_NONE,0,1,0,0,ST:GetFilterType(name,ST.PET),0,startTime+duration,duration,1.0,0);
+				ST.ST:insert(startTime+duration,0,duration,name,0,ST.PET,icon,name,2,0,"none",0,ST.PRIOR_NONE,0,1,0,0,"filter",0,startTime+duration,duration,1.0,0);
 			end
 			SH_CurrentTotem[index] = name;
 		end
 		FW:RegisterToEvent("PLAYER_TOTEM_UPDATE", SH_TotemUpdate);
-		
-		--[[do
-			local bloodworm = FW:SpellName(50452); -- use name instead of id because of diff ranks
-			local worms = {};
-			local dura = 20;
-			local PLAYER = FW.PLAYER;
-			local select = select;
-			local function DK_CombatLogEvent(event,...)
-				--bloodworm = "Bloodworm";
-				if select(7,...) == bloodworm then
-					--bloodworm = "Bloodworms";
-					if select(4,...) == PLAYER then
-						if select(2,...) == "SPELL_SUMMON" then
-							local i = ST.ST:find(bloodworm,8);
-							table.insert(worms,(select(6,...)));
-							if #worms > 1 then
-								ST.ST[i][16] = #worms;
-							else
-								local expire = GetTime()+dura;
-								if i then
-									ST.ST[i][1] = expire;
-									ST.ST[i][14] = 0;
-									ST.ST[i][15] = 1;
-									ST.ST[i][12] = 0; -- reset the fade event on refresh
-								else
-									ST.ST:insert(expire,0,dura,bloodworm,0,ST.PET,"Interface\\Icons\\Spell_Shadow_Shadowmend",bloodworm,2,0,"none",0,ST.PRIOR_POWERUP,0,1, 1 ,0,ST:GetFilterType(bloodworm,ST.PET),0,expire,dura,1.0,0);
-								end
-							end
-						end
-					elseif select(2,...) == "UNIT_DIED" then
-						for i in ipairs(worms) do
-							if select(6,...) == worms[i] then
-								table.remove(worms,i)
-								--FW:Show("worm died");
-								local n = ST.ST:find(bloodworm,8);
-								if n then
-									if #worms == 0 then
-										--FW:Show("all worms died");
-										if ST.ST[n][1]-GetTime()<0.75 then
-											ST:Fade(n,2);
-										else
-											ST:Fade(n,3);
-										end
-									else
-										ST.ST[n][16] = #worms;
-									end
-								end
-								break;
-							end
-						end
-					end
-				end
-			end
-			local erase = FW.ERASE;
-			ST:RegisterOnTimerFade(function(unit,mark,spell,t)
-				if spell == bloodworm then
-					if t <= 0.75 then
-						--FW:Show("onfade triggered");
-						erase(worms);
-						return 1,1;
-						-- return second arg or else fade sound will play
-					end
-				end
-			end);
-			FW:RegisterToEvent("COMBAT_LOG_EVENT_UNFILTERED",	DK_CombatLogEvent);
-		end]]
 	end
 	if CD then
 		CD:RegisterMeleePowerupCooldowns();

@@ -1,4 +1,4 @@
--- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
+-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
 
 FW = {}; -- core table
 FC_Saved = {}; -- save table
@@ -47,7 +47,7 @@ local type = type;
 local _G = _G;
 
 FW.TITLE = "ForteXorcist";
-local VERSION = "v1.974";
+local VERSION = "v1.974.2";
 local ENABLE = false;
 FW.GROUPED = false;
 FW.RAID = false;

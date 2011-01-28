@@ -69,6 +69,10 @@ local updateTable = {
 	["WOW_ITEM_TYPE_CONTAINER_MINING"] = function( value )
 		ArkInventory.Const.Slot.Data[ArkInventory.Const.Slot.Type.Mining].type = value
 	end,
+	["WOW_ITEM_TYPE_CONTAINER_TACKLE"] = function( value )
+		ArkInventory.Const.Slot.Data[ArkInventory.Const.Slot.Type.Tackle].long = value
+		ArkInventory.Const.Slot.Data[ArkInventory.Const.Slot.Type.Tackle].type = value
+	end,
 	["WOW_ITEM_TYPE_GEM"] = function( value )
 		ArkInventory.Const.Category.Code.System[434].text = value
 		ArkInventory.Const.Category.Code.Empty[308].text = value
@@ -250,6 +254,7 @@ local itemTable = { -- key, itemtype = true / itemsubtype = false, item id
 	{ "WOW_ITEM_TYPE_CONTAINER_INSCRIPTION", false, 39489 },
 	{ "WOW_ITEM_TYPE_CONTAINER_LEATHERWORKING", false, 38399 },
 	{ "WOW_ITEM_TYPE_CONTAINER_MINING", false, 30746 },
+	{ "WOW_ITEM_TYPE_CONTAINER_TACKLE", false, 60218 },
 	{ "WOW_ITEM_TYPE_KEY", true, 30633 },
 	{ "WOW_ITEM_TYPE_GEM", true, 36919 },
 	{ "WOW_ITEM_TYPE_GLYPH", true, 43673 },

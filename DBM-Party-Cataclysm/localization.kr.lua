@@ -124,6 +124,10 @@ L:SetGeneralLocalization({
 	name = "바네사 밴클리프"
 })
 
+L:SetTimerLocalization({
+	achievementGauntlet	= "불같은 밴클리프 복수자"
+})
+
 ------------------
 --  Grim Batol  --
 ---------------------
@@ -134,6 +138,14 @@ L = DBM:GetModLocalization("GeneralUmbriss")
 L:SetGeneralLocalization({
 	name = "장군 움브리스"
 })
+
+L:SetOptionLocalization{
+	PingBlitz	= "장군 움브리스가 당신을 향해 대공세를 시전할 경우 미니맵에 알리기"
+}
+
+L:SetMiscLocalization{
+	Blitz		= "보면서 |cFFFF0000(%S+)를 시전합니다!"
+}
 
 --------------------------
 -- Forgemaster Throngus --
@@ -154,7 +166,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization{
-	ValionaYell	= "Dragon, you will do as I command! Catch me!",	-- translate -- Yell when Valiona is incoming
+	ValionaYell	= "용이여, 내 명령을 따라라! 날 태워라!",	-- translate -- Yell when Valiona is incoming
 	Valiona		= "발리오나"	-- translate
 }
 
@@ -187,6 +199,10 @@ L:SetGeneralLocalization({
 	name = "대지전복자 프타"
 })
 
+L:SetMiscLocalization{
+	Kill		= "프타는... 이젠..."
+}
+
 --------------
 -- Anraphet --
 --------------
@@ -194,6 +210,14 @@ L = DBM:GetModLocalization("Anraphet")
 
 L:SetGeneralLocalization({
 	name = "안라펫"
+})
+
+L:SetTimerLocalization({
+	achievementGauntlet	= "빛 보다 빠르게"
+})
+
+L:SetMiscLocalization({
+	Brann		= "좋아요. 갑시다! 최종 출입 암호를 넣기만 하면 이 출입문이 작동할 거예요..."
 })
 
 ------------
@@ -274,8 +298,8 @@ L:SetOptionLocalization{
 }
 
 L:SetMiscLocalization{
-	BlazeHeavens		= "Blaze of the Heavens",	-- translate
-	HarbringerDarkness	= "Harbringer of Darkness"	-- translate
+	BlazeHeavens		= "천상의 불꽃",	-- translate
+	HarbringerDarkness	= "암흑의 전령"	-- translate, 영혼의파편
 }
 
 --------------
@@ -297,7 +321,7 @@ L:SetOptionLocalization{
 L = DBM:GetModLocalization("Augh")
 
 L:SetGeneralLocalization({
-	name = "Augh"		-- translate
+	name = "오우"		-- translate
 })
 
 -----------------------
@@ -460,6 +484,14 @@ L = DBM:GetModLocalization("Asaad")
 
 L:SetGeneralLocalization({
 	name = "아사드"
+})
+
+L:SetOptionLocalization({
+	SpecWarnStaticCling	= "$spell:87618의 특수 경고 보기"
+})
+
+L:SetWarningLocalization({
+	SpecWarnStaticCling	= "점프!"
 })
 
 ---------------------------

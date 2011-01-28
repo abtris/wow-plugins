@@ -1,6 +1,6 @@
--- (c) 2009-2010, all rights reserved.
--- $Revision: 491 $
--- $Date: 2010-12-04 00:09:27 +1100 (Sat, 04 Dec 2010) $
+-- (c) 2009-2011, all rights reserved.
+-- $Revision: 603 $
+-- $Date: 2011-01-26 23:27:10 +1100 (Wed, 26 Jan 2011) $
 
 ArkInventory = LibStub( "AceAddon-3.0" ):NewAddon( "ArkInventory", "AceConsole-3.0", "AceHook-3.0", "AceEvent-3.0", "AceBucket-3.0" )
 
@@ -31,8 +31,8 @@ ArkInventory.Const = { -- constants
 	
 	Program = {
 		Name = "ArkInventory",
-		Version = 3.0272,
-		UIVersion = "3.2.72",
+		Version = 3.0273,
+		UIVersion = "3.2.73",
 		--Beta = "ALPHA",
 	},
 	
@@ -151,6 +151,7 @@ ArkInventory.Const = { -- constants
 			Auction = 20,
 			Spellbook = 21,
 			Tradeskill = 22,
+			Tackle = 23,
 		},
 
 		New = {
@@ -560,6 +561,10 @@ ArkInventory.Const = { -- constants
 					["id"] = "EMPTY_INSCRIPTION",
 					["text"] = ArkInventory.Localise["WOW_SKILL_INSCRIPTION"],
 				},
+				[314] = {
+					["id"] = "EMPTY_TACKLE",
+					["text"] = ArkInventory.Localise["WOW_SKILL_FISHING"],
+				},
 			},
 			Other = { -- do NOT change the indicies - if you have to then see the ConvertOldOptions( ) function to remap it
 				[901] = {
@@ -897,12 +902,18 @@ ArkInventory.Const.Slot.Data = {
 		["hide"] = true,
 	},
 	[ArkInventory.Const.Slot.Type.Tradeskill] = {
-		["name"] = SPELLBOOK,
-		["long"] = SPELLBOOK,
-		["type"] = SPELLBOOK,
+		["name"] = TRADESKILLS,
+		["long"] = TRADESKILLS,
+		["type"] = TRADESKILLS,
 		["colour"] = ArkInventory.Const.Slot.DefaultColour,
 		["emptycolour"] = GREEN_FONT_COLOR_CODE, -- status text colour when no slots left
 		["hide"] = true,
+	},
+	[ArkInventory.Const.Slot.Type.Tackle] = {
+		["name"] = ArkInventory.Localise["STATUS_NAME_TACKLE"],
+		["long"] = ArkInventory.Localise["WOW_ITEM_TYPE_CONTAINER_TACKLE"],
+		["type"] = ArkInventory.Localise["WOW_ITEM_TYPE_CONTAINER_TACKLE"],
+		["colour"] = ArkInventory.Const.Slot.DefaultColour,
 	},
 }
 
@@ -3364,6 +3375,14 @@ function ArkInventory.ItemCategoryGetDefaultEmpty( loc_id, bag_id )
 			return ArkInventory.CategoryGetSystemID( "SKILL_MINING" )
 		else
 			return ArkInventory.CategoryGetSystemID( "EMPTY_MINING" )
+		end
+	end
+	
+	if bt == ArkInventory.Const.Slot.Type.Tackle then
+		if clump then
+			return ArkInventory.CategoryGetSystemID( "SKILL_FISHING" )
+		else
+			return ArkInventory.CategoryGetSystemID( "EMPTY_TACKLE" )
 		end
 	end
 	

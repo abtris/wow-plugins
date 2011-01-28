@@ -9,7 +9,7 @@
 	</Frame>
 
 <Frame name="PSFeamain" hidden="true" toplevel="true" virtual="true" frameStrata="DIALOG" movable="true" enableMouse="true" parent="UIParent">
-	<Size x="900" y="500"/>
+	<Size x="930" y="500"/>
 	<Anchors>
 		<Anchor point="CENTER"/>
 	</Anchors>
@@ -26,7 +26,7 @@
 
 
 <Frame name="PSFeamain1" hidden="true" inherits="PSFeamain">
-	<Size x="900" y="500"/>
+	<Size x="930" y="500"/>
 	<Anchors>
 	<Anchor point="LEFT"/>
 	</Anchors>
@@ -38,7 +38,7 @@
 
 <Frame name="PSFeamain2" hidden="true">
 
-	<Size x="150" y="500"/>
+	<Size x="180" y="500"/>
 	<Anchors>
 	<Anchor point="LEFT"/>
 	</Anchors>
@@ -62,41 +62,41 @@
 	</Backdrop>
 <Frames>
 <Button name="$parent_Button3" inherits="UIPanelButtonTemplate" text="psealeftmenu1">
-	<Size x="120" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-20"/></Anchor></Anchors>
+	<Size x="150" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-20"/></Anchor></Anchors>
 	<Scripts><OnClick>PSFea_buttonaddon()</OnClick></Scripts>
 	</Button>
 <Button name="$parent_Button11" inherits="UIPanelButtonTemplate" text="psealeftmenu11">
-	<Size x="120" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-120"/></Anchor></Anchors>
+	<Size x="150" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-120"/></Anchor></Anchors>
 	<Scripts><OnClick>PSFea_manyach()</OnClick></Scripts>
 	</Button>
 <Button name="$parent_Button12" inherits="UIPanelButtonTemplate" text="rallbuttonmaint">
-	<Size x="120" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-95"/></Anchor></Anchors>
+	<Size x="150" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-95"/></Anchor></Anchors>
 	<Scripts><OnClick>PSFea_listach()</OnClick></Scripts>
 	</Button>
 <Button name="$parent_Button13" inherits="UIPanelButtonTemplate" text="rallbuttontak">
-	<Size x="120" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-70"/></Anchor></Anchors>
+	<Size x="150" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-70"/></Anchor></Anchors>
 	<Scripts><OnClick>PSFea_tact()</OnClick></Scripts>
 	</Button>
 
 
 
 <Button name="$parent_Button5" inherits="UIPanelButtonTemplate" text="psealeftmenucata">
-	<Size x="120" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-190"/></Anchor></Anchors>
+	<Size x="150" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-190"/></Anchor></Anchors>
 	<Scripts><OnClick>chra_button()</OnClick></Scripts>
 	</Button>
 <Button name="$parent_Button4" inherits="UIPanelButtonTemplate" text="psealeftmenucata2">
-	<Size x="120" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-215"/></Anchor></Anchors>
+	<Size x="150" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-215"/></Anchor></Anchors>
 	<Scripts><OnClick>crra_button()</OnClick></Scripts>
 	</Button>
 
 <Button name="$parent_Buttonwotlk" inherits="UIPanelButtonTemplate" text="Wotlk">
-	<Size x="120" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-290"/></Anchor></Anchors>
+	<Size x="150" y="21"/><Anchors><Anchor point="TOP"><Offset x="0" y="-290"/></Anchor></Anchors>
 	<Scripts><OnClick>wotlkold_button()</OnClick></Scripts>
 	</Button>
 
 
 <Button name="$parent_ButtonPS" inherits="UIPanelButtonTemplate" text="PhoenixStyle">
-	<Size x="120" y="21"/><Anchors><Anchor point="BOTTOM"><Offset x="0" y="20"/></Anchor></Anchors>
+	<Size x="150" y="21"/><Anchors><Anchor point="BOTTOM"><Offset x="0" y="20"/></Anchor></Anchors>
 	<Scripts><OnClick>PSFea_PSaddon()</OnClick></Scripts>
 	</Button>
 </Frames>

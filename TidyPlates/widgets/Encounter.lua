@@ -42,4 +42,34 @@ local function GetIndicatorColor(name)
 	return debuffColor
 end
 
+--[[
 
+------------------------------
+-- Auras to Track (experimental)
+------------------------------
+local TrackedAuras = {}
+TrackedAuras["Necrotic Plague"] = {color = {r = .1,g = 1, b = 0, a = 1},}
+
+local function CheckGroupMemberDebuffs(name)
+	local unitid = UnitNameCache[name]
+	local debuffName, debuffType, debuffColor, debuffReference, debuffIndex, _
+	local debuffPriority = 0
+	
+	if unitid then
+		for debuffIndex = 1, 40 do
+			debuffName, _, _, _, debuffType = UnitDebuff(unitid,debuffIndex)					-- Operational
+			--debuffName, debuffType, _, _, _, _, _, _ = UnitBuff(unitid,debuffIndex)		-- For testing 
+
+			if debuffName then
+				debuffReference = TrackedAuras[debuffName] or TrackedAuras[debuffType]
+				if debuffReference then
+					debuffColor = debuffReference.color
+					return debuffColor
+				end
+				
+			end			
+		end
+	end
+	return nil
+end
+--]]

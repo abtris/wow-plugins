@@ -100,6 +100,7 @@ do
 		-- Font Group
 		for index = 1, #fontgroup do objectname = fontgroup[index];SetFontGroupObject(visual[objectname], style[objectname]) end
 		-- Hide Stuff
+		if unit.isElite then visual.eliteicon:Hide() else visual.eliteicon:Hide() end
 		if unit.isBoss then visual.level:Hide() else visual.skullicon:Hide() end
 		if not unit.isTarget then visual.target:Hide() end
 		if not unit.isMarked then visual.raidicon:Hide() end
@@ -125,7 +126,11 @@ do
 	end
 	-- UpdateIndicator_Name: 
 	function UpdateIndicator_Name() 
-		visual.name:SetText(unit.name)
+		visual.name:SetText(unit.name)	
+		-- Name Color
+		if activetheme.SetNameColor then
+			visual.name:SetTextColor(activetheme.SetNameColor(unit))
+		else visual.name:SetTextColor(1,1,1,1) end
 	end
 	-- UpdateIndicator_Level:
 	function UpdateIndicator_Level() 
@@ -169,6 +174,10 @@ do
 		if activetheme.SetHealthbarColor then
 			bars.healthbar:SetStatusBarColor(activetheme.SetHealthbarColor(unit))
 		else bars.healthbar:SetStatusBarColor(bars.health:GetStatusBarColor()) end	
+		-- Name Color
+		if activetheme.SetNameColor then
+			visual.name:SetTextColor(activetheme.SetNameColor(unit))
+		else visual.name:SetTextColor(1,1,1,1) end
 	end
 	-- UpdateIndicator_Standard: Updates Standard Indicators
 	function UpdateIndicator_Standard()
@@ -212,9 +221,7 @@ do
 				if activetheme.SetCustomArt then visual.customart:SetTexture(activetheme.SetCustomArt(unit))
 				else visual.customart:SetTexture(EMPTY_TEXTURE) end
 			end
-			if activetheme.SetHealthbarColor then
-				bars.healthbar:SetStatusBarColor(activetheme.SetHealthbarColor(unit))
-			else bars.healthbar:SetStatusBarColor(bars.health:GetStatusBarColor()) end	
+			UpdateIndicator_UnitColor()
 		end
 	end
 	-- UpdateHitboxShape:  Updates the nameplate's hitbox, but only out of combat
@@ -286,7 +293,6 @@ do
 	-- Populates the class color lookup table
 	for classname, color in pairs(RAID_CLASS_COLORS) do 
 		ClassReference[ColorToString(color.r, color.g, color.b)] = classname end
-	
 	--------------------------------
 	-- Mass Gather Functions
 	--------------------------------
@@ -306,8 +312,12 @@ do
 				unit.guid = UnitGUID("target") 
 				if unit.guid then GUID[unit.guid] = plate end
 			end
+			extended:GetFrameLevel(127)
+		else
+			extended:GetFrameLevel(extended.frameLevel)
 		end
 		
+		--print(extended:GetFrameLevel(), extended:GetFrameStrata(), unit.name, unit.isTarget)
 		UpdateIndicator_Target()
 		if activetheme.OnContextUpdate then activetheme.OnContextUpdate(extended, unit) end
 	end
@@ -355,7 +365,7 @@ do
 			stylename = activetheme.SetStyle(unit); extended.style = activetheme[stylename]
 		else extended.style = activetheme; stylename = tostring(activetheme) end
 		style = extended.style
-		if extended.stylename ~= stylename or forceStyleUpdate then 
+		if extended.stylename ~= stylename then 
 			UpdateStyle()
 			extended.stylename = stylename
 			unit.style = stylename
@@ -497,7 +507,6 @@ do
 		GatherData_BasicInfo()
 		ProcessUnitChanges()
 	end
-	
 	-- OnUpdateLevel
 	function OnUpdateLevel(plate)
 		if not IsPlateShown(plate) then return end
@@ -512,12 +521,11 @@ do
 		if not IsPlateShown(plate) then return end
 		UpdateReferences(plate)
 
-		if InCombat then
-			unit.threatSituation = GetUnitAggroStatus(regions.threatglow) 
+		if InCombat then unit.threatSituation = GetUnitAggroStatus(regions.threatglow) 
 		else unit.threatSituation = "LOW" end
-
+		unit.isInCombat = GetUnitCombatStatus(regions.name:GetTextColor())
+				
 		CheckNameplateStyle()
-		
 		UpdateIndicator_ThreatGlow()
 		UpdateIndicator_CustomAlpha()
 		UpdateIndicator_CustomScaleText()
@@ -532,10 +540,9 @@ do
 		if unit.isMarked then 
 			ux, uy = regions.raidicon:GetTexCoord()
 			unit.raidIcon = RaidIconCoordinate[ux][uy]
-		else unit.raidIcon = false end	
+		else unit.raidIcon = nil end	
 		UpdateIndicator_RaidIcon()
-		UpdateIndicator_UnitColor()		-- For Katt!  Don't say I never do anything for ya! ;-) xoxo
-		--if activetheme.OnUpdate then activetheme.OnUpdate(extended, unit) end
+		UpdateIndicator_UnitColor()
 	end
 	
 	-- OnUpdateReaction
@@ -551,7 +558,6 @@ do
 
 	-- OnMouseoverNameplate
 	function OnMouseoverNameplate(plate)
-		--print("Mouseing Over", plate)
 		if not IsPlateShown(plate) then return end
 		UpdateReferences(plate)
 		unit.isMouseover = regions.highlight:IsShown()
@@ -604,11 +610,8 @@ do
 	function UpdateCastAnimation(castbar)
 		local currentTime = GetTime()
 		if currentTime > (castbar.endTime or 0) then
-			castbar:SetScript("OnUpdate", nil)
-			castbar:Hide()
-		else
-			castbar:SetValue(currentTime)
-		end
+			StopCastAnimation(castbar.parentPlate)
+		else castbar:SetValue(currentTime) end
 	end
 	
 	-- Shows the Cast Animation (requires references)
@@ -618,11 +621,12 @@ do
 			local castbar = bars.castbar
 			local r, g, b, a = 1, .8, 0, 1
 			unit.isCasting = true
-			unit.spell = spell
-			if activetheme.SetCastbarColor then  r, g, b = activetheme.SetCastbarColor(unit)  end	
+			unit.spellName = spell
+			unit.spellIsShielded = notInterruptible
+			if activetheme.SetCastbarColor then  r, g, b, a = activetheme.SetCastbarColor(unit)  end	
 			
 			castbar.endTime = endTime
-			castbar:SetStatusBarColor( r, g, b, 1)
+			castbar:SetStatusBarColor( r, g, b, a or 1)
 			castbar:SetMinMaxValues(startTime, endTime)
 			castbar:SetValue(GetTime())
 			castbar:Show()	
@@ -634,7 +638,8 @@ do
 			else visual.castnostop:Hide(); visual.castborder:Show() end
 			
 			castbar:SetScript("OnUpdate", UpdateCastAnimation)	
-			UpdateIndicator_CustomScaleText()			
+			UpdateIndicator_CustomScaleText()	
+			UpdateIndicator_CustomAlpha()
 		end
 	end
 	
@@ -644,8 +649,8 @@ do
 		bars.castbar:Hide()	
 		bars.castbar:SetScript("OnUpdate", nil)
 		unit.isCasting = false
-		unit.spell = nil
 		UpdateIndicator_CustomScaleText()
+		UpdateIndicator_CustomAlpha()
 	end
 
 	-- OnUpdateTargetCastbar: Called from hooking into the original nameplate castbar's "OnValueChanged"
@@ -681,15 +686,16 @@ end
 do
 	local bars, regions, health, castbar, healthbar, visual
 	local region
-	local platelevel = 1
+	local platelevels = 1
 	
 	function ApplyPlateExtension(plate)
 		Plates[plate] = true
 		--plate.extended = CreateFrame("Frame", nil, WorldFrame)		-- Virtual Parent
 		plate.extended = CreateFrame("Frame", nil, plate)		-- Active Alpha
 		local extended = plate.extended
-		platelevel = platelevel + 1
-		extended:SetFrameLevel(platelevel)
+		platelevels = platelevels + 1
+		extended.frameLevel = platelevels
+		extended:SetFrameLevel(platelevels)
 		
 		extended.style, extended.unit, extended.unitcache, extended.stylecache, extended.widgets = {}, {}, {}, {}, {}
 		
@@ -724,11 +730,10 @@ do
 		bars.healthbar = CreateTidyPlatesStatusbar(extended) 
 		bars.castbar = CreateTidyPlatesStatusbar(extended) 
 		health, cast, healthbar, castbar = bars.health, bars.cast, bars.healthbar, bars.castbar
-		
-		-- Blizzard Bars
 		extended.parentPlate = plate
 		health.parentPlate = plate
 		cast.parentPlate = plate
+		castbar.parentPlate = plate
 		
 		-- Visible Bars
 		local level = extended:GetFrameLevel()
@@ -844,7 +849,6 @@ do
 				PlateSetAlpha(plate, 1) 			
 			end
 			--]]
-			
 			
 			-- Highlight: CURSOR_UPDATE events are unreliable for GUID updates.  This provides a much better experience.
 			highlightRegion = plate.extended.regions.highlight

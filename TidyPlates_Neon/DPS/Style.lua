@@ -33,20 +33,21 @@ TidyPlatesNeonDPSVariables = {
 	AggroSafeColor = {r = 15/255, g = 133/255, b = 255/255},
 	AggroDangerColor = {r = 255/255, g = 128/255, b = 0},
 }
+local LocalVars = TidyPlatesNeonDPSVariables
 
 ---------------------------------------------
 -- Style Definition
 ---------------------------------------------
 local ArtworkPath = "Interface\\Addons\\TidyPlates_Neon\\Media\\"
 local EmptyTexture = ArtworkPath.."Neon_Empty"
-local CastBarVerticalAdjustment = -21
+local CastBarVerticalAdjustment = -23
 local NameTextVerticalAdjustment = -8
 
 ---------------------------------------------
 -- Default Style
 ---------------------------------------------
-local DefaultStyle = Theme
---local DefaultStyle = {}
+--local DefaultStyle = Theme
+local DefaultStyle = {}
 --[[
 DefaultStyle.hitbox = {
 	width = 105,
@@ -64,8 +65,6 @@ DefaultStyle.highlight = {
 
 DefaultStyle.healthborder = {
 	texture		 =				ArtworkPath.."Neon_HealthOverlay",
-	--glowtexture =					ArtworkPath.."Neon_Highlight",
-	--elitetexture =					ArtworkPath.."Neon_HealthOverlayEliteStar",
 	width = 128,
 	height = 32,
 	y = 0,
@@ -81,7 +80,8 @@ DefaultStyle.healthbar = {
 }
 
 DefaultStyle.castborder = {
-	texture =					ArtworkPath.."Neon_CastOverlayBlue",
+	--texture =					ArtworkPath.."Neon_CastOverlayBlue",
+	texture =					ArtworkPath.."Cast_Normal",
 	width = 128,
 	height = 32,
 	x = 0,
@@ -90,7 +90,8 @@ DefaultStyle.castborder = {
 }
 
 DefaultStyle.castnostop = {
-	texture =					ArtworkPath.."Neon_CastOverlayRed",
+	--texture =					ArtworkPath.."Neon_CastOverlayRed",
+	texture =					ArtworkPath.."Cast_Shield",
 	width = 128,
 	height = 32,
 	x = 0,
@@ -110,12 +111,13 @@ DefaultStyle.castbar = {
 }
 
 DefaultStyle.threatborder = {
+	-- [[
 	texture =				ArtworkPath.."Neon_AggroOverlayWhite",
-	--elitetexture =				ArtworkPath.."Neon_Empty",
-	elitetexture =			ArtworkPath.."Neon_AggroOverlayWhite",
 	width = 256,
 	height = 64,
 	y = 1,
+	-- ]]
+	x = 0,	
 	show = true,
 }
 
@@ -131,10 +133,10 @@ DefaultStyle.target = {
 }
 
 DefaultStyle.spellicon = {
-	width = 17,
-	height = 17,
-	x = 26,
-	y = -3+CastBarVerticalAdjustment,
+	width = 15,
+	height = 15,
+	x = 24,
+	y = CastBarVerticalAdjustment,
 	anchor = "CENTER",
 	show = true,
 }
@@ -226,13 +228,67 @@ DefaultStyle.customtext = {
 }
 
 
+local CopyTable = TidyPlatesUtility.copyTable
+
+-- No Bar
+local NameOnlyStyle = CopyTable(DefaultStyle)
+NameOnlyStyle.healthborder.texture = EmptyTexture
+NameOnlyStyle.healthbar.texture = EmptyTexture
+
+-- 58px wide bar
+local CompactStyle = CopyTable(DefaultStyle)
+CompactStyle.healthborder.texture = ArtworkPath.."Neon_HealthOverlay_Stubby"
+CompactStyle.healthbar.width = 58
+CompactStyle.highlight.texture = ArtworkPath.."Neon_Stubby_Highlight"
+CompactStyle.target.texture = ArtworkPath.."Neon_Stubby_Target"
+
+-- 38px wide bar
+local MiniStyle = CopyTable(DefaultStyle)
+MiniStyle.healthborder.texture = ArtworkPath.."Neon_HealthOverlay_Very_Stubby"
+MiniStyle.healthbar.width = 38
+--MiniStyle.name.show = false
+MiniStyle.highlight.texture = ArtworkPath.."Neon_Very_Stubby_Highlight"
+MiniStyle.target.texture = ArtworkPath.."Neon_Very_Stubby_Target"
+
+-- Border Danger Glow 
+local DangerStyle = CopyTable(DefaultStyle)
+DangerStyle.threatborder = {
+	texture =				ArtworkPath.."Neon_Select",
+	width = 128,
+	height = 32,
+	y = 0,
+	x = 0,	
+	show = true,
+}
+
+-- Styles
+Theme["Default"] = DefaultStyle
+Theme["Compact"] = CompactStyle
+Theme["Mini"] = MiniStyle
+Theme["NameOnly"] = NameOnlyStyle
+Theme["Friendly"] = DangerStyle
 
 local function UpdateStyleElements(self, var)
-	Theme.level.show = (TidyPlatesNeonDPSVariables.LevelText == true)
-	Theme.target.show = (TidyPlatesNeonDPSVariables.WidgetSelect == true)
+	Theme["Default"].level.show = (LocalVars.LevelText == true)
+	Theme["Default"].target.show = (LocalVars.WidgetSelect == true)
+	
+	if LocalVars.AggroOnOtherTank then TidyPlatesWidgets.EnableTankWatch()
+	else TidyPlatesWidgets.DisableTankWatch() end
+	
+	if LocalVars.WidgetClassIcon then SetCVar("ShowClassColorInNameplate", 1) end
 end
 
 Theme.UpdateStyleElements = UpdateStyleElements
+
+local IsTotem = TidyPlatesUtility.IsTotem
+
+local function StyleDelegate(unit)
+	if IsTotem(unit.name) then return "Mini"
+	elseif unit.reaction == "FRIENDLY" then return "Friendly"
+	else return "Default" end
+end
+
+Theme.SetStyle = StyleDelegate
 
 
 

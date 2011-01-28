@@ -126,32 +126,6 @@ end
 -- Debuff Frame
 ----------------------
 do
-
-	-- The Aura Watcher frame calls for an update in Tidy Plates when a spell
-	-- is cast, or an aura is updated on a unitid.
-	--[[
-	local AuraWatcher = CreateFrame("Frame", nil, WorldFrame )
-	local isEnabled = false
-	
-	local function AuraWatcherHandler(frame, event, unitid)
-		if unitid == "target" then TidyPlates:Update() end
-		if event == "UNIT_SPELLCAST_SUCCEEDED" and unitid == "player" then TidyPlates:Update() end
-	end
-	
-	local function EnableAuraWatcher(arg)
-		if arg then AuraWatcher:SetScript("OnEvent", AuraWatcherHandler)
-			AuraWatcher:RegisterEvent("UNIT_AURA")
-			AuraWatcher:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-			isEnabled = true
-		else AuraWatcher:SetScript("OnEvent", nil) 
-			AuraWatcher:UnregisterEvent("UNIT_AURA")
-			AuraWatcher:UnregisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-			isEnabled = false
-		end
-	end
-	--]]
-	
-	
 	
 	-- Update an Aura Icon  (Polled by PolledHideIn)
 	local function UpdateAuraIconFrame(frame, expiration)
@@ -241,13 +215,17 @@ do
 	
 	-- Default Filter Function
 	local auraDurationFilter = 600
-	local function DefaultFilterFunction(debuff) 
-		return (debuff.duration < auraDurationFilter)	
+	local function DefaultFilterFunction(debuff, unit) 
+		if (debuff.duration < auraDurationFilter) then
+			return true
+		end
 	end
 	
 	-- Search for Debuffs on a Unit
 	local aura = {}
 	local function UpdateWidget(frame, unit)	
+		if unit.reaction == "FRIENDLY" then return end
+		
 		local unitid, expireTime
 		local AuraFrames = frame.AuraFrames
 		local AuraIconFrame
@@ -266,10 +244,13 @@ do
 			for index = 1, 40 do
 				-- Get Debuff Info
 				local name, rank, icon, count, dispelType, duration, expires, caster, isStealable = UnitDebuff(unitid, index ,"PLAYER")
+				--local name, rank, icon, count, dispelType, duration, expires, source, isStealable = UnitDebuff(unitid, index)
 				
 				-- Setup Aura Info Table
 				aura.name, aura.rank, aura.icon, aura.count = name, rank, icon, count
-				aura.dispelType, aura.duration, aura.expires, aura.caster = dispelType, duration, expires, caster				
+				aura.dispelType, aura.duration, aura.expires = dispelType, duration, expires
+				-- aura.source = source
+				--aura.target, aura.targetguid = unit.name, unit.guid			
 				
 				if name and icon and frame.Filter(aura) then 
 					auraCount = auraCount + 1
@@ -359,35 +340,4 @@ do
 	TidyPlatesWidgets.CreateAuraWidget = CreateAuraWidget
 end
 
-
-
-
---[[
-1. Store GUID Links to the Widget
-2. Events trigger to GUID table, and remove/refresh the existing debuff info
---]]
-
---[[
-local events = {}
-
--- http://www.wowwiki.com/API_COMBAT_LOG_EVENT
---function events:SPELL_AURA_APPLIED(...) 
---function events:SPELL_AURA_REMOVED(...) 
---function events:SPELL_AURA_APPLIED_DOSE(...) 
---function events:SPELL_AURA_REFRESH(...) 
---function events:SPELL_AURA_REMOVED_DOSE(...) 
---function events:SPELL_AURA_REFRESH(...) 
-
-function events:SPELL_AURA_APPLIED(sourceguid, _, _, destguid, _, _, spellid, _, _, auratype) 
-	print("SPELL_AURA_APPLIED", sourceguid, destguid, spellid, auratype)
-end
-
-
-local AuraWatcher = CreateFrame("Frame")
-AuraWatcher:SetScript("OnEvent", function(frame, apiEvent, timestamp, combatEvent, ...) 
-	print(apiEvent, combatEvent)
-	if events[combatEvent] then events[combatEvent](...) end
-end)
-AuraWatcher:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
---]]
 

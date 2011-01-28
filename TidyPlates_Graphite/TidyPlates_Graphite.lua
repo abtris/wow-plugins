@@ -160,12 +160,12 @@ end
 local OrangeHexColor = "|cFFfc551b"
 local PaleBlueHexColor = "|cFF5cb8ff"
 
-local BlueHexColor = "|cFF3cA8ff"
+local BlueHexColor = "|cFF3cA8ff"	-- 3c A8 ff		-- 60 168 255
 --local GreenHexColor = "|cFF3cee35"
-local GreenHexColor = "|cFF60E025"
+local GreenHexColor = "|cFF60E025"	-- 60 E0 25		-- 96 224 37
 --local RedHexColor = "|cFFFF0000"
-local RedHexColor = "|cFFFF3320"
-local GoldHexColor = "|cFFfcb41b"
+local RedHexColor = "|cFFFF3320"	-- FF 33 20		-- 255 51 32
+local GoldHexColor = "|cFFfcb41b"	-- fc b4 1b		-- 252 180 27
 
 
 

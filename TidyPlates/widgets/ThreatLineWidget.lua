@@ -132,7 +132,7 @@ local testMode = false
 
 -- Graphics Update
 local function UpdateThreatLine(frame, unitid)
-
+	local maxwitdth = frame:GetWidth() / 2
 	local leaderThreat, leaderThreatDelta, leaderThreatPct	
 	local leaderThreatMax, leaderThreatMin = frame.ThreatMax, frame.ThreatMin
 	if testMode then 
@@ -160,13 +160,13 @@ local function UpdateThreatLine(frame, unitid)
 		-- Get Positions and Size
 		if leaderThreat > 100 then
 			-- While tanking
-			frame.Line:SetWidth( ceil((leaderThreat - 100)/2) )
+			frame.Line:SetWidth( maxwitdth * ((leaderThreat - 100)/100) )
 			threatcolor = frame._HighColor
 			frame.Line:SetPoint("LEFT", frame, "CENTER")
 			--frame.TargetText:SetPoint("TOP",frame.Line,"RIGHT", 0)
 		else 
 			-- While NOT tanking
-			frame.Line:SetWidth( ceil((100 - leaderThreat)/2) )
+			frame.Line:SetWidth( maxwitdth * ((100 - leaderThreat)/100) )
 			threatcolor = frame._LowColor
 			frame.Line:SetPoint("RIGHT", frame, "CENTER")
 			--frame.TargetText:SetPoint("CENTER",frame.Line,"LEFT", -3, 12)

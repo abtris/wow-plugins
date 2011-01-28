@@ -1,0 +1,8 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Script file="BookmarkSniper.lua"/>
+    <Script file="SellPriceSniper.lua"/>
+    <Script file="MarketPriceSniper.lua"/>
+	<Script file="SnipeCreateDialog.lua"/>
+	<Script file="Sniper.lua"/>
+</Ui>

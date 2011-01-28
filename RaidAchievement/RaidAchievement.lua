@@ -6,7 +6,7 @@ psealocale()
 end
 
 
-	raversion=1.061
+	raversion=1.064
 	raversshow="ver-"..raversion.." (release)"
 	if(thisaddonworkea==nil) then thisaddonworkea=true end
 	if pseashowfailreas==nil then pseashowfailreas=true end
@@ -27,7 +27,6 @@ end
 	racanannouncetable={}
 	raannouncewait={}
 
-	rabilresnut=0
 	raachdone1=true
 	raachdone2=true
 	raachdone3=true
@@ -54,9 +53,6 @@ end
 	SlashCmdList["PHOENIXSTYLEEASYACH"] = PHOENIXSTYLEEASYACH_Command
 
 
-
-
-	RaidAchievementframe:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 	RaidAchievementframe:RegisterEvent("ZONE_CHANGED_NEW_AREA")
 	RaidAchievementframe:RegisterEvent("CHAT_MSG_ADDON")
 	RaidAchievementframe:RegisterEvent("PLAYER_ALIVE")
@@ -72,6 +68,15 @@ end
 function ramain_OnUpdate()
 
 local racurrenttime = GetTime()
+
+if racheckbossincombat and racurrenttime>racheckbossincombat+1 then
+racheckbossincombat=racurrenttime
+if UnitName("boss1") then
+else
+racheckbossincombat=nil
+end
+end
+
 
 if racheckdatay and GetTime()>racheckdatay then
 racheckdatay=nil
@@ -163,7 +168,7 @@ function PhoenixStyleEA_OnEvent(self,event,...)
 local arg1, arg2, arg3,arg4,arg5,arg6 = ...
 
 if event == "PLAYER_ALIVE" then
-rabilresnut=1
+rabilresnut=GetTime()
 end
 
 
@@ -375,7 +380,7 @@ if UnitInRaid("player") or (a2=="raid" or (a2=="party" and a3==2)) then
 SetMapToCurrentZone()
 end
 
-if rabilresnut==1 then
+if (rabilresnut and GetTime()<rabilresnut+3) or racheckbossincombat then
 else
 --обнулять все данные при начале боя тут:
 
@@ -394,6 +399,7 @@ end
 if event == "PLAYER_REGEN_ENABLED" then
 
 	rabattlev=0
+	racheckbossincombat=GetTime()
 
 end
 
@@ -404,24 +410,6 @@ end
 
 
 
-
-if GetNumRaidMembers() > 0 and event == "COMBAT_LOG_EVENT_UNFILTERED" then
-
---обнуление после реса
-if rabilresnut==1 then
-if ratimeresnut==nil then
-ratimeresnut=arg1+4
-end
-if arg1>ratimeresnut then rabilresnut=0 ratimeresnut=nil end
-end
-
-
-
-
-
-
-
-end
 end --конец основной функции аддона
 
 

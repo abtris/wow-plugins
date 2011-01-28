@@ -79,7 +79,8 @@ do -- MageTravel
 		{c="72721e", id=m:format(49361, 49358)}, -- Stonard
 		{c="7cc6f9", id=m:format(32267, 32272)}, -- Silvermoon
 		{c="e89bd1", id=m:format(32266, 32271)}, -- Exodar
-	  name="Mage Travel", hotkey="ALT-P", class="MAGE", version=4
+		{c="c33716", id=m:format("88346/88345", "88344/88342")}, -- Tol Barad
+	  name="Mage Travel", hotkey="ALT-P", class="MAGE", version=5
 	});
 end
 RingKeeper:AddRing("PaladinAuras", {

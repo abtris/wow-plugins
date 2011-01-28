@@ -1,4 +1,4 @@
--- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
+-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
 -- Module started by Destard/Stormstalker fixes by Caleb & Xus
 
 if FW.CLASS == "HUNTER" then
@@ -37,6 +37,9 @@ if FW.CLASS == "HUNTER" then
 		ST:RegisterSpell( 3674, 1,015,1,ST.DEFAULT);-- black arrow
 		ST:RegisterSpell(53234, 1,000,1,ST.DEFAULT);-- Piercing Shots
 			ST:RegisterTickSpeed(53234, 1); 		-- set tick speed to 1 instead of 3
+			
+		ST:RegisterSpell(5116, 1,004,0,ST.DEFAULT); -- Concussive Shot
+			ST:RegisterSpellModGlph(5116, 56851, 002); -- Glyph of Concussive Shot
 
 		ST:RegisterCooldown(781,025);-- Disengage
 			ST:RegisterCooldownModGlph(781,56844, -5); -- Glyph of Disengage
@@ -103,12 +106,14 @@ if FW.CLASS == "HUNTER" then
 		ST:RegisterBuff(77769,1); -- Trap Launcher
 
 		ST:RegisterSpell(34600,	0,060,0,ST.UNIQUE);-- Snake Trap
-
 		ST:RegisterSpell(13809, 0,060,0,ST.UNIQUE);-- Ice Trap
 		ST:RegisterSpell(13813,	0,060,0,ST.UNIQUE);-- Explosive Trap
 		ST:RegisterSpell(13795, 1,060,0,ST.UNIQUE); -- Immolation Trap
 		ST:RegisterSpell(1499, 1,060,0,ST.UNIQUE); -- Freezing Trap
-
+			--ST:RegisterSpellModTlnt(1499,19376,1,6); -- 19376 = Trap Mastery
+			--ST:RegisterSpellModTlnt(1499,19376,2,12);
+			--ST:RegisterSpellModTlnt(1499,19376,3,18);
+			
 		--debuffname
 		ST:RegisterDebuff(3355); -- Freezing Trap Effect
 		ST:RegisterDebuff(53338); -- Hunter's Mark
@@ -118,6 +123,9 @@ if FW.CLASS == "HUNTER" then
 		ST:RegisterCasterBuffs();
 		
 		do
+			local bonus = {[0]=0,3,6,9};
+			local trap_mastery = FW:SpellName(19376); -- Trap Mastery talent is tracked from Freezing Trap
+			FW.Talent[trap_mastery] = 0;
 			local explosive_trap = FW:SpellName(13813); -- use name instead of id because of possible diff ids
 			local ice_trap = FW:SpellName(13809); -- use name instead of id because of possible diff ids
 			local snake_trap = FW:SpellName(34600); -- use name instead of id because of possible diff ids
@@ -126,6 +134,7 @@ if FW.CLASS == "HUNTER" then
 			local strsub = strsub;
 			local COMBATLOG_OBJECT_AFFILIATION_MINE = COMBATLOG_OBJECT_AFFILIATION_MINE;
 			local band = bit.band;
+			local SNAKE1 = FWL.SNAKE1;
 			
 			local function HT_CombatLogEvent(event,...)
 				if select(4,...) == PLAYER then
@@ -141,7 +150,7 @@ if FW.CLASS == "HUNTER" then
 						elseif select(10,...) == ice_trap then
 							local i = ST.ST:find(ice_trap,8);
 							if i and ST.ST[i][15] == 1 then
-								ST.ST[i][1] = GetTime()+30;
+								ST.ST[i][1] = GetTime()+30 + bonus[FW.Talent[trap_mastery]];
 								ST.ST[i][14] = 0;
 								ST.ST[i][15] = 0; -- use this to set as already triggered
 								ST.ST[i][12] = 0; -- reset the fade event on refresh
@@ -150,7 +159,7 @@ if FW.CLASS == "HUNTER" then
 					end
 				elseif select(2,...) == "SWING_DAMAGE" then
 					-- pet is mine and it's a snake
-					if select(4,...) == FWL.SNAKE1 and band(select(5,...),COMBATLOG_OBJECT_AFFILIATION_MINE)>0 then
+					if select(4,...) == SNAKE1 and band(select(5,...),COMBATLOG_OBJECT_AFFILIATION_MINE)>0 then
 						local i = ST.ST:find(snake_trap,8);
 						if i and ST.ST[i][15] == 1 then
 							ST.ST[i][1] = GetTime()+15;

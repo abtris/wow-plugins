@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Godfrey", "DBM-Party-Cataclysm", 6)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4808 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 4922 $"):sub(12, -3))
 mod:SetCreatureID(46964)
 mod:SetZone()
 
@@ -16,7 +16,6 @@ mod:RegisterEvents(
 
 local warnMortalWound		= mod:NewAnnounce("WarnMortalWound", 2, 93675, mod:IsTank() or mod:IsHealer())
 local warnGhouls			= mod:NewSpellAnnounce(93707, 4)
-local warnPistolBarrage		= mod:NewSpellAnnounce(93520, 3)
 local warnCursedBullets		= mod:NewTargetAnnounce(93629, 3)
 
 local specWarnMortalWound	= mod:NewSpecialWarningStack(93675, nil, 5)
@@ -53,7 +52,6 @@ end
 
 function mod:SPELL_CAST_START(args)
 	if args:IsSpellID(93520) then
-		warnPistolBarrage:Show()
 		timerPistolBarrage:Start()
 		timerPistolBarrageNext:Start()
 	end

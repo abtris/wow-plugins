@@ -19,7 +19,7 @@
 --    * esES: Snamor/1nn7erpLaY      	romanscat@hotmail.com
 --
 -- Special thanks to:
---    * Arta (DBM-Party-WotLK, DBM-Party-Cataclysm)
+--    * Arta
 --    * Omegal @ US-Whisperwind (continuing mod support for 3.2+)
 --    * Tennberg (a lot of fixes in the enGB/enUS localization)
 --
@@ -42,10 +42,10 @@
 --  Globals/Default Options  --
 -------------------------------
 DBM = {
-	Revision = ("$Revision: 4833 $"):sub(12, -3),
-	Version = "4.70",
-	DisplayVersion = "4.70", -- the string that is shown as version
-	ReleaseRevision = 4833 -- the revision of the latest stable version that is available (for /dbm ver2)
+	Revision = ("$Revision: 5085 $"):sub(12, -3),
+	Version = "4.72",
+	DisplayVersion = "4.72", -- the string that is shown as version
+	ReleaseRevision = 5085 -- the revision of the latest stable version that is available (for /dbm ver2)
 }
 
 DBM_SavedOptions = {}
@@ -76,6 +76,7 @@ DBM.DefaultOptions = {
 	SpamBlockBossWhispers = false,
 	ShowMinimapButton = true,
 	FixCLEUOnCombatStart = false,
+	ArchaeologyHumor = true,
 	SetCurrentMapOnPull = true,
 	BlockVersionUpdatePopup = true,
 	ShowSpecialWarnings = true,
@@ -87,6 +88,9 @@ DBM.DefaultOptions = {
 	RangeFrameSound1 = "none",
 	RangeFrameSound2 = "none",
 	RangeFrameLocked = false,
+	InfoFramePoint = "CENTER",
+	InfoFrameX = 75,
+	InfoFrameY = -75,
 	HPFramePoint = "CENTER",
 	HPFrameX = -50,
 	HPFrameY = 50,
@@ -149,13 +153,13 @@ local _, class = UnitClass("player")
 local is_cata = select(4, _G.GetBuildInfo()) >= 40000--4.0 PTR or Beta
 local is_china = select(4, _G.GetBuildInfo()) == 30200--Chinese wow (3.2.2) No one else should be on 3.2.x, screw private servers.
 local GetCurrentMapID
+local LastZoneText
 local LastZoneMapID
 if is_china then
 	GetCurrentMapID = function() return GetCurrentMapAreaID() + 1 end -- US 4.0.1 changed all area ids by -1. So we add it back to continue supporting CN wow until they get same change.
 else
 	GetCurrentMapID = GetCurrentMapAreaID
 end
-
 
 local enableIcons = true -- set to false when a raid leader or a promoted player has a newer version of DBM
 
@@ -310,25 +314,17 @@ do
 	end
 
 	function argsMT.__index:GetSrcCreatureID()
-		if is_cata or is_china then
-			return tonumber(self.sourceGUID:sub(7, 10), 16) or 0
-		else
-			return tonumber(self.sourceGUID:sub(9, 12), 16) or 0
-		end
+		return tonumber(self.sourceGUID:sub(7, 10), 16) or 0
 	end
 	
 	function argsMT.__index:GetDestCreatureID()
-		if is_cata or is_china then
-			return tonumber(self.destGUID:sub(7, 10), 16) or 0
-		else
-			return tonumber(self.destGUID:sub(9, 12), 16) or 0
-		end
+		return tonumber(self.destGUID:sub(7, 10), 16) or 0
 	end
 	
 	local function handleEvent(self, event, ...)
 		if not registeredEvents[event] or DBM.Options and not DBM.Options.Enabled then return end
 		for i, v in ipairs(registeredEvents[event]) do
-			if type(v[event]) == "function" and (not v.zones or checkEntry(v.zones, GetRealZoneText()) or checkEntry(v.zones, LastZoneMapID)) and (not v.Options or v.Options.Enabled) then
+			if type(v[event]) == "function" and (not v.zones or checkEntry(v.zones, LastZoneText) or checkEntry(v.zones, LastZoneMapID)) and (not v.Options or v.Options.Enabled) then
 				v[event](v, ...)
 			end
 		end
@@ -643,7 +639,7 @@ do
 		
 		-- execute OnUpdate handlers of all modules
 		for i, v in pairs(updateFunctions) do
-			if i.Options.Enabled and (not i.zones or checkEntry(i.zones, GetRealZoneText()) or checkEntry(i.zones, LastZoneMapID)) then
+			if i.Options.Enabled and (not i.zones or checkEntry(i.zones, LastZoneText) or checkEntry(i.zones, LastZoneMapID)) then
 				i.elapsed = (i.elapsed or 0) + elapsed
 				if i.elapsed >= (i.updateInterval or 0) then
 					v(i, i.elapsed)
@@ -1356,6 +1352,7 @@ do
 				"PARTY_MEMBERS_CHANGED",
 				"CHAT_MSG_ADDON",
 				"PLAYER_REGEN_DISABLED",
+				"INSTANCE_ENCOUNTER_ENGAGE_UNIT",
 				"UNIT_DIED",
 				"UNIT_DESTROYED",
 				"CHAT_MSG_WHISPER",
@@ -1367,7 +1364,8 @@ do
 				"PLAYER_ENTERING_WORLD",
 				"LFG_PROPOSAL_SHOW",
 				"LFG_PROPOSAL_FAILED",
-				"LFG_UPDATE"
+				"LFG_UPDATE",
+				"CHAT_MSG_LOOT"
 			)
 			self:ZONE_CHANGED_NEW_AREA()
 			self:RAID_ROSTER_UPDATE()
@@ -1397,22 +1395,60 @@ function DBM:LFG_UPDATE()
     end
 end
 
+do
+	local soundFiles = {
+		[0] = "Sound\\Creature\\YoggSaron\\AK_YoggSaron_HowlingFjordWhisper01.wav",
+		[1] = "Sound\\Creature\\YoggSaron\\AK_YoggSaron_HowlingFjordWhisper01.wav",
+		[2] = "Sound\\Creature\\YoggSaron\\AK_YoggSaron_HowlingFjordWhisper02.wav",
+		[3] = "Sound\\Creature\\YoggSaron\\AK_YoggSaron_HowlingFjordWhisper03.wav",
+		[4] = "Sound\\Creature\\YoggSaron\\AK_YoggSaron_HowlingFjordWhisper04.wav",
+		[5] = "Sound\\Creature\\YoggSaron\\AK_YoggSaron_HowlingFjordWhisper05.wav",
+		[6] = "Sound\\Creature\\YoggSaron\\AK_YoggSaron_HowlingFjordWhisper06.wav",
+		[7] = "Sound\\Creature\\YoggSaron\\AK_YoggSaron_HowlingFjordWhisper07.wav",
+		[8] = "Sound\\Creature\\YoggSaron\\AK_YoggSaron_HowlingFjordWhisper08.wav",
+		[9] = "Sound\\Creature\\YoggSaron\\AK_YoggSaron_Whisper01.wav",
+		[10] = "Sound\\Creature\\YoggSaron\\AK_YoggSaron_Whisper02.wav",
+		[11] = "Sound\\Creature\\YoggSaron\\AK_YoggSaron_Whisper03.wav",
+		[12] = "Sound\\Creature\\YoggSaron\\AK_YoggSaron_Whisper04.wav",
+		[13] = "Sound\\Creature\\CThun\\CThunDeathIsClose.wav",
+		[14] = "Sound\\Creature\\CThun\\CThunYouAreAlready.wav",
+		[15] = "Sound\\Creature\\CThun\\CThunYouWillBetray.wav",
+		[16] = "Sound\\Creature\\CThun\\CThunYouWillDIe.wav",
+		[17] = "Sound\\Creature\\CThun\\CThunYourCourage.wav",
+		[18] = "Sound\\Creature\\CThun\\CThunYourFriends.wav",
+		[19] = "Sound\\Creature\\CThun\\YourHeartWill.wav",
+		[20] = "Sound\\Creature\\CThun\\YouAreWeak.wav"
+	}
+
+	function DBM:CHAT_MSG_LOOT(msg)
+		local player, itemID = msg:match(DBM_LOOT_MSG)
+		if player and itemID and (tonumber(itemID) == 52843 or tonumber(itemID) == 63127 or tonumber(itemID) == 63128 or tonumber(itemID) == 64392 or tonumber(itemID) == 64394 or tonumber(itemID) == 64396 or tonumber(itemID) == 64395 or tonumber(itemID) == 64397) then
+			if DBM.Options.ArchaeologyHumor then
+				local x = random(0, #soundFiles-1)
+				PlaySoundFile(soundFiles[x])
+			end
+	end	end
+end
+
+
 --------------------------------
 --  Load Boss Mods on Demand  --
 --------------------------------
 function DBM:ZONE_CHANGED_NEW_AREA()
-	if select(2, IsInInstance()) ~= "none" then
+	if IsInInstance() then--Don't change map if not in instance, it makes archaeologists mad.
 		SetMapToCurrentZone()--To Fix blizzard bug, sometimes map isn't loaded on disconnect or reloadui
-	end
-	local zoneName = GetRealZoneText()
-	local zoneId = GetCurrentMapID()
-	LastZoneMapID = zoneId--Cache map on zone change.
-	for i, v in ipairs(self.AddOns) do
-		if not IsAddOnLoaded(v.modId) and (checkEntry(v.zone, zoneName) or checkEntry(v.zoneId, zoneId)) then
-			-- srsly, wtf? LoadAddOn doesn't work properly on ZONE_CHANGED_NEW_AREA when reloading the UI
-			-- TODO: is this still necessary? this was a WotLK beta bug
-			DBM:Unschedule(DBM.LoadMod, DBM, v)
-			DBM:Schedule(3, DBM.LoadMod, DBM, v)
+		local zoneName = GetRealZoneText()
+		local zoneId = GetCurrentMapID()
+		LastZoneText = zoneName--Cache zone name on change.
+		LastZoneMapID = zoneId--Cache map on zone change.
+--		DBM:AddMsg(("Zone Change called: current zoneName %s, current mapID %s"):format(tostring(GetRealZoneText()), tostring(GetCurrentMapID()))) -- DEBUG
+		for i, v in ipairs(self.AddOns) do
+			if not IsAddOnLoaded(v.modId) and (checkEntry(v.zone, zoneName) or checkEntry(v.zoneId, zoneId)) then
+				-- srsly, wtf? LoadAddOn doesn't work properly on ZONE_CHANGED_NEW_AREA when reloading the UI
+				-- TODO: is this still necessary? this was a WotLK beta bug
+				DBM:Unschedule(DBM.LoadMod, DBM, v)
+				DBM:Schedule(3, DBM.LoadMod, DBM, v)
+			end
 		end
 	end
 	if select(2, IsInInstance()) == "pvp" and not DBM:GetModByName("AlteracValley") then
@@ -1503,8 +1539,7 @@ do
 		delay = tonumber(delay or 0) or 0
 		revision = tonumber(revision or 0) or 0
 		mod = DBM:GetModByName(mod or "")
---		SetMapToCurrentZone()
-		if mod and delay and (not mod.zones or #mod.zones == 0 or checkEntry(mod.zones, GetRealZoneText()) or checkEntry(mod.zones, LastZoneMapID)) and (not mod.minSyncRevision or revision >= mod.minSyncRevision) then
+		if mod and delay and (not mod.zones or #mod.zones == 0 or checkEntry(mod.zones, LastZoneText) or checkEntry(mod.zones, LastZoneMapID)) and (not mod.minSyncRevision or revision >= mod.minSyncRevision) then
 			DBM:StartCombat(mod, delay + lag, true)
 		end
 	end
@@ -1685,13 +1720,8 @@ do
 			local id = (i == 0 and "target") or uId..i.."target"
 			local guid = UnitGUID(id)
 			if guid and (bit.band(guid:sub(1, 5), 0x00F) == 3 or bit.band(guid:sub(1, 5), 0x00F) == 5) then
-				if is_cata or is_china then
-					local cId = tonumber(guid:sub(7, 10), 16)
-					targetList[cId] = id
-				else
-					local cId = tonumber(guid:sub(9, 12), 16)
-					targetList[cId] = id
-				end
+				local cId = tonumber(guid:sub(7, 10), 16)
+				targetList[cId] = id
 			end
 		end
 	end
@@ -1722,11 +1752,10 @@ do
 
 	function DBM:PLAYER_REGEN_DISABLED()
 		if not combatInitialized then return end
---		SetMapToCurrentZone()
-		if combatInfo[GetRealZoneText()] or combatInfo[LastZoneMapID] then
+		if combatInfo[LastZoneText] or combatInfo[LastZoneMapID] then
 			buildTargetList()
-			if combatInfo[GetRealZoneText()] then
-				for i, v in ipairs(combatInfo[GetRealZoneText()]) do
+			if combatInfo[LastZoneText] then
+				for i, v in ipairs(combatInfo[LastZoneText]) do
 					if v.type == "combat" then
 						if v.multiMobPullDetection then
 							for _, mob in ipairs(v.multiMobPullDetection) do
@@ -1759,14 +1788,53 @@ do
 			clearTargetList()
 		end
 	end
+
+	function DBM:INSTANCE_ENCOUNTER_ENGAGE_UNIT()
+		if not combatInitialized then return end
+		if combatInfo[LastZoneText] or combatInfo[LastZoneMapID] then
+			buildTargetList()
+			if combatInfo[LastZoneText] then
+				for i, v in ipairs(combatInfo[LastZoneText]) do
+					if v.type == "engage" then
+						if v.multiMobPullDetection then
+							for _, mob in ipairs(v.multiMobPullDetection) do
+								if checkForPull(mob, v) then
+									break
+								end
+							end
+						else
+							checkForPull(v.mob, v)
+						end
+					end
+				end
+			end
+			-- copy & paste, lol
+			if combatInfo[LastZoneMapID] then
+				for i, v in ipairs(combatInfo[LastZoneMapID]) do
+					if v.type == "engage" then
+						if v.multiMobPullDetection then
+							for _, mob in ipairs(v.multiMobPullDetection) do
+								if checkForPull(mob, v) then
+									break
+								end
+							end
+						else
+							checkForPull(v.mob, v)
+						end
+					end
+				end
+			end
+			clearTargetList()
+		end
+	end
 end
 
 do
 	-- called for all mob chat events
 	local function onMonsterMessage(type, msg)
 		-- pull detection
-		if combatInfo[GetRealZoneText()] then
-			for i, v in ipairs(combatInfo[GetRealZoneText()]) do
+		if combatInfo[LastZoneText] then
+			for i, v in ipairs(combatInfo[LastZoneText]) do
 				if v.type == type and checkEntry(v.msgs, msg) then
 					DBM:StartCombat(v.mod, 0)
 				end
@@ -2014,11 +2082,7 @@ end
 
 function DBM:UNIT_DIED(args)
 	if bit.band(args.destGUID:sub(1, 5), 0x00F) == 3 or bit.band(args.destGUID:sub(1, 5), 0x00F) == 5  then
-		if is_cata or is_china then
-			self:OnMobKill(tonumber(args.destGUID:sub(7, 10), 16))
-		else
-			self:OnMobKill(tonumber(args.destGUID:sub(9, 12), 16))
-		end
+		self:OnMobKill(tonumber(args.destGUID:sub(7, 10), 16))
 	end
 end
 DBM.UNIT_DESTROYED = DBM.UNIT_DIED
@@ -2096,7 +2160,7 @@ function DBM:SendBGTimers(target)
 		mod = self:GetModByName("Arenas")		
 	else
 		-- FIXME: this doesn't work for non-english clients
-		local zone = GetRealZoneText():gsub(" ", "")
+		local zone = GetRealZoneText():gsub(" ", "")--Does this need updating to mapid arta?
 		mod = self:GetModByName(zone)
 	end
 	if mod and mod.timers then
@@ -2507,19 +2571,11 @@ end
 
 function bossModPrototype:GetUnitCreatureId(uId)
 	local guid = UnitGUID(uId)
-	if is_cata or is_china then
-		return (guid and (tonumber(guid:sub(7, 10), 16))) or 0
-	else
-		return (guid and (tonumber(guid:sub(9, 12), 16))) or 0
-	end
+	return (guid and (tonumber(guid:sub(7, 10), 16))) or 0
 end
 
 function bossModPrototype:GetCIDFromGUID(guid)
-	if is_cata or is_china then
-		return (guid and (tonumber(guid:sub(7, 10), 16))) or 0
-	else
-		return (guid and (tonumber(guid:sub(9, 12), 16))) or 0
-	end
+	return (guid and (tonumber(guid:sub(7, 10), 16))) or 0
 end
 
 function bossModPrototype:GetBossTarget(cid)
@@ -3068,6 +3124,7 @@ do
 		elseif self.timer <= 2 then
 			frame:SetAlpha(self.timer/2)
 		elseif self.timer <= 0 then
+			LowHealthFrame:Hide()
 			frame:Hide()
 		end
 	end)
@@ -3729,14 +3786,8 @@ function bossModPrototype:GetBossHPString(cId)
 	for i = 0, math.max(GetNumRaidMembers(), GetNumPartyMembers()) do
 		local unitId = ((i == 0) and "target") or idType..i.."target"
 		local guid = UnitGUID(unitId)
-		if is_cata or is_china then
-			if guid and (tonumber(guid:sub(7, 10), 16)) == cId then
-				return math.floor(UnitHealth(unitId)/UnitHealthMax(unitId) * 100).."%"
-			end
-		else
-			if guid and (tonumber(guid:sub(9, 12), 16)) == cId then
-				return math.floor(UnitHealth(unitId)/UnitHealthMax(unitId) * 100).."%"
-			end
+		if guid and (tonumber(guid:sub(7, 10), 16)) == cId then
+			return math.floor(UnitHealth(unitId)/UnitHealthMax(unitId) * 100).."%"
 		end
 	end
 	return DBM_CORE_UNKNOWN

@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
+﻿-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
 
 --[[
 "frFR": French

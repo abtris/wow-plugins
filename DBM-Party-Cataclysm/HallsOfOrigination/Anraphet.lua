@@ -1,7 +1,7 @@
 local mod	= DBM:NewMod("Anraphet", "DBM-Party-Cataclysm", 4)
 local L		= mod:GetLocalizedStrings()
 
-mod:SetRevision(("$Revision: 4808 $"):sub(12, -3))
+mod:SetRevision(("$Revision: 5027 $"):sub(12, -3))
 mod:SetCreatureID(39788)
 mod:SetZone()
 
@@ -9,7 +9,8 @@ mod:RegisterCombat("combat")
 
 mod:RegisterEvents(
 	"SPELL_AURA_APPLIED",
-	"SPELL_CAST_START"
+	"SPELL_CAST_START",
+	"CHAT_MSG_MONSTER_SAY"
 )
 
 local warnAlphaBeams		= mod:NewSpellAnnounce(76184, 4)
@@ -29,9 +30,12 @@ local timerImpale		= mod:NewTargetTimer(3, 77235)
 local timerImpaleCD		= mod:NewCDTimer(20, 77235)
 local timerInferno		= mod:NewCDTimer(17, 77241)
 
+local timerGauntlet		= mod:NewAchievementTimer(300, 5296, "achievementGauntlet")
+
 function mod:OnCombatStart(delay)
 	timerAlphaBeamsCD:Start(10-delay)
 	timerOmegaStanceCD:Start(35-delay)
+	timerGauntlet:Cancel()--it actually cancels a few seconds before engage but this doesn't require localisation and extra yell checks.
 end
 
 function mod:SPELL_AURA_APPLIED(args)
@@ -60,5 +64,13 @@ function mod:SPELL_CAST_START(args)
 	elseif args:IsSpellID(77241, 91160) then
 		warnInferno:Show()
 		timerInferno:Start()
+	end
+end
+
+function mod:CHAT_MSG_MONSTER_SAY(msg)
+	if msg == L.Brann or msg:find(L.Brann) then
+		if mod:IsDifficulty("heroic5") then
+			timerGauntlet:Start()
+		end
 	end
 end

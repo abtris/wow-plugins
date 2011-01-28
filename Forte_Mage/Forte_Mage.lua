@@ -1,4 +1,4 @@
--- ForteXorcist v1.974 by Xus 09-01-2011 for 4.0.3
+-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
 -- Forte Mage Module attempt by Amros of Gilneas
 
 if FW.CLASS == "MAGE" then
@@ -23,6 +23,7 @@ if FW.CLASS == "MAGE" then
 		ST:RegisterSpell(11069,1,000,0,ST.DEFAULT); -- fireball
 			ST:RegisterTickSpeed(11069, 2); -- set tick speed to 2 instead of 3	
 		ST:RegisterSpell(11366,1,000,1,ST.DEFAULT); -- Pyroblast
+		ST:RegisterSpell(92315,1,000,1,ST.DEFAULT); -- Pyroblast!
 		
 		ST:RegisterSpell(2120,0,008,0,ST.DEFAULT); -- Flamestrike
 			ST:RegisterTickSpeed(2120, 2); -- set tick speed to 2 instead of 3	
@@ -46,7 +47,9 @@ if FW.CLASS == "MAGE" then
 		ST:RegisterSpell(82731,0,015,0,ST.PET); -- Flame Orb
 			ST:RegisterTickSpeed(82731, 1); -- set tick speed to 1 instead of 3	
 		
-		
+		ST:RegisterSpell(11129,1,010,1,ST.DEFAULT); -- Combustion
+			ST:RegisterTickSpeed(11129, 2); -- set tick speed to 2 instead of 3	
+
 		
 		ST:RegisterBuff(12536); -- Clearcasting
 		ST:RegisterBuff(44445); -- Hot Streak

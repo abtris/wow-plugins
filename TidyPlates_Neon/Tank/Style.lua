@@ -58,21 +58,15 @@ local LocalVars = TidyPlatesNeonTankVariables
 ---------------------------------------------
 local ArtworkPath = "Interface\\Addons\\TidyPlates_Neon\\Media\\"
 local EmptyTexture = ArtworkPath.."Neon_Empty"
-local CastBarVerticalAdjustment = -21
+local CastBarVerticalAdjustment = -23
 local NameTextVerticalAdjustment = -8
 
 ---------------------------------------------
 -- Default Style
 ---------------------------------------------
-local DefaultStyle = Theme
---local DefaultStyle = {}
---local DefaultStyle = {}
---[[
-DefaultStyle.hitbox = {
-	width = 105,
-	height = 20,
-}
---]]
+--local DefaultStyle = Theme
+local DefaultStyle = {}
+
 
 DefaultStyle.frame = {
 	x = 0,
@@ -85,8 +79,6 @@ DefaultStyle.highlight = {
 
 DefaultStyle.healthborder = {
 	texture		 =				ArtworkPath.."Neon_HealthOverlay",
-	--glowtexture =					ArtworkPath.."Neon_Highlight",
-	--elitetexture =					ArtworkPath.."Neon_HealthOverlayEliteStar",
 	width = 128,
 	height = 32,
 	y = 0,
@@ -102,7 +94,8 @@ DefaultStyle.healthbar = {
 }
 
 DefaultStyle.castborder = {
-	texture =					ArtworkPath.."Neon_CastOverlayBlue",
+	texture =					ArtworkPath.."Cast_Normal",
+	--texture =					ArtworkPath.."Neon_HealthOverlay",
 	width = 128,
 	height = 32,
 	x = 0,
@@ -111,7 +104,7 @@ DefaultStyle.castborder = {
 }
 
 DefaultStyle.castnostop = {
-	texture =					ArtworkPath.."Neon_CastOverlayRed",
+	texture =					ArtworkPath.."Cast_Shield",
 	width = 128,
 	height = 32,
 	x = 0,
@@ -152,10 +145,10 @@ DefaultStyle.target = {
 }
 
 DefaultStyle.spellicon = {
-	width = 17,
-	height = 17,
-	x = 26,
-	y = -3+CastBarVerticalAdjustment,
+	width = 15,
+	height = 15,
+	x = 24,
+	y = CastBarVerticalAdjustment,
 	anchor = "CENTER",
 	show = true,
 }
@@ -247,52 +240,37 @@ DefaultStyle.customtext = {
 }
 
 
-
--- /run TidyPlates:ForceUpdate(); TidyPlatesThemeList["Neon/Test"].name.y = 8
--- /run TestTidyPlatesCastBar("Boognish", 133)
-
---[[
 local CopyTable = TidyPlatesUtility.copyTable
 
----------------------------------------------
--- No Health-Bar Style
--- Replaces the Spell Text with Name Text (For Color)
----------------------------------------------
-local NoHealthBarStyle = CopyTable(DefaultStyle)
+-- No Bar
+local NameOnlyStyle = CopyTable(DefaultStyle)
+NameOnlyStyle.healthborder.texture = EmptyTexture
+NameOnlyStyle.healthbar.texture = EmptyTexture
 
-NoHealthBarStyle.healthborder.texture = EmptyTexture
-NoHealthBarStyle.healthborder.glowtexture = EmptyTexture
-NoHealthBarStyle.healthborder.elitetexture = EmptyTexture
+-- 58
+local CompactStyle = CopyTable(DefaultStyle)
+CompactStyle.healthborder.texture = ArtworkPath.."Neon_HealthOverlay_Stubby"
+CompactStyle.healthbar.width = 58
+CompactStyle.highlight.texture = ArtworkPath.."Neon_Stubby_Highlight"
+CompactStyle.target.texture = ArtworkPath.."Neon_Stubby_Target"
 
-NoHealthBarStyle.healthbar.texture = EmptyTexture
+-- 38
+local MiniStyle = CopyTable(DefaultStyle)
+MiniStyle.healthborder.texture = ArtworkPath.."Neon_HealthOverlay_Very_Stubby"
+MiniStyle.healthbar.width = 38
+--MiniStyle.name.show = false
+MiniStyle.highlight.texture = ArtworkPath.."Neon_Very_Stubby_Highlight"
+MiniStyle.target.texture = ArtworkPath.."Neon_Very_Stubby_Target"
 
-NoHealthBarStyle.customtext.typeface = ArtworkPath.."Qlassik_TB.ttf"
-NoHealthBarStyle.customtext.size = 12
-NoHealthBarStyle.customtext.width = 200
-NoHealthBarStyle.customtext.height = 11
-NoHealthBarStyle.customtext.x = 0
-NoHealthBarStyle.customtext.y = NameTextVerticalAdjustment + 8
-NoHealthBarStyle.customtext.align = "CENTER"
-NoHealthBarStyle.customtext.anchor = "CENTER"
-NoHealthBarStyle.customtext.vertical = "CENTER"
-NoHealthBarStyle.customtext.shadow = true
-	
-local function StyleDelegate(unit)
-	-- DefaultStyle or NoHealthBarStyle
-	if unit.reaction == "FRIENDLY" then return "NoHealthBarStyle"
-	else return "DefaultStyle" end
-end
-
-Theme.SetStyle = StyleDelegate
-
-Theme["DefaultStyle"] = DefaultStyle
-Theme["NoHealthBarStyle"] = NoHealthBarStyle
-
---]]
+-- Styles
+Theme["Default"] = DefaultStyle
+Theme["Compact"] = CompactStyle
+Theme["Mini"] = MiniStyle
+Theme["NameOnly"] = NameOnlyStyle
 
 local function UpdateStyleElements(self, var)
-	Theme.level.show = (LocalVars.LevelText == true)
-	Theme.target.show = (LocalVars.WidgetSelect == true)
+	Theme["Default"].level.show = (LocalVars.LevelText == true)
+	Theme["Default"].target.show = (LocalVars.WidgetSelect == true)
 	if LocalVars.AggroOnOtherTank then TidyPlatesWidgets.EnableTankWatch()
 	else TidyPlatesWidgets.DisableTankWatch() end
 	
@@ -300,13 +278,22 @@ end
 
 Theme.UpdateStyleElements = UpdateStyleElements
 
+local IsTotem = TidyPlatesUtility.IsTotem
+
+local function StyleDelegate(unit)
+	if IsTotem(unit.name) then return "Mini"
+	--elseif not unit.isInCombat then return "Compact"
+	--elseif (not unit.isElite) and unit.reaction ~= "HOSTILE" then return "Compact"
+	else return "Default" end
+end
+
+Theme.SetStyle = StyleDelegate
 
 
 
+--/run TestTidyPlatesCastBar("Boognish", 133, true)
 
-
-
-
+--[[
 ---------------
 -- Neon/Veev
 ---------------
@@ -314,7 +301,7 @@ local CopyTable = TidyPlatesUtility.copyTable
 TidyPlatesThemeList["Neon/Veev"] = CopyTable(Theme)
 local Veev = TidyPlatesThemeList["Neon/Veev"]
 Veev.name.y = 11
-
+--]]
 
 
 

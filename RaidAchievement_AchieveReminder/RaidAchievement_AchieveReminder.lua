@@ -129,7 +129,10 @@ local _, a2, a3, _, a5 = GetInstanceInfo()
 		if psllinfframe then
 			psllinfframe:Clear()
 			psllinfframe:AddMessage(rallachiverepl6)
-			psllinfframe:SetHeight(40)
+			if psllinfframe:GetHeight()>39 and psllinfframe:GetHeight()<41 then
+			else
+				psllinfframe:SetHeight(40)
+			end
 		end
 	rallcolonka=0
 	end
@@ -232,7 +235,7 @@ ralltacticsdef=
 {0,0,ralldefaulttactic10.."\n"..ralldefaulttacticmain1,0},--HallsOfStone
 {ralldefaulttactic21,0},--utgard5
 {ralldefaulttactic22,0,ralldefaulttactic23,ralldefaulttactic24,0},--utgard5
-{ralldefaulttactic84,ralldefaulttactic82.."\n"..ralldefaulttacticmain1,ralldefaulttactic83,0,0,0,0},--The Deadmines
+{ralldefaulttactic84,ralldefaulttactic82,ralldefaulttactic83,0,0,0,0},--The Deadmines
 {ralldefaulttactic85,ralldefaulttactic86,0,0},--Shadowfang Keep
 {ralldefaulttactic87,ralldefaulttactic88,0},--Throne of the Tides
 {0,ralldefaulttactic89,0,0,0},--Blackrock Caverns
@@ -284,7 +287,7 @@ ralltacticsverdef={{403,404,403,403,403,403,403,403,403,403,403,403,403,403,403,
 {403,403,403,403},--HallsOfStone
 {403,403},--utgard5
 {403,403,403,403,403},--utgard5
-{405,405,405,405,405,405,405},--The Deadmines
+{405,406,405,405,405,405,405},--The Deadmines
 {404,404,404,404},--Shadowfang Keep
 {404,404,404},--Throne of the Tides
 {404,404,404,404,404},--Blackrock Caverns
@@ -1161,7 +1164,10 @@ if found==0 then
 	if psllinfframe then
 		psllinfframe:Clear()
 		psllinfframe:AddMessage(rallzonenotfound)
-		psllinfframe:SetHeight(40)
+			if psllinfframe:GetHeight()>39 and psllinfframe:GetHeight()<41 then
+			else
+				psllinfframe:SetHeight(40)
+			end
 	end
 else
 
@@ -1215,7 +1221,10 @@ if #texttableout==0 then
 if psllinfframe then
 	psllinfframe:Clear()
 	psllinfframe:AddMessage(rallachiverepl2)
+			if psllinfframe:GetHeight()>39 and psllinfframe:GetHeight()<41 then
+			else
 	psllinfframe:SetHeight(40)
+			end
 end
 end
 
@@ -1261,7 +1270,10 @@ if #texttableout==0 then
 if psllinfframe then
 	psllinfframe:Clear()
 	psllinfframe:AddMessage(rallachiverepl5)
+			if psllinfframe:GetHeight()>39 and psllinfframe:GetHeight()<41 then
+			else
 	psllinfframe:SetHeight(40)
+			end
 end
 end
 
@@ -1295,7 +1307,10 @@ if #texttableout==0 then
 if psllinfframe then
 	psllinfframe:Clear()
 	psllinfframe:AddMessage(rallachiverepl9)
+			if psllinfframe:GetHeight()>39 and psllinfframe:GetHeight()<41 then
+			else
 	psllinfframe:SetHeight(40)
+			end
 end
 end
 
@@ -1341,7 +1356,10 @@ if #texttableout==0 then
 if psllinfframe then
 	psllinfframe:Clear()
 	psllinfframe:AddMessage(rallachiverepl11)
+			if psllinfframe:GetHeight()>39 and psllinfframe:GetHeight()<41 then
+			else
 	psllinfframe:SetHeight(40)
+			end
 end
 end
 
@@ -1375,7 +1393,10 @@ if #texttableout==0 then
 if psllinfframe then
 	psllinfframe:Clear()
 	psllinfframe:AddMessage(rallachiverepl2)
+			if psllinfframe:GetHeight()>39 and psllinfframe:GetHeight()<41 then
+			else
 	psllinfframe:SetHeight(40)
+			end
 end
 end
 
@@ -1397,7 +1418,10 @@ if psllinfframe then
 	for i=1,#texttableout2 do
 		psllinfframe:AddMessage(texttableout2[i])
 	end
-	psllinfframe:SetHeight(#texttableout*12.4+20) --ыытест
+	if psllinfframe:GetHeight()>(#texttableout*12.4+10) and psllinfframe:GetHeight()<(#texttableout*12.4+30) then
+	else
+		psllinfframe:SetHeight(#texttableout*12.4+20) --ыытест
+	end
 end
 
 --текст
@@ -1436,7 +1460,10 @@ else
 	if psllinfframe then
 		psllinfframe:Clear()
 		psllinfframe:AddMessage(rallachiverepl3)
+			if psllinfframe:GetHeight()>39 and psllinfframe:GetHeight()<41 then
+			else
 		psllinfframe:SetHeight(40)
+			end
 	end
 end
 
@@ -1444,7 +1471,10 @@ else
 	if psllinfframe then
 		psllinfframe:Clear()
 		psllinfframe:AddMessage(rallachiverepl6)
+			if psllinfframe:GetHeight()>39 and psllinfframe:GetHeight()<41 then
+			else
 		psllinfframe:SetHeight(40)
+			end
 	end
 rallcolonka=0
 end
@@ -1915,7 +1945,10 @@ if found==0 then
 	if psllinfframe then
 		psllinfframe:Clear()
 		psllinfframe:AddMessage("error")
+			if psllinfframe:GetHeight()>39 and psllinfframe:GetHeight()<41 then
+			else
 		psllinfframe:SetHeight(40)
+			end
 	end
 else
 
@@ -1967,7 +2000,10 @@ if #texttableout==0 then
 if psllinfframe2 then
 	psllinfframe2:Clear()
 	psllinfframe2:AddMessage(rallachiverepl2)
+			if psllinfframe2:GetHeight()>39 and psllinfframe2:GetHeight()<41 then
+			else
 	psllinfframe2:SetHeight(40)
+			end
 end
 end
 
@@ -2007,7 +2043,10 @@ if #texttableout==0 then
 if psllinfframe2 then
 	psllinfframe2:Clear()
 	psllinfframe2:AddMessage(rallachiverepl5)
+			if psllinfframe2:GetHeight()>39 and psllinfframe2:GetHeight()<41 then
+			else
 	psllinfframe2:SetHeight(40)
+			end
 end
 end
 
@@ -2035,7 +2074,10 @@ if #texttableout==0 then
 if psllinfframe2 then
 	psllinfframe2:Clear()
 	psllinfframe2:AddMessage(rallachiverepl9)
+			if psllinfframe2:GetHeight()>39 and psllinfframe2:GetHeight()<41 then
+			else
 	psllinfframe2:SetHeight(40)
+			end
 end
 end
 
@@ -2075,7 +2117,10 @@ if #texttableout==0 then
 if psllinfframe2 then
 	psllinfframe2:Clear()
 	psllinfframe2:AddMessage(rallachiverepl11)
+			if psllinfframe2:GetHeight()>39 and psllinfframe2:GetHeight()<41 then
+			else
 	psllinfframe2:SetHeight(40)
+			end
 end
 end
 
@@ -2103,7 +2148,10 @@ if #texttableout==0 then
 if psllinfframe2 then
 	psllinfframe2:Clear()
 	psllinfframe2:AddMessage(rallachiverepl2)
+			if psllinfframe2:GetHeight()>39 and psllinfframe2:GetHeight()<41 then
+			else
 	psllinfframe2:SetHeight(40)
+			end
 end
 end
 
@@ -2141,7 +2189,10 @@ if #texttableout==0 then
 if psllinfframe2 then
 	psllinfframe2:Clear()
 	psllinfframe2:AddMessage(rallachiverepl5)
+			if psllinfframe2:GetHeight()>39 and psllinfframe2:GetHeight()<41 then
+			else
 	psllinfframe2:SetHeight(40)
+			end
 end
 end
 
@@ -2152,7 +2203,10 @@ end
 else
 	psllinfframe2:Clear()
 	psllinfframe2:AddMessage("Error. Achievements were not found in Game Client.")
+			if psllinfframe2:GetHeight()>39 and psllinfframe2:GetHeight()<41 then
+			else
 	psllinfframe2:SetHeight(40)
+			end
 end
 
 
@@ -2163,7 +2217,10 @@ if psllinfframe2 then
 	for i=1,#texttableout2 do
 		psllinfframe2:AddMessage(texttableout2[i])
 	end
-	psllinfframe2:SetHeight(#texttableout*12.4+20) --ыытест
+	if psllinfframe2:GetHeight()>(#texttableout*12.4+10) and psllinfframe2:GetHeight()<(#texttableout*12.4+30) then
+	else
+		psllinfframe2:SetHeight(#texttableout*12.4+20) --ыытест
+	end
 end
 
 --текст

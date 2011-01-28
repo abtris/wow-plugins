@@ -118,6 +118,11 @@ local function ThreatColorDelegate(unit)
 	return 0, 0, 0, 0
 end
 
+--local function SetCastbarColorDelegate(unit, spell)
+--end
+
+theme.SetCastbarColor = SetCastbarColorDelegate
+
 ---------------
 -- Widgets
 ---------------

@@ -1,6 +1,6 @@
 --[[
 LibDualSpec-1.0 - Adds dual spec support to individual AceDB-3.0 databases
-Copyright (C) 2009 Adirelle
+Copyright (C) 2009-2010 Adirelle
 
 All rights reserved.
 
@@ -31,7 +31,7 @@ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 --]]
 
-local MAJOR, MINOR = "LibDualSpec-1.0", 6
+local MAJOR, MINOR = "LibDualSpec-1.0", 7
 assert(LibStub, MAJOR.." requires LibStub")
 local lib = LibStub:NewLibrary(MAJOR, MINOR)
 if not lib then return end
@@ -186,6 +186,14 @@ for target in pairs(registry) do
 	EmbedMixin(target)
 end
 
+-- Actually enhance the database
+-- This is used on first initialization and everytime the database is reset using :ResetDB
+function lib:_EnhanceDatabase(event, target)
+	registry[target].db = target:GetNamespace(MAJOR, true) or target:RegisterNamespace(MAJOR)
+	EmbedMixin(target)
+	target:CheckDualSpecState()
+end
+
 --- Embed dual spec feature into an existing AceDB-3.0 database.
 -- LibDualSpec specific methods are added to the instance.
 -- @name LibDualSpec:EnhanceDatabase
@@ -204,10 +212,9 @@ function lib:EnhanceDatabase(target, name)
 	elseif registry[target] then
 		return
 	end
-	local db = target:GetNamespace(MAJOR, true) or target:RegisterNamespace(MAJOR)
-	registry[target] = { name = name, db = db	}
-	EmbedMixin(target)
-	target:CheckDualSpecState()
+	registry[target] = { name = name }
+	lib:_EnhanceDatabase("EnhanceDatabase", target)
+	target.RegisterCallback(lib, "OnDatabaseReset", "_EnhanceDatabase")
 end
 
 -- ----------------------------------------------------------------------------
@@ -309,4 +316,5 @@ lib.eventFrame:SetScript('OnEvent', function()
 		end
 	end
 end)
+
 

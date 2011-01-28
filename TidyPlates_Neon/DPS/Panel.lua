@@ -407,8 +407,9 @@ end)
 DPSPanel:RegisterEvent("PLAYER_LOGIN")
 DPSPanel:RegisterEvent("PLAYER_ENTERING_WORLD")
 
--- Register the Panel in the Theme
-Theme.InterfacePanel = DPSPanel
+-- Panel Link
+local function ShowConfigPanelDelegate() InterfaceOptionsFrame_OpenToCategory(DPSPanel) end
+TidyPlatesThemeList["Neon/DPS"].ShowConfigPanel = ShowConfigPanelDelegate
 
 -- Slash Command
 function slash_NEONDPS(arg) InterfaceOptionsFrame_OpenToCategory(DPSPanel); end

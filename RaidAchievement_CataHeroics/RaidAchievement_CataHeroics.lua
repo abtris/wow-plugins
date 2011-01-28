@@ -27,8 +27,8 @@ end
 
 
 chraspisokach5={
+5292,
 5366,
-5367,
 5368,
 5369,
 5370,
@@ -60,7 +60,7 @@ chraspisokach5={
 
 
 --5290,
-5292,
+
 --2 пропуска
 
 --27 итог
@@ -169,6 +169,13 @@ if UnitGUID("boss1") then
 	if id==49541 then
 		rachtimervanessa=nil
 	end
+
+	--Faster Than the Speed of Light
+	if id==39788 then
+		rachtimerhoo=nil
+	end
+
+
 end
 
 
@@ -228,27 +235,28 @@ end
 --achieves:
 
 --dead mines
+
+if arg2=="SPELL_AURA_APPLIED_DOSE" and (arg9==93959 or arg9==91871) and arg13==3 then
+
+if chraspisokon[1]==1 and chraachdone1 then
+local _, _, _, chramyach = GetAchievementInfo(5292)
+if arg7==UnitName("player") then
+if (chramyach) then else
+chramyfailgood(1,1)
+end
+end
+end
+
+end
+
+
 if GetCurrentMapAreaID()==756 then
 if (arg2=="SPELL_DAMAGE" or (arg2=="SPELL_MISSED" and arg12 and (arg12=="ABSORB" or arg12=="RESIST"))) and arg9==91397 then
-if chraspisokon[1]==1 and chraachdone1 then
+if chraspisokon[2]==1 and chraachdone1 then
 local _, _, _, chramyach = GetAchievementInfo(5366)
 if arg7==UnitName("player") then
 if (chramyach) then else
-chramyfail(1)
-end
-end
-end
-end
-
-
-
-if chraspisokon[2]==1 and chraachdone1 then
-if arg2=="UNIT_DIED" and arg6 then
-local id=tonumber(string.sub(arg6,-12,-9),16)
-if id==51462 then
-chracounter1=chracounter1+1
-if chracounter1==20 then
-chraachcompl(2)
+chramyfail(2)
 end
 end
 end
@@ -473,16 +481,12 @@ if arg2=="SPELL_AURA_APPLIED" and arg9==75322 then                 --ЫЫТЕС�
 	end
 end
 
-if arg2=="SPELL_AURA_REMOVED" and arg9==75322 then
-chratimerstart=nil
+if arg2=="SPELL_CAST_SUCCESS" and arg9==77437 then
+rachtimerhoo=nil
 end
 
---Faster Than the Speed of Light
-if arg2=="UNIT_DIED" then
-	local id=tonumber(string.sub(arg6,-12,-9),16)
-	if id==39788 then
-		rachtimerhoo=nil
-	end
+if arg2=="SPELL_AURA_REMOVED" and arg9==75322 then
+chratimerstart=nil
 end
 
 
@@ -514,18 +518,6 @@ if GetCurrentMapAreaID()==747 then
 --	end
 --end
 
-if arg2=="SPELL_AURA_APPLIED_DOSE" and (arg9==93959 or arg9==91871) and arg13==3 then
-
-if chraspisokon[19]==1 and chraachdone1 then
-local _, _, _, chramyach = GetAchievementInfo(5292)
-if arg7==UnitName("player") then
-if (chramyach) then else
-chramyfailgood(19,1)
-end
-end
-end
-
-end
 
 
 end

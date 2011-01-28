@@ -125,6 +125,10 @@ L:SetGeneralLocalization({
 	name = "Vanessa VanCleef"
 })
 
+L:SetTimerLocalization({
+	achievementGauntlet	= "Vigorosa venganza VanCleef"
+})
+
 ------------------
 --  Grim Batol  --
 ---------------------
@@ -135,6 +139,14 @@ L = DBM:GetModLocalization("GeneralUmbriss")
 L:SetGeneralLocalization({
 	name = "General Umbriss"
 })
+
+L:SetOptionLocalization{
+	PingBlitz	= "Marcar en el minimapa cuando el General Umbriss vaya a atacarte con Ataque relámpago"
+}
+
+L:SetMiscLocalization{
+	Blitz		= "fija la mirada |cFFFF0000(%S+)"
+}
 
 --------------------------
 -- Forgemaster Throngus --
@@ -155,8 +167,8 @@ L:SetGeneralLocalization({
 })
 
 L:SetMiscLocalization{
-	ValionaYell	= "Dragon, you will do as I command! Catch me!",	-- translate -- Yell when Valiona is incoming
-	Valiona		= "Valiona"	-- translate
+	ValionaYell	= "¡Dragón, harás lo que te ordeno! ¡Cógeme!",
+	Valiona		= "Valiona"	
 }
 
 ------------
@@ -188,6 +200,10 @@ L:SetGeneralLocalization({
 	name = "Terracundo Ptah"
 })
 
+L:SetMiscLocalization{
+	Kill		= "Se... acabó... Ptah..."
+}
+
 --------------
 -- Anraphet --
 --------------
@@ -195,6 +211,14 @@ L = DBM:GetModLocalization("Anraphet")
 
 L:SetGeneralLocalization({
 	name = "Anraphet"
+})
+
+L:SetTimerLocalization({
+	achievementGauntlet	= "Velocidad de la luz"
+})
+
+L:SetMiscLocalization({
+	Brann		= "¡Bien, vamos! Tan solo me falta introducir la secuencia final en el mecanismo de la puerta... y..."
 })
 
 ------------
@@ -289,7 +313,7 @@ L:SetGeneralLocalization({
 })
 
 L:SetOptionLocalization{
-	RangeFrame	= "Mostrar distáncia (5 yardas)"
+	RangeFrame	= "Mostrar distancia (6 yardas)"
 }
 
 ----------
@@ -462,6 +486,14 @@ L = DBM:GetModLocalization("Asaad")
 
 L:SetGeneralLocalization({
 	name = "Asaad"
+})
+
+L:SetOptionLocalization({
+	SpecWarnStaticCling	= "Mostrar aviso especial para $spell:87618"
+})
+
+L:SetWarningLocalization({
+	SpecWarnStaticCling	= "¡SALTA!"
 })
 
 ---------------------------
