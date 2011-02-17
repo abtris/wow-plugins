@@ -404,7 +404,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.mode", 1);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_126);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K126);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.show", false);
 									</OnLoad>
 								</Scripts>
@@ -421,7 +421,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.mode", 3);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_127);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K127);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.show", false);
 									</OnLoad>
 								</Scripts>
@@ -438,7 +438,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.mode", 2);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_128);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K128);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.show", false);
 									</OnLoad>
 								</Scripts>
@@ -455,7 +455,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.verbose");
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_340);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K340);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.show", false);
 									</OnLoad>
 								</Scripts>
@@ -472,11 +472,29 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.hideIrrelevant");
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_364);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K364);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.show", false);
 									</OnLoad>
 								</Scripts>
 							</CheckButton>
+
+							<CheckButton name="$parentShowTotalCheckButton" text="VUHDO_I18N_SHOW_TOTAL" inherits="VuhDoCheckButtonTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT">
+										<Offset>
+											<AbsDimension x="120" y="-91" />
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Scripts>
+									<OnLoad>
+										VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.showTotalHp");
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K515);
+										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.show", false);
+									</OnLoad>
+								</Scripts>
+							</CheckButton>
+
 
 						</Frames>
 					</Frame>
@@ -492,7 +510,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.show");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_133);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K133);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -518,7 +536,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.position", 1);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_129);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K129);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.show", false);
 									</OnLoad>
 								</Scripts>
@@ -535,7 +553,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.position", 2);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_130);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K130);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.show", false);
 									</OnLoad>
 								</Scripts>
@@ -552,7 +570,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.position", 4);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_131);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K131);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.show", false);
 									</OnLoad>
 								</Scripts>
@@ -569,7 +587,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.position", 3);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_132);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K132);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.show", false);
 									</OnLoad>
 								</Scripts>
@@ -623,7 +641,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.ID_TEXT.showName");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_341);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K341);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -639,7 +657,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.ID_TEXT.showClass");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_342);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K342);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -655,7 +673,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.ID_TEXT.showTags");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_168);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K168);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -671,7 +689,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.ID_TEXT.showPetOwners");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_357);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K357);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -726,7 +744,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.PANEL_COLOR.TEXT.textSize");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_NAME_TEXT_SIZE, 1, 32);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_134);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K134);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -746,7 +764,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.PANEL_COLOR.TEXT.textSizeLife");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_LIFE_TEXT_SIZE, 1, 32);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_134);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K134);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.position", 1);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.position", 2);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.LIFE_TEXT.show", false);
@@ -769,7 +787,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.PANEL_COLOR.TEXT.maxChars");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_MAX_CHARS, 0, 25);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_343);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K343);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -789,7 +807,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_setComboModel(self, "VUHDO_PANEL_SETUP.#PNUM#.PANEL_COLOR.TEXT.font", VUHDO_FONTS);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_344);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K344);
 							</OnLoad>
 						</Scripts>
 					</Button>
@@ -805,7 +823,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.PANEL_COLOR.classColorsName");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_135);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K135);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -821,7 +839,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.PANEL_COLOR.TEXT.outline");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_382);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K382);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -857,7 +875,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.PANEL_COLOR.TEXT");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_TEXT, VUHDO_I18N_TEXT,  "B");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_136);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K136);
 							</OnLoad>
 						</Scripts>
 					</Frame>

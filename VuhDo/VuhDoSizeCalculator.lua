@@ -84,7 +84,6 @@ function VUHDO_getNumHotSlots(aPanelNum)
 
 	return tHotSlots;
 end
-
 local VUHDO_getNumHotSlots = VUHDO_getNumHotSlots;
 
 

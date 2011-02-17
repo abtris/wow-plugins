@@ -52,8 +52,7 @@ local VUHDO_INIT_UNIT_DEBUFF_SCHOOLS = {
 local VUHDO_CONFIG;
 local VUHDO_RAID;
 local VUHDO_PANEL_SETUP;
-local VUHDO_DEBUFF_COLORS = {
-}
+local VUHDO_DEBUFF_COLORS = { };
 
 local VUHDO_shouldScanUnit;
 local VUHDO_DEBUFF_BLACKLIST = { };
@@ -257,7 +256,7 @@ local tChosen;
 local tName, tIcon, tStacks, tType, tDuration, tExpiry, tSpellId;
 local tCustomDebuff;
 function VUHDO_determineDebuff(aUnit, aClassName)
-	tInfo = VUHDO_RAID[aUnit];
+	tInfo = (VUHDO_RAID or tEmptyCustomDebuf)[aUnit];
 	if (tInfo == nil) then
 		return 0, ""; -- VUHDO_DEBUFF_TYPE_NONE
 	elseif (VUHDO_CONFIG_SHOW_RAID) then
@@ -316,7 +315,7 @@ function VUHDO_determineDebuff(aUnit, aClassName)
 			tStacks = tStacks or 0;
 
 			if (tCustomDebuff[2]) then -- Icon?
-				tIconsSet[tName] = { tIcon, tExpiry, tStacks };
+				tIconsSet[tName] = { tIcon, tExpiry, tStacks, false };
 				tSoundDebuff = tName;
 			end
 
@@ -324,9 +323,9 @@ function VUHDO_determineDebuff(aUnit, aClassName)
 			tAbility = VUHDO_PLAYER_ABILITIES[tDebuff];
 
 			if ((not sIsRemoveableOnly or tAbility ~= nil) and tChosen ~= 6) then --VUHDO_DEBUFF_TYPE_CUSTOM
-				if (tAbility ~= "I" or aUnit == "player") then -- Nur aus Spieler selbst wirkbar?
+				if (tAbility ~= "I" or aUnit == "player" or not sIsRemoveableOnly) then -- Nur auf Spieler selbst wirkbar?
 					if (sIsUseDebuffIcon and not VUHDO_DEBUFF_BLACKLIST[tName]) then
-						tIconsSet[tName] = { tIcon, tExpiry, tStacks, tDuration };
+						tIconsSet[tName] = { tIcon, tExpiry, tStacks, tDuration, false };
 						tIsStandardDebuff = true;
 					end
 
@@ -370,7 +369,7 @@ function VUHDO_determineDebuff(aUnit, aClassName)
 			tStacks = tStacks or 0;
 
 			if (tSetIcon) then
-				tIconsSet[tName] = { tIcon, tExpiry, tStacks, tDuration };
+				tIconsSet[tName] = { tIcon, tExpiry, tStacks, tDuration, true };
 				tSoundDebuff = tName;
 			end
 		end
@@ -379,7 +378,7 @@ function VUHDO_determineDebuff(aUnit, aClassName)
 		for tName, tDebuffInfo in pairs(tIconsSet) do
 			if (VUHDO_UNIT_CUSTOM_DEBUFFS[aUnit][tName] == nil) then
 				VUHDO_UNIT_CUSTOM_DEBUFFS[aUnit][tName] = { tDebuffInfo[2], tDebuffInfo[3] };
-				VUHDO_addDebuffIcon(aUnit, tDebuffInfo[1], tName, tDebuffInfo[2], tDebuffInfo[3], tDebuffInfo[4]);
+				VUHDO_addDebuffIcon(aUnit, tDebuffInfo[1], tName, tDebuffInfo[2], tDebuffInfo[3], tDebuffInfo[4], tDebuffInfo[5]);
 
 				if (not VUHDO_IS_CONFIG and VUHDO_MAY_DEBUFF_ANIM and tSoundDebuff ~= nil) then
 					if (sAllDebuffSettings[tSoundDebuff] ~= nil) then -- Spezieller custom debuff sound?
@@ -396,7 +395,7 @@ function VUHDO_determineDebuff(aUnit, aClassName)
 
 				twipe(VUHDO_UNIT_CUSTOM_DEBUFFS[aUnit][tName]);
 				VUHDO_UNIT_CUSTOM_DEBUFFS[aUnit][tName] = { tDebuffInfo[2], tDebuffInfo[3] };
-				VUHDO_updateDebuffIcon(aUnit, tDebuffInfo[1], tName, tDebuffInfo[2], tDebuffInfo[3], tDebuffInfo[4]);
+				VUHDO_updateDebuffIcon(aUnit, tDebuffInfo[1], tName, tDebuffInfo[2], tDebuffInfo[3], tDebuffInfo[4], tDebuffInfo[5]);
 				VUHDO_updateBouquetsForEvent(aUnit, 29); -- VUHDO_UPDATE_CUSTOM_DEBUFF
 			end
 		end

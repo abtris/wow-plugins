@@ -1,13 +1,15 @@
 local VUHDO_SHIELD_LEFT = { };
 local VUHDO_SHIELD_SIZE = { };
 local VUHDO_SHIELD_EXPIRY = { };
-
+local sEmpty = { };
 
 
 --
-local VUHDO_PLAYER_GUID = UnitGUID("player");
+local VUHDO_PLAYER_GUID = -1;
 local pairs = pairs;
 local ceil = ceil;
+local GetTime = GetTime;
+
 function VUHDO_shieldAbsorbInitBurst()
 	VUHDO_PLAYER_GUID = UnitGUID("player");
 end
@@ -34,7 +36,7 @@ end
 
 --
 local function VUHDO_updateShieldValue(aUnit, aShieldName, anAmount, aDuration)
-	if (VUHDO_SHIELD_SIZE[aUnit] == nil or VUHDO_SHIELD_SIZE[aUnit][aShieldName] == nil) then
+	if ((VUHDO_SHIELD_SIZE[aUnit] or sEmpty)[aShieldName] == nil) then
 		return;
 	end
 
@@ -51,7 +53,7 @@ end
 
 --
 local function VUHDO_removeShield(aUnit, aShieldName)
-	if (VUHDO_SHIELD_SIZE[aUnit] == nil or VUHDO_SHIELD_SIZE[aUnit][aShieldName] == nil) then
+	if ((VUHDO_SHIELD_SIZE[aUnit] or sEmpty)[aShieldName] == nil) then
 		return;
 	end
 
@@ -82,12 +84,11 @@ end
 
 --
 local tInit;
-local tEmptyShields = { };
 function VUHDO_getShieldLeftCount(aUnit, aShield)
-	tInit = (VUHDO_SHIELD_SIZE[aUnit] or tEmptyShields)[aShield] or 0;
+	tInit = (VUHDO_SHIELD_SIZE[aUnit] or sEmpty)[aShield] or 0;
 
 	if (tInit > 0) then
-		return ceil(4 * ((VUHDO_SHIELD_LEFT[aUnit] or tEmptyShields)[aShield] or 0) / tInit);
+		return ceil(4 * ((VUHDO_SHIELD_LEFT[aUnit] or sEmpty)[aShield] or 0) / tInit);
 	else
 		return 0;
 	end
@@ -97,9 +98,9 @@ end
 
 --
 local VUHDO_SHIELDS = {
-	[VUHDO_SPELL_ID_POWERWORD_SHIELD] = 30,
-	[VUHDO_SPELL_ID_DIVINE_AEGIS] = 12,
-	[VUHDO_SPELL_ID_ILLUMINATED_HEALING] = 5,
+	[VUHDO_SPELL_ID.POWERWORD_SHIELD] = 30,
+	[VUHDO_SPELL_ID.DIVINE_AEGIS] = 12,
+	[VUHDO_SPELL_ID.ILLUMINATED_HEALING] = 5,
 };
 
 

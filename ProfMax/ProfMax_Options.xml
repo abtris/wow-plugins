@@ -1,0 +1,321 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\..\FrameXML\UI.xsd">
+
+  <!-- Options panel Frame-->
+  <Frame name="ProfMaxOptionsPanel" hidden="false">
+	
+	<Layers>
+		<Layer level="ARTWORK">
+			<FontString name="$parentTitle" inherits="GameFontNormalLarge" text="TradeSkill Profit Maximization" justifyH="LEFT" justifyV="TOP">
+				<Anchors>
+					<Anchor point="TOPLEFT">
+						<Offset x="16" y="-16" />
+					</Anchor>
+				</Anchors>
+			</FontString>
+		</Layer>
+	</Layers>
+    
+	<!--Frames for the main Panel  -->
+   	<Frames>
+	  <Button name="$parentAlgorithms" inherits="UIDropDownMenuTemplate">
+		<Anchors>
+	         	<Anchor point="TOP" relativeTo="$parentTitle" relativePoint="BOTTOMRIGHT">
+      	      	<Offset>
+            	  		<AbsDimension x="0" y="-20"/>
+            		</Offset>
+         		</Anchor>
+         	</Anchors>
+	
+		<Layers>
+          		<Layer level="ARTWORK">
+
+            		<FontString name="$parentText" text="Auctioneer Pricing Algorithm" inherits="GameFontHighlight" justifyH="RIGHT">
+					<Anchors>
+                				<Anchor point="RIGHT" relativePoint="LEFT">
+                  				<Offset>
+                    					<AbsDimension x="0" y="6"/>
+                  				</Offset>
+                				</Anchor>
+              			</Anchors>
+            		</FontString>
+          		</Layer>
+        	</Layers>
+	  	
+		<Scripts>
+			<OnShow>
+            		UIDropDownMenu_Initialize(self, ProfMaxDropDownMenu_Initialize);
+	        </OnShow>
+		</Scripts>
+
+	</Button>
+	
+	<CheckButton name="$parentStartupMsg" inherits="InterfaceOptionsBaseCheckButtonTemplate">
+      	<Anchors>
+          		<Anchor point="TOPLEFT" relativeTo="$parentTitle" relativePoint="BOTTOMLEFT">
+            		<Offset>
+              			<AbsDimension x="10" y="-50"/>
+            		</Offset>
+          		</Anchor>
+        	</Anchors>
+	  	
+		<Layers>
+          		<Layer level="ARTWORK">
+            		<FontString name="$parentText" text="Show Startup Message" inherits="GameFontHighlight">
+              			<Anchors>
+                				<Anchor point="TOPLEFT" relativePoint="RIGHT">
+                  				<Offset>
+                    					<AbsDimension x="0" y="6"/>
+                  				</Offset>
+                				</Anchor>
+              			</Anchors>
+            		</FontString>
+          		</Layer>
+        	</Layers>
+      </CheckButton>
+
+	<CheckButton name="$parentAHListing" inherits="InterfaceOptionsBaseCheckButtonTemplate">
+      	<Anchors>
+          		<Anchor point="TOPLEFT" relativeTo="$parentTitle" relativePoint="BOTTOMLEFT">
+            		<Offset>
+              			<AbsDimension x="10" y="-75"/>
+            		</Offset>
+          		</Anchor>
+        	</Anchors>
+	  	
+		<Layers>
+          		<Layer level="ARTWORK">
+            		<FontString name="$parentText" text="Show per unit auction price even if mats are unavailable." inherits="GameFontHighlight">
+              			<Anchors>
+                				<Anchor point="TOPLEFT" relativePoint="RIGHT">
+                  				<Offset>
+                    					<AbsDimension x="0" y="6"/>
+                  				</Offset>
+                				</Anchor>
+              			</Anchors>
+            		</FontString>
+          		</Layer>
+        	</Layers>
+      </CheckButton>
+
+	<CheckButton name="$parentAHListingPerUnit" inherits="InterfaceOptionsBaseCheckButtonTemplate">
+      	<Anchors>
+          		<Anchor point="TOPLEFT" relativeTo="$parentTitle" relativePoint="BOTTOMLEFT">
+            		<Offset>
+              			<AbsDimension x="10" y="-100"/>
+            		</Offset>
+          		</Anchor>
+        	</Anchors>
+	  	
+		<Layers>
+          		<Layer level="ARTWORK">
+            		<FontString name="$parentText" text="Show per unit auction price rather than total stack price." inherits="GameFontHighlight">
+              			<Anchors>
+                				<Anchor point="TOPLEFT" relativePoint="RIGHT">
+                  				<Offset>
+                    					<AbsDimension x="0" y="6"/>
+                  				</Offset>
+                				</Anchor>
+              			</Anchors>
+            		</FontString>
+          		</Layer>
+        	</Layers>
+      </CheckButton>
+      <CheckButton name="$parentRoundValue" inherits="InterfaceOptionsBaseCheckButtonTemplate">
+      	<Anchors>
+          		<Anchor point="TOPLEFT" relativeTo="$parentTitle" relativePoint="BOTTOMLEFT">
+            		<Offset>
+              			<AbsDimension x="10" y="-125"/>
+            		</Offset>
+          		</Anchor>
+        	</Anchors>
+	  	
+		<Layers>
+          		<Layer level="ARTWORK">
+            		<FontString name="$parentText" text="Round all results to the nearest Gold." inherits="GameFontHighlight">
+              			<Anchors>
+                				<Anchor point="TOPLEFT" relativePoint="RIGHT">
+                  				<Offset>
+                    					<AbsDimension x="0" y="6"/>
+                  				</Offset>
+                				</Anchor>
+              			</Anchors>
+            		</FontString>
+          		</Layer>
+        	</Layers>
+      </CheckButton>
+
+
+	
+      <CheckButton name="$parentFlagProfit" inherits="InterfaceOptionsBaseCheckButtonTemplate">
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentTitle" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="10" y="-150"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <FontString name="$parentText" text="Flag items with '*' that result in potential profit." inherits="GameFontHighlight">
+              <Anchors>
+                <Anchor point="TOPLEFT" relativePoint="RIGHT">
+                  <Offset>
+                    <AbsDimension x="0" y="6"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+      </CheckButton>
+
+      <EditBox name="$parentProfitLevel" autoFocus="false" inherits="InputBoxTemplate">
+        <Size>
+          <AbsDimension x="50" y="5"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentFlagProfit" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="248" y="-5"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <FontString name="$parentText" text="Flag items greater than (in gold):" inherits="GameFontHighlight">
+              <Anchors>
+                <Anchor point="RIGHT" relativePoint="LEFT">
+                  <Offset>
+                    <AbsDimension x="-10" y="1"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+        <FontString inherits="ChatFontNormal" bytes="64"/>
+      </EditBox>
+
+	<CheckButton name="$parentReagentValue" inherits="InterfaceOptionsBaseCheckButtonTemplate">
+      	<Anchors>
+          		<Anchor point="TOPLEFT" relativeTo="$parentTitle" relativePoint="BOTTOMLEFT">
+            		<Offset>
+              			<AbsDimension x="10" y="-195"/>
+            		</Offset>
+          		</Anchor>
+        	</Anchors>
+	  	
+		<Layers>
+          		<Layer level="ARTWORK">
+            		<FontString name="$parentText" text="Show the AH cost of reagents." inherits="GameFontHighlight">
+              			<Anchors>
+                				<Anchor point="TOPLEFT" relativePoint="RIGHT">
+                  				<Offset>
+                    					<AbsDimension x="0" y="6"/>
+                  				</Offset>
+                				</Anchor>
+              			</Anchors>
+            		</FontString>
+          		</Layer>
+        	</Layers>
+      </CheckButton>
+		<CheckButton name="$parentProfitMargin" inherits="InterfaceOptionsBaseCheckButtonTemplate">
+      	<Anchors>
+          		<Anchor point="TOPLEFT" relativeTo="$parentTitle" relativePoint="BOTTOMLEFT">
+            		<Offset>
+              			<AbsDimension x="10" y="-228"/>
+            		</Offset>
+          		</Anchor>
+        	</Anchors>
+	  	
+		<Layers>
+          		<Layer level="ARTWORK">
+            		<FontString name="$parentText" text="Show profit margin in reagent window rather than gold profit." inherits="GameFontHighlight" justifyH="LEFT" maxLines="2">
+              			 <Size>
+							<AbsDimension x="325" y="20" />
+						</Size>
+						<Anchors>
+                				<Anchor point="TOPLEFT" relativePoint="RIGHT">
+                  				<Offset>
+                    					<AbsDimension x="0" y="6"/>
+                  				</Offset>
+                				</Anchor>
+              			</Anchors>
+            		</FontString>
+          		</Layer>
+        	</Layers>
+      </CheckButton>
+	  
+	  <CheckButton name="$parentShort" inherits="InterfaceOptionsBaseCheckButtonTemplate">
+      	<Anchors>
+          		<Anchor point="TOPLEFT" relativeTo="$parentTitle" relativePoint="BOTTOMLEFT">
+            		<Offset>
+              			<AbsDimension x="10" y="-265"/>
+            		</Offset>
+          		</Anchor>
+        	</Anchors>
+	  	
+		<Layers>
+          		<Layer level="ARTWORK">
+            		<FontString name="$parentText" text="Tidy up the tradeskill window by removing certain key words (separated by a comma) from the tradeskill name." inherits="GameFontHighlight" justifyH="LEFT" maxLines="3">
+              			<Size>
+							<AbsDimension x="325" y="30" />
+						</Size>
+						<Anchors>
+                				<Anchor point="TOPLEFT" relativePoint="RIGHT">
+                  				<Offset>
+                    					<AbsDimension x="0" y="6"/>
+                  				</Offset>
+                				</Anchor>
+              			</Anchors>					
+            		</FontString>
+          		</Layer>
+        	</Layers>
+      </CheckButton>
+	  
+	  <EditBox name="$parentShortEditBox" autoFocus="false" inherits="InputBoxTemplate">
+        <Size>
+          <AbsDimension x="275" y="5"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="$parentShort" relativePoint="BOTTOMLEFT">
+            <Offset>
+              <AbsDimension x="50" y="-25"/>
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <FontString inherits="ChatFontNormal" bytes="64"/>
+      </EditBox>
+	  
+	  <CheckButton name="$parentUsePlayerReagentCount" inherits="InterfaceOptionsBaseCheckButtonTemplate">
+      	<Anchors>
+          		<Anchor point="TOPLEFT" relativeTo="$parentTitle" relativePoint="BOTTOMLEFT">
+            		<Offset>
+              			<AbsDimension x="10" y="-333"/>
+            		</Offset>
+          		</Anchor>
+        	</Anchors>
+	  	
+		<Layers>
+          		<Layer level="ARTWORK">
+            		<FontString name="$parentText" text="Take into account current inventory when calculating total price for tradeskill item.  If unchecked, presumes all reagents will be purchased from vendor/auction house. " inherits="GameFontHighlight" justifyH="LEFT" maxLines="4">
+              			<Size>
+							<AbsDimension x="330" y="40" />
+						</Size>
+						<Anchors>
+                				<Anchor point="TOPLEFT" relativePoint="RIGHT">
+                				<Offset>
+                    				<AbsDimension x="0" y="6"/>
+                  				</Offset>
+								</Anchor>
+              			</Anchors>					
+            		</FontString>
+          		</Layer>
+        	</Layers>
+      </CheckButton>
+	  
+	  
+    </Frames>
+  </Frame>
+</Ui>

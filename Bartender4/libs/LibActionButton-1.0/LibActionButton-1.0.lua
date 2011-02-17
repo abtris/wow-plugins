@@ -29,7 +29,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 ]]
 local MAJOR_VERSION = "LibActionButton-1.0"
-local MINOR_VERSION = 15
+local MINOR_VERSION = 18
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib, oldversion = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
@@ -713,7 +713,7 @@ function OnEvent(frame, event, arg1, ...)
 			end
 		end
 	elseif event == "PET_STABLE_UPDATE" or event == "PET_STABLE_SHOW" then
-		ForAllButtons(UpdateUsable, true)
+		ForAllButtons(Update)
 	elseif event == "SPELL_ACTIVATION_OVERLAY_GLOW_SHOW" then
 		for button in next, ActiveButtons do
 			local spellId = button:GetSpellId()
@@ -1150,6 +1150,15 @@ function UpdateSpellbookLookupTable(self)
 	self:SetAttribute("LookupTable", nil)
 end
 
+local function GetSpellIdByName(spellName)
+	if not spellName then return end
+	local spellLink = GetSpellLink(spellName)
+	if spellLink then
+		return tonumber(spellLink:match("spell:(%d+)"))
+	end
+	return nil
+end
+
 -----------------------------------------------------------
 --- WoW API mapping
 --- Generic Button
@@ -1157,7 +1166,7 @@ Generic.HasAction               = function(self) return nil end
 Generic.GetActionText           = function(self) return "" end
 Generic.GetTexture              = function(self) return nil end
 Generic.GetCount                = function(self) return 0 end
-Generic.GetCooldown             = function(self) return nil end
+Generic.GetCooldown             = function(self) return 0, 0, 0 end
 Generic.IsAttack                = function(self) return nil end
 Generic.IsEquipped              = function(self) return nil end
 Generic.IsCurrentlyActive       = function(self) return nil end
@@ -1183,7 +1192,14 @@ Action.IsUsable                = function(self) return IsUsableAction(self._stat
 Action.IsConsumableOrStackable = function(self) return IsConsumableAction(self._state_action) or IsStackableAction(self._state_action) end
 Action.IsInRange               = function(self) return IsActionInRange(self._state_action, self:GetAttribute("unit")) end
 Action.SetTooltip              = function(self) return GameTooltip:SetAction(self._state_action) end
-Action.GetSpellId              = function(self) local actionType, id, subType = GetActionInfo(self._state_action) return actionType == "spell" and id or nil end
+Action.GetSpellId              = function(self)
+	local actionType, id, subType = GetActionInfo(self._state_action)
+	if actionType == "spell" then
+		return id
+	elseif actionType == "macro" then
+		return GetSpellIdByName(GetMacroSpell(id))
+	end
+end
 
 -----------------------------------------------------------
 --- Spell Button
@@ -1230,7 +1246,7 @@ Macro.HasAction               = function(self) return true end
 Macro.GetActionText           = function(self) return (GetMacroInfo(self._state_action)) end
 Macro.GetTexture              = function(self) return (select(2, GetMacroInfo(self._state_action))) end
 Macro.GetCount                = function(self) return 0 end
-Macro.GetCooldown             = function(self) return nil end
+Macro.GetCooldown             = function(self) return 0, 0, 0 end
 Macro.IsAttack                = function(self) return nil end
 Macro.IsEquipped              = function(self) return nil end
 Macro.IsCurrentlyActive       = function(self) return nil end
@@ -1247,7 +1263,7 @@ Custom.HasAction               = function(self) return true end
 Custom.GetActionText           = function(self) return "" end
 Custom.GetTexture              = function(self) return self._state_action.texture end
 Custom.GetCount                = function(self) return 0 end
-Custom.GetCooldown             = function(self) return nil end
+Custom.GetCooldown             = function(self) return 0, 0, 0 end
 Custom.IsAttack                = function(self) return nil end
 Custom.IsEquipped              = function(self) return nil end
 Custom.IsCurrentlyActive       = function(self) return nil end

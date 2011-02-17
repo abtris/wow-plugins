@@ -1,0 +1,16 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ 
+..\..\FrameXML\UI.xsd">
+	<Script file="ProfMax_buy.lua"/>
+	<Script file="ProfMax.lua"/>
+
+	<Frame name="ProfMaxFrame">
+		<Scripts>
+			<OnLoad>
+				ProfMax_OnLoad(self)
+			</OnLoad>
+			<OnEvent>
+				ProfMax_OnEvent(self, event, ...)
+			</OnEvent>
+		</Scripts>
+	</Frame>
+</Ui> 

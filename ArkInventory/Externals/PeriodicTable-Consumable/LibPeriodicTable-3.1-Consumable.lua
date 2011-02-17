@@ -1,7 +1,7 @@
 -- (c) 2007 Nymbia.  see LGPLv2.1.txt for full details.
 --DO NOT MAKE CHANGES TO THIS FILE BEFORE READING THE WIKI PAGE REGARDING CHANGING THESE FILES
 if not LibStub("LibPeriodicTable-3.1", true) then error("PT3 must be loaded before data") end
-LibStub("LibPeriodicTable-3.1"):AddData("Consumable", gsub("$Rev: 342 $", "(%d+)", function(n) return n+90000 end), {
+LibStub("LibPeriodicTable-3.1"):AddData("Consumable", gsub("$Rev: 343 $", "(%d+)", function(n) return n+90000 end), {
 	["Consumable.Anti-Venom"]="6452:25,6453:35,13462:60,2633:60,19440:60,12586:60,9030:60,3386:60,31437:70,25550:70",
 	["Consumable.Bandage.Basic"]="1251:66,2581:114,3530:161,3531:301,6450:400,6451:640,8544:800,8545:1104,14529:1360,14530:2000,21990:2800,21991:3400,38643:3400,38640:4100,34721:4800,34722:5800,53049:17400,53050:26000,53051:35000",
 	["Consumable.Bandage.Battleground.Alterac Valley"]="19307:2000",
@@ -11,7 +11,7 @@ LibStub("LibPeriodicTable-3.1"):AddData("Consumable", gsub("$Rev: 342 $", "(%d+)
 	--NOT AUTOGENNED Self buffs are on caster only, target buffs are on target
 	--Under no circumstances do you add food buffs here, nor weapon buffs for now.  These are applied differently / noncombat
 	["Consumable.Buff.Agility.Flask"]="33208:18,32598:20,32599:20,47499:40,58149:80,58087:300",
-	["Consumable.Buff.Agility.Self"]="2457:4,3390:8,8949:15,28104:15,8412:25,9187:25,13452:25,22831:35",
+	["Consumable.Buff.Agility.Self"]="2457:4,3390:8,8949:15,28104:15,8412:25,9187:25,13452:25,22831:35,58145:1200",
 	["Consumable.Buff.Agility.Target"]="3012:3,1477:5,4425:8,10309:10,27498:15,33457:20,43463:25,43464:30",
 	["Consumable.Buff.Intellect.Flask"]="33208:18,32596:20,32600:20,32601:20,13511:65,47499:40,58149:80,58086:300",
 	["Consumable.Buff.Intellect.Self"]="3383:6,28104:15,13447:18,8423:25,9179:25,32067:30",

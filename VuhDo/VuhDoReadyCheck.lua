@@ -1,4 +1,4 @@
-local VUHDO_IS_ON_READY_CHECK = false;
+local sIsChecking = false;
 
 
 
@@ -67,7 +67,7 @@ end
 
 --
 function VUHDO_readyCheckStarted()
-	VUHDO_IS_ON_READY_CHECK = true;
+	sIsChecking = true;
 	VUHDO_hideAllPlayerIcons();
 	VUHDO_placeAllReadyIcons();
 end
@@ -102,7 +102,7 @@ function VUHDO_readyCheckConfirm(aUnit, anIsReady)
 		return;
 	end
 
-	if (not VUHDO_IS_ON_READY_CHECK) then
+	if (not sIsChecking) then
 		VUHDO_readyCheckStarted();
 	end
 
@@ -122,11 +122,11 @@ end
 
 --
 function VUHDO_readyCheckEnds()
-	if (not VUHDO_IS_ON_READY_CHECK) then -- Client send READY_CHECK_ENDS on startup
+	if (not sIsChecking) then -- Client send READY_CHECK_ENDS on startup
 		return;
 	end
 
 	VUHDO_hideAllReadyIcons();
-	VUHDO_IS_ON_READY_CHECK = false;
+	sIsChecking = false;
 end
 

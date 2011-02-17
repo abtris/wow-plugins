@@ -1,7 +1,7 @@
 ## Interface: 40000
 ## Title: VuhDo ['vu:du:] - Options
 ## Author: Iza@Gilneas
-## Version: 2.72
+## Version: 2.87
 ## Notes: VuhDo Options
 ## SavedVariables: VUHDO_OPTIONS_SETTINGS
 ## DefaultState: Enabled

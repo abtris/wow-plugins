@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 
 local FW = FW;
 local FWL = FW.L;
@@ -132,9 +132,10 @@ local function CA_CheckCastSpeed()
 	end
 	if ST then
 		for i=1, ST.ST.rows, 1 do
-			if FW.SpellInfo[ST.ST[i][8]] then
-				ST.ST[i][2] = FW.SpellInfo[ST.ST[i][8]][2];
-			end
+			--[[if FW.SpellInfo[ ST.ST[i][8] ] then
+				ST.ST[i][2] = FW.SpellInfo[ ST.ST[i][8] ][2];
+			end]]
+			ST.ST[i][2] = FW:CastTime(ST.ST[i][8]); -- should be used if the function gets more compelx
 		end
 	end
 end

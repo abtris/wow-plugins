@@ -161,12 +161,14 @@ L["TITAN_UISCALE_MENU_TEXT_SHORT"] = "Scale and Font";
 L["TITAN_UISCALE_CONTROL_TITLE_UI"] = "UI Scale";
 L["TITAN_UISCALE_CONTROL_TITLE_PANEL"] = TITAN_PANEL.." Scale";
 L["TITAN_UISCALE_CONTROL_TITLE_BUTTON"] = "Button Spacing";
+L["TITAN_UISCALE_CONTROL_TITLE_ICON"] = "Icon Spacing";
 L["TITAN_UISCALE_CONTROL_TOOLTIP_TOOLTIPFONT"] = "Tooltip Font Scale";
 L["TITAN_UISCALE_TOOLTIP_DISABLE_TEXT"] = "Disable Tooltip Font Scale";		 
 L["TITAN_UISCALE_MENU_DESC"] = "Controls various aspects of the UI and "..TITAN_PANEL..".";
 L["TITAN_UISCALE_SLIDER_DESC"] = "Sets the scale of your entire UI.";
 L["TITAN_UISCALE_PANEL_SLIDER_DESC"] = "Sets the scale for the various "..TITAN_PANEL.." buttons and icons.";
 L["TITAN_UISCALE_BUTTON_SLIDER_DESC"] = "Adjusts the space between left-side plugins.";
+L["TITAN_UISCALE_ICON_SLIDER_DESC"] = "Adjusts the space between right-side plugins.";
 L["TITAN_UISCALE_TOOLTIP_SLIDER_DESC"] = "Adjusts the scale for the tooltip of the various plugins.";
 L["TITAN_UISCALE_DISABLE_TOOLTIP_DESC"] = "Disables "..TITAN_PANEL.." Tooltip Font Scale Control.";
 L["TITAN_SKINS_TITLE"] = TITAN_PANEL.." Skins";
@@ -225,20 +227,23 @@ L["TITAN_BAG_MENU_IGNORE_PROF_BAGS_SLOTS"] = "Ignore Profession Bags";
 --L["TITAN_BAG_AMMO_POUCH_NAMES"] = {"Clefthoof Hide Quiver", "Worg Hide Quiver", "Ancient Sinew Wrapped Lamina", "Nerubian Reinforced Quiver", "Quiver of a Thousand Feathers", "Knothide Quiver", "Harpy Hide Quiver", "Ribbly's Quiver", "Quickdraw Quiver", "Heavy Quiver", "Quiver of the Night Watch", "Hunting Quiver", "Medium Quiver", "Light Leather Quiver", "Small Quiver", "Light Quiver", "Smuggler's Ammo Pouch", "Dragonscale Ammo Pouch", "Knothide Ammo Pouch", "Netherscale Ammo Pouch", "Gnoll Skin Bandolier", "Ribbly's Bandolier", "Thick Leather Ammo Pouch", "Heavy Leather Ammo Pouch", "Bandolier of the Night Watch", "Medium Shot Pouch", "Hunting Ammo Sack", "Small Leather Ammo Pouch", "Small Shot Pouch", "Small Ammo Pouch"};
 L["TITAN_BAG_PROF_BAG_NAMES"] = {
 -- Enchanting
-"Enchanted Mageweave Pouch", "Enchanted Runecloth Bag", "Enchanter's Satchel", "Big Bag of Enchantment", "Spellfire Bag", "Mysterious Bag",
+"Enchanted Mageweave Pouch", "Enchanted Runecloth Bag", "Enchanter's Satchel", "Big Bag of Enchantment", "Spellfire Bag", 
+"Mysterious Bag", "Otherworldly Bag", "\"Carriage - Exclusive\" Enchanting Evening Purse",
 -- Engineering
-"Heavy Toolbox", "Fel Iron Toolbox", "Titanium Toolbox", "Khorium Toolbox", 
--- not sure the "Khorium Toolbox" is used anymore
+"Heavy Toolbox", "Fel Iron Toolbox", "Titanium Toolbox", "Khorium Toolbox", "Elementium Toolbox", "\"Carriage - Maddy\" High Tech Bag",
 -- Herbalism
-"Herb Pouch", "Cenarion Herb Bag", "Satchel of Cenarius", "Mycah's Botanical Bag", "Emerald Bag",
+"Herb Pouch", "Cenarion Herb Bag", "Satchel of Cenarius", "Mycah's Botanical Bag", "Emerald Bag", "Hyjal Expedition Bag",
+"\"Carriage - Going Green\" Herb Tote Bag",
 -- Inscription
-"Scribe's Satchel", "Pack of Endless Pockets",
+"Scribe's Satchel", "Pack of Endless Pockets", "\"Carriage - Xandera\" Student's Satchel",
 -- Jewelcrafting
-"Gem Pouch", "Bag of Jewels",
+"Gem Pouch", "Bag of Jewels", "\"Carriage - Exclusive\" Gem Studded Clutch",
 -- Leatherworking
-"Leatherworker's Satchel", "Bag of Many Hides", "Trapper's Traveling Pack",
+"Leatherworker's Satchel", "Bag of Many Hides", "Trapper's Traveling Pack", "\"Carriage - Meeya\" Leather Bag",
 -- Mining
-"Mining Sack", "Reinforced Mining Bag", "Mammoth Mining Bag",
+"Mining Sack", "Reinforced Mining Bag", "Mammoth Mining Bag", "\"Carriage - Christina\" Precious Metal Bag",
+-- fishing
+"Lure Master Tackle Box",
 };
 
 --L["TITAN_BGMINIMAP_MENU_TEXT"] = "Battleground minimap"
@@ -287,10 +292,11 @@ L["TITAN_COORDS_TOOLTIP_INN"] = "Inn: ";
 L["TITAN_COORDS_MENU_TEXT"] = "Location";
 L["TITAN_COORDS_MENU_SHOW_ZONE_ON_PANEL_TEXT"] = "Show Zone Text";
 L["TITAN_COORDS_MENU_SHOW_COORDS_ON_MAP_TEXT"] = "Show Coordinates on World Map";
-L["TITAN_COORDS_MAP_CURSOR_COORDS_TEXT"] = "Cursor(X,Y): %s";
-L["TITAN_COORDS_MAP_PLAYER_COORDS_TEXT"] = "Player(X,Y): %s";
+L["TITAN_COORDS_MAP_CURSOR_COORDS_TEXT"] = "Cursor: %s";
+L["TITAN_COORDS_MAP_PLAYER_COORDS_TEXT"] = "Player: %s";
 L["TITAN_COORDS_NO_COORDS"] = "No Coords";
-L["TITAN_COORDS_MENU_SHOW_LOC_ON_MINIMAP_TEXT"] = "Show Location on Minimap";
+L["TITAN_COORDS_MENU_SHOW_LOC_ON_MINIMAP_TEXT"] = "Show Location Name Above Minimap";
+L["TITAN_COORDS_MENU_UPDATE_WORLD_MAP"] = "Update World Map When Zone Changes";
      
 L["TITAN_FPS_FORMAT"] = "%.1f";
 L["TITAN_FPS_BUTTON_LABEL"] = "FPS: ";

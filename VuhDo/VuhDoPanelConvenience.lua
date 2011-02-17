@@ -13,11 +13,11 @@ local VUHDO_BAR_ICON_TIMERS = { };
 local VUHDO_BAR_ICON_COUNTERS = { };
 local VUHDO_BAR_ICON_CHARGES = { };
 local VUHDO_BAR_ICON_NAMES = { };
+local VUHDO_BAR_ICON_BUTTONS = { };
 
 
 VUHDO_BUTTON_CACHE = { };
 local VUHDO_BUTTON_CACHE = VUHDO_BUTTON_CACHE;
-
 
 
 --
@@ -72,6 +72,13 @@ end
 --
 function VUHDO_getBarIconName(aButton, anIconNumber)
 	return VUHDO_BAR_ICON_NAMES[aButton][anIconNumber];
+end
+
+
+
+--
+function VUHDO_getBarIconButton(aButton, anIconNumber)
+	return VUHDO_BAR_ICON_BUTTONS[aButton][anIconNumber];
 end
 
 
@@ -502,6 +509,22 @@ end
 
 
 --
+local tPrefix;
+local function VUHDO_initIconCounterTimerStacks2(aButton, anIndex)
+	tPrefix = aButton:GetName() .. "BgBarIcBarHlBarIc" .. anIndex;
+	VUHDO_BAR_ICON_FRAMES[aButton][anIndex] = VUHDO_GLOBAL[tPrefix];
+	tPrefix = aButton:GetName() .. "BgBarIcBarHlBarIc" .. anIndex .. "B";
+	VUHDO_BAR_ICON_BUTTONS[aButton][anIndex] = VUHDO_GLOBAL[tPrefix];
+	VUHDO_BAR_ICONS[aButton][anIndex] = VUHDO_GLOBAL[tPrefix .. "I"];
+	VUHDO_BAR_ICON_TIMERS[aButton][anIndex] = VUHDO_GLOBAL[tPrefix .. "T"];
+	VUHDO_BAR_ICON_COUNTERS[aButton][anIndex] = VUHDO_GLOBAL[tPrefix .. "C"];
+	VUHDO_BAR_ICON_CHARGES[aButton][anIndex] = VUHDO_GLOBAL[tPrefix .. "A"];
+	VUHDO_BAR_ICON_NAMES[aButton][anIndex] = VUHDO_GLOBAL[tPrefix .. "N"];
+end
+
+
+
+--
 local function VUHDO_fastCacheInitButton(aPanelNum, aButtonNum)
 	local tButtonName = "VdAc" .. aPanelNum .. "HlU" .. aButtonNum;
 	local tButton = VUHDO_GLOBAL[tButtonName];
@@ -567,20 +590,24 @@ local function VUHDO_fastCacheInitButton(aPanelNum, aButtonNum)
 	VUHDO_BUTTON_CACHE[tTotButton] = aPanelNum;
 
 	VUHDO_BAR_ICON_FRAMES[tButton] = { };
+	VUHDO_BAR_ICON_BUTTONS[tButton] = { };
 	VUHDO_BAR_ICONS[tButton] = { };
 	VUHDO_BAR_ICON_TIMERS[tButton] = { };
 	VUHDO_BAR_ICON_COUNTERS[tButton] = { };
 	VUHDO_BAR_ICON_CHARGES[tButton] = { };
 	VUHDO_BAR_ICON_NAMES[tButton] = { };
 
+	-- HoTs
 	local tCnt;
 	for tCnt = 1, 5 do
 		VUHDO_initIconCounterTimerStacks(tButton, tCnt);
 	end
 	VUHDO_initIconCounterTimerStacks(tButton, 9);
 	VUHDO_initIconCounterTimerStacks(tButton, 10);
+
+	-- Custom Debuffs
 	for tCnt = 40, 44 do
-		VUHDO_initIconCounterTimerStacks(tButton, tCnt);
+		VUHDO_initIconCounterTimerStacks2(tButton, tCnt);
 	end
 end
 

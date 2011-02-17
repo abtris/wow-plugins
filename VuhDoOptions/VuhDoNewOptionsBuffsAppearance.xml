@@ -30,7 +30,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.SCALE");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_SCALE, 0.5, 2, "", 0.05);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_005);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K005);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_BUFF_SETTINGS.CONFIG.SHOW", false);
 							</OnLoad>
 						</Scripts>
@@ -70,7 +70,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.PANEL_MAX_BUFFS");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_MAX_BUFFS_PER_ROW, 1, 12, "", 1);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_007);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K007);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_BUFF_SETTINGS.CONFIG.SHOW", false);
 							</OnLoad>
 						</Scripts>
@@ -106,7 +106,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.REFRESH_SECS");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_REFRESH_RATE, 0.1, 3, " " .. VUHDO_I18N_SECS, 0.1);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_008);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K008);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_BUFF_SETTINGS.CONFIG.SHOW", false);
 							</OnLoad>
 						</Scripts>
@@ -123,7 +123,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.HIDE_CHARGES");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_156);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K156);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_BUFF_SETTINGS.CONFIG.SHOW", false);
 							</OnLoad>
 						</Scripts>
@@ -140,7 +140,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.SHOW_LABEL");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_009);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K009);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_BUFF_SETTINGS.CONFIG.SHOW", false);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_BUFF_SETTINGS.CONFIG.COMPACT", true);
 							</OnLoad>
@@ -158,7 +158,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.COMPACT");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_458);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K458);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_BUFF_SETTINGS.CONFIG.SHOW", false);
 							</OnLoad>
 						</Scripts>
@@ -175,7 +175,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.SHOW");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_011);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K011);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>

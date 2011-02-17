@@ -1,4 +1,4 @@
-HEALBOT_VERSION = "4.0.3.9";
+HEALBOT_VERSION = "4.0.6.0";
 
 -------------
 -- ENGLISH --
@@ -225,6 +225,7 @@ HEALBOT_SOUL_LINK                       = GetSpellInfo(19028) or "Soul Link";
 HEALBOT_UNENDING_BREATH                 = GetSpellInfo(5697) or "Unending Breath"
 HEALBOT_LIFE_TAP                        = GetSpellInfo(1454) or "Life Tap";
 HEALBOT_BLOOD_PACT                      = GetSpellInfo(6307) or "Blood Pact";
+HEALBOT_DARK_INTENT                     = GetSpellInfo(80398) or "Dark Intent";
 
 HEALBOT_BATTLE_SHOUT                    = GetSpellInfo(6673) or "Battle Shout";
 HEALBOT_COMMANDING_SHOUT                = GetSpellInfo(469) or "Commanding Shout";
@@ -730,19 +731,26 @@ HEALBOT_C_DURATION                      = "Channelled Duration";
 
 HEALBOT_HELP={ [1] = "[HealBot] /hb h -- Display help",
                [2] = "[HealBot] /hb o -- Toggles options",
-               [3] = "[HealBot] /hb d -- Reset options to default",
-               [4] = "[HealBot] /hb ui -- Reload UI",
-               [5] = "[HealBot] /hb ri -- Reset HealBot",
-               [6] = "[HealBot] /hb t -- Toggle Healbot between disabled and enabled",
-               [7] = "[HealBot] /hb bt -- Toggle Buff Monitor between disabled and enabled",
-               [8] = "[HealBot] /hb dt -- Toggle Debuff Monitor between disabled and enabled",
-               [9] = "[HealBot] /hb skin <skinName> -- Switch Skins",
-               [10] = "[HealBot] /hb tr <Role> -- Set highest role priority for SubSort by Role. Valid Roles are 'TANK', 'HEALER' or 'DPS'",
-               [11] = "[HealBot] /hb use10 -- Automatically use Engineering slot 10",
-			   [12] = "[HealBot] /hb pcs <n> -- Adjust the size of the Holy power charge indicator by <n>, Default value is 7 ",
-			   [13] = "[HealBot] /hb info -- Show the info window",
-			   [14] = "[HealBot] /hb spt -- Self Pet toggle",
-			   [15] = "[HealBot] /hb ws -- Toggle Hide/Show the Weaken Soul icon instead of the PW:S with a -",
+               [3] = "[HealBot] /hb ri -- Reset HealBot",
+               [4] = "[HealBot] /hb t -- Toggle Healbot between disabled and enabled",
+               [5] = "[HealBot] /hb bt -- Toggle Buff Monitor between disabled and enabled",
+               [6] = "[HealBot] /hb dt -- Toggle Debuff Monitor between disabled and enabled",
+               [7] = "[HealBot] /hb skin <skinName> -- Switch Skins",
+               [8] = "[HealBot] /hb hs -- Display additional slash commands",
+              }
+
+HEALBOT_HELP2={ [1] = "[HealBot] /hb d -- Reset options to default",
+                [2] = "[HealBot] /hb ui -- Reload UI",
+                [3] = "[HealBot] /hb ri -- Reset HealBot",
+                [4] = "[HealBot] /hb tr <Role> -- Set highest role priority for SubSort by Role. Valid Roles are 'TANK', 'HEALER' or 'DPS'",
+                [5] = "[HealBot] /hb use10 -- Automatically use Engineering slot 10",
+                [6] = "[HealBot] /hb pcs <n> -- Adjust the size of the Holy power charge indicator by <n>, Default value is 7 ",
+                [7] = "[HealBot] /hb info -- Show the info window",
+                [8] = "[HealBot] /hb spt -- Self Pet toggle",
+                [9] = "[HealBot] /hb ws -- Toggle Hide/Show the Weaken Soul icon instead of the PW:S with a -",
+               [10] = "[HealBot] /hb rld <n> -- In seconds, how long the players name stays green after a res",
+               [11] = "[HealBot] /hb flb -- Toggle frame lock bypass (frame always moves with Ctrl+Alt+Left click)",
+               [12] = "[HealBot] /hb rtb -- Toggle restrict target bar to Left=SmartCast and Right=add/remove to/from My Targets",
               }
               
 HEALBOT_OPTION_HIGHLIGHTACTIVEBAR       = "Highlight mouseover"
@@ -978,3 +986,9 @@ HEALBOT_ZONE_VASHJIR1                   = "Kelp'thar Forest"
 HEALBOT_ZONE_VASHJIR2                   = "Shimmering Expanse"
 HEALBOT_ZONE_VASHJIR3                   = "Abyssal Depths"
 HEALBOT_ZONE_VASHJIR                    = "Vashj'ir"
+HEALBOT_RESLAG_INDICATOR                = "Keep name green after res set to" 
+HEALBOT_RESLAG_INDICATOR_ERROR          = "Keep name green after res must be between 1 and 30" 
+HEALBOT_FRAMELOCK_BYPASS_OFF            = "Frame lock bypass turned Off"
+HEALBOT_FRAMELOCK_BYPASS_ON             = "Frame lock bypass (Ctl+Alt+Left) turned On"
+HEALBOT_RESTRICTTARGETBAR_ON            = "Restrict Target bar turned On"
+HEALBOT_RESTRICTTARGETBAR_OFF           = "Restrict Target bar turned Off"

@@ -1,0 +1,67 @@
+------------------------------------------------------------------------
+r303 | arkayenro | 2011-02-09 22:52:44 +0000 (Wed, 09 Feb 2011) | 3 lines
+Changed paths:
+   A /tags/3.02.76 (from /trunk:302)
+
+*3.02.76 (10-FEB-2011)*
+ * fixed - unknown zone ( -1 / 5 ) error message
+
+------------------------------------------------------------------------
+r302 | arkayenro | 2011-02-09 22:47:16 +0000 (Wed, 09 Feb 2011) | 3 lines
+Changed paths:
+   M /trunk/ArkInventory.lua
+   M /trunk/ArkInventoryLDB.lua
+   M /trunk/VersionHistory.txt
+
+*3.02.76 (10-FEB-2011)*
+ * fixed - unknown zone ( -1 / 5 ) error message
+
+------------------------------------------------------------------------
+r300 | arkayenro | 2011-02-09 13:41:06 +0000 (Wed, 09 Feb 2011) | 3 lines
+Changed paths:
+   M /trunk/ArkInventory.lua
+   M /trunk/ArkInventoryLDB.lua
+   M /trunk/VersionHistory.txt
+
+*3.02.75 (10-FEB-2011)*
+ * fixed - mount code using the wintergrasp timer that i missed
+
+------------------------------------------------------------------------
+r298 | arkayenro | 2011-02-09 09:21:57 +0000 (Wed, 09 Feb 2011) | 4 lines
+Changed paths:
+   M /trunk/ArkInventory.lua
+   M /trunk/ArkInventoryLDB.lua
+   M /trunk/ArkInventoryTranslate.lua
+   M /trunk/Locale/deDE.lua
+   M /trunk/Locale/enUS.lua
+   M /trunk/Locale/esES.lua
+   M /trunk/Locale/esMX.lua
+   M /trunk/Locale/frFR.lua
+   M /trunk/Locale/game.lua
+   M /trunk/Locale/koKR.lua
+   M /trunk/Locale/ruRU.lua
+   M /trunk/Locale/zhCN.lua
+   M /trunk/Locale/zhTW.lua
+   M /trunk/VersionHistory.txt
+
+*3.02.74 (09-FEB-2011)*
+ * fixed - mount code changed to cater for removal of a wintergrasp timer api function
+ * fixed - code updated for auction house category changes (used for translations)
+
+------------------------------------------------------------------------
+r296 | arkayenro | 2011-01-26 12:38:07 +0000 (Wed, 26 Jan 2011) | 5 lines
+Changed paths:
+   M /trunk/ArkInventory.lua
+   M /trunk/ArkInventoryStorage.lua
+   M /trunk/ArkInventoryTranslate.lua
+   M /trunk/Locale/enUS.lua
+   M /trunk/Locale/game.lua
+   M /trunk/Modules/ArkInventoryRules/ArkInventoryRules.lua
+   M /trunk/VersionHistory.txt
+
+*3.02.73 (26-JAN-2011)*
+ * workaround - fixed issue with bug where item hyperlinks are sometimes returned malformed so looks like the item has changed, when it hasnt
+ * fixed - issue with updated ace locale library
+ * added - tackle box
+
+------------------------------------------------------------------------

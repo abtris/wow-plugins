@@ -5,6 +5,7 @@ local function VUHDO_hideAllPanel()
 	VuhDoNewOptionsToolsSkins:Hide();
 	VuhDoNewOptionsToolsWizard:Hide();
 	VuhDoNewOptionsToolsReset:Hide();
+	collectgarbage('collect');
 end
 
 

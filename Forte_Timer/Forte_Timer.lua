@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 
 local FW = FW;
 local FWL = FW.L;
@@ -20,10 +20,12 @@ local pairs = pairs;
 local ipairs = ipairs;
 local unpack = unpack;
 local _G = _G;
+local math = math;
 local abs = math.abs;
 local cos = math.cos;
 local sin = math.sin;
 local sqrt = math.sqrt;
+local max = math.max;
 local pow = math.pow;
 local instances = FW:NEW2D();
 
@@ -387,78 +389,6 @@ local FW_RaidIconCoords  = {
 };
 
 --[[
-7362.726
-0
-6
-Consume Shadows
-0
-6
-Interface\Icons\Spell_Shadow_AntiShadow
-Consume Shadows
-0
-0
-
-0
-0
-2
-1
-0
-7362.732
-filter
-0 
-7362.726
-6
-1
-0
-
-8949.669
-0
-30
-Rogue Wizard
-0
-6
-Interface\Icons\Spell_Shadow_MindSteal
-Seduction
-0
-0
-0xF13001DA00536324
-0
-1
-0
-1
-0
-0
-filter
-0
-8949.669
-30
-1
-0
-
-8601.724
-0
-30
-Summon Gargoyle
-0
-6
-INTERFACE\ICONS\ability_deathknight_summongargoyle
-Summon Gargoyle
-0
-0
-none
-0
-0
-0 
-1
-0
-0
-filter
-0
-8601.724
-30
-1
-0
-
 st
 
 1:Expiring at time
@@ -475,7 +405,7 @@ st
 12:Expire msg given
 13:Unique ID (still using this to sort by, see flags)
 14:Timer state 0:normal 1:expired instant 2:expired 3:removed 4+:failed
-15:NOT USED (WAS Timer fading size/alpha)
+15:USED AS SPECIAL FLAG (HUNTER: TRAP NEEDS TRIGGERING)
 16:Stacks or similar
 17:Remove time
 18:NOT USED (WAS Filter)
@@ -963,7 +893,7 @@ function ST:AddNewTimerSimple(expire,total,targetname,spell,targettype,id,icon,g
 			st:remove(found);
 		end
 	end
-	st:insert(expire,FW:CastTime(spell),total,targetname,0,typ,texture,spell,targettype,0,guid,0,id,0,1,stacks,0,"filter",icon,expire,total,haste,0);
+	st:insert(expire,FW:CastTime(spell),total,targetname,0,typ,texture,spell,targettype,0,guid,ST_GetFadeTime(spell),id,0,1,stacks,0,"filter",icon,expire,total,haste,0);
 end
 
 function ST:AddNewTimer(expire,total,targetname,spell,targettype,id,icon,guid,haste,realduration) --only use for non-(de)buff based adding
@@ -997,14 +927,14 @@ function ST:AddNewTimer(expire,total,targetname,spell,targettype,id,icon,guid,ha
 					--FW:Show(extratime);
 				end
 				st:remove(found);
-				st:insert(expire+extratime,FW:CastTime(spell),total,targetname,Track[spell][3],Track[spell][4],Track[spell][6],spell,targettype,0,guid,0,id,0,1,stacks,0,"filter",icon,expire,total,haste,0);
+				st:insert(expire+extratime,FW:CastTime(spell),total,targetname,Track[spell][3],Track[spell][4],Track[spell][6],spell,targettype,0,guid,ST_GetFadeTime(spell),id,0,1,stacks,0,"filter",icon,expire,total,haste,0);
 			end
 		else
 			if Track[spell][7] > 0 then
 				stacks = 1;
 			end
 			--FW:Debug("not found, new");
-			st:insert(expire,FW:CastTime(spell),total,targetname,Track[spell][3],Track[spell][4],Track[spell][6],spell,targettype,0,guid,0,id,0,1,stacks,0,"filter",icon,expire,total,haste,0);
+			st:insert(expire,FW:CastTime(spell),total,targetname,Track[spell][3],Track[spell][4],Track[spell][6],spell,targettype,0,guid,ST_GetFadeTime(spell),id,0,1,stacks,0,"filter",icon,expire,total,haste,0);
 		end
 		if Track[spell][3] == 1 then
 			ST_AddDot(targetname,guid,spell);
@@ -1044,7 +974,7 @@ local function ST_SpellFail(s,resist,target,typ,id,icon,guid,...)
 			break;
 		end
 	end
-	st:insert(GetTime(),0,1,target,Track[s][3],Track[s][4],Track[s][6],s,typ,0,guid,1,id,resist,1,0,GetTime(),"filter",icon,GetTime(),1,1.0,0);	
+	st:insert(GetTime(),0,1,target,Track[s][3],Track[s][4],Track[s][6],s,typ,0,guid,0,id,resist,1,0,GetTime(),"filter",icon,GetTime(),1,1.0,0);	
 end
 
 local function ST_TrackedSuccess(spell,target,realduration,rank,targettype,s,p,id,icon,guid,delay,haste_old)
@@ -1096,39 +1026,51 @@ local function ST_BreakMessages(unit,mark,spell)
 	end
 end
 
+local maxdelay, maxdelay_instant = 0, 0;
+local function ST_CalculateMaxDelay() -- calc new max delays
+	maxdelay_instant = FW.Settings.TimerFadeSpeed;
+	maxdelay = 0;
+	for i=1,instances.rows,1 do
+		maxdelay = max(maxdelay,instances[i][2].s.FailTime);
+		maxdelay = max(maxdelay,instances[i][2].s.FadeTime);
+	end
+	maxdelay = maxdelay + maxdelay_instant;
+end
+
 local function ST_UpdateSpellTimers()--preferably only remove timers in this function and not outside
 	local t = GetTime();
+	local smooth = FW.Settings.TimerSmooth;
 	local i = 1;
 	
 	while i <= st.rows do
 		local t6,t14 = st[i][6],st[i][14];
 		local timeleft = st[i][1]-t;
-		st[i][20] = st[i][20] + (st[i][1]-st[i][20])/10;
+		st[i][20] = st[i][20] + (st[i][1]-st[i][20])/smooth;
 
 		-- fade messages if time <= X sec
-		if st[i][12] == 0 and t14<=NORMAL then -- marked as not expiring
-			for index,f in ipairs(ST_OnTimerFade) do
-				if f(st[i][4],st[i][19],st[i][8],timeleft) then
-					st[i][12] = 1;
-					FW:PlaySound("TimerFadeSound");
-				end
-			end
+		if st[i][12] > 0 and timeleft <= st[i][12] and t14<=NORMAL then -- marked as not expiring
+			st[i][12] = 0;
+			
+			local unit,mark = st[i][4],st[i][19];
+			if mark~=0 then unit=FW.RaidIcons[mark]..unit;end
+			CA:CastShow(ST_OnTimerFade[ st[i][8] ],unit);
+			FW:PlaySound("TimerFadeSound");
 		end	
 
-		if t14 == IGNORE then 
-			if timeleft < 0 then
+		if t14 == IGNORE then -- instantly remove ignored timers on expire
+			if timeleft <= 0 then
 				st:remove(i);
 			else
 				i=i+1;
 			end
 		elseif t14 == NORMAL then -- set to fade
 			if timeleft <= 0 and st[i][3] > 0 then
-				-- normal fade
+				-- normal fade and instant fade
 				ST:Fade(i, (t6 == DRAIN or t6 == DEBUFF or t6 == POWERUP or t6 == SELF_DEBUFF) and FADING_INSTANT or FADING);
 			end		
 			i=i+1;
-		else -- keep expired timers alive for 10 sec max
-			if (t6 == DRAIN or t6 == DEBUFF or t6 == POWERUP or t6 == SELF_DEBUFF) and (st[i][17]+1) < t or (st[i][17]+11) < t then
+		else -- keep expired timers alive for X sec max
+			if st[i][17] + ((t6 == DRAIN or t6 == DEBUFF or t6 == POWERUP or t6 == SELF_DEBUFF) and maxdelay_instant or maxdelay) < t then
 				st:remove(i);
 			else
 				i=i+1;
@@ -1181,6 +1123,20 @@ local function ST_ScanForMissing(unit,guid,func)
 	end
 end
 
+--[[function FW:TE()
+	for key, val in pairs(Track) do
+		if val[1]==1 then
+			if not (val[4]<=UNIQUE or val[4] >=HEAL) then
+				FW:Show("target, but type"..val[4]..": "..key);
+			end
+		else
+			if val[4]<=UNIQUE or val[4] >=HEAL then
+				FW:Show("no target, but type"..val[4]..": "..key);
+			end
+		end
+	end
+end]]
+
 --main tracking for spells cast by you (type6: 9+ = friendly buff)
 local function ST_CorrectionScan(unit)
 	--FW:Show("standard scan "..unit);
@@ -1221,7 +1177,7 @@ local function ST_CorrectionScan(unit)
 				elseif st[i][11] == guid then
 				
 					local t6 = st[i][6];
-					if t6<=UNIQUE or t6 >=HEAL or (Track[t8] and Track[t8][1]==1) then -- only check the 'normal' buff/debuff types
+					if t6<=UNIQUE or t6 >=HEAL or t6 == CHARM or (t6 == PET and Track[t8] and Track[t8][1]==1) then -- only check the 'normal' buff/debuff types
 						local expire,index,stacks,total,rank; -- can be unfriendly or friendly now!
 						if t6<HEAL then
 							expire,index,stacks,total,rank = FW:UnitHasYourDebuff(unit,t8);
@@ -1250,7 +1206,7 @@ local function ST_CorrectionScan(unit)
 							st[i][16] = stacks or 0;
 							st[i][3] = total;
 							
-						elseif index<=MAX_DEBUFFS and st[i][10] == 1 and st[i][1]-t >maxlag then -- dont remove if only maxlag left
+						elseif --[[index<=MAX_DEBUFFS and]] st[i][10] == 1 and st[i][1]-t >maxlag then -- dont remove if only maxlag left
 							if not UnitIsDead(unit) then
 								ST_BreakMessages(st[i][4],st[i][19],t8);
 							end
@@ -1273,7 +1229,7 @@ local function ST_TargetDebuffs()
 	while i<= st.rows do
 		if st[i][14] <= NORMAL and st[i][6] == DEBUFF then
 			local has,index = FW:UnitHasDebuff("target",st[i][8]);
-			if not has and index<=MAX_DEBUFFS then
+			if not has --[[and index<=MAX_DEBUFFS]] then
 				ST:Fade(i,FADING_INSTANT);
 			end
 		end
@@ -1295,6 +1251,7 @@ local function ST_TargetDebuffs()
 						--st[index][11] = guid;
 						st[index][14] = 0;
 						st[index][17] = 0;
+						--st[index][12] = ST_GetFadeTime(debuff);
 					end
 					st[index][3] = total;
 					st[index][16] = count or 0;
@@ -1309,25 +1266,6 @@ local function ST_TargetDebuffs()
 		else
 			break;
 		end
-	end
-end
-
-local function ST_PetDebuffs()
-	local t = GetTime();
-	local i = 1;
-	while i<= st.rows do
-		if st[i][14] <= NORMAL and st[i][6] == CHARM then -- handle charm spells
-			if st[i][1]-t+st[i][3] > maxlag then -- debuff checking if the debuff is applied longer than/equal BuffDelay and remaining time > maxlags
-				-- exceptions
-				if FW:UnitHasYourDebuff("pet",st[i][8]) then
-					st[i][19] = GetRaidTargetIndex("pet") or 0;
-				else
-					ST_BreakMessages(st[i][4],st[i][19],st[i][8]);
-					ST:Fade(i,REMOVE);
-				end
-			end
-		end
-		i=i+1;
 	end
 end
 
@@ -1361,6 +1299,7 @@ local function ST_PlayerBuffs()
 						st[index][1] = expire;
 						st[index][17] = 0;
 						st[index][14] = 0;
+						--st[index][12] = ST_GetFadeTime(buff);
 					end
 					st[index][3] = total;
 					--st[index][7] = texture;
@@ -1414,12 +1353,7 @@ local function ST_AuraChanged(event,unit) -- triggered by "UNIT_AURA"
 	if unit == "target" then
 		FW:DelayedExec(FW.Settings.Delay,1,ST_TargetDebuffs);
 		--ST_TargetDebuffs(); -- really have to make this work!!
-	elseif unit == "player" then
-		FW:RegisterThrottle(ST_PlayerBuffs);
-	elseif unit == "pet" then
-		FW:RegisterThrottle(ST_PetDebuffs);
-	elseif unit == "vehicle" then
-		FW:RegisterThrottle(ST_PetDebuffs);
+	elseif unit == "player" or unit == "vehicle" then
 		FW:RegisterThrottle(ST_PlayerBuffs);
 	end
 	-- also do standard stuff
@@ -1498,6 +1432,18 @@ local function ST_ExtraScan()
 	ST_CorrectionScan("target");
 	ST_CorrectionScan("focus");
 	ST_CorrectionScan("pet");
+	
+	-- and new unit tokens...
+	ST_CorrectionScan("arena1");
+	ST_CorrectionScan("arena2");
+	ST_CorrectionScan("arena3");
+	ST_CorrectionScan("arena4");
+	ST_CorrectionScan("arena5");
+
+	ST_CorrectionScan("boss1");
+	ST_CorrectionScan("boss2");
+	ST_CorrectionScan("boss3");
+	ST_CorrectionScan("boss4");
 end
 
 local function ST_MobDies(guid)
@@ -1622,14 +1568,19 @@ local function ST_ShowTimeFor(id)
 	FW:ShowTimeFor(st[id][8],target,st[id][1]-GetTime(),st[id][6] == COOLDOWN);
 end
 
--- globally accessable
-function ST:GetFadeTime(what)
-	local t = select(3, strfind(FW.Settings[what.."Msg"],"([%.%d]+)"));
-	return tonumber(t) or 0;
+function ST_GetFadeTime(spellname)
+	local what = ST_OnTimerFade[spellname];
+	if what then
+		local _,_,t = strfind(FW.Settings[what.."Msg"],"([%.%d]+)");
+		if t then t = tonumber(t); end
+		return t or 0.1;	
+	else
+		return 0;
+	end
 end
 
-function ST:RegisterOnTimerFade(func)
-	tinsert(ST_OnTimerFade,func);
+function ST:RegisterOnTimerFade(spellname,option)
+	ST_OnTimerFade[spellname] = option;
 end
 
 function ST:RegisterOnTimerBreak(func)
@@ -1699,8 +1650,6 @@ local function NewBar(parent,n)
 	
 	-- clickable icon
 	bar.button = CreateFrame("Button",nil,bar);
-	bar.button:SetPoint("TOPRIGHT",bar,"TOPLEFT",-1,0);
-	bar.button:SetPoint("BOTTOMRIGHT",bar,"BOTTOMLEFT",-1,0);
 	bar.button.spark = bar.button:CreateTexture(nil,"OVERLAY");
 	bar.button.spark:SetPoint("CENTER",bar.button,"CENTER");
 	bar.button.spark:SetTexture("Interface\\AddOns\\Forte_Core\\Textures\\Spark2");
@@ -1725,7 +1674,6 @@ local function NewBar(parent,n)
 	bar.castspark:SetBlendMode("ADD");
 	bar.castspark:SetPoint("CENTER",bar,"CENTER");
 
-				
 	bar.castarea = bar:CreateTexture(nil,"OVERLAY");
 	bar.castarea:SetPoint("LEFT",bar,"LEFT",0,0);
 	bar.castarea:SetPoint("RIGHT",bar,"LEFT",0,0);
@@ -1766,7 +1714,8 @@ local function NewBar(parent,n)
 		FW:HideTip(self);
 	end);
 	bar.button:SetScript("OnUpdate",function(self)
-		if self.over then
+		if self.over and self.oldtitle ~= self.title then
+			self.oldtitle = self.title;
 			FW:ShowTip(self);
 		end
 	end);
@@ -1831,7 +1780,6 @@ local function NewBar(parent,n)
 		local s = self.parent.parent.s;
 	
 		self:ClearAllPoints();
-		self:SetWidth(s.Width-s.Height-1);
 		self:SetHeight(s.Height);
 		self:SetStatusBarTexture(s.Texture);
 		self.castarea:SetTexture(s.Texture);
@@ -1852,8 +1800,8 @@ local function NewBar(parent,n)
 		self.castspark:SetWidth(s.Height*0.9);
 		self.castspark:SetHeight(s.Height*1.8);
 			
-		bar.castarea:SetAlpha(s.CastSpark);
-		bar.castspark:SetAlpha(s.CastSpark);	
+		self.castarea:SetAlpha(s.CastSpark);
+		self.castspark:SetAlpha(s.CastSpark);	
 	
 		self.raidicon:SetWidth(s.Height);
 		self.raidicon:SetAlpha(s.RaidTargets);
@@ -1862,45 +1810,53 @@ local function NewBar(parent,n)
 		self.time:SetFont(s.Font,s.FontSize);
 		self.time:SetTextColor(unpack(s.NormalColor));
 		
-		--self.texture:ClearAllPoints();
-		
-		if s.Time then 
-			self.time:SetPoint("TOPRIGHT", self, "TOPRIGHT", -1, 0);
-			self.time:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -1, 0);
-			self.time:SetPoint("TOPLEFT", self, "TOPRIGHT", -s.TimeSpace, 0);
-			self.time:SetPoint("BOTTOMLEFT", self, "BOTTOMRIGHT", -s.TimeSpace, 0);
-			
-			if s.MaximizeName then
-				self.raidicon:SetPoint("CENTER", self, "CENTER",(-s.TimeSpace-s.Height)*0.5, 0);
-				self.name:SetPoint("TOPLEFT", self, "TOPLEFT", 1, 0);
-				self.name:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 1, 0);
-			else
-				self.raidicon:SetPoint("CENTER", self, "CENTER",-s.Height*0.5, 0);
-				self.name:SetPoint("TOPLEFT", self, "TOPLEFT",s.TimeSpace-s.Height, 0);
-				self.name:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT",s.TimeSpace-s.Height, 0);
+		self.name:ClearAllPoints();
+		self.name:SetPoint("CENTER", self, "CENTER",0,0);
+		self.raidicon:SetPoint("CENTER", self, "CENTER",0,0);
+
+		if s.Icon then -- icon is placed outside of the actual bar!!
+			self:SetWidth(s.Width-s.Height-1);
+			self.button:ClearAllPoints();
+			if s.IconRight then -- icon on right side of bar
+				self.button:SetPoint("TOPLEFT",self,"TOPRIGHT",1,0);
+				self.button:SetPoint("BOTTOMLEFT",self,"BOTTOMRIGHT",1,0);
+			else -- icon on left side of bar
+				self.button:SetPoint("TOPRIGHT",self,"TOPLEFT",-1,0);
+				self.button:SetPoint("BOTTOMRIGHT",self,"BOTTOMLEFT",-1,0);
 			end
-			
-			self.name:SetPoint("TOPRIGHT", self, "TOPRIGHT", -s.TimeSpace, 0);
-			self.name:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -s.TimeSpace, 0);
+			self.button:Show();
 		else
-			self.time:SetPoint("TOPLEFT", self, "TOPLEFT", 1, 0);
-			self.time:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 1, 0);
-			self.time:SetPoint("TOPRIGHT", self, "TOPLEFT", s.TimeSpace, 0);
-			self.time:SetPoint("BOTTOMRIGHT", self, "BOTTOMLEFT", s.TimeSpace, 0);
-			
-			self.name:SetPoint("TOPLEFT", self, "TOPLEFT", s.TimeSpace, 0);
-			self.name:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", s.TimeSpace, 0);
-			
-			if s.MaximizeName then
-				self.raidicon:SetPoint("CENTER", self, "CENTER",(s.TimeSpace-s.Height)*0.5, 0);
-				self.name:SetPoint("TOPRIGHT", self, "TOPRIGHT", -1, 0);
-				self.name:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -1, 0);
-			else
-				self.raidicon:SetPoint("CENTER", self, "CENTER",-s.Height*0.5, 0);
-				self.name:SetPoint("TOPRIGHT", self, "TOPRIGHT", -s.TimeSpace-s.Height, 0);
-				self.name:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -s.TimeSpace-s.Height, 0);
+			self.button:Hide();
+			self:SetWidth(s.Width);
+		end
+		if s.Time then
+			self.time:ClearAllPoints();
+			if s.TimeRight then -- time on right side of bar
+				self.time:SetPoint("TOPRIGHT", self, "TOPRIGHT", -2, 0);
+				self.time:SetPoint("BOTTOMRIGHT", self, "BOTTOMRIGHT", -2, 0);
+			else -- time on left side of bar
+				self.time:SetPoint("TOPLEFT", self, "TOPLEFT", 2, 0);
+				self.time:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 2, 0);
 			end
-		end	
+			if s.TimeSpaceEnable then
+				self.time:SetWidth(s.TimeSpace);
+			end
+			self.time:Show();
+		else
+			self.time:Hide();
+		end
+		if s.Name then
+			if s.TimeSpaceEnable then
+				self.name:SetWidth(self:GetWidth()-2*s.TimeSpace-4); -- 4 margin (2 on both sizes)
+			end
+			self.name:SetHeight(self:GetHeight());
+			self.name:Show();
+		else
+			self.name:Hide();
+		end
+		if s.RaidTargetsEnable then -- hide/show done on normal update
+			
+		end
 	end;
 	bar:Update();
 	return bar;
@@ -2012,7 +1968,6 @@ local function ST_NewTimerFrame(name,displayname)
 	local function Visible(index)
 		return (VisibleUnit( st[index][13], st[index][11]) and (st[index][14] < FAILED or frame.s.FailEnable) and FlagToAction(frame, st[index][8],st[index][6])) or FILTER_HIDE;
 	end
-	
 	frame.addLink = function(self,index)
 		local action = Visible(index);
 		if action ~= FILTER_HIDE then
@@ -2035,7 +1990,6 @@ local function ST_NewTimerFrame(name,displayname)
 			links[l][col] = val;
 		end
 	end
-	
 	frame.eraseLinks = function(self)
 		links:erase();
 	end
@@ -2057,6 +2011,7 @@ local function ST_NewTimerFrame(name,displayname)
 	end
 	frame.Draw = function(self)
 		if not self:IsShown() then return; end
+		local smooth = FW.Settings.TimerSmooth;
 		local s = self.s;
 		local baroffset = s.Backdrop[6];
 		local index=1;
@@ -2072,7 +2027,6 @@ local function ST_NewTimerFrame(name,displayname)
 		local groupsize = 0;
 		local groupoffset = 0;
 		local groupvisibility = 0;
-		--local groupfactor = 0;
 		local group;
 		local t = GetTime();
 		local highestduration = 0; 
@@ -2169,13 +2123,13 @@ local function ST_NewTimerFrame(name,displayname)
 			highestduration = s.MaxTime;
 			for k=1,links.rows do
 				if links[k][4] == 1 then
-					links[k][6] = links[k][6]+(highestduration-links[k][6])/10;
+					links[k][6] = links[k][6]+(highestduration-links[k][6])/smooth;
 				end
 			end
 		elseif s.OneMax then
 			for k=1,links.rows do
 				if links[k][4] == 1 then
-					links[k][6] = links[k][6]+(highestduration-links[k][6])/10;
+					links[k][6] = links[k][6]+(highestduration-links[k][6])/smooth;
 				end
 			end
 		end
@@ -2271,11 +2225,19 @@ local function ST_NewTimerFrame(name,displayname)
 				spark = bar.spark;
 				
 				-- SIZE AND ALPHA STUFF
-				if s.Expand == true then 
-					bar:SetPoint("BOTTOM", group, "BOTTOM",s.Height*0.5+0.5, baroffset);
+				if s.Expand == true then
+					if s.Icon and not s.IconRight then
+						bar:SetPoint("BOTTOMLEFT", group, "BOTTOMLEFT",s.Height+1+s.Backdrop[6], baroffset);
+					else
+						bar:SetPoint("BOTTOMLEFT", group, "BOTTOMLEFT",s.Backdrop[6], baroffset);
+					end
 					group:SetPoint("BOTTOM",self,"BOTTOM",0, groupoffset);
 				else
-					bar:SetPoint("TOP", group, "TOP", s.Height*0.5+0.5, -baroffset);
+					if s.Icon and not s.IconRight then
+						bar:SetPoint("TOPLEFT", group, "TOPLEFT",s.Height+1+s.Backdrop[6], -baroffset);
+					else
+						bar:SetPoint("TOPLEFT", group, "TOPLEFT",s.Backdrop[6], -baroffset);
+					end
 					group:SetPoint("TOP",self,"TOP",0, -groupoffset);
 				end
 				
@@ -2318,7 +2280,6 @@ local function ST_NewTimerFrame(name,displayname)
 						spark:Hide();
 					end
 				end
-			
 				bar.button.title = FW:SecToTime(t1).." "..t8;
 				bar.button.tip = t4.."\n"..FW:SecToTime(t1).."/"..FW:SecToTime(t3);
 			
@@ -2328,9 +2289,7 @@ local function ST_NewTimerFrame(name,displayname)
 				else
 					barval = t1/t21;
 				end
-			
 				if s.TicksEnable and Tick[t8] then
-					--FW:Show(t22);
 					bar:SetTicks(t21,Tick[t8]*t22,barval,r,g,b);
 				else
 					bar:SetTicks(0,1,0,r,g,b);
@@ -2340,24 +2299,17 @@ local function ST_NewTimerFrame(name,displayname)
 				--end
 				bar:SetValue(barval);
 				bar.id = links[k][1];
-				-- t1 = remaining
-				-- t2 = cast time
-				-- t3 = total time
-				-- t21 = maximum used (end of bar)
+				-- t1 = remaining, t2 = cast time, t3 = total time, t21 = maximum used (end of bar)
 				
 				local from,to = barval,barval;
-				-- from is the original spark
-				-- to is the cast spark
-				
+				-- from is the original spark, to is the cast spark
 				if s.CastSparkEnable then
 					if t1<=t2 and t3>0 and (t1==0 or t6 ~= COOLDOWN) then -- Cast Spark, t3>0 to hide if it's a resist etc
 						bar.button.spark:SetVertexColor(r,g,b);
-						--bar.button.spark:SetAlpha(s.CastSpark);
 						bar.button.spark:Show();
 					else
 						bar.button.spark:Hide();
 					end
-					
 					-- manages the cast sparks REWRITE PLXX!!!
 					if t2>0 and t1>0 and t3>0 and t6 ~= COOLDOWN then -- does have a cast time
 						if t1>t2 then
@@ -2451,7 +2403,10 @@ local function ST_NewTimerFrame(name,displayname)
 				bar.button.texture:SetTexture(t7);
 				
 				spark:SetPoint("CENTER", bar, "LEFT",barval*bar:GetWidth(), 0);
-
+				if not s.TimeSpaceEnable and s.Time and s.Name then
+					local w = bar.time:GetWidth() + 2; -- add the 2 margin here too
+					bar.name:SetWidth(bar:GetWidth()-2*w-4); -- 4 margin (2 on both sizes)
+				end
 				lastid = t13;
 			
 				bar:Show();
@@ -2736,6 +2691,12 @@ function ST:RegisterMeleeBuffs()
 	ST:RegisterBuff(75456); -- Piercing Twilight
 	ST:RegisterBuff(75480); -- Scaly Nimbleness
 	
+	ST:RegisterBuff(79633); -- Tol'vir Agility
+	ST:RegisterBuff(79476); -- Volcanic Power
+	ST:RegisterBuff(79475); -- Earthen Armor
+	ST:RegisterBuff(79634); -- Golem's Strength
+	ST:RegisterBuff(92104); -- Fluid Death, River of Death
+	
 	ST:RegisterBuff(92096); -- Left Eye of Rajh, Eye of Vengeance 
 	ST:RegisterBuff(92069); -- Key to the Endless Chamber, Final Key
 	ST:RegisterBuff(92126); -- Essence of the Cyclone, Twisted 
@@ -2832,6 +2793,8 @@ function ST:RegisterCasterBuffs()
 	ST:RegisterBuff(91041); -- Heart of Ignacious, Heart's Judgement
 	ST:RegisterBuff(74241); -- Enchant Weapon - Power Torrent
 	ST:RegisterBuff(91024); -- Theralion's Mirror, Revelation
+	
+	ST:RegisterBuff(91007); -- Bell of Enraging Resonance, Dire Magic
 	
 	-- IMPORTANT DEBUFFS FROM OTHERS I WANT TO TRACK
 	ST:RegisterDebuff(26017); -- Vindication, Retribution Debuff -10/20% stats on target
@@ -2982,7 +2945,8 @@ do
 		FW:RegisterTimedEvent("AnimationInterval",	ST_DrawTimers);
 		FW:RegisterTimedEvent("UpdateInterval",		ST_RaidTargetScan);
 		
-		ST_CreateSortOrder();--init sorting direction (advanced serttings)
+		ST_CreateSortOrder();--init sorting direction (advanced settings)
+		ST_CalculateMaxDelay();		
 		
 		tab_data[6] = FW.Settings.CustomInstances.Timer;
 	end);
@@ -3018,7 +2982,9 @@ do
 	FW:RegisterOnProfileChange(function() tab_data[6] = FW.Settings.CustomInstances.Timer; end);
 	FW:RegisterOnProfileChange(ST_TimerFilterChange);
 	FW:RegisterOnProfileChange(Test);
-	FW:RegisterOnProfileChange(ST_HideTicks);
+	
+	FW:RegisterOnProfileChange(ST_CreateSortOrder);
+	FW:RegisterOnProfileChange(ST_CalculateMaxDelay);
 end
 
 -- create options
@@ -3032,11 +2998,19 @@ FW:SetMainCategory(FWL.SPELL_TIMER,FW.ICON.ST,3,"TIMER","Timer","Timer",tab_data
 	FW:SetSubCategory(FWL.BASIC,FW.ICON.BASIC,2,FW.EXPAND)
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.ENABLE,				FWL.ST_BASIC1_TT ,			"Enable",	ST_TimerShow);
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.EXPAND_UP,			FWL.EXPAND_UP_TT,			"Expand",	ST_TimerShow);
-		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.COUNTDOWN_ON_RIGHT,	FWL.COUNTDOWN_ON_RIGHT_TT,	"Time",		ST_TimerShow);
-		--FW:RegisterOption(FW.CHK,1,FW.NON,"Flip bar direction",	"",	"Flip");
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.TIMER_OUTWARDS,		FWL.TIMER_OUTWARDS_TT,		"Outwands");
+		--FW:RegisterOption(FW.CHK,1,FW.NON,"Flip bar direction",	"",	"Flip");
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.TEST_BARS,			FWL.TEST_BARS_TT,			"Test",		Test);
 	
+	FW:SetSubCategory("Basic layout",FW.ICON.SPECIFIC,3)
+		FW:RegisterOption(FW.CHK,1,FW.NON,"Show Count down text",	"",	"Time",		ST_TimerShow);
+		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.COUNTDOWN_ON_RIGHT,	FWL.COUNTDOWN_ON_RIGHT_TT,	"TimeRight",		ST_TimerShow);
+
+		FW:RegisterOption(FW.CHK,1,FW.NON,"Show icons",	"",	"Icon",		ST_TimerShow);
+		FW:RegisterOption(FW.CHK,1,FW.NON,"Icon on right",	"",	"IconRight",		ST_TimerShow);
+		
+		FW:RegisterOption(FW.CHK,1,FW.NON,"Show unit/spell name text",	"",	"Name",		ST_TimerShow);
+					
 	FW:SetSubCategory(FWL.TIMER_FORMATS,FW.ICON.SPECIFIC,3)
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.DISPLAY_MODES7,	FWL.DISPLAY_MODES7_TT,	"GroupID");
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.DISPLAY_MODES8,	FWL.DISPLAY_MODES8_TT,	"ShowID");
@@ -3060,8 +3034,8 @@ FW:SetMainCategory(FWL.SPELL_TIMER,FW.ICON.ST,3,"TIMER","Timer","Timer",tab_data
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.DISPLAY_TYPES4,	FWL.DISPLAY_TYPES4_TT,	"HideTime",nil,0);
 	
 	FW:SetSubCategory(FWL.FADING,FW.ICON.FADE,3)
-		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.FADING3,			FWL.FADING3_TT,			"FadeTime",nil,0,10);
-		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.DISPLAY_TYPES6,	FWL.DISPLAY_TYPES6_TT,	"FailTime",nil,0,10);
+		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.FADING3,			FWL.FADING3_TT,			"FadeTime",ST_CalculateMaxDelay,0,120);
+		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.DISPLAY_TYPES6,	FWL.DISPLAY_TYPES6_TT,	"FailTime",ST_CalculateMaxDelay,0,120);
 		FW:RegisterOption(FW.NU2,1,FW.NON,FWL.FADING1,			FWL.FADING1_TT,			"Blink", nil,0);
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.BAR_BG_ALPHA,		FWL.BAR_BG_ALPHA_TT,	"BarBackgroundAlpha",	nil,0,1);		
 		FW:RegisterOption(FW.CO2,1,FW.NON,FWL.EXPIRED,			FWL.EXPIRED_TT,			"Expired"		);
@@ -3113,8 +3087,8 @@ FW:SetMainCategory(FWL.SPELL_TIMER,FW.ICON.ST,3,"TIMER","Timer","Timer",tab_data
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.BAR_SPACING,					"",					"Space",		ST_TimerShow,0);
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.UNIT_SPACING,			FWL.UNIT_SPACING_TT,		"SpacingHeight",nil,0);
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.UNIT_LABEL_HEIGHT,	FWL.UNIT_LABEL_HEIGHT_TT,	"LabelHeight",	nil,0);
-		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.COUNTDOWN_WIDTH,		FWL.COUNTDOWN_WIDTH_TT,		"TimeSpace",	ST_TimerShow,nil,0);
-		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.MAXIMIZE_SPACE,		FWL.MAXIMIZE_SPACE_TT,		"MaximizeName",	ST_TimerShow);
+		FW:RegisterOption(FW.NU2,1,FW.NON,FWL.COUNTDOWN_WIDTH,		FWL.COUNTDOWN_WIDTH_TT,		"TimeSpace",	ST_TimerShow,nil,0);
+		--FW:RegisterOption(FW.CHK,1,FW.NON,FWL.MAXIMIZE_SPACE,		FWL.MAXIMIZE_SPACE_TT,		"MaximizeName",	ST_TimerShow);
 		FW:RegisterOption(FW.NU2,1,FW.NON,FWL.MAX_SHOWN,					"",					"Max",			nil,0);	
 
 	FW:SetSubCategory(FWL.APPEARANCE,FW.ICON.APPEARANCE,9);	
@@ -3160,10 +3134,11 @@ FW:SetMainCategory(FWL.SOUND,FW.ICON.SOUND,12,"SOUND");
 FW:SetMainCategory(FWL.ADVANCED,FW.ICON.DEFAULT,99,"DEFAULT");
 	FW:SetSubCategory(FWL.SPELL_TIMER,FW.ICON.DEFAULT,3);
 		FW:RegisterOption(FW.MS0,1,FW.NON,FWL.FRAME_LEVEL,FWL.FRAME_LEVEL_TT,	"TimerStrata", ST_TimerShow);
+		FW:RegisterOption(FW.NUM,1,FW.NON,"Duration update smoothing",	"1 means timers are changed to their new duration instantly, 20 means a very smooth transition.",		"TimerSmooth",nil,1,20);
 		FW:RegisterOption(FW.MS0,2,FW.NON,FWL.TIMER_SORT_ORDER,	FWL.TIMER_SORT_ORDER_TT,	"TimerSortOrder",	ST_CreateSortOrder);
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.UPDATE_INTERVAL_SPELL_TIMER,	"",	"SpellTimerInterval",nil,0.1,1.0);
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.DELAY_DOT_TICKS,				"",	"DotTicksDelayNew",nil,0.5,3.0);
-		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.FADING4,	FWL.FADING4_TT,		"TimerFadeSpeed",nil,0.0,1.0);
+		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.FADING4,	FWL.FADING4_TT,		"TimerFadeSpeed",ST_CalculateMaxDelay,0.0,1.0);
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.EXTRA3,	FWL.EXTRA3_TT,		"TimerImprove",		ST_RegisterImproved);
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.EXTRA4,	FWL.EXTRA4_TT,		"TimerImproveRaidTarget");
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.EXTRA6,	FWL.EXTRA6_TT,		"RemoveAfterCombat");
@@ -3174,6 +3149,7 @@ FW.Default.CustomInstances.Timer = {};
 FW.Default.TimerFadeSpeed = 0.5;
 FW.Default.SpellTimerInterval = 0.20;
 FW.Default.DotTicksDelayNew = 1.5; -- max 1.5 sec lag
+FW.Default.TimerSmooth = 5;
 FW.Default.TimerStrata = FW.Default.Strata;
 FW.Default.TimerResistsEnable = true;
 FW.Default.TimerResistsColor = 	{1.00,0.00,0.54};
@@ -3214,7 +3190,13 @@ FW.Default.Timer.GroupID = true;
 FW.Default.Timer.IgnoreLong = false;
 FW.Default.Timer.Expand = true;
 FW.Default.Timer.Background = true;
-FW.Default.Timer.Time = false;
+
+FW.Default.Timer.Time = true;
+FW.Default.Timer.TimeRight = false;
+FW.Default.Timer.Icon = true;
+FW.Default.Timer.IconRight = false;
+FW.Default.Timer.Name = true;
+
 FW.Default.Timer.Flip = false;
 FW.Default.Timer.Outwands = true;
 
@@ -3253,7 +3235,8 @@ FW.Default.Timer.Space = 2; -- between units
 FW.Default.Timer.Width = 250;
 FW.Default.Timer.NormalAlpha = 0.50;
 FW.Default.Timer.BarBackgroundAlpha = 0.3;
-FW.Default.Timer.TimeSpace = 35;
+FW.Default.Timer.TimeSpace = 25;
+FW.Default.Timer.TimeSpaceEnable = true;
 
 FW.Default.Timer.Filter = {};
 

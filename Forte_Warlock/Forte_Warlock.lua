@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 
 if FW.CLASS == "WARLOCK" then
 	local FW = FW;
@@ -114,8 +114,10 @@ if FW.CLASS == "WARLOCK" then
 		ST:RegisterBuff(79462); -- Demon Soul
 		ST:RegisterBuff(79460); -- Demon Soul
 		ST:RegisterBuff(79459); -- Demon Soul
-
-
+		
+		ST:RegisterBuff(88446); -- Demonic Rebirth
+		ST:RegisterBuff(89937); -- Fel Spark
+		
 		-- important debuffs from others i want to track
 		ST:RegisterDebuff(44836); -- Banish
 		ST:RegisterDebuff(59669); -- Fear
@@ -124,7 +126,7 @@ if FW.CLASS == "WARLOCK" then
 		ST:RegisterDebuff(60946); -- Nightmare
 
 		ST:RegisterCasterBuffs();
-		
+
 		FW.Default.Timer.Filter[FW:SpellName(48018)] = {nil,{-2,0.00,0.67,0.00}}; -- Demonic Circle: Summon
 	end
 	
@@ -265,33 +267,11 @@ if FW.CLASS == "WARLOCK" then
 				return 1;
 			end
 		end);
-		ST:RegisterOnTimerFade(function(unit,mark,spell,t)
-			if spell == fear then
-				if t <= ST:GetFadeTime("FearFade") then
-					if mark~=0 then unit=FW.RaidIcons[mark]..unit;end
-					CA:CastShow("FearFade",unit);
-					return 1;
-				end
-			elseif spell == banish then
-				if t <= ST:GetFadeTime("BanishFade") then
-					if mark~=0 then unit=FW.RaidIcons[mark]..unit;end
-					CA:CastShow("BanishFade",unit);
-					return 1;
-				end
-			elseif spell == enslave then
-				if t <= ST:GetFadeTime("EnslaveFade") then
-					if mark~=0 then unit=FW.RaidIcons[mark]..unit;end
-					CA:CastShow("EnslaveFade",unit);
-					return 1;
-				end
-			elseif spell == seduction then
-				if t <= ST:GetFadeTime("SeduceFade") then
-					if mark~=0 then unit=FW.RaidIcons[mark]..unit;end
-					CA:CastShow("SeduceFade",unit);
-					return 1;
-				end
-			end
-		end);
+		ST:RegisterOnTimerFade(fear,"FearFade");
+		ST:RegisterOnTimerFade(banish,"BanishFade");
+		ST:RegisterOnTimerFade(enslave,"EnslaveFade");
+		ST:RegisterOnTimerFade(seduction,"SeduceFade");
+
 		local backlash = FW:SpellName(51439);
 		local shadowtrance = FW:SpellName(17941);
 		local decimation = FW:SpellName(63158);
@@ -322,6 +302,8 @@ if FW.CLASS == "WARLOCK" then
 		
 		CD:RegisterHiddenCooldown(nil,34935,08); -- Backlash	
 		CD:RegisterHiddenCooldown(nil,85113,15); -- Improved Soul Fire
+		
+		CD:RegisterHiddenCooldown(nil,88446,120); -- Demonic Rebirth
 		
 		CD:RegisterCasterPowerupCooldowns();
 	end

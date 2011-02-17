@@ -1,0 +1,8 @@
+v0.1.2
+*Fixed a bug where guild banks were not getting scanned correctly.
+
+v0.1.1
+*Fixed a bug that was causing issues with guilds banks were you don't have permission to view each tab.
+
+v0.1
+*First version!

@@ -4900,6 +4900,23 @@ local moduleName = "AtlasLootBurningCrusade"
 		--- Armor Sets ---
 		------------------
 
+	AtlasLoot_Data["PVP70DeathKnight"] = {
+		["Normal"] = {
+			{
+				{ 1, 0, "spell_deathknight_classicon", "=q6=#arenas10#", ""};
+				{ 2, 40442, "", "=q4=Brutal Gladiator's Dreadplate Helm", "=ds=", "175 #honor#", ""};
+				{ 3, 40444, "", "=q4=Brutal Gladiator's Dreadplate Shoulders", "=ds=", "140 #honor#", ""};
+				{ 4, 40440, "", "=q4=Brutal Gladiator's Dreadplate Chestpiece", "=ds=", "175 #honor#", ""};
+				{ 5, 40441, "", "=q4=Brutal Gladiator's Dreadplate Gauntlets", "=ds=", "140 #honor#", ""};
+				{ 6, 40443, "", "=q4=Brutal Gladiator's Dreadplate Legguards", "=ds=", "175 #honor#", ""};
+			};
+		};
+		info = {
+			name = LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"],
+			module = moduleName, menu = "PVP70SET",
+		};
+	}
+
 	AtlasLoot_Data["PVP70DruidFeral"] = {
 		["Normal"] = {
 			{
@@ -4922,11 +4939,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33671, "", "=q4=Vengeful Gladiator's Dragonhide Gloves", "=ds=#s9#", ""};
 				{ 21, 33673, "", "=q4=Vengeful Gladiator's Dragonhide Legguards", "=ds=#s11#", ""};
 				{ 23, 0, "ability_racial_bearform", "=q6=#arenas1_1#", ""};
-				{ 24, 34999, "", "=q4=Brutal Gladiator's Dragonhide Helm", "=ds=", "1603 #honor#", ""};
-				{ 25, 35001, "", "=q4=Brutal Gladiator's Dragonhide Spaulders", "=ds=", "1282 #honor#", ""};
-				{ 26, 35002, "", "=q4=Brutal Gladiator's Dragonhide Tunic", "=ds=", "1603 #honor#", ""};
-				{ 27, 34998, "", "=q4=Brutal Gladiator's Dragonhide Gloves", "=ds=", "961 #honor#", ""};
-				{ 28, 35000, "", "=q4=Brutal Gladiator's Dragonhide Legguards", "=ds=", "1603 #honor#", ""};
+				{ 24, 34999, "", "=q4=Brutal Gladiator's Dragonhide Helm", "=ds=", "175 #honor#", ""};
+				{ 25, 35001, "", "=q4=Brutal Gladiator's Dragonhide Spaulders", "=ds=", "140 #honor#", ""};
+				{ 26, 35002, "", "=q4=Brutal Gladiator's Dragonhide Tunic", "=ds=", "175 #honor#", ""};
+				{ 27, 34998, "", "=q4=Brutal Gladiator's Dragonhide Gloves", "=ds=", "140 #honor#", ""};
+				{ 28, 35000, "", "=q4=Brutal Gladiator's Dragonhide Legguards", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -4957,11 +4974,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33767, "", "=q4=Vengeful Gladiator's Wyrmhide Gloves", "=ds=#s9#", ""};
 				{ 21, 33769, "", "=q4=Vengeful Gladiator's Wyrmhide Legguards", "=ds=#s11#", ""};
 				{ 23, 0, "spell_nature_starfall", "=q6=#arenas1_2#", ""};
-				{ 24, 35112, "", "=q4=Brutal Gladiator's Wyrmhide Helm", "=ds=", "1603 #honor#", ""};
-				{ 25, 35114, "", "=q4=Brutal Gladiator's Wyrmhide Spaulders", "=ds=", "1282 #honor#", ""};
-				{ 26, 35115, "", "=q4=Brutal Gladiator's Wyrmhide Tunic", "=ds=", "1603 #honor#", ""};
-				{ 27, 35111, "", "=q4=Brutal Gladiator's Wyrmhide Gloves", "=ds=", "961 #honor#", ""};
-				{ 28, 35113, "", "=q4=Brutal Gladiator's Wyrmhide Legguards", "=ds=", "1603 #honor#", ""};
+				{ 24, 35112, "", "=q4=Brutal Gladiator's Wyrmhide Helm", "=ds=", "175 #honor#", ""};
+				{ 25, 35114, "", "=q4=Brutal Gladiator's Wyrmhide Spaulders", "=ds=", "140 #honor#", ""};
+				{ 26, 35115, "", "=q4=Brutal Gladiator's Wyrmhide Tunic", "=ds=", "175 #honor#", ""};
+				{ 27, 35111, "", "=q4=Brutal Gladiator's Wyrmhide Gloves", "=ds=", "140 #honor#", ""};
+				{ 28, 35113, "", "=q4=Brutal Gladiator's Wyrmhide Legguards", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -4992,11 +5009,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33690, "", "=q4=Vengeful Gladiator's Kodohide Gloves", "=ds=#s9#", ""};
 				{ 21, 33692, "", "=q4=Vengeful Gladiator's Kodohide Legguards", "=ds=#s11#", ""};
 				{ 23, 0, "spell_nature_healingtouch", "=q6=#arenas1_3#", ""};
-				{ 24, 35023, "", "=q4=Brutal Gladiator's Kodohide Helm", "=ds=", "1603 #honor#", ""};
-				{ 25, 35025, "", "=q4=Brutal Gladiator's Kodohide Spaulders", "=ds=", "1282 #honor#", ""};
-				{ 26, 35026, "", "=q4=Brutal Gladiator's Kodohide Tunic", "=ds=", "1603 #honor#", ""};
-				{ 27, 35022, "", "=q4=Brutal Gladiator's Kodohide Gloves", "=ds=", "961 #honor#", ""};
-				{ 28, 35024, "", "=q4=Brutal Gladiator's Kodohide Legguards", "=ds=", "1603 #honor#", ""};
+				{ 24, 35023, "", "=q4=Brutal Gladiator's Kodohide Helm", "=ds=", "175 #honor#", ""};
+				{ 25, 35025, "", "=q4=Brutal Gladiator's Kodohide Spaulders", "=ds=", "140 #honor#", ""};
+				{ 26, 35026, "", "=q4=Brutal Gladiator's Kodohide Tunic", "=ds=", "175 #honor#", ""};
+				{ 27, 35022, "", "=q4=Brutal Gladiator's Kodohide Gloves", "=ds=", "140 #honor#", ""};
+				{ 28, 35024, "", "=q4=Brutal Gladiator's Kodohide Legguards", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5027,11 +5044,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33665, "", "=q4=Vengeful Gladiator's Chain Gauntlets", "=ds=#s9#", ""};
 				{ 21, 33667, "", "=q4=Vengeful Gladiator's Chain Leggings", "=ds=#s11#", ""};
 				{ 23, 0, "inv_weapon_bow_07", "=q6=#arenas2#", ""};
-				{ 24, 34992, "", "=q4=Brutal Gladiator's Chain Helm", "=ds=", "1603 #honor#", ""};
-				{ 25, 34994, "", "=q4=Brutal Gladiator's Chain Spaulders", "=ds=", "1282 #honor#", ""};
-				{ 26, 34990, "", "=q4=Brutal Gladiator's Chain Armor", "=ds=", "1603 #honor#", ""};
-				{ 27, 34991, "", "=q4=Brutal Gladiator's Chain Gauntlets", "=ds=", "961 #honor#", ""};
-				{ 28, 34993, "", "=q4=Brutal Gladiator's Chain Leggings", "=ds=", "1603 #honor#", ""};
+				{ 24, 34992, "", "=q4=Brutal Gladiator's Chain Helm", "=ds=", "175 #honor#", ""};
+				{ 25, 34994, "", "=q4=Brutal Gladiator's Chain Spaulders", "=ds=", "140 #honor#", ""};
+				{ 26, 34990, "", "=q4=Brutal Gladiator's Chain Armor", "=ds=", "175 #honor#", ""};
+				{ 27, 34991, "", "=q4=Brutal Gladiator's Chain Gauntlets", "=ds=", "140 #honor#", ""};
+				{ 28, 34993, "", "=q4=Brutal Gladiator's Chain Leggings", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5062,11 +5079,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33759, "", "=q4=Vengeful Gladiator's Silk Handguards", "=ds=#s9#", ""};
 				{ 21, 33761, "", "=q4=Vengeful Gladiator's Silk Trousers", "=ds=#s11#", ""};
 				{ 23, 0, "inv_staff_13", "=q6=#arenas3#", ""};
-				{ 24, 35097, "", "=q4=Brutal Gladiator's Silk Cowl", "=ds=", "1603 #honor#", ""};
-				{ 25, 35096, "", "=q4=Brutal Gladiator's Silk Amice", "=ds=", "1282 #honor#", ""};
-				{ 26, 35099, "", "=q4=Brutal Gladiator's Silk Raiment", "=ds=", "1603 #honor#", ""};
-				{ 27, 35098, "", "=q4=Brutal Gladiator's Silk Handguards", "=ds=", "961 #honor#", ""};
-				{ 28, 35100, "", "=q4=Brutal Gladiator's Silk Trousers", "=ds=", "1603 #honor#", ""};
+				{ 24, 35097, "", "=q4=Brutal Gladiator's Silk Cowl", "=ds=", "175 #honor#", ""};
+				{ 25, 35096, "", "=q4=Brutal Gladiator's Silk Amice", "=ds=", "140 #honor#", ""};
+				{ 26, 35099, "", "=q4=Brutal Gladiator's Silk Raiment", "=ds=", "175 #honor#", ""};
+				{ 27, 35098, "", "=q4=Brutal Gladiator's Silk Handguards", "=ds=", "140 #honor#", ""};
+				{ 28, 35100, "", "=q4=Brutal Gladiator's Silk Trousers", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5097,11 +5114,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33696, "", "=q4=Vengeful Gladiator's Lamellar Gauntlets", "=ds=#s9#", ""};
 				{ 21, 33698, "", "=q4=Vengeful Gladiator's Lamellar Legguards", "=ds=#s11#", ""};
 				{ 23, 0, "spell_holy_devotionaura", "=q6=#arenas4_1#", ""};
-				{ 24, 35029, "", "=q4=Brutal Gladiator's Lamellar Helm", "=ds=", "1603 #honor#", ""};
-				{ 25, 35031, "", "=q4=Brutal Gladiator's Lamellar Shoulders", "=ds=", "1282 #honor#", ""};
-				{ 26, 35027, "", "=q4=Brutal Gladiator's Lamellar Chestpiece", "=ds=", "1603 #honor#", ""};
-				{ 27, 35028, "", "=q4=Brutal Gladiator's Lamellar Gauntlets", "=ds=", "961 #honor#", ""};
-				{ 28, 35030, "", "=q4=Brutal Gladiator's Lamellar Legguards", "=ds=", "1603 #honor#", ""};
+				{ 24, 35029, "", "=q4=Brutal Gladiator's Lamellar Helm", "=ds=", "175 #honor#", ""};
+				{ 25, 35031, "", "=q4=Brutal Gladiator's Lamellar Shoulders", "=ds=", "140 #honor#", ""};
+				{ 26, 35027, "", "=q4=Brutal Gladiator's Lamellar Chestpiece", "=ds=", "175 #honor#", ""};
+				{ 27, 35028, "", "=q4=Brutal Gladiator's Lamellar Gauntlets", "=ds=", "140 #honor#", ""};
+				{ 28, 35030, "", "=q4=Brutal Gladiator's Lamellar Legguards", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5132,11 +5149,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33750, "", "=q4=Vengeful Gladiator's Scaled Gauntlets", "=ds=#s9#", ""};
 				{ 21, 33752, "", "=q4=Vengeful Gladiator's Scaled Legguards", "=ds=#s11#", ""};
 				{ 23, 0, "Spell_Holy_AuraOfLight", "=q6=#arenas4_2#", ""};
-				{ 24, 35090, "", "=q4=Brutal Gladiator's Scaled Helm", "=ds=", "1603 #honor#", ""};
-				{ 25, 35092, "", "=q4=Brutal Gladiator's Scaled Shoulders", "=ds=", "1282 #honor#", ""};
-				{ 26, 35088, "", "=q4=Brutal Gladiator's Scaled Chestpiece", "=ds=", "1603 #honor#", ""};
-				{ 27, 35089, "", "=q4=Brutal Gladiator's Scaled Gauntlets", "=ds=", "961 #honor#", ""};
-				{ 28, 35091, "", "=q4=Brutal Gladiator's Scaled Legguards", "=ds=", "1603 #honor#", ""};
+				{ 24, 35090, "", "=q4=Brutal Gladiator's Scaled Helm", "=ds=", "175 #honor#", ""};
+				{ 25, 35092, "", "=q4=Brutal Gladiator's Scaled Shoulders", "=ds=", "140 #honor#", ""};
+				{ 26, 35088, "", "=q4=Brutal Gladiator's Scaled Chestpiece", "=ds=", "175 #honor#", ""};
+				{ 27, 35089, "", "=q4=Brutal Gladiator's Scaled Gauntlets", "=ds=", "140 #honor#", ""};
+				{ 28, 35091, "", "=q4=Brutal Gladiator's Scaled Legguards", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5167,11 +5184,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33723, "", "=q4=Vengeful Gladiator's Ornamented Gloves", "=ds=#s9#", ""};
 				{ 21, 33725, "", "=q4=Vengeful Gladiator's Ornamented Legplates", "=ds=#s11#", ""};
 				{ 23, 0, "Spell_Holy_HolyBolt", "=q6=#arenas4_3#", ""};
-				{ 24, 35061, "", "=q4=Brutal Gladiator's Ornamented Headcover", "=ds=", "1603 #honor#", ""};
-				{ 25, 35063, "", "=q4=Brutal Gladiator's Ornamented Spaulders", "=ds=", "1282 #honor#", ""};
-				{ 26, 35059, "", "=q4=Brutal Gladiator's Ornamented Chestguard", "=ds=", "1603 #honor#", ""};
-				{ 27, 35060, "", "=q4=Brutal Gladiator's Ornamented Gloves", "=ds=", "961 #honor#", ""};
-				{ 28, 35062, "", "=q4=Brutal Gladiator's Ornamented Legplates", "=ds=", "1603 #honor#", ""};
+				{ 24, 35061, "", "=q4=Brutal Gladiator's Ornamented Headcover", "=ds=", "175 #honor#", ""};
+				{ 25, 35063, "", "=q4=Brutal Gladiator's Ornamented Spaulders", "=ds=", "140 #honor#", ""};
+				{ 26, 35059, "", "=q4=Brutal Gladiator's Ornamented Chestguard", "=ds=", "175 #honor#", ""};
+				{ 27, 35060, "", "=q4=Brutal Gladiator's Ornamented Gloves", "=ds=", "140 #honor#", ""};
+				{ 28, 35062, "", "=q4=Brutal Gladiator's Ornamented Legplates", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5202,11 +5219,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33744, "", "=q4=Vengeful Gladiator's Satin Gloves", "=ds=#s9#", ""};
 				{ 21, 33746, "", "=q4=Vengeful Gladiator's Satin Leggings", "=ds=#s11#", ""};
 				{ 23, 0, "spell_shadow_shadowwordpain", "=q6=#arenas5_1#", ""};
-				{ 24, 35084, "", "=q4=Brutal Gladiator's Satin Hood", "=ds=", "1603 #honor#", ""};
-				{ 25, 35086, "", "=q4=Brutal Gladiator's Satin Mantle", "=ds=", "1282 #honor#", ""};
-				{ 26, 35087, "", "=q4=Brutal Gladiator's Satin Robe", "=ds=", "1603 #honor#", ""};
-				{ 27, 35083, "", "=q4=Brutal Gladiator's Satin Gloves", "=ds=", "961 #honor#", ""};
-				{ 28, 35085, "", "=q4=Brutal Gladiator's Satin Leggings", "=ds=", "1603 #honor#", ""};
+				{ 24, 35084, "", "=q4=Brutal Gladiator's Satin Hood", "=ds=", "175 #honor#", ""};
+				{ 25, 35086, "", "=q4=Brutal Gladiator's Satin Mantle", "=ds=", "140 #honor#", ""};
+				{ 26, 35087, "", "=q4=Brutal Gladiator's Satin Robe", "=ds=", "175 #honor#", ""};
+				{ 27, 35083, "", "=q4=Brutal Gladiator's Satin Gloves", "=ds=", "140 #honor#", ""};
+				{ 28, 35085, "", "=q4=Brutal Gladiator's Satin Leggings", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5237,11 +5254,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33717, "", "=q4=Vengeful Gladiator's Mooncloth Gloves", "=ds=#s9#", ""};
 				{ 21, 33719, "", "=q4=Vengeful Gladiator's Mooncloth Leggings", "=ds=#s11#", ""};
 				{ 23, 0, "spell_holy_powerwordshield", "=q6=#arenas5_2#", ""};
-				{ 24, 35054, "", "=q4=Brutal Gladiator's Mooncloth Hood", "=ds=", "1603 #honor#", ""};
-				{ 25, 35056, "", "=q4=Brutal Gladiator's Mooncloth Mantle", "=ds=", "1282 #honor#", ""};
-				{ 26, 35057, "", "=q4=Brutal Gladiator's Mooncloth Robe", "=ds=", "1603 #honor#", ""};
-				{ 27, 35053, "", "=q4=Brutal Gladiator's Mooncloth Gloves", "=ds=", "961 #honor#", ""};
-				{ 28, 35055, "", "=q4=Brutal Gladiator's Mooncloth Leggings", "=ds=", "1603 #honor#", ""};
+				{ 24, 35054, "", "=q4=Brutal Gladiator's Mooncloth Hood", "=ds=", "175 #honor#", ""};
+				{ 25, 35056, "", "=q4=Brutal Gladiator's Mooncloth Mantle", "=ds=", "140 #honor#", ""};
+				{ 26, 35057, "", "=q4=Brutal Gladiator's Mooncloth Robe", "=ds=", "175 #honor#", ""};
+				{ 27, 35053, "", "=q4=Brutal Gladiator's Mooncloth Gloves", "=ds=", "140 #honor#", ""};
+				{ 28, 35055, "", "=q4=Brutal Gladiator's Mooncloth Leggings", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5272,11 +5289,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33700, "", "=q4=Vengeful Gladiator's Leather Gloves", "=ds=#s9#", ""};
 				{ 21, 33702, "", "=q4=Vengeful Gladiator's Leather Legguards", "=ds=#s11#", ""};
 				{ 23, 0, "inv_throwingknife_04", "=q6=#arenas6#", ""};
-				{ 24, 35033, "", "=q4=Brutal Gladiator's Leather Helm", "=ds=", "1603 #honor#", ""};
-				{ 25, 35035, "", "=q4=Brutal Gladiator's Leather Spaulders", "=ds=", "1282 #honor#", ""};
-				{ 26, 35036, "", "=q4=Brutal Gladiator's Leather Tunic", "=ds=", "1603 #honor#", ""};
-				{ 27, 35032, "", "=q4=Brutal Gladiator's Leather Gloves", "=ds=", "961 #honor#", ""};
-				{ 28, 35034, "", "=q4=Brutal Gladiator's Leather Legguards", "=ds=", "1603 #honor#", ""};
+				{ 24, 35033, "", "=q4=Brutal Gladiator's Leather Helm", "=ds=", "175 #honor#", ""};
+				{ 25, 35035, "", "=q4=Brutal Gladiator's Leather Spaulders", "=ds=", "140 #honor#", ""};
+				{ 26, 35036, "", "=q4=Brutal Gladiator's Leather Tunic", "=ds=", "175 #honor#", ""};
+				{ 27, 35032, "", "=q4=Brutal Gladiator's Leather Gloves", "=ds=", "140 #honor#", ""};
+				{ 28, 35034, "", "=q4=Brutal Gladiator's Leather Legguards", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5307,11 +5324,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33676, "", "=q4=Vengeful Gladiator's Dreadweave Gloves", "=ds=#s9#", ""};
 				{ 21, 33678, "", "=q4=Vengeful Gladiator's Dreadweave Leggings", "=ds=#s11#", ""};
 				{ 23, 0, "spell_shadow_deathcoil", "=q6=#arenas8_1#", ""};
-				{ 24, 35004, "", "=q4=Brutal Gladiator's Dreadweave Hood", "=ds=", "1603 #honor#", ""};
-				{ 25, 35006, "", "=q4=Brutal Gladiator's Dreadweave Mantle", "=ds=", "1282 #honor#", ""};
-				{ 26, 35007, "", "=q4=Brutal Gladiator's Dreadweave Robe", "=ds=", "1603 #honor#", ""};
-				{ 27, 35003, "", "=q4=Brutal Gladiator's Dreadweave Gloves", "=ds=", "961 #honor#", ""};
-				{ 28, 35005, "", "=q4=Brutal Gladiator's Dreadweave Leggings", "=ds=", "1603 #honor#", ""};
+				{ 24, 35004, "", "=q4=Brutal Gladiator's Dreadweave Hood", "=ds=", "175 #honor#", ""};
+				{ 25, 35006, "", "=q4=Brutal Gladiator's Dreadweave Mantle", "=ds=", "140 #honor#", ""};
+				{ 26, 35007, "", "=q4=Brutal Gladiator's Dreadweave Robe", "=ds=", "175 #honor#", ""};
+				{ 27, 35003, "", "=q4=Brutal Gladiator's Dreadweave Gloves", "=ds=", "140 #honor#", ""};
+				{ 28, 35005, "", "=q4=Brutal Gladiator's Dreadweave Leggings", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5342,11 +5359,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33684, "", "=q4=Vengeful Gladiator's Felweave Handguards", "=ds=#s9#", ""};
 				{ 21, 33686, "", "=q4=Vengeful Gladiator's Felweave Trousers", "=ds=#s11#", ""};
 				{ 23, 0, "spell_shadow_rainoffire", "=q6=#arenas8_2#", ""};
-				{ 24, 35010, "", "=q4=Brutal Gladiator's Felweave Cowl", "=ds=", "1603 #honor#", ""};
-				{ 25, 35009, "", "=q4=Brutal Gladiator's Felweave Amice", "=ds=", "1282 #honor#", ""};
-				{ 26, 35012, "", "=q4=Brutal Gladiator's Felweave Raiment", "=ds=", "1603 #honor#", ""};
-				{ 27, 35011, "", "=q4=Brutal Gladiator's Felweave Handguards", "=ds=", "961 #honor#", ""};
-				{ 28, 35013, "", "=q4=Brutal Gladiator's Felweave Trousers", "=ds=", "1603 #honor#", ""};
+				{ 24, 35010, "", "=q4=Brutal Gladiator's Felweave Cowl", "=ds=", "175 #honor#", ""};
+				{ 25, 35009, "", "=q4=Brutal Gladiator's Felweave Amice", "=ds=", "140 #honor#", ""};
+				{ 26, 35012, "", "=q4=Brutal Gladiator's Felweave Raiment", "=ds=", "175 #honor#", ""};
+				{ 27, 35011, "", "=q4=Brutal Gladiator's Felweave Handguards", "=ds=", "140 #honor#", ""};
+				{ 28, 35013, "", "=q4=Brutal Gladiator's Felweave Trousers", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5377,11 +5394,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33707, "", "=q4=Vengeful Gladiator's Linked Gauntlets", "=ds=#s9#", ""};
 				{ 21, 33709, "", "=q4=Vengeful Gladiator's Linked Leggings", "=ds=#s11#", ""};
 				{ 23, 0, "spell_nature_lightningshield", "=q6=#arenas7_1#", ""};
-				{ 24, 35044, "", "=q4=Brutal Gladiator's Linked Helm", "=ds=", "1603 #honor#", ""};
-				{ 25, 35046, "", "=q4=Brutal Gladiator's Linked Spaulders", "=ds=", "1282 #honor#", ""};
-				{ 26, 35042, "", "=q4=Brutal Gladiator's Linked Armor", "=ds=", "1603 #honor#", ""};
-				{ 27, 35043, "", "=q4=Brutal Gladiator's Linked Gauntlets", "=ds=", "961 #honor#", ""};
-				{ 28, 35045, "", "=q4=Brutal Gladiator's Linked Leggings", "=ds=", "1603 #honor#", ""};
+				{ 24, 35044, "", "=q4=Brutal Gladiator's Linked Helm", "=ds=", "175 #honor#", ""};
+				{ 25, 35046, "", "=q4=Brutal Gladiator's Linked Spaulders", "=ds=", "140 #honor#", ""};
+				{ 26, 35042, "", "=q4=Brutal Gladiator's Linked Armor", "=ds=", "175 #honor#", ""};
+				{ 27, 35043, "", "=q4=Brutal Gladiator's Linked Gauntlets", "=ds=", "140 #honor#", ""};
+				{ 28, 35045, "", "=q4=Brutal Gladiator's Linked Leggings", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5412,11 +5429,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33712, "", "=q4=Vengeful Gladiator's Mail Gauntlets", "=ds=#s9#", ""};
 				{ 21, 33714, "", "=q4=Vengeful Gladiator's Mail Leggings", "=ds=#s11#", ""};
 				{ 23, 0, "Spell_Nature_Lightning", "=q6=#arenas7_2#", ""};
-				{ 24, 35050, "", "=q4=Brutal Gladiator's Mail Helm", "=ds=", "1603 #honor#", ""};
-				{ 25, 35052, "", "=q4=Brutal Gladiator's Mail Spaulders", "=ds=", "1282 #honor#", ""};
-				{ 26, 35048, "", "=q4=Brutal Gladiator's Mail Armor", "=ds=", "1603 #honor#", ""};
-				{ 27, 35049, "", "=q4=Brutal Gladiator's Mail Gauntlets", "=ds=", "961 #honor#", ""};
-				{ 28, 35051, "", "=q4=Brutal Gladiator's Mail Leggings", "=ds=", "1603 #honor#", ""};
+				{ 24, 35050, "", "=q4=Brutal Gladiator's Mail Helm", "=ds=", "175 #honor#", ""};
+				{ 25, 35052, "", "=q4=Brutal Gladiator's Mail Spaulders", "=ds=", "140 #honor#", ""};
+				{ 26, 35048, "", "=q4=Brutal Gladiator's Mail Armor", "=ds=", "175 #honor#", ""};
+				{ 27, 35049, "", "=q4=Brutal Gladiator's Mail Gauntlets", "=ds=", "140 #honor#", ""};
+				{ 28, 35051, "", "=q4=Brutal Gladiator's Mail Leggings", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5447,11 +5464,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33739, "", "=q4=Vengeful Gladiator's Ringmail Gauntlets", "=ds=#s9#", ""};
 				{ 21, 33741, "", "=q4=Vengeful Gladiator's Ringmail Leggings", "=ds=#s11#", ""};
 				{ 23, 0, "spell_nature_magicimmunity", "=q6=#arenas7_3#", ""};
-				{ 24, 35079, "", "=q4=Brutal Gladiator's Ringmail Helm", "=ds=", "1603 #honor#", ""};
-				{ 25, 35081, "", "=q4=Brutal Gladiator's Ringmail Spaulders", "=ds=", "1282 #honor#", ""};
-				{ 26, 35077, "", "=q4=Brutal Gladiator's Ringmail Armor", "=ds=", "1603 #honor#", ""};
-				{ 27, 35078, "", "=q4=Brutal Gladiator's Ringmail Gauntlets", "=ds=", "961 #honor#", ""};
-				{ 28, 35080, "", "=q4=Brutal Gladiator's Ringmail Leggings", "=ds=", "1603 #honor#", ""};
+				{ 24, 35079, "", "=q4=Brutal Gladiator's Ringmail Helm", "=ds=", "175 #honor#", ""};
+				{ 25, 35081, "", "=q4=Brutal Gladiator's Ringmail Spaulders", "=ds=", "140 #honor#", ""};
+				{ 26, 35077, "", "=q4=Brutal Gladiator's Ringmail Armor", "=ds=", "175 #honor#", ""};
+				{ 27, 35078, "", "=q4=Brutal Gladiator's Ringmail Gauntlets", "=ds=", "140 #honor#", ""};
+				{ 28, 35080, "", "=q4=Brutal Gladiator's Ringmail Leggings", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {
@@ -5482,11 +5499,11 @@ local moduleName = "AtlasLootBurningCrusade"
 				{ 20, 33729, "", "=q4=Vengeful Gladiator's Plate Gauntlets", "=ds=#s9#", ""};
 				{ 21, 33731, "", "=q4=Vengeful Gladiator's Plate Legguards", "=ds=#s11#", ""};
 				{ 23, 0, "inv_sword_27", "=q6=#arenas9#", ""};
-				{ 24, 35068, "", "=q4=Brutal Gladiator's Plate Helm", "=ds=", "1603 #honor#", ""};
-				{ 25, 35070, "", "=q4=Brutal Gladiator's Plate Shoulders", "=ds=", "1282 #honor#", ""};
-				{ 26, 35066, "", "=q4=Brutal Gladiator's Plate Chestpiece", "=ds=", "1603 #honor#", ""};
-				{ 27, 35067, "", "=q4=Brutal Gladiator's Plate Gauntlets", "=ds=", "961 #honor#", ""};
-				{ 28, 35069, "", "=q4=Brutal Gladiator's Plate Legguards", "=ds=", "1603 #honor#", ""};
+				{ 24, 35068, "", "=q4=Brutal Gladiator's Plate Helm", "=ds=", "175 #honor#", ""};
+				{ 25, 35070, "", "=q4=Brutal Gladiator's Plate Shoulders", "=ds=", "140 #honor#", ""};
+				{ 26, 35066, "", "=q4=Brutal Gladiator's Plate Chestpiece", "=ds=", "175 #honor#", ""};
+				{ 27, 35067, "", "=q4=Brutal Gladiator's Plate Gauntlets", "=ds=", "140 #honor#", ""};
+				{ 28, 35069, "", "=q4=Brutal Gladiator's Plate Legguards", "=ds=", "175 #honor#", ""};
 			};
 		};
 		info = {

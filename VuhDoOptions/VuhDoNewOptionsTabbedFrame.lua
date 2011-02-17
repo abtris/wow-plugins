@@ -102,7 +102,6 @@ function VUHDO_tabbedPanelOkayClicked(aButton)
 	VUHDO_reloadUI();
 
 	VUHDO_MAY_DEBUFF_ANIM = true;
-	collectgarbage('collect');
 end
 
 
@@ -200,7 +199,6 @@ function VUHDO_yesNoDiscardChangesCallback(aDecision)
 		VUHDO_initAllBurstCaches();
 		VUHDO_initBouquetComboModel();
 		VUHDO_reloadUI();
-		collectgarbage('collect');
 	end
 end
 
@@ -243,5 +241,3 @@ function VUHDO_initOptionsSettings()
 		VUHDO_OPTIONS_SETTINGS = VUHDO_deepCopyTable(VUHDO_INIT_OPTIONS_SETTINGS);
 	end
 end
-
-

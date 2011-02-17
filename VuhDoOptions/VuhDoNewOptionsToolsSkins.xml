@@ -70,7 +70,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_setComboModel(self, "VUHDO_CONFIG.CURRENT_PROFILE", VUHDO_PROFILE_TABLE_MODEL);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_177);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K177);
 								self:SetAttribute("custom_function", VUHDO_profileComboValueChanged);
 								VUHDO_setProfileCombo(self);
 							</OnLoad>
@@ -143,7 +143,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.CURRENT_PROFILE");
 								VUHDO_setProfileEditBox(self);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_176);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K176);
 							</OnLoad>
 						</Scripts>
 					</EditBox>
@@ -213,7 +213,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_298);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K298);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfCheckButtonInitFromModel(self);
@@ -240,7 +240,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_299);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K299);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "Label"); VUHDO_lnfRadioButtonOnShow(self);
@@ -267,7 +267,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_300);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K300);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "Label"); VUHDO_lnfRadioButtonOnShow(self);
@@ -294,7 +294,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_444);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K444);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "Label"); VUHDO_lnfRadioButtonOnShow(self);
@@ -321,7 +321,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_301);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K301);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "Label"); VUHDO_lnfRadioButtonOnShow(self);
@@ -348,7 +348,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_302);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K302);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "Label"); VUHDO_lnfRadioButtonOnShow(self);
@@ -375,7 +375,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_475);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K475);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "Label"); VUHDO_lnfRadioButtonOnShow(self);
@@ -402,7 +402,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_476);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K476);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "Label"); VUHDO_lnfRadioButtonOnShow(self);
@@ -461,7 +461,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.IS_ALWAYS_OVERWRITE_PROFILE");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_487);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K487);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -476,7 +476,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_486);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K486);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "Label"); VUHDO_lnfRadioButtonOnShow(self);
@@ -558,7 +558,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_setComboModel(self, "VUHDO_CUSTOM_DEBUFF_PROFILE", VUHDO_PROFILE_TABLE_MODEL);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_494);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K494);
 							</OnLoad>
 						</Scripts>
 					</Button>
@@ -574,7 +574,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_EXPORT_CUDE_TO_RADIO_VALUE", 3);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_496);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K496);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -590,7 +590,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_EXPORT_CUDE_TO_RADIO_VALUE", 2);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_495);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K495);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -606,7 +606,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_EXPORT_CUDE_TO_RADIO_VALUE", 1);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_497);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K497);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>

@@ -1,0 +1,113 @@
+---------------
+ProfMax v2.0
+---------------
+-Updated for Cataclysm
+
+---------------
+ProfMax v1.6
+---------------
+-Small tweak to the algorithm for determining if profit can be made
+
+---------------
+ProfMax v1.5
+---------------
+-Price formula now uses the minimum number made for each item to calculate worth. 
+ Previous version presumed only 1 item was crafted each time.
+-Added handling for SKILL_LINES_CHANGED event.  If the tradeskill window is open 
+ when mounting/unmounting, handler will now prevent the AH values from disappearing 
+ from the tradeskill window.
+ 
+---------------
+ProfMax v1.4
+---------------
+-Added support for Auctionator.
+-Added the following options:
+     -View the profit margin rather than gold profit in the reagent window. (Profit Margin = (Profit / Revenue) * 100)
+     -Ability to remove certain keywords(Transmute, Enchant, Elixir of, etc...) from your tradeskill window to tidy things up.
+     -Ability to take into account current inventory when calculating total tradeskill item cost.  Before when calculating total cost, it was presumed that everything would be
+	 purchased from vendor or auction house.
+
+---------------
+ProfMax v1.3
+---------------
+-Updated text on Options panel to be more intuitive.
+-Corrected bug when trying to open tradeskill window when the Options menu was visible.
+-Removed support for Skillet.
+-Fixed issue where some tradeskill items were being hidden inadvertently.
+
+---------------
+ProfMax v1.2
+---------------
+-Updated for patch 3.3
+
+---------------
+ProfMax v1.1
+---------------
+-Added option to Round auction values to the nearest gold.
+
+---------------
+ProfMax v1.0
+---------------
+-Updated .toc for 3.1 patch
+-Corrected problem where interface options were not saving properly after patch 3.1.  
+
+---------------
+ProfMax v0.9.0
+---------------
+-Added basic support for Skillet.  Disabled by default.  Enable via Options Panel.
+-Added option to display reagent price in the TradeSkillUI window.  Disabled by default.  Enable via Options Panel. (Does not work with Skillet)
+-Minor code updates for performance improvements.
+-Fixed issue when INFORMANT knows about an item but shows the cost to be zero.
+
+---------------
+ProfMax v0.8.0
+---------------
+-Added support for AuctionLite.
+-Added support for AuctionMaster.
+-Added internal lookup table for item buy prices for users who do not use INFORMANT.  Let me know if I missed any mats you can but from vendor.
+-Added option to flag items that will result in profit from AH.  Items will be flagged with an "*" in the TradeSkill UI window.  Note: You may experience a delay when scrolling in the Tradeskill UI Frame. (Seems to only be when using Auctioneer)  If so, then you'll probably want to keep this option disabled.
+-Removed option for enabling debugging.
+
+---------------
+ProfMax v0.6.0
+---------------
+-Added additional nil checks for users with no pricing modules installed
+-Added new option in the options panel to show per unit auction pricing in tradeskill UI even if no mats are available
+-Added new option in the options panel to show only per unit auction pricing even if mats are available. (that is, don't multiply by the mats available count)
+
+---------------
+ProfMax v0.5.0
+---------------
+-ProfMax Loads OnDemand instead of at logon.
+-Added options panel to the Blizzard Interface Options frame.
+-Added the ability to select the preferred Pricing Algorithm to use.  This can be set in the Interface Options menu.
+-Using Informant to determine vendor purchase price.  Older versions of ProfMax only used AH values or assumed zero.
+-Added SavedVariables capability to store options for ProfMax.
+-Added ChangeLog.txt file to package.
+
+---------------
+ProfMax v0.3.0
+---------------
+-Added check to ensure itemLink passed to Auctioneer API is an item.  Should correct problem with Enchanting and other Tradeskills.
+
+---------------
+ProfMax v0.2.3
+---------------
+-Added check for nil value after calling Blizzard GetTradeSkillItemLink and GetTradeSkillReagentItemLink API calls
+-Added check for nil value for TradeSkillName
+
+---------------
+ProfMax v0.2.1
+---------------
+-Integrated into TradeSkillUI.
+-Added calculation to determine if profit can be made by purchasing mats on AH.
+
+---------------
+ProfMax v0.2
+---------------
+-Removed EnhTooltip dependency
+
+---------------
+ProfMax v0.1
+---------------
+-Initial Release

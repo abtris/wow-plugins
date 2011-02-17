@@ -543,6 +543,120 @@ end
 
 function ArkInventory.LDB.Mounts.IsFlyable( )
 	
+	-- doing it the long way because relying on blizzard to get it right is not an option
+	
+	ArkInventory.IsFlyable = IsFlyableArea( )  -- its usually wrong, but it's the only choice we have so we start here
+	
+	local skill = 0
+	
+	if ArkInventory.IsFlyable then
+		
+		-- player level
+		
+		if UnitLevel( "player" ) < 20 then
+			
+			ArkInventory.IsFlyable = false
+			--ArkInventory.Output( "player level is too low for flying" )
+			
+		else
+		
+			-- riding skill, you only have one of them
+			
+			if GetSpellInfo( ( GetSpellInfo( 33388 ) ) ) then -- apprentice
+				skill = 75
+				--ArkInventory.Output( "riding skill = ", skill, "/apprentice" )
+			elseif GetSpellInfo( ( GetSpellInfo( 33391 ) ) ) then -- journeyman
+				skill = 150
+				--ArkInventory.Output( "riding skill = ", skill, "/journeyman" )
+			elseif GetSpellInfo( ( GetSpellInfo( 34090 ) ) ) then -- expert
+				skill = 225
+				--ArkInventory.Output( "riding skill = ", skill, "/expert" )
+			elseif GetSpellInfo( ( GetSpellInfo( 34091 ) ) ) then -- artisan
+				skill = 300
+				--ArkInventory.Output( "riding skill = ", skill, "/artisan" )
+			elseif GetSpellInfo( ( GetSpellInfo( 90265 ) ) ) then -- master
+				skill = 300
+				--ArkInventory.Output( "riding skill = ", skill, "/master" )
+			end
+			
+			if skill < 225 then
+				
+				ArkInventory.IsFlyable = false
+				--ArkInventory.Output( "riding skill ", skill, " is too low for flying" )
+				
+			else
+				
+				SetMapToCurrentZone( ) -- wont work after a uireload, requires a zone change to kick in
+				local zone = GetCurrentMapContinent( )
+				
+				if zone == -1 then
+					
+					-- cosmic (odd places, instances)
+					
+				elseif zone == 1 or zone == 2 then
+					
+					-- azeroth, need flight masters licence
+					
+					if not GetSpellInfo( ( GetSpellInfo( 90267 ) ) ) then
+						--ArkInventory.Output( "azeroth but you dont know flight masters licence" )
+						ArkInventory.IsFlyable = false
+					end
+					
+				elseif zone == 3 then
+					
+					-- outland, need skill but weve already checked for that
+					
+				elseif zone == 4 then
+					
+					-- northrend, needs cold weather flying
+					
+					if not GetSpellInfo( ( GetSpellInfo( 54197 ) ) ) then
+						
+						--ArkInventory.Output( "northrend but you dont know cold weather flying" )
+						ArkInventory.IsFlyable = false
+		
+					end
+					
+				elseif zone == 5 then
+					
+					-- maelstrom / deepholm
+					
+				else
+					
+					ArkInventory.OutputWarning( "bad code: zone ", zone, " not mapped" )
+					
+				end
+				
+			end
+			
+		end
+	
+	end
+	
+	if ArkInventory.IsFlyable then
+		
+		-- world pvp battle in progress?
+		
+		for index = 1, GetNumWorldPVPAreas( ) do
+			
+			local pvpID, pvpZone, isActive = GetWorldPVPAreaInfo( index )
+			--ArkInventory.Output( pvpID, " / ", pvpZone, " / ", isActive )
+			
+			if ArkInventory.IsFlyable and isActive and GetRealZoneText( ) == pvpZone then
+				-- ArkInventory.Output( "battle in progress, no flying allowed" )
+				ArkInventory.IsFlyable = false
+				break
+			end
+		end
+		
+	end
+	
+	
+	
+	if true then return end
+	
+	
+	
 	-- check if a pure flying mount is usable
 	local companionData = ArkInventory.Const.CompanionData
 	local companionType = "MOUNT"
@@ -570,16 +684,19 @@ function ArkInventory.LDB.Mounts.IsFlyable( )
 	
 	ArkInventory.IsFlyable = IsFlyableArea( )
 	
-	-- ArkInventory.Output( ArkInventory.IsFlyable, " / ", GetRealZoneText( ), " / ", GetWintergraspWaitTime( ) )
-	
-	-- check for wintergrasp battle in progress
-	if ArkInventory.IsFlyable and not GetWintergraspWaitTime( ) and GetRealZoneText( ) == ArkInventory.Localise["WOW_ZONE_WINTERGRASP"] then
-		-- ArkInventory.Output( "battle in progress, no flying allowed" )
-		ArkInventory.IsFlyable = false
+	-- check for world pvp zone battle in progress
+	for index = 1, GetNumWorldPVPAreas( ) do
+		
+		local pvpID, pvpZone, isActive = GetWorldPVPAreaInfo( index )
+		--ArkInventory.Output( pvpID, " / ", pvpZone, " / ", isActive )
+		
+		if ArkInventory.IsFlyable and isActive and GetRealZoneText( ) == pvpZone then
+			-- ArkInventory.Output( "battle in progress, no flying allowed" )
+			ArkInventory.IsFlyable = false
+			break
+		end
 	end
-	
-	-- ArkInventory.Output( ArkInventory.IsFlyable, " / ", GetRealZoneText( ), " / ", " / ", GetWintergraspWaitTime( ) )
-	
+
 end
 
 function ArkInventory.LDB.Companion.GetAvailable( companionType, ignoreActive, mountType )

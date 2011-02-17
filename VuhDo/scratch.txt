@@ -1,4 +1,3 @@
-- Tooltips, targets, buffS, custom debuffs
 - Skin Manager
 - Icon-statusbars via cooldown-uhr
 - Bouquets <, > # stacks bei buffs/debuffs
@@ -8,7 +7,11 @@
 - Cluster indicator font
 - Cluster: 2.Cluster-Range
 - Debuffs > Missing Buffs
-- HoTs flashen, wenn Warning
+- Resting icon/pvp icon durch bouquets
+
+- Tooltips/Smartcast debuff icons
+- Export custom debuffs buggy?
+
 
 
 1. Health     3

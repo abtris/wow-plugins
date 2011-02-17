@@ -222,9 +222,6 @@ local updateTable = {
 		ArkInventory.Const.Category.Code.Empty[309].text = value
 		ArkInventory.Const.Slot.Data[ArkInventory.Const.Slot.Type.Mining].long = value
 	end,
-	["WOW_SKILL_RIDING"] = function( value )
-		ArkInventory.Const.Category.Code.Skill[114].text = value
-	end,
 	["WOW_SKILL_SKINNING"] = function( value )
 		ArkInventory.Const.Category.Code.Skill[112].text = value
 	end,
@@ -268,6 +265,7 @@ local itemTable = { -- key, itemtype = true / itemsubtype = false, item id
 	{ "WOW_ITEM_TYPE_TRADE_GOODS_CLOTH", false, 2320 },
 	{ "WOW_ITEM_TYPE_TRADE_GOODS_DEVICES", false, 15846 },
 	{ "WOW_ITEM_TYPE_TRADE_GOODS_ELEMENTAL", false, 37704 },
+	{ "WOW_ITEM_TYPE_TRADE_GOODS_ITEM_ENCHANTMENT", false, 38682 },
 	{ "WOW_ITEM_TYPE_TRADE_GOODS_EXPLOSIVES", false, 4378 },
 	{ "WOW_ITEM_TYPE_TRADE_GOODS_HERB", false, 36908 },
 	{ "WOW_ITEM_TYPE_TRADE_GOODS_LEATHER", false, 44128 },
@@ -472,7 +470,6 @@ local tooltipTable = {
 	{ "WOW_SKILL_INSCRIPTION", 50166 },
 	{ "WOW_SKILL_JEWELCRAFTING", 20854 },
 	{ "WOW_SKILL_LEATHERWORKING", 18731 },
-	{ "WOW_SKILL_RIDING", 18796 },
 	{ "WOW_SKILL_TAILORING", 6272 },
 }
 
@@ -613,7 +610,7 @@ frame:SetScript( "OnUpdate",
 				else
 					
 					for k in pairs( updateTable ) do
-						--ArkInventory.Output( k )
+						ArkInventory.Output( k )
 					end
 					
 					ArkInventory.OutputWarning( "Translations for ", GetLocale( ), " failed to load, you may experience issues with item categorisation and menu text" )

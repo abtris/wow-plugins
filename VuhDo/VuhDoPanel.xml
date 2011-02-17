@@ -53,7 +53,7 @@
 		</Layers>
 		<Scripts>
 			<OnLoad>
-				self:SetFrameLevel(self:GetParent():GetFrameLevel() + 8);
+				self.addLevel = 8;
 			</OnLoad>
 		</Scripts>
 	</Button>
@@ -67,21 +67,27 @@
 		</Layers>
 	</Frame>
 
-	<Button name="VuhDoDebuffIconTemplate" virtual="true">
-		<Layers>
-			<Layer level="BACKGROUND">
-				<Texture name="$parentI">
-				</Texture>
-			</Layer>
-			<Layer level="OVERLAY">
-				<FontString name="$parentT" inherits="NumberFontNormalSmall"></FontString>
-				<FontString name="$parentC" inherits="NumberFontNormalSmall"></FontString>
-				<FontString name="$parentN" inherits="GameFontNormalSmall"></FontString>
-			</Layer>
-		</Layers>
+	<Button name="VuhDoDebuffIconTemplate" virtual="true" inherits="SecureUnitButtonTemplate,SecureHandlerEnterLeaveTemplate,SecureHandlerShowHideTemplate">
+		<Frames>
+			<Frame name="$parentB" enableMouse="false">
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture name="$parentI">
+						</Texture>
+					</Layer>
+					<Layer level="OVERLAY">
+						<FontString name="$parentT" inherits="NumberFontNormalSmall"></FontString>
+						<FontString name="$parentC" inherits="NumberFontNormalSmall"></FontString>
+						<FontString name="$parentN" inherits="GameFontNormalSmall"></FontString>
+					</Layer>
+				</Layers>
+			</Frame>
+		</Frames>
 		<Scripts>
 			<OnLoad>
-				self:SetFrameLevel(self:GetParent():GetFrameLevel() + 9);
+				self.addLevel = 9;
+				self:SetScript("PreClick", VuhDoActionPreClick);
+				self:SetScript("PostClick", VuhDoActionPostClick);
 			</OnLoad>
 		</Scripts>
 	</Button>
@@ -129,7 +135,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_repairStatusbar(self);
-										self:SetFrameLevel(self:GetParent():GetFrameLevel() + 1);
+										self.addLevel = 1;
 									</OnLoad>
 								</Scripts>
 							</StatusBar>
@@ -162,7 +168,7 @@
 								</Layers>
 								<Scripts>
 									<OnLoad>
-										self:SetFrameLevel(self:GetParent():GetFrameLevel() + 2);
+										self.addLevel = 2;
 									</OnLoad>
 								</Scripts>
 							</Frame>
@@ -267,7 +273,7 @@
 										<Scripts>
 											<OnLoad>
 												VUHDO_repairStatusbar(self);
-												self:SetFrameLevel(self:GetParent():GetFrameLevel() + 1);
+												self.addLevel = 1;
 											</OnLoad>
 										</Scripts>
 									</StatusBar>
@@ -276,7 +282,7 @@
 										<Scripts>
 											<OnLoad>
 												VUHDO_repairStatusbar(self);
-												self:SetFrameLevel(self:GetParent():GetFrameLevel() + 1);
+												self.addLevel = 1;
 											</OnLoad>
 										</Scripts>
 									</StatusBar>
@@ -285,20 +291,24 @@
 										<Scripts>
 											<OnLoad>
 												VUHDO_repairStatusbar(self);
-												self:SetFrameLevel(self:GetParent():GetFrameLevel() + 1);
+												self.addLevel = 1;
 											</OnLoad>
 										</Scripts>
 									</StatusBar>
 
 									<Frame name="$parentPlTg" setAllPoints="true" hidden="true" inherits="VuhDoPlayerTargetFrameTemplate">
 										<Scripts>
-											<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 2);</OnLoad>
+											<OnLoad>
+												self.addLevel = 2;
+											</OnLoad>
 										</Scripts>
 									</Frame>
 
 									<Frame name="$parentClu" setAllPoints="true" hidden="true" inherits="VuhDoPlayerTargetFrameTemplate">
 										<Scripts>
-											<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 2);</OnLoad>
+											<OnLoad>
+												self.addLevel = 2;
+											</OnLoad>
 										</Scripts>
 									</Frame>
 
@@ -306,7 +316,7 @@
 										<Scripts>
 											<OnLoad>
 												VUHDO_repairStatusbar(self);
-												self:SetFrameLevel(self:GetParent():GetFrameLevel() + 3);
+												self.addLevel = 3;
 											</OnLoad>
 										</Scripts>
 									</StatusBar>
@@ -315,7 +325,7 @@
 										<Scripts>
 											<OnLoad>
 												VUHDO_repairStatusbar(self);
-												self:SetFrameLevel(self:GetParent():GetFrameLevel() + 4);
+												self.addLevel = 4;
 											</OnLoad>
 										</Scripts>
 									</StatusBar>
@@ -359,7 +369,9 @@
 											</Layer>
 										</Layers>
 										<Scripts>
-											<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 5);</OnLoad>
+											<OnLoad>
+												self.addLevel = 5;
+											</OnLoad>
 										</Scripts>
 									</Frame>
 
@@ -368,7 +380,7 @@
 										<Scripts>
 											<OnLoad>
 												VUHDO_repairStatusbar(self);
-												self:SetFrameLevel(self:GetParent():GetFrameLevel() + 6);
+												self.addLevel = 6;
 											</OnLoad>
 										</Scripts>
 									</StatusBar>
@@ -377,7 +389,7 @@
 										<Scripts>
 											<OnLoad>
 												VUHDO_repairStatusbar(self);
-												self:SetFrameLevel(self:GetParent():GetFrameLevel() + 6);
+												self.addLevel = 6;
 											</OnLoad>
 										</Scripts>
 									</StatusBar>
@@ -386,7 +398,7 @@
 										<Scripts>
 											<OnLoad>
 												VUHDO_repairStatusbar(self);
-												self:SetFrameLevel(self:GetParent():GetFrameLevel() + 6);
+												self.addLevel = 6;
 											</OnLoad>
 										</Scripts>
 									</StatusBar>
@@ -421,7 +433,9 @@
 											</Layer>
 										</Layers>
 										<Scripts>
-											<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 10);</OnLoad>
+											<OnLoad>
+												self.addLevel = 10;
+											</OnLoad>
 										</Scripts>
 									</Frame>
 
@@ -449,7 +463,9 @@
 											</Layer>
 										</Layers>
 										<Scripts>
-											<OnLoad>self:SetFrameLevel(self:GetParent():GetFrameLevel() + 11);</OnLoad>
+											<OnLoad>
+												self.addLevel = 11;
+											</OnLoad>
 										</Scripts>
 									</Frame>
 
@@ -457,7 +473,7 @@
 										<Scripts>
 											<OnLoad>
 												VUHDO_repairStatusbar(self);
-												self:SetFrameLevel(self:GetParent():GetFrameLevel() + 12);
+												self.addLevel = 12;
 											</OnLoad>
 										</Scripts>
 									</StatusBar>

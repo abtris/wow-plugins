@@ -157,7 +157,7 @@ function HealBot_Init_Spells_Defaults(class)
 -- PALADIN
     HealBot_Spells = {
         [HEALBOT_HOLY_LIGHT] = {
-            CastTime = 2.5, Mana =  35, Level = 14 },
+            CastTime = 2.5, Mana =  35, Level = 7 },
 
         [HEALBOT_FLASH_OF_LIGHT] = {
             CastTime = 1.5, Mana =  35, Level = 16 },
@@ -251,10 +251,10 @@ function HealBot_Init_Spells_Defaults(class)
             CastTime = 0, Mana =  25, Level =  8, HoT=HEALBOT_REJUVENATION},
 
         [HEALBOT_HEALING_TOUCH] = {
-            CastTime = 1.5, Mana =  25, Level  = 3 },
+            CastTime = 1.5, Mana =  25, Level  = 78 },
  
         [HEALBOT_NOURISH] = {
-            CastTime = 1.5, Mana = 1400, Level = 78 },
+            CastTime = 1.5, Mana = 1400, Level = 8 },
  
         [HEALBOT_REGROWTH] = {
             CastTime = 2, Mana =  80, Level = 12, HoT=HEALBOT_REGROWTH},

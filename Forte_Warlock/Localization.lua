@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+﻿-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 
 --[[
 "frFR": French
@@ -53,8 +53,6 @@ if FW.CLASS == "WARLOCK" then
 		FWL.SEDUCE_BREAK = "Seduce Break";
 		FWL.SEDUCE_FADE = "Seduce Fade";
 		
-		FWL.BREAK_FADE = "Break/Fade";
-		FWL.BREAK_FADE_HINT1 = "The time you set in the fade string defines when it is displayed.";
 		FWL.FEAR_BREAK = "Fear Break";
 		FWL.FEAR_FADE = "Fear Fade";
 		FWL.BANISH_BREAK = "Banish Break";
@@ -113,8 +111,6 @@ if FW.CLASS == "WARLOCK" then
 		FWL.SEDUCE_BREAK = "Соблазнение прервано";
 		FWL.SEDUCE_FADE = "Соблазнение рассеивается";
 		
-		FWL.BREAK_FADE = "Прервано/Рассеивается";
-		FWL.BREAK_FADE_HINT1 = "Время отображение строки рассеивания.";
 		FWL.FEAR_BREAK = "Страх прерван";
 		FWL.FEAR_FADE = "Страх рассеивается";
 		FWL.BANISH_BREAK = "Изгнание прервано";
@@ -173,8 +169,6 @@ if FW.CLASS == "WARLOCK" then
 		FWL.SEDUCE_BREAK = "诱惑打断";
 		FWL.SEDUCE_FADE = "诱惑消退";
 
-		FWL.BREAK_FADE = "打断/失效";
-		FWL.BREAK_FADE_HINT1 = "失效信息持续时间.";
 		FWL.FEAR_BREAK = "恐惧打断";
 		FWL.FEAR_FADE = "恐惧失效";
 		FWL.BANISH_BREAK = "放逐打断";
@@ -232,8 +226,6 @@ if FW.CLASS == "WARLOCK" then
 		FWL.SEDUCE_BREAK = "誘惑打斷";
 		FWL.SEDUCE_FADE = "誘惑消退";
 
-		FWL.BREAK_FADE = "打斷/失效";
-		FWL.BREAK_FADE_HINT1 = "失效資訊持續時間.";
 		FWL.FEAR_BREAK = "恐懼打斷";
 		FWL.FEAR_FADE = "恐懼失效";
 		FWL.BANISH_BREAK = "放逐打斷";
@@ -290,8 +282,6 @@ if FW.CLASS == "WARLOCK" then
 		FWL.SEDUCE_BREAK = "Verführung Unterbrochen";
 		FWL.SEDUCE_FADE = "Verführung Endet";
 		
-		FWL.BREAK_FADE = "Unterbrochen/Endet";
-		--[[>>]]FWL.BREAK_FADE_HINT1 = "Die Zeit die du in der Textzeile einsetzt bestimmt wann sie angezeigt wird. (Korrekte übersetzung? Originaltext: The time you set in the fade string defines when it is displayed.)";
 		FWL.FEAR_BREAK = "Furcht Unterbrochen";
 		FWL.FEAR_FADE = "Furcht Endet";
 		FWL.BANISH_BREAK = "Verbannung Unterbrochen";
@@ -349,8 +339,6 @@ if FW.CLASS == "WARLOCK" then
 		FWL.SEDUCE_BREAK = "유혹 풀림";
 		FWL.SEDUCE_FADE = "유혹 사라짐";
 		
-		FWL.BREAK_FADE = "풀림/사라짐";
-		FWL.BREAK_FADE_HINT1 = "사라짐 영역에 설정한 시간이 언제 표시될지를 결정합니다.";
 		FWL.FEAR_BREAK = "공포 풀림";
 		FWL.FEAR_FADE = "공포 사라짐";
 		FWL.BANISH_BREAK = "추방 풀림";
@@ -408,8 +396,6 @@ if FW.CLASS == "WARLOCK" then
 		FWL.SEDUCE_BREAK = "Seduce Break";
 		FWL.SEDUCE_FADE = "Seduce Fade";
 		
-		FWL.BREAK_FADE = "Break/Fade";
-		FWL.BREAK_FADE_HINT1 = "The time you set in the fade string defines when it is displayed.";
 		FWL.FEAR_BREAK = "Fear Break";
 		FWL.FEAR_FADE = "Fear Fade";
 		FWL.BANISH_BREAK = "Banish Break";

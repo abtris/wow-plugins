@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 
 local CD = FW:Module("Cooldown");
 local FW = FW;
@@ -733,9 +733,10 @@ end
 
 local function CD_ScanBookCooldowns()
 	--FW:Debug("Scanning Book");
+
 	local i = 1;
 	local spell,start,duration,enabled,texture;
-	
+
 	while true do
 		spell = select(2,GetSpellBookItemInfo(i,"spell"));
 		if spell then
@@ -927,8 +928,7 @@ function CD:RegisterMeleePowerupCooldowns()
 	CD:RegisterHiddenCooldown(59441,92124,75); -- Prestor's Talisman of Machination, Nefarious Plot 
 	CD:RegisterHiddenCooldown(55266,92052,100); -- Grace of the Herald, Herald of Doom
 	CD:RegisterHiddenCooldown(59506,91821,75); -- Crushing Weight, Race Against Death
-	CD:RegisterHiddenCooldown(59224,91816,75); -- Heart of Rage, Rageheart
-	CD:RegisterHiddenCooldown(59519,91024,90); -- Theralion's Mirror, Revelation
+	CD:RegisterHiddenCooldown(59224,91816,100); -- Heart of Rage, Rageheart
 	
 	CD:RegisterHiddenCooldown(nil,59626,35); -- Black Magic
 	CD:RegisterHiddenCooldown(nil,59620,35); -- Berserk, Enchant Weapon - Berserking
@@ -977,6 +977,9 @@ function CD:RegisterCasterPowerupCooldowns()
 	CD:RegisterHiddenCooldown(55995,91147,105); -- Blood of Isiset, Blessing of Isiset
 	CD:RegisterHiddenCooldown(62470,91047,75); -- Stump of Time, Battle Magic
 	CD:RegisterHiddenCooldown(62047,89091,45); -- Darkmoon Card: Volcano, Volcanic Destruction
+	
+	CD:RegisterHiddenCooldown(59326,91007,100); -- Bell of Enraging Resonance, Dire Magic
+	CD:RegisterHiddenCooldown(59519,91024,90); -- Theralion's Mirror, Revelation
 
 	CD:RegisterHiddenCooldown(nil,59626,35); -- Black Magic
 	CD:RegisterHiddenCooldown(nil,55637,45); -- Lightweave
@@ -1207,7 +1210,8 @@ local function NewBar(parent,n)
 		FW:HideTip(self);
 	end);
 	bar.icon:SetScript("OnUpdate",function(self)
-		if self.over then
+		if self.over and self.oldtitle ~= self.title then
+			self.oldtitle = self.title;
 			FW:ShowTip(self);
 		end
 	end);

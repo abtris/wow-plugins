@@ -1,5 +1,5 @@
 ﻿-- AtlasLoot zhCN constants file
--- $Id: constants.cn.lua 3121 2010-12-07 20:55:18Z celellach $
+-- $Id: constants.cn.lua 3245 2011-01-22 11:41:05Z dynaletik $
 
 --Create the library instance
 local AceLocale = LibStub:GetLibrary("AceLocale-3.0");
@@ -605,7 +605,6 @@ if AL then
 	AL["Matron Li-sahar"] = "里萨哈";
 	AL["Solus the Eternal"] = "永恒者索鲁斯";
 	AL["Smokywood Pastures Vendor"] = "烟林牧场商人";
-	AL["Shartuul"] = "沙图尔";
 	AL["Darkscreecher Akkarai"] = "黑暗尖啸者阿克卡莱";
 	AL["Karrog"] = "卡尔洛格";
 	AL["Gezzarak the Huntress"] = "猎手吉萨拉克";
@@ -632,11 +631,9 @@ if AL then
 	AL["Thomas Yance"] = "托马斯·杨斯";
 	AL["Knot Thimblejack"] = "诺特·希姆加克";
 	AL["Shen'dralar Provisioner"] = "辛德拉圣职者";
-	AL["Namdo Bizzfizzle"] = "纳姆杜";
 	AL["The Nameles Prophet"] = "无名预言者";
 	AL["Rajaxx's Captains"] = "拉贾克斯的副官";
 	AL["Razorfen Spearhide"] = "剃刀沼泽刺鬃守卫";
-	AL["Kalldan Felmoon"] = "卡尔丹·暗月";
 	AL["Magregan Deepshadow"] = "马格雷甘·深影";
 	AL["Don Carlos"] = "唐·卡洛斯";
 	AL["Thomas Yance"] = "托马斯·杨斯";
@@ -660,17 +657,11 @@ if AL then
 	AL["The Vault"] = "黑色宝库";
 	AL["Ogre Tannin Basket"] = "食人魔鞣酸篮";
 	AL["Fengus's Chest"] = "芬古斯的箱子";
-	AL["The Prince's Chest"] = "王子的箱子";
-	AL["Doan's Strongbox"] = "杜安的保险箱";
-	AL["Frostwhisper's Embalming Fluid"] = "莱斯·霜语的防腐液";
-	AL["Unforged Rune Covered Breastplate"] = "未铸造的符文覆饰胸甲";
-	AL["Malor's Strongbox"] = "玛洛尔的保险箱";
 	AL["Unfinished Painting"] = "未完成的油画";
 	AL["Felvine Shard"] = "魔藤碎片";
 	AL["Baelog's Chest"] = "巴尔洛戈的箱子";
 	AL["Lorgalis Manuscript"] = "洛迦里斯手稿";
 	AL["Fathom Core"] = "深渊之核";
-	AL["Conspicuous Urn"] = "显眼的石罐";
 	AL["Gift of Adoration"] = "爱慕的礼物";
 	AL["Box of Chocolates"] = "一盒巧克力";
 	AL["Treat Bag"] = "糖果包";

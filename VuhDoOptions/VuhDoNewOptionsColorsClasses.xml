@@ -27,7 +27,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_USER_CLASS_COLORS.petClassColor");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_228);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K228);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -63,7 +63,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_USER_CLASS_COLORS.##20");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_WARRIORS, VUHDO_I18N_WARRIORS);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_229);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K229);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -80,7 +80,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_USER_CLASS_COLORS.##21");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_ROGUES, VUHDO_I18N_ROGUES);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_230);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K230);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -97,7 +97,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_USER_CLASS_COLORS.##22");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_HUNTERS, VUHDO_I18N_HUNTERS);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_231);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K231);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -114,7 +114,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_USER_CLASS_COLORS.##23");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_PALADINS, VUHDO_I18N_PALADINS);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_232);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K232);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -131,7 +131,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_USER_CLASS_COLORS.##25");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_WARLOCKS, VUHDO_I18N_WARLOCKS);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_233);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K233);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -148,7 +148,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_USER_CLASS_COLORS.##26");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_SHAMANS, VUHDO_I18N_SHAMANS);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_234);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K234);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -165,7 +165,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_USER_CLASS_COLORS.##27");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_DRUIDS, VUHDO_I18N_DRUIDS);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_235);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K235);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -182,7 +182,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_USER_CLASS_COLORS.##28");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_PRIESTS, VUHDO_I18N_PRIESTS);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_236);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K236);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -199,7 +199,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_USER_CLASS_COLORS.##24");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_MAGES, VUHDO_I18N_MAGES);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_237);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K237);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -216,7 +216,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_USER_CLASS_COLORS.##29");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_DEATH_KNIGHT, VUHDO_I18N_DEATH_KNIGHT);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_238);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K238);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -233,7 +233,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_USER_CLASS_COLORS.##40");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_PETS, VUHDO_I18N_PETS);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_239);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K239);
 							</OnLoad>
 						</Scripts>
 					</Frame>

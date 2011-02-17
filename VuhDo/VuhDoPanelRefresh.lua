@@ -30,6 +30,7 @@ local VUHDO_getActionPanel;
 local VUHDO_isPanelPopulated;
 local VUHDO_updateAllRaidBars;
 local VUHDO_isTableHeaderOrFooter;
+local VUHDO_fixFrameLevels;
 
 function VUHDO_panelRefreshInitBurst()
 	VUHDO_CONFIG = VUHDO_GLOBAL["VUHDO_CONFIG"];
@@ -56,6 +57,7 @@ function VUHDO_panelRefreshInitBurst()
 	VUHDO_isPanelPopulated = VUHDO_GLOBAL["VUHDO_isPanelPopulated"];
 	VUHDO_updateAllRaidBars = VUHDO_GLOBAL["VUHDO_updateAllRaidBars"];
 	VUHDO_isTableHeaderOrFooter = VUHDO_GLOBAL["VUHDO_isTableHeaderOrFooter"];
+	VUHDO_fixFrameLevels = VUHDO_GLOBAL["VUHDO_fixFrameLevels"];
 end
 -- BURST CACHE ---------------------------------------------------
 
@@ -153,12 +155,14 @@ local function VUHDO_refreshPositionAllHealButtons(aPanel, aPanelNum)
 			tX, tY = VUHDO_getHealButtonPos(tColIdx, tGroupIdx, aPanelNum);
 			if (VUHDO_isDifferentButtonPoint(tButton, tX, -tY)) then
 				tButton:Hide();-- for clearing secure handler mouse wheel bindings
-				tButton:ClearAllPoints();
 				tButton:SetPoint("TOPLEFT", tPanelName, "TOPLEFT", tX, -tY);
 			end
 
 			if (tButton["raidid"] ~= tUnit) then
-				VUHDO_setupAllHealButtonAttributes(tButton, tUnit, false, 70 == tModelId, false); -- VUHDO_ID_VEHICLES
+				VUHDO_setupAllHealButtonAttributes(tButton, tUnit, false, 70 == tModelId, false, false); -- VUHDO_ID_VEHICLES
+				for tCnt = 40, 44 do
+					VUHDO_setupAllHealButtonAttributes(VUHDO_getBarIconFrame(tButton, tCnt), tUnit, false, 70 == tModelId, false, true); -- VUHDO_ID_VEHICLES
+				end
 				VUHDO_setupAllTargetButtonAttributes(VUHDO_getTargetButton(tButton), tUnit);
 				VUHDO_setupAllTotButtonAttributes(VUHDO_getTotButton(tButton), tUnit);
 			end
@@ -201,8 +205,9 @@ end
 --
 local tPanel;
 local function VUHDO_refreshPanel(aPanelNum)
+	tPanel = VUHDO_getActionPanel(aPanelNum);
+
 	if (VUHDO_hasPanelButtons(aPanelNum)) then
-		tPanel = VUHDO_getActionPanel(aPanelNum);
 		tPanel:Show();
 
 		VUHDO_refreshInitPanel(tPanel, aPanelNum);
@@ -211,8 +216,8 @@ local function VUHDO_refreshPanel(aPanelNum)
 
 	-- Even if model is not in panel, we need to refresh VUHDO_UNIT_BUTTONS
 	if (VUHDO_isPanelPopulated(aPanelNum)) then
-		tPanel = VUHDO_getActionPanel(aPanelNum);
 		VUHDO_refreshPositionAllHealButtons(tPanel, aPanelNum);
+		VUHDO_fixFrameLevels(tPanel, 2, tPanel:GetChildren());
 	end
 end
 

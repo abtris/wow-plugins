@@ -9,6 +9,7 @@ local function VUHDO_hideAllPanels()
 	VuhDoNewOptionsSpellHostile:Hide();
 	VuhDoNewOptionsSpellSmartCast:Hide();
 	VuhDoNewOptionsSpellKeysLocalMacroEdit:Hide();
+	collectgarbage('collect');
 end
 
 

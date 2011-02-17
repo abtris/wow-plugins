@@ -1,4 +1,4 @@
-﻿-- $Id: constants.es.lua 3121 2010-12-07 20:55:18Z celellach $
+﻿-- $Id: constants.es.lua 3264 2011-01-27 20:10:48Z dynaletik $
 --[[
 constants.es.lua --- Traduction ES por maqjav
 This file defines an AceLocale table for all the various text strings needed
@@ -24,29 +24,31 @@ if AL then
 	AL["Options"] = "Opciones";
 	AL["Load Loot Modules at Startup"] = "Cargar módulos al iniciar";
 	AL["Minimap Button"] = "Botón minimapa";
-	--AL["Show itemIDs"] = true;
-	--AL["Show Droprates"] = true;
+	AL["Show itemIDs"] = "Muestra los IDs";
+	AL["Show Droprates"] = "Muestra indice aparición";
 	AL["Safe Chat Links"] = "Enlaces seguros en el chat";
-	--AL["Comparison TT"] = true;
+	AL["Comparison TT"] = "Comparaciones";
 	AL["Show Comparison Tooltips"] = "Mostrar bocadillos comparar";
 	AL["Supress item query text"] = "Suprimir texto petición objetos";
-	--AL["Opaque"] = true;
+	AL["Opaque"] = "Opaco";
 	AL["Make Loot Table Opaque"] = "Hacer opaca tabla botines";
 	AL["Treat Crafted Items:"] = "Tratar objetos creados";
 	AL["As Crafting Spells"] = "Como hechizos creados";
 	AL["As Items"] = "Como objetos";
 	AL["Reset"] = "Reiniciar";
 	AL["Reset Frames"] = "Restaurar marcos";
-	--AL["Profiles"] = true;
+	AL["Profiles"] = "Perfiles";
+	AL["Item Buttons"] = "Botones de objetos";
+	AL["Loot Table"] = "Tabla de botín";
 
 	-- Default Frame
-	--AL["Default Frame"] = true;
-	--AL["Scale:"] = true;
-	--AL["Alpha:"] = true;
-	--AL["Only change alpha on leave frame"] = true;
+	AL["Default Frame"] = "Ventana predeterminada";
+	AL["Scale:"] = "Escala";
+	AL["Alpha:"] = "Transparencia";
+	AL["Only change alpha on leave frame"] = "Solo cambia la transparencia de la ventana principal";
 
 	-- Bindings
-	--AL["Toggle AtlasLoot"] = true;
+	AL["Toggle AtlasLoot"] = "Muestra/oculta AtlasLoot";
 
 	--Help
 	AL["Help"] = "Ayuda";
@@ -75,31 +77,31 @@ if AL then
 	AL["Drop Rate: "] = "Prob. de conseguirse: ";
 	--AL["DKP"] = true;
 	AL["Priority:"] = "Prioridad:";
-	--AL["Show price and slot if possible"] = true;
-	--AL["Use GameTooltip"] = true;
-	--AL["Use the standard GameTooltip instead of the custom AtlasLoot tooltip"] = true;
+	AL["Show price and slot if possible"] = "Muestra precio y hueco si es posible";
+	AL["Use GameTooltip"] = "Utilizar ventanas del juego";
+	AL["Use the standard GameTooltip instead of the custom AtlasLoot tooltip"] = "Utiliza las ventanas estandar del juego en lugar de las ventanas de AtlasLoot";
 	-- Unsafe Item
 	AL["Item Unavailable"] = "Objeto no disponible";
-	--AL["|cff0070ddItemID: %d |r\nThis item is unsafe.  To view this item without the risk of disconnection, you need to have first seen it in the game world.\n\nYou can right-click to attempt to query the server.  You may be disconnected."] = true;
-	--AL["This item is unsafe.  To view this item without the risk of disconnection, you need to have first seen it in the game world. This is a restriction enforced by Blizzard since Patch 1.10."] =	"Este objeto no es seguro.\nPara verlo sin riesgo de ser desconectado, tienes que haberlo visto primero en el mundo del juego.\nEsto es una restricción forzada por Blizzard desde el Parche 1.10.";
+	AL["|cff0070ddItemID: %d |r\nThis item is unsafe.  To view this item without the risk of disconnection, you need to have first seen it in the game world.\n\nYou can right-click to attempt to query the server.  You may be disconnected."] = "|cff0070ddItemID: %d |r\nEste objeto no es seguro.  Para ver este objeto sin riesgo de desconexión primero necesitas verlo en el mundo del juego.\n\nPuedes hacer click-derecho para intentar preguntar al servidor.  Es posible que te desconectes.";
+	
 	-- Heriloom Config Window
-	--AL["Heirloom preview"] = true;
-	--AL["Change level:"] = true;
-	--AL["Shift + Right Click to select character level"] = true;	
+	AL["Heirloom preview"] = "Previsualización de reliquias";
+	AL["Change level:"] = "Cambio de nivel:";
+	AL["Shift + Right Click to select character level"] = "Shift + click dcho para seleccionar el nivel del personaje";	
 
 	-- LootTableSort
-	--AL["Sort by Instance"] = true;
-	--AL["Sort loottable by Instance"] = true;
-	--AL["Sort by Boss"] = true;
-	--AL["Sort loottable by Boss"] = true;
-	--AL["Item Name"] = true;
-	--AL["Item Slot"] = true;
-	--AL["Item Quality"] = true;
+	AL["Sort by Instance"] = "Ordenar por mazmorra";
+	AL["Sort loottable by Instance"] = "Ordenar botín por mazmorra";
+	AL["Sort by Boss"] = "Ordenar por jefe";
+	AL["Sort loottable by Boss"] = "Ordenar botín por jefes";
+	AL["Item Name"] = "Nombre del objeto";
+	AL["Item Slot"] = "Hueco del objeto";
+	AL["Item Quality"] = "Calidad del objeto";
 
 	-- Wishlist 
 	AL["Wishlist"] = "ListaDeseada";
 	AL["Wishlists"] = "ListaDeseadas";
-	--AL["Own"] = true;
+	AL["Own"] = "Propio";
 	AL["Other"] = "Otro";
 	AL["Shared"] = "Compartido";
 	AL["Wishlist name:"] = "Nombre ListaDeseada:";
@@ -110,13 +112,16 @@ if AL then
 	AL[" added to the WishList."] = " añadido a la lista de deseos.";
 	AL[" already in the WishList!"] = " ya esta en la lista de deseos";
 	AL[" deleted from the WishList."] = " borrado de la lista de deseos";
-	--AL["Are you sure you want to delete Wishlist |cff1eff00%s|r?"] = true;
-	--AL["default"] = true;
-	--AL["Use as default wishlist"] = true;
+	AL["Are you sure you want to delete Wishlist |cff1eff00%s|r?"] = "¿Estas seguro de que quieres eliminar la lista deseada |cff1eff00%s|r?";
+	AL["default"] = "Predeterminado";
+	AL["Use as default wishlist"] = "Utilizar como lista deseada predeterminada";
 	AL["Add Wishlist"] = "Añadir Lista Deseada";
 	AL["Always use default Wishlist"] = "Utilizar lista predet.";
-	--AL["Save wishlists at character DB"] = true;
-	--AL["Saves the wishlists only for |cff1eff00%s-%s|r.\n Other characters cant view the wishlists, but the memory usage is reduced."] = true;
+	AL["Save wishlists at character DB"] = "Guarda la lista deseada en la BD del personaje";
+	AL["Saves the wishlists only for |cff1eff00%s-%s|r.\n Other characters cant view the wishlists, but the memory usage is reduced."] = "Guarda la lista deseada solo para |cff1eff00%s-%s|r.\n Los otros personajes no pueden ver estas lista deseadas, pero el uso de memoria se verá reducido.";
+	AL["Table Sort"] = "Filtro de tabla";
+	AL["Table Sort:"] = "Filtro de tabla:";
+	AL["Item Sort:"] = "Filtro de objeto:";
 
 	-- Filter
 	AL["Filter"] = "Filtrar";
@@ -125,12 +130,13 @@ if AL then
 	AL["Melee weapons"] = "Armas CaC";
 	AL["Ranged weapons"] = "Armas distancia";
 	AL["Other"] = "Otro";
-	--AL["Itemslot"] = true;
-	--AL["Shift + Click on the Filter button opens the config page."] = true;
+	AL["Itemslot"] = "Hueco del objeto";
+	AL["Shift + Click on the Filter button opens the config page."] = "Shift + Click en el boton de Filtrar abre la página de configuración.";
 
 	-- Panel
-	--AL["Hide Panel"] = true;
+	AL["Hide Panel"] = "Oculta el panel";
 	AL["Toggle AL Panel"] = "Panel AtlasLoot";
+	AL["Buttons"] = "Botones";
 
 	-- Buttons
 	AL["Collections"] = "Colecciones";
@@ -142,19 +148,21 @@ if AL then
 
 	-- QuickLooks
 	AL["QuickLook"] = "VistaRapida"
-	--AL["Number of QuickLooks:"] = true;
+	AL["QuickLooks"] = "VistasRapidas";
+	AL["Number of QuickLooks:"] = "Número de VistasRapidas";
 	AL["Add to QuickLooks:"] = "Añade a VistaRápida";
 	AL["Reset Quicklooks"] = "Res. BotínRápido";
 	AL["Assign this loot table\n to QuickLook"] = "Asignar esta tabla\n a VistaRapida";
-	--AL["Show unused QuickLooks in the Panel"] = true;
-	--AL["Shows unused QuickLooks as grey buttons in the AtlasLoot Panel"] = true;
+	AL["Show unused QuickLooks in the Panel"] = "Muestra VistasRapidas sin utilizar en el Panel";
+	AL["Shows unused QuickLooks as grey buttons in the AtlasLoot Panel"] = "Muestra las VistasRapidas sin utilizar como botones grises en el panel de AtlasLoot";
 	-- Single options
-	--AL["unused"] = true;
-	--AL["QuickLook name:"] = true;
-	--AL["Use Boss name"] = true;
-	--AL["Use Instance name"] = true;
-	--AL["Delete"] = true;
-	--AL["Lock"] = true;
+	AL["unused"] = "sin usar";
+	AL["QuickLook name:"] = "Nombre VistaRapida:";
+	AL["Use Boss name"] = "Usa nombre del jefe";
+	AL["Use Instance name"] = "Usa nombre de la mazmorra";
+	AL["Delete"] = "Borrar";
+	AL["Lock"] = "Bloquear";
+	AL["Enable"] = "Activo";
 
 	-- Query Server / Query all
 	AL["Query Server"] = "Pregun. Servidor";
@@ -167,14 +175,14 @@ if AL then
 	-- title
 	AL["Heroic"] = "Heróico";
 	AL["25 Man"] = "25 personas";
-	--AL["25 Man Heroic"] = true;
+	AL["25 Man Heroic"] = "25 personas heroica";
 	-- buttons
 	AL["Show 10 Man Loot"] = "Muestra 10 Pers. Botín";
 	AL["Show 25 Man Loot"] = "Muestra 25 Pers. Botín";
-	--AL["Show Slot"] = true;
-	--AL["Show Price"] = true;
-	--AL["Skill"] = true;
-	--AL["Location"] = true;
+	AL["Show Slot"] = "Muestra hueco";
+	AL["Show Price"] = "Muestra precio";
+	AL["Skill"] = "Habilidad";
+	AL["Location"] = "Posición";
 
 	-- #######################################
 	-- UI things END
@@ -264,29 +272,29 @@ if AL then
 	-- Sets/Collections Menu
 	--AL["Sets"] = true;
 	AL["Set"] = "Conjunto";
-	--AL["Justice Points"] = true;
-	--AL["Valor Points"] = true;
-	--AL["Badge of Justice"] = true; --should be removed
-	--AL["Emblem Rewards"] = true; --should be removed
-	--AL["Emblem of Valor"] = true; --should be removed
-	--AL["Emblem of Heroism"] = true; --should be removed
-	--AL["Emblem of Conquest"] = true; --should be removed
-	--AL["Emblem of Triumph"] = true; --should be removed
-	--AL["Emblem of Frost"] = true; --should be removed
+	AL["Justice Points"] = "Puntos de justicia";
+	AL["Valor Points"] = "Puntos de valor";
+	AL["Badge of Justice"] = "Distintivo de justicia"; --should be removed
+	AL["Emblem Rewards"] = "Recompensas por emblemas"; --should be removed
+	AL["Emblem of Valor"] = "Emblema de valor"; --should be removed
+	AL["Emblem of Heroism"] = "Emblema de heroísmo"; --should be removed
+	AL["Emblem of Conquest"] = "Emblema de conquista"; --should be removed
+	AL["Emblem of Triumph"] = "Emblema de triunfo"; --should be removed
+	AL["Emblem of Frost"] = "Emblema de escarcha"; --should be removed
 	AL["BoE World Epics"] = "Épicos del mundo BoE";
 	AL["Legendary Items"] = "Objetos legendários";
 	AL["Misc Sets"] = "Conjuntos varios";
-	--AL["Tier 1/2 Set"] = true;
-	--AL["Tier 1/2/3 Set"] = true;
-	--AL["Tier 3 Set"] = true;
-	--AL["Tier 4/5/6 Set"] = true;
-	--AL["Tier 7/8 Set"] = true;
-	--AL["Tier 8 Set"] = true;
-	--AL["Tier 9 Set"] = true;
-	--AL["Tier 10 Set"] = true;
-	--AL["Tier 11 Set"] = true;
-	--AL["TCG Items"] = true; -- Trading Card Game Items
-	--AL["Transformation Items"] = true;
+	AL["Tier 1/2 Set"] = "Conjunto 1/2";
+	AL["Tier 1/2/3 Set"] = "Conjunto 1/2/3";
+	AL["Tier 3 Set"] = "Conjunto 3";
+	AL["Tier 4/5/6 Set"] = "Conjunto 4/5/6";
+	AL["Tier 7/8 Set"] = "Conjunto 7/8";
+	AL["Tier 8 Set"] = "Conjunto 8";
+	AL["Tier 9 Set"] = "Conjunto 9";
+	AL["Tier 10 Set"] = "Conjunto 10";
+	AL["Tier 11 Set"] = "Conjunto 11";
+	AL["TCG Items"] = "Objetos TCG"; -- Trading Card Game Items
+	AL["Transformation Items"] = "Objetos de transformación";
 
 	-- PvP Menu
 	AL["Arathi Basin Sets"] = "Conjuntos de Cuenca de Arathi";
@@ -307,7 +315,7 @@ if AL then
 	AL["Bash'ir Landing Skyguard Raid"] = "Punto de anclaje de Bash'ir";
 	AL["Brewfest"] = "Fiesta de la Cerveza";
 	AL["Children's Week"] = "Semana de los niños";
-	--AL["Day of the Dead"] = true;
+	AL["Day of the Dead"] = "Festividad de los Muertos";
 	AL["Elemental Invasion"] = "Invasión de elementales";
 	AL["Ethereum Prison"] = "Prisión de los Etereum";
 	AL["Feast of Winter Veil"] = "Festival de Invierno";
@@ -318,10 +326,10 @@ if AL then
 	AL["Lunar Festival"] = "Festival Lunar";
 	AL["Midsummer Fire Festival"] = "Festival del Solsticio de Verano";
 	AL["Noblegarden"] = "El jardín de los nobles";
-	--AL["Pilgrim's Bounty"] = true;
+	AL["Pilgrim's Bounty"] = "Generosidad del Peregrino";
 	AL["Skettis"] = "Skettis";
 	AL["Stranglethorn Fishing Extravaganza"] = "Concurso de Pesca";
-	--AL["Elemental Unrest"] = true;
+	AL["Elemental Unrest"] = "Evento de los elementales";
 
 	--Minimap Button
 	AL["|cff1eff00Left-Click|r Browse Loot Tables"] = "|cff1eff00Click-izdo|r Navegar por las tablas de botines";
@@ -331,8 +339,8 @@ if AL then
 	AL["|cffccccccRight-Click + Drag|r Move Minimap Button"] = "|cffccccccClick-dcho + arrastrar|r Mueve el botón del mini mapa";
 
 	-- Default Frame
-	--AL["Select Module"] = true;
-	--AL["Select Instance"] = true;
+	AL["Select Module"] = "Selecciona módulo";
+	AL["Select Instance"] = "Selecciona mazmorra";
 
 	-- Wishlist
 	AL["Close"] = "Cerrar";
@@ -368,12 +376,12 @@ if AL then
 	AL["Set"] = "Conjunto";
 	AL["Token"] = "Insignia";
 	AL["Tokens"] = "Insignias";	
-	--AL["Token Hand-Ins"] = true;
+	--AL["Token Hand-Ins"] = true; --FALTA
 	AL["Skinning Knife"] = "Cuchillo para desollar";
 	AL["Combat Pet"] = "Mascota de combate"; --Comprobar
 	AL["Fireworks"] = "Fuegos artificiales";
-	--AL["Transformation Item"] = true;
-	--AL["Keys"] = true;
+	AL["Transformation Item"] = "Objeto de transformación";
+	AL["Keys"] = "Llaves";
 
 	--Extra inventory stuff
 	AL["Cloak"] = "Capa";
@@ -385,6 +393,9 @@ if AL then
 	AL["Transmutes"] = "Transmutaciones";
 	AL["Flasks"] = "Frascos";
 
+	-- Blacksmithing
+	AL["Cataclysm Vendor Sold Plans"] = "Vendedor de planes de Cataclysm";
+	
 	--Enchanting
 	AL["Enchant Boots"] = "Encantamiento Botas";
 	AL["Enchant Bracer"] = "Encantamiento Brazalete";
@@ -395,6 +406,7 @@ if AL then
 	AL["Enchant Shield"] = "Encantamiento Escudo";
 	AL["Enchant 2H Weapon"] = "Encantamiento Arma 2 Manos";
 	AL["Enchant Weapon"] = "Encantamiento Arma";
+	AL["Cataclysm Vendor Sold Formulas"] = "Vendedor de fórmulas de Cataclysm";
 
 	--Inscription
 	AL["Major Glyph"] = "Glifos Sublimes";
@@ -471,15 +483,15 @@ if AL then
 	AL["10/25 Man"] = "10/25 Personas";
 	AL["Epic Set"] = "Conjunto épico";
 	AL["Rare Set"] = "Conjunto superior";
-	--AL["Season 1"] = true;
-	--AL["Season 2"] = true;
-	--AL["Season 3"] = true;
-	--AL["Season 4"] = true;
-	--AL["Season 5"] = true;
-	--AL["Season 6"] = true;
-	--AL["Season 7"] = true;
-	--AL["Season 8"] = true;
-	--AL["Season 9"] = true;
+	AL["Season 1"] = "Temporada 1";
+	AL["Season 2"] = "Temporada 2";
+	AL["Season 3"] = "Temporada 3";
+	AL["Season 4"] = "Temporada 4";
+	AL["Season 5"] = "Temporada 5";
+	AL["Season 6"] = "Temporada 6";
+	AL["Season 7"] = "Temporada 7";
+	AL["Season 8"] = "Temporada 8";
+	AL["Season 9"] = "Temporada 9";
 	AL["Fire"] = "Fuego";
 	AL["Water"] = "Agua";
 	AL["Wind"] = "Aire";
@@ -490,7 +502,7 @@ if AL then
 	AL["Nature Resistance Gear"] = "Equipamientos con resistencia a la naturaleza";
 	AL["Frost Resistance Gear"] = "Equipamientos con resistencia al hielo";
 	AL["Shadow Resistance Gear"] = "Equipamientos con resistencia a las sombras";
-	--AL["Classic Sets"] = true;
+	AL["Classic Sets"] = "Conjuntos clásicos";
 
 	-- Labels for loot table sections
 	AL["Additional Heroic Loot"] = "Botin heróico adicional";
@@ -523,37 +535,37 @@ if AL then
 	AL["Brew of the Month Club"] = "Club de la Cerveza del Mes";
 
 	-- Cooking descriptions
-	--AL["Buff"] = true;
-	--AL["Agility"] = true;
-	--AL["Intellect"] = true;
-	--AL["Strength"] = true;
-	--AL["Agility, Intellect, Strength"] = true;
-	--AL["Spell Power"] = true;
-	--AL["Attack Power"] = true;
-	--AL["Spell/Attack Power"] = true;
-	--AL["Hit Rating"] = true;
-	--AL["Crit Rating"] = true;
-	--AL["Crit/Hit Rating"] = true;
-	--AL["Haste Rating"] = true;
-	--AL["Dodge Rating"] = true;
-	--AL["Expertise Rating"] = true;
-	--AL["Mastery Rating"] = true;
-	--AL["Parry Rating"] = true;
-	--AL["Other Ratings"] = true;
-	--AL["Resistance"] = true;
-	--AL["Health / Second"] = true;
-	--AL["Mana / Second"] = true;
-	--AL["Tracking"] = true;
-	--AL["Emotions"] = true;
+	AL["Buff"] = "Ventaja";
+	AL["Agility"] = "Agilidad";
+	AL["Intellect"] = "Intelecto";
+	AL["Strength"] = "Fuerza";
+	AL["Agility, Intellect, Strength"] = "Agilidad, Intelecto, Fuerza";
+	AL["Spell Power"] = "Poder con hechizos";
+	AL["Attack Power"] = "Poder de ataque";
+	AL["Spell/Attack Power"] = "Poder de ataque/hechizos";
+	AL["Hit Rating"] = "Índice de golpe";
+	AL["Crit Rating"] = "Índice de crítico";
+	AL["Crit/Hit Rating"] = "Índice de golpe/crítico";
+	AL["Haste Rating"] = "Índice de celeridad";
+	AL["Dodge Rating"] = "Índice de esquivar";
+	AL["Expertise Rating"] = "Índice de pericia";
+	AL["Mastery Rating"] = "Índice de maestría";
+	AL["Parry Rating"] = "Índice de parada";
+	AL["Other Ratings"] = "Otros índices";
+	AL["Resistance"] = "Resistencia";
+	AL["Health / Second"] = "Vida / Segundo";
+	AL["Mana / Second"] = "Maná / Segundo";
+	AL["Tracking"] = "Rastreo";
+	AL["Emotions"] = "Emociones";
 	--AL["Alcohol"] = true;
-	--AL["Health"] = true;
-	--AL["Mana"] = true;
-	--AL["Health and Mana"] = true;
-	--AL["Other Buffs"] = true;
-	--AL["Standard Buffs"] = true;
-	--AL["Food without Buffs"] = true;
-	--AL["Special"] = true;
-	--AL["Feasts"] = true;
+	AL["Health"] = "Vida";
+	AL["Mana"] = "Maná";
+	AL["Health and Mana"] = "Vida y maná";
+	AL["Other Buffs"] = "Otras ventajas";
+	AL["Standard Buffs"] = "Ventajas estandar";
+	AL["Food without Buffs"] = "Comida sin ventajas";
+	AL["Special"] = "Especial";
+	AL["Feasts"] = "Festividades";
 
 	-- Extra Text in Boss lists
 	AL["Set: Embrace of the Viper"] = "Conjunto: Abrazo de la víbora";
@@ -582,23 +594,26 @@ if AL then
 	AL["SP Patterns/Plans"] = "Recinto de Esclavos Recetas/Planos";
 	AL["Ulduar Formula/Patterns/Plans"] = "Formulas/patrones/planos Ulduar";
 	AL["Trial of the Crusader Patterns/Plans"] = "Patrones/planos Prueba del Cruzado";
-	--AL["BRD Blacksmithing Plans"] = true;
+	AL["BRD Blacksmithing Plans"] = "Planos de herrero BRD";
+	-- General titles
+	AL["Achievement"] = "Logro";
+	AL["Promotional & Card Game"] = "Cartas del juego promocionales";
 
 	-- Companions
 	AL["Achievement"] = "Logro";
-	--AL["Achievement & Faction Reward Companions"] = true;
-	--AL["Card Game Companions"] = true;
-	--AL["Companion Accessories"] = true;
-	--AL["Companion Store"] = true;
-	--AL["Crafted Companions"] = true;
-	--AL["Dungeon/Raid"] = true;
+	AL["Achievement & Faction Reward Companions"] = "Mascotas de recompensa por logro y facción";
+	AL["Card Game Companions"] = "Mascotas por cartas del juego";
+	AL["Companion Accessories"] = "Accesorios para mascotas";
+	AL["Companion Store"] = "Tienda de mascotas";
+	AL["Crafted Companions"] = "Mascotas creadas";
+	AL["Dungeon/Raid"] = "Mazmorra/Banda";
 	AL["Faction"] = "Facción";
-	--AL["Merchant Sold Companions"] = true;
+	AL["Merchant Sold Companions"] = "Mascotas vendidas por mercaderes";
 	AL["Pets"] = "Mascotas";
-	--AL["Promotional Companions"] = true;
-	--AL["Quest Reward Companions"] = true;
-	--AL["Rare Companions"] = true;
-	--AL["Unobtainable Companions"] = true;
+	AL["Promotional Companions"] = "Mascotas promocionales";
+	AL["Quest Reward Companions"] = "Mascotas por recompensa de misión";
+	AL["Rare Companions"] = "Mascotas raras";
+	AL["Unobtainable Companions"] = "Mascotas inconseguibles";
 
 	-- Mounts
 	AL["Alliance Flying Mounts"] = "Monturas voladoras Alianza";
@@ -615,25 +630,25 @@ if AL then
 	AL["Halaa PvP Mounts"] = "Monturas JcJ Halaa";
 	AL["Promotional Mounts"] = "Monturas promocionales"
 	AL["Rare Mounts"] = "Monturas raras"
-	--AL["Unobtainable Mounts"] = true;
+	AL["Unobtainable Mounts"] = "Monturas inconseguibles";
 
 	-- Tabards
-	--AL["Achievement & Quest Reward Tabards"] = true;
-	--AL["Alliance Tabards"] = true;
-	--AL["Card Game Tabards"] = true;
-	--AL["Horde Tabards"] = true;
-	--AL["Neutral Faction Tabards"] = true;
-	--AL["PvP Tabards"] = true;
-	--AL["Unobtainable Tabards"] = true;
+	AL["Achievement & Quest Reward Tabards"] = "Tabardos de recompensa de misión y logro";
+	AL["Alliance Tabards"] = "Tabardos de la Alianza";
+	AL["Card Game Tabards"] = "Tabardos de cartas del juego";
+	AL["Horde Tabards"] = "Tabardos de la Horda";
+	AL["Neutral Faction Tabards"] = "Tabardos de facciones neutrales";
+	AL["PvP Tabards"] = "Tabardos JcJ";
+	AL["Unobtainable Tabards"] = "Tabardos inconseguibles";
 
 	--Darkmoon Faire
 	AL["Darkmoon Faire Rewards"] = "Recompensas Feria de la Luna Negra";
 	AL["Low Level Decks"] = "Bajaras de bajo nivel";
-	--AL["Level 60 Trinkets"] = true;
-	--AL["Level 70 Trinkets"] = true;
-	--AL["Level 60 & 70 Trinkets"] = true;
-	--AL["Level 80 Trinkets"] = true;
-	--AL["Level 85 Trinkets"] = true;
+	AL["Level 60 Trinkets"] = "Abaloríos nivel 60";
+	AL["Level 70 Trinkets"] = "Abaloríos nivel 70";
+	AL["Level 60 & 70 Trinkets"] = "Abaloríos nivel 60 y 70";
+	AL["Level 80 Trinkets"] = "Abaloríos nivel 80";
+	AL["Level 85 Trinkets"] = "Abaloríos nivel 85";
 
 	--Card Game Decks and descriptions
 	AL["Loot Card Items"] = "Objetos (juegos de cartas)";
@@ -700,23 +715,23 @@ if AL then
 	AL["Spectral Kitten"] = "Gatito espectral"; --Check
 
 	-- Eleventh set
-	--AL["Wrathgate"] = true;
+	AL["Wrathgate"] = "Puerta de Cólera";
 	--AL["Statue Generator"] = true;
-	--AL["Landro's Gift"] = true;
-	--AL["Blazing Hippogryph"] = true;
+	AL["Landro's Gift"] = "Regalo de Landro";
+	AL["Blazing Hippogryph"] = "Hipogrifo llameante";
 
 	-- Twelvth set
-	--AL["Icecrown"] = true;
-	--AL["Wooly White Rhino"] = true;
-	--AL["Ethereal Portal"] = true;
-	--AL["Paint Bomb"] = true;
+	AL["Icecrown"] = "Corona de Hielo";
+	AL["Wooly White Rhino"] = "Rinoceronte blanco lanudo";
+	AL["Ethereal Portal"] = "Portal etéreo";
+	AL["Paint Bomb"] = "Bomba de pintura";
 
 	-- Thirtheenth set
-	--AL["Worldbreaker"] = true;
+	AL["Worldbreaker"] = "Rompemundos";
 
 	--Battleground Brackets
-	--AL["Old PvP Rewards"] = true;
-	--AL["BG/Open PvP Rewards"] = true;
+	AL["Old PvP Rewards"] = "Recompensas JcJ antiguas";
+	AL["BG/Open PvP Rewards"] = "Recompensas JcJ Arena/CB";
 	AL["Misc. Rewards"] = "Recompensas varias";
 	AL["Level 10-19 Rewards"] = "Recompensas de niveles 10-19";
 	AL["Level 20-39 Rewards"] = "Recompensas de niveles 20-39";
@@ -738,10 +753,10 @@ if AL then
 	AL["Path of the Violet Restorer"] = "El camino del restaurador violeta";
 
 	-- Ashen Verdict Paths
-	--AL["Path of Courage"] = true;
-	--AL["Path of Destruction"] = true;
-	--AL["Path of Vengeance"] = true;
-	--AL["Path of Wisdom"] = true;
+	AL["Path of Courage"] = "El camino del coraje";
+	AL["Path of Destruction"] = "El camino de la destrucción";
+	AL["Path of Vengeance"] = "El camino de la venganza";
+	AL["Path of Wisdom"] = "El camino de la sabiduría";
 
 	--AQ Opening Event
 	AL["Red Scepter Shard"] = "Fragmento de cetro rojo";
@@ -807,7 +822,7 @@ if AL then
 	AL["Crafted"] = "Fabricado";
 
 	--Level 80 PvP Weapons
-	--AL["Wrathful Gladiator\'s Weapons"] = true;
+	AL["Wrathful Gladiator\'s Weapons"] = "Armas del Gladiador colérico";
 
 	-- Months
 	AL["January"] = "Enero";
@@ -828,7 +843,7 @@ if AL then
 	AL["Feral"] = "Combate Feral";
 	AL["Restoration"] = "Restauración";
 	AL["Holy"] = "Sagrado";
-	--AL["Discipline"] = true;
+	AL["Discipline"] = "Disciplina";
 	AL["Protection"] = "Protección";
 	AL["Retribution"] = "Reprensión";
 	AL["Shadow"] = "Sombras";
@@ -922,7 +937,6 @@ if AL then
 	AL["Matron Li-sahar"] = "Matrona Li-sahar";
 	AL["Solus the Eternal"] = "Solus el Eterno";
 	AL["Smokywood Pastures Vendor"] = "Vendedor de Pastos de Bosquehumeante";
-	--AL["Shartuul"] = true,
 	AL["Darkscreecher Akkarai"] = "Estridador oscuro Akkarai";
 	--AL["Karrog"] = true,
 	AL["Gezzarak the Huntress"] = "Gezzarak la Cazadora";
@@ -949,11 +963,9 @@ if AL then
 	--AL["Thomas Yance"] = true,
 	AL["Knot Thimblejack"] = "Knot Thimblejack";
 	AL["Shen'dralar Provisioner"] = "Proveedor Shen'dralar";
-	AL["Namdo Bizzfizzle"] = "Namdo Silvabín";
 	AL["The Nameles Prophet"] = "El profeta sin nombre";
 	AL["Rajaxx's Captains"] = "Capitanes de Rajaxx";
 	AL["Razorfen Spearhide"] = "Lanceur de Tranchebauge";
-	AL["Kalldan Felmoon"] = "Kalldan Lunavil";
 	AL["Magregan Deepshadow"] = "Magregan Sombraprofunda";
 	--AL["Don Carlos"] = true,
 	--AL["Thomas Yance"] = "Thomas Yance";
@@ -961,17 +973,22 @@ if AL then
 	AL["Felsteed"] = "Corcel vil";
 	AL["Shattered Hand Executioner"] = "Verdugo Mano Destrozada";	 
 	AL["Time-Lost Proto Drake"] = "Protodraco Tiempo Perdido";
-	--AL["Razzashi Raptor"] = true;
-	--AL["Deviate Ravager/Deviate Guardian"] = true;
-	--AL["Servant's Quarter Animal Bosses"] = true;
-	--AL["Jadefang"] = true;
+	AL["Razzashi Raptor"] = "Razzashi presto";
+	AL["Deviate Ravager/Deviate Guardian"] = "Devastador descarriado/Guardián descarriado";
+	--AL["Servant's Quarter Animal Bosses"] = true; FALTA
+	AL["Jadefang"] = "Colmillo de Jade";
 	--AL["Aeonaxx"] = true;
+	AL["Prince Sarsarun"] = "Príncipe Sarsarun";
+	--AL["Highlord Kruul"] = true; -- added until decided if the set gets removed
+	AL["Dormus the Camel-Hoarder"] = "Dormus el Acaparacamellos";
+	AL["The Behemoth"] = "El Behemoth";
+	AL["Master Elemental Shaper Krixix"] = "Maestro de los elementos Formacio Krixix";
 
 	--Zones
 	AL["World Drop"] = "Hallazgos del Mundo";
-	--AL["Trial of the Grand Crusader"] = true;
-	--AL["Crusader's Square"] = true;
-	--AL["The Gauntlet"] = true;
+	AL["Trial of the Grand Crusader"] = "Prueba del Gran Cruzado";
+	AL["Crusader's Square"] = "Plaza de los Cruzados";
+	AL["The Gauntlet"] = "El reto"; -- Comprobar
 
 	--Shortcuts for Bossname files
 	AL["LBRS"] = "CRNI";
@@ -984,25 +1001,19 @@ if AL then
 	--AL["Avatar"] = true,	
 
 	--Chests, etc
-	--AL["Ring of Law"] = true;
-	--AL["Monument of Franclorn Forgewright"] = true;
-	--AL["The Grim Guzzler"] = true;
-	--AL["Summoner's Tomb"] = true;
+	--AL["Ring of Law"] = true; FALTA
+	AL["Monument of Franclorn Forgewright"] = "Monumento a Franclorn Forjador";
+	AL["The Grim Guzzler"] = "El Tragapenas";
+	AL["Summoner's Tomb"] = "La tumba de los invocadores"; --Comprobar
 	AL["The Secret Safe"] = "El secreto seguro";
 	AL["The Vault"] = "La caja fuerte";
 	AL["Ogre Tannin Basket"] = "Cesta de Ogro Tanino";
 	AL["Fengus's Chest"] = "Cofre de Fengus";
-	AL["The Prince's Chest"] = "El cofre del Príncipe";
-	AL["Doan's Strongbox"] = "Caja fuerte de Doan";
-	AL["Frostwhisper's Embalming Fluid"] = "Líquido de embalsamar Levescarcha";
-	AL["Unforged Rune Covered Breastplate"] = "Coraza cubierta de runas sin forjar";
-	AL["Malor's Strongbox"] = "Caja fuerte de Malor";
 	AL["Unfinished Painting"] = "Pintura sin terminar"; --Comprobar
 	AL["Felvine Shard"] = "Fragmento de gangrevid";
 	AL["Baelog's Chest"] = "Cofre de Baelog";
 	AL["Lorgalis Manuscript"] = "Manuscrito de Lorgalis";
 	AL["Fathom Core"] = "Núcleo de las profundidades";
-	AL["Conspicuous Urn"] = "Urna llamativa";
 	AL["Gift of Adoration"] = "Ofrenda de adoración";
 	AL["Box of Chocolates"] = "Caja de bombones";
 	AL["Treat Bag"] = "Bolsa de premios";
@@ -1040,11 +1051,11 @@ if AL then
 	AL["Ripe Disgusting Jar"] = "Tarro desagradable maduro";
 	AL["Cracked Egg"] = "Huevo roto";
 	AL["Small Spice Bag"] = "Bolsa de especias pequeña";
-	--AL["Handful of Candy"] = true;
-	--AL["Lovely Dress Box"] = true;
-	--AL["Dinner Suit Box"] = true;
-	--AL["Bag of Heart Candies"] = true;
-	--AL["Hidden Stash"] = true;
+	AL["Handful of Candy"] = "Puñado de caramelos";
+	AL["Lovely Dress Box"] = "Caja de vestido precioso";
+	AL["Dinner Suit Box"] = "Caja de traje de noche";
+	AL["Bag of Heart Candies"] = "Bolsa de caramelos de corazón";
+	AL["Hidden Stash"] = "Alijos escondidos";
 
 	--Error Messages and warnings
 	AL["AtlasLoot Error!"] = "¡AtlasLoot error!";

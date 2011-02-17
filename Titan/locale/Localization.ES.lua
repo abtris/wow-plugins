@@ -33,13 +33,13 @@ L["TITAN_PANEL_RESET_WARNING"] = TITAN_PANEL_WARNING
 L["TITAN_PANEL_RELOAD"] = TITAN_PANEL_WARNING
 .."Esto recargará "..TITAN_PANEL.."."
 ..TITAN_PANEL_RELOAD_TEXT
-L["TITAN_PANEL_ATTEMPTS"] = " Intentos de "..TITAN_PANEL
-L["TITAN_PANEL_ATTEMPTS_SHORT"] = "Attempts"
+L["TITAN_PANEL_ATTEMPTS"] = "Sobre los plugins activados en "..TITAN_PANEL
+L["TITAN_PANEL_ATTEMPTS_SHORT"] = "Información"
 L["TITAN_PANEL_ATTEMPTS_DESC"] = "Los siguientes plugins han solicitado ser activados en Titan.\n"
 .."Por favor envía cualquier incidencia que ocurra al autor del plugin."
 L["TITAN_PANEL_ATTEMPTS_TYPE"] = "Tipo"
 L["TITAN_PANEL_ATTEMPTS_CATEGORY"] = "Categoría"
-L["TITAN_PANEL_ATTEMPTS_BUTTON"] = "Nombre del Botón"
+L["TITAN_PANEL_ATTEMPTS_BUTTON"] = "Nombre del botón"
 L["TITAN_PANEL_EXTRAS"] = "Extras de "..TITAN_PANEL
 L["TITAN_PANEL_EXTRAS_SHORT"] = "Extras"
 L["TITAN_PANEL_EXTRAS_DESC"] = "Estos plugins tienen cambios en su configuración que aún no han sido cargados.\n"
@@ -163,12 +163,14 @@ L["TITAN_UISCALE_MENU_TEXT_SHORT"] = "Escala y Fuentes";
 L["TITAN_UISCALE_CONTROL_TITLE_UI"] = "Escala del interface";
 L["TITAN_UISCALE_CONTROL_TITLE_PANEL"] = "Escala de "..TITAN_PANEL;
 L["TITAN_UISCALE_CONTROL_TITLE_BUTTON"] = "Espaciado de los botones";
+L["TITAN_UISCALE_CONTROL_TITLE_ICON"] = "Espaciado de iconos";
 L["TITAN_UISCALE_CONTROL_TOOLTIP_TOOLTIPFONT"] = "Tamaño de la fuente de los tooltips";
 L["TITAN_UISCALE_TOOLTIP_DISABLE_TEXT"] = "Desactivar tamaño de la fuente de los tooltips"; 
 L["TITAN_UISCALE_MENU_DESC"] = "Controla varios aspectos del interface y "..TITAN_PANEL..".";
 L["TITAN_UISCALE_SLIDER_DESC"] = "Establece la escala de todo el interface.";
 L["TITAN_UISCALE_PANEL_SLIDER_DESC"] = "Establece la escala para los distintos botones e iconos de "..TITAN_PANEL..".";
 L["TITAN_UISCALE_BUTTON_SLIDER_DESC"] = "Ajusta el espacio entre los plugins del lado izquierdo.";
+L["TITAN_UISCALE_ICON_SLIDER_DESC"] = "Ajusta el espacio entre los iconos de los plugins del lado derecho.";
 L["TITAN_UISCALE_TOOLTIP_SLIDER_DESC"] = "Ajusta la escala de los tooltips de varios plugins.";
 L["TITAN_UISCALE_DISABLE_TOOLTIP_DESC"] = "Desactiva el control de la escala de los tooltips en "..TITAN_PANEL..".";
 L["TITAN_SKINS_TITLE"] = "Skins de "..TITAN_PANEL;
@@ -225,7 +227,24 @@ L["TITAN_BAG_MENU_IGNORE_SLOTS"] = "Ignorar bolsas";
 L["TITAN_BAG_MENU_IGNORE_PROF_BAGS_SLOTS"] = "Ignorar bolsas de profesión";
 --L["TITAN_BAG_SHARD_BAG_NAMES"] = {"Faltriquera de almas", "Bolsa de tela vil", "Bolsa de tela vil del Núcleo", "Bolsa de las Sombras de ébano", "Faltriquera de almas pequeña", "Caja de almas"};
 --L["TITAN_BAG_AMMO_POUCH_NAMES"] = {"munición", "Carcaj", "Bandolera", "pólvora", "lámina"};
-L["TITAN_BAG_PROF_BAG_NAMES"] = {"Faltriquera de tejido mágico encantada","Bolsa de paño rúnico encantada","Bolsa de encantamiento grande","Cartera de encantador","Bolsa fuego de hechizo","Caja de herramientas de hierro vil","Caja de herramientas pesada","Faltriquera de gemas","Bolsa de joyas","Bolsa de minero reforzada","Saco de minero","Cartera de peletero","Bolsa de muchos pellejos","Faltriquera de hierbas","Bolsa de hierbas Cenarion","Cartera de Cenarius","Bolsa Botánica de Mycah"};
+L["TITAN_BAG_PROF_BAG_NAMES"] = {
+-- Enchanting
+"Faltriquera de tejido mágico encantada","Bolsa de paño rúnico encantada","Cartera de encantador","Bolsa de encantamiento grande","Bolsa de fuego de hechizo","Bolsa misteriosa","Bolsa de otro mundo","Bolso de noche encantador \"Trasportín exclusivo\"",
+-- Engineering
+"Caja de herramientas pesada","Caja de herramientas de hierro vil","Caja de herramientas de titanio","Caja de herramientas de elementium","Bolsa de alta tecnología \"Transportín Maddy\"",
+-- Herbalism
+"Faltriquera de hierbas","Bolsa de hierbas Cenarion","Cartera de Cenarius","Bolsa de expedición de Hyjal","Bolsa esmeralda","Bolsa Botánica de Mycah","Portahierbas \"Trasportín ecológico\"",
+-- Inscription
+"Cartera de escriba","Bolsa de bolsillos infinitos","Cartera de estudiante \"Transportín Xandera\"",
+-- Jewelcrafting
+"Faltriquera de gemas","Bolsa de joyas","Agarre con tachuelas de gemas \"Trasportín exclusivo\"",
+-- Leatherworking
+"Cartera de peletero","Mochila de viaje de trampero","Bolsa de muchos pellejos","Bolsa de cuero \"Transportín Meeya\"",
+-- Mining
+"Saco de minero","Bolsa de minero reforzada","Bolsa de minero descomunal","Bolsa de metal precioso \"Trasportín Christina\"",
+-- Fishing
+"Caja de aparejos Maestro del Cebo",
+};
 
 --L["TITAN_BGMINIMAP_MENU_TEXT"] = "Campo de Batalla en minimapa"
 --L["TITAN_BGMINIMAP_TOOLTIP"] = "Botón Campode Batalla en minimapa"
@@ -276,7 +295,8 @@ L["TITAN_COORDS_MENU_SHOW_COORDS_ON_MAP_TEXT"] = "Mostrar coordenadas en el mapa
 L["TITAN_COORDS_MAP_CURSOR_COORDS_TEXT"] = "Cursor(X,Y): %s";
 L["TITAN_COORDS_MAP_PLAYER_COORDS_TEXT"] = "Jugador(X,Y): %s";
 L["TITAN_COORDS_NO_COORDS"] = "Sin Coordenadas";
-L["TITAN_COORDS_MENU_SHOW_LOC_ON_MINIMAP_TEXT"] = "Mostrar coordenadas en el minimapa";
+L["TITAN_COORDS_MENU_SHOW_LOC_ON_MINIMAP_TEXT"] = "Mostrar el nombre de la ubicación sobre el minimapa";
+L["TITAN_COORDS_MENU_UPDATE_WORLD_MAP"] = "Actualizar mapamundi cuando cambia la zona";
 
 L["TITAN_FPS_FORMAT"] = "%.1f";
 L["TITAN_FPS_BUTTON_LABEL"] = "FPS: ";
@@ -308,10 +328,10 @@ L["TITAN_LOOTTYPE_RANDOM_ROLL_LABEL"] = "Tirar dados";
 L["TITAN_LOOTTYPE_TOOLTIP_HINT1"] = "Consejo: Click-Izq. para tirar dados.";
 L["TITAN_LOOTTYPE_TOOLTIP_HINT2"] = "Seleccione el valor de la tirada de dados con el menu de Click-Dcho.";
 L["TITAN_LOOTTYPE_DUNGEONDIFF_LABEL"] = "Dificultad de Mazmorra";
-L["TITAN_LOOTTYPE_DUNGEONDIFF_LABEL2"] = "Dificultad de Raid";
-L["TITAN_LOOTTYPE_SHOWDUNGEONDIFF_LABEL"] = "Mostrar dificultad de Mazmorra/Raid";
+L["TITAN_LOOTTYPE_DUNGEONDIFF_LABEL2"] = "Dificultad de Banda";
+L["TITAN_LOOTTYPE_SHOWDUNGEONDIFF_LABEL"] = "Mostrar dificultad de Mazmorra/Banda";
 L["TITAN_LOOTTYPE_SETDUNGEONDIFF_LABEL"] = "Establecer dificultad de Mazmorra";
-L["TITAN_LOOTTYPE_SETRAIDDIFF_LABEL"] = "Establecer dificultad de Raid";
+L["TITAN_LOOTTYPE_SETRAIDDIFF_LABEL"] = "Establecer dificultad de Banda";
 L["TITAN_LOOTTYPE_AUTODIFF_LABEL"] = "Auto (según grupo)";
 
 L["TITAN_MEMORY_FORMAT"] = "%.3f".."MB";
@@ -398,7 +418,7 @@ L["TITAN_XP_MENU_SIMPLE_BUTTON_XPGAIN"] = "Mostrar ganancias de XP estimadas par
 L["REPAIR_LOCALE"] = {
 	pattern = "^Durabilidad (%d+) / (%d+)$",
 	menu = "Reparación",
-	tooltip = "Información de durabilidad",
+	tooltip = "Información de reparación",
 	button = "Durabilidad: ",
 	normal = "Coste de reparación (Neutral): ",
 	friendly = "Coste de reparación (Amistoso): ",

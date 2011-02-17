@@ -4,7 +4,7 @@
 
 ShadowUF = select(2, ...)
 local L = ShadowUF.L
-ShadowUF.dbRevision = 4
+ShadowUF.dbRevision = 5
 ShadowUF.playerUnit = "player"
 ShadowUF.enabledUnits = {}
 ShadowUF.modules = {}
@@ -37,7 +37,7 @@ function ShadowUF:OnInitialize()
 			range = {},
 			filters = {zonewhite = {}, zoneblack = {}, whitelists = {}, blacklists = {}},
 			visibility = {arena = {}, pvp = {}, party = {}, raid = {}},
-			hidden = {cast = false, runes = true, buffs = false, party = true, raid = false, player = true, pet = true, target = true, focus = true, boss = true, arena = true},
+			hidden = {cast = false, runes = true, buffs = false, party = true, raid = false, player = true, pet = true, target = true, focus = true, boss = true, arena = true, playerAltPower = false},
 		},
 	}
 	
@@ -191,6 +191,14 @@ function ShadowUF:CheckUpgrade()
 		loadDefault = true
 	end
 
+	if( revision <= 4 ) then
+		self.db.profile.powerColors.ALTERNATE = {r = 0.71, g = 0.0, b = 1.0}
+		for unit, config in pairs(self.db.profile.units) do
+			config.altPowerBar = {enabled = false, background = true, height = 0.40, order = 100}
+		end
+		self.db.profile.units.boss.altPowerBar.enabled = true
+	end
+
 	if loadDefault then
 		self:LoadDefaultLayout(true)
 	end
@@ -203,7 +211,11 @@ function ShadowUF:LoadUnits()
 	for _, type in pairs(self.unitList) do
 		local enabled = self.db.profile.units[type].enabled
 		if( ShadowUF.Units.zoneUnits[type] and enabled ) then
-			enabled = ShadowUF.Units.zoneUnits[type] == instanceType
+			if( type == "boss" ) then
+				enabled = (instanceType == "raid" or instanceType == "party")
+			else
+				enabled = ShadowUF.Units.zoneUnits[type] == instanceType
+			end
 		elseif( instanceType ~= "none" ) then
 			if( self.db.profile.visibility[instanceType][type] == false ) then
 				enabled = false
@@ -278,6 +290,8 @@ function ShadowUF:LoadUnitDefaults()
 				self.defaults.profile.units[unit].indicators.ready = {enabled = true, size = 0}
 			end
 		end
+
+		self.defaults.profile.units[unit].altPowerBar = {enabled = false}
 	end
 		
 	-- PLAYER
@@ -334,6 +348,7 @@ function ShadowUF:LoadUnitDefaults()
 	self.defaults.profile.units.boss.auras.debuffs.maxRows = 1
 	self.defaults.profile.units.boss.auras.buffs.maxRows = 1
 	self.defaults.profile.units.boss.offset = 0
+	self.defaults.profile.units.boss.altPowerBar.enabled = true
 	-- RAID
 	self.defaults.profile.units.raid.groupBy = "GROUP"
 	self.defaults.profile.units.raid.sortOrder = "ASC"
@@ -580,9 +595,16 @@ function ShadowUF:HideBlizzardFrames()
 			_G[name .. "ManaBar"]:UnregisterAllEvents()
 		end
 	end
-	
+
 	if( ShadowUF.db.profile.hidden.arena ) then
 		Arena_LoadUI = self.noop
+	end
+
+	if( ShadowUF.db.profile.hidden.playerAltPower ) then
+		PlayerPowerBarAlt:UnregisterEvent("UNIT_POWER_BAR_SHOW")
+		PlayerPowerBarAlt:UnregisterEvent("UNIT_POWER_BAR_HIDE")
+		PlayerPowerBarAlt:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		PlayerPowerBarAlt:Hide()
 	end
 
 	-- fix LFD Cooldown Frame

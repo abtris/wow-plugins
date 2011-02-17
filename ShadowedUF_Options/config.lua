@@ -565,7 +565,7 @@ local function loadGeneralOptions()
 							
 							-- Strip module settings that aren't with SUF by default
 							if( not layoutData.modules ) then
-								local validModules = {["healthBar"] = true, ["powerBar"] = true, ["portrait"] = true, ["range"] = true, ["text"] = true, ["indicators"] = true, ["auras"] = true, ["incHeal"] = true, ["castBar"] = true, ["combatText"] = true, ["highlight"] = true, ["runeBar"] = true, ["totemBar"] = true, ["xpBar"] = true, ["fader"] = true, ["comboPoints"] = true, ["eclipseBar"] = true, ["soulShards"] = true, ["holyPower"] = true}
+								local validModules = {["healthBar"] = true, ["powerBar"] = true, ["portrait"] = true, ["range"] = true, ["text"] = true, ["indicators"] = true, ["auras"] = true, ["incHeal"] = true, ["castBar"] = true, ["combatText"] = true, ["highlight"] = true, ["runeBar"] = true, ["totemBar"] = true, ["xpBar"] = true, ["fader"] = true, ["comboPoints"] = true, ["eclipseBar"] = true, ["soulShards"] = true, ["holyPower"] = true, ["altPowerBar"] = true}
 								for _, unitData in pairs(layout.units) do
 									for key, data in pairs(unitData) do
 										if( type(data) == "table" and not validModules[key] and ShadowUF.modules[key] ) then
@@ -1331,7 +1331,7 @@ local function loadHideOptions()
 		type = "toggle",
 		name = function(info)
 			local key = info[#(info)]
-			return L.units[key] and string.format(L["Hide %s frames"], string.lower(L.units[key])) or string.format(L["Hide %s"], key == "cast" and L["player cast bar"] or key == "runes" and L["rune bar"] or key == "buffs" and L["buff frames"])
+			return L.units[key] and string.format(L["Hide %s frames"], string.lower(L.units[key])) or string.format(L["Hide %s"], key == "cast" and L["player cast bar"] or key == "runes" and L["rune bar"] or key == "buffs" and L["buff frames"] or key == "playerAltPower" and L["player alt. power"])
 		end,
 		set = function(info, value)
 			set(info, value)
@@ -1377,6 +1377,7 @@ local function loadHideOptions()
 					focus = Config.hideTable,
 					boss = Config.hideTable,
 					arena = Config.hideTable,
+					playerAltPower = Config.hideTable,
 				},
 			},
 		}
@@ -3255,6 +3256,14 @@ local function loadUnitOptions()
 								desc = L["Adds eclipse bars and how far into sun or moon eclipse is.."],
 								hidden = hideRestrictedOption,
 								arg = "eclipseBar.enabled",
+							},
+							altPowerBar = {
+								order = 1.4,
+								type = "toggle",
+								name = string.format(L["Enable %s"], L["Alt. Power bar"]),
+								desc = L["Shows a bar for alternate power info (used in some encounters)"],
+								hidden = hideRestrictedOption,
+								arg = "altPowerBar.enabled",
 							},
 							totemBar = {
 								order = 1.5,

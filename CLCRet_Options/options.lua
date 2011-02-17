@@ -74,7 +74,7 @@ function abgs:EnabledSet(val)
 	clcret.temp = info
 	if db.auras[i].data.spell == "" then
 		val = false
-		bprint("Not a valid spell name/id or buff name!")
+		print("Not a valid spell name/id or buff name!")
 	end
 	db.auras[i].enabled = val
 	if not val then clcret:AuraButtonHide(i) end
@@ -106,7 +106,7 @@ function abgs:SpellSet(val)
 			db.auras[i].data.spell = ""
 			db.auras[i].enabled = false
 			clcret:AuraButtonHide(i)
-			bprint("Not a valid spell name or id !")
+			print("Not a valid spell name or id !")
 		end
 	-- item
 	elseif (db.auras[i].data.exec == "AuraButtonExecItemVisibleAlways") or (db.auras[i].data.exec == "AuraButtonExecItemVisibleNoCooldown") then
@@ -117,7 +117,7 @@ function abgs:SpellSet(val)
 			db.auras[i].data.spell = ""
 			db.auras[i].enabled = false
 			clcret:AuraButtonHide(i)
-			bprint("Not a valid item name or id !")
+			print("Not a valid item name or id !")
 		end
 	-- icd stuff
 	elseif (db.auras[i].data.exec == "AuraButtonExecICDItem") then
@@ -129,7 +129,7 @@ function abgs:SpellSet(val)
 			db.auras[i].data.spell = ""
 			db.auras[i].enabled = false
 			clcret:AuraButtonHide(i)
-			bprint("Not a valid spell id!")
+			print("Not a valid spell id!")
 		end
 	else
 		db.auras[i].data.spell = val
@@ -197,7 +197,18 @@ end
 local function RotationSet(info, val)
 	local xdb = clcret.db.profile.rotation
 	xdb[info[3]] = val
+	
+	if info[3] == "prio" then
+		clcret.RR_UpdateQueue()
+	end
 end
+
+local tx = {}
+for k, v in pairs(clcret.RR_actions) do
+	table.insert(tx, format("\n%s - %s", k, v.info))
+end
+table.sort(tx)
+local prioInfo = "Legend:\n" .. table.concat(tx)
 
 local options = {
 	type = "group",
@@ -546,15 +557,34 @@ local options = {
 		rotation = {
 			type = "group", name = "Rotation",
 			args = {
+				igPrio = {
+					order = 1, type = "group", inline = true, name = "Priority",
+					args = {
+						info = {
+							order = 1, type = "description", name = prioInfo,
+						},
+						prio = {
+							order = 2, type = "input", width = "full", name = "",
+							get = RotationGet, set = RotationSet,
+						},
+						infoCMD = {
+							order = 3, type = "description", name = "Sample command line usage: /clcretlp inqa tv cs exoud how exo",
+						},
+					},
+				},
 				igInquisition = {
 					order = 2, type = "group", inline = true, name = "Inquisition",
 					args = {
-						useInq = {
-							type = "toggle", name = "Enable",
+						inqRefresh = {
+							order = 1, type = "range", min = 1, max = 15, step = 0.1, name = "Time before refresh",
 							get = RotationGet, set = RotationSet,
 						},
-					preInq = {
-							type = "range", min = 1, max = 15, step = 0.1, name = "Time before refresh",
+						inqApplyMin = {
+							order = 2, type = "range", min = 1, max = 3, step = 1, name = "Min HP for Inquisition Apply",
+							get = RotationGet, set = RotationSet,
+						},
+						inqRefreshMin = {
+							order = 3, type = "range", min = 1, max = 3, step = 1, name = "Min HP for Inquisition Refresh",
 							get = RotationGet, set = RotationSet,
 						},
 					},
@@ -579,33 +609,38 @@ local options = {
 							order = 1, type = "description", name = "Clash means the value of CS cooldown before the filler is used.",
 						},
 						jClash = {
-							order = 2, type = "range", min = 0, max = 1.5, step = 0.1, name = "Judgement Clash",
+							order = 2, type = "range", min = 0, max = 2, step = 0.1, name = "Judgement Clash",
 							get = RotationGet, set = RotationSet,
 						},
 						spacing1 = {
 							order = 3, type = "description", name = "",
 						},
-						hw = {
-							order = 4, type = "toggle", name = "Use Holy Wrath",
-							get = RotationGet, set = RotationSet,
-						},
 						hwClash = {
-							order = 5, type = "range", min = 0, max = 1.5, step = 0.1, name = "Holy Wrath Clash",
+							order = 5, type = "range", min = 0, max = 2, step = 0.1, name = "Holy Wrath Clash",
 							get = RotationGet, set = RotationSet,
 						},
 						spacing2 = {
 							order = 6, type = "description", name = "",
 						},
-						cons = {
-							order = 7, type = "toggle", name = "Use Consecration",
-							get = RotationGet, set = RotationSet,
-						},
 						consClash = {
-							order = 8, type = "range", min = 0, max = 1.5, step = 0.1, name = "Consecration Clash",
+							order = 8, type = "range", min = 0, max = 2, step = 0.1, name = "Consecration Clash",
 							get = RotationGet, set = RotationSet,
 						},
 						consMana = {
 							order = 9, type = "range", min = 0, max = 30000, step = 1, name = "Minimum mana required",
+							get = RotationGet, set = RotationSet,
+						},
+					},
+				},
+				igAdvanced = {
+					order = 5, type = "group", inline = true, name = "Advanced tweaks",
+					args = {
+						hpDelay = {
+							order = 1, type = "range", step = 0.1, min = 0, max = 1.5, name = "HP Delay",
+							get = RotationGet, set = RotationSet,
+						},
+						predictCS = {
+							order = 1, type = "toggle", name = "Predict that CS will generate HP",
 							get = RotationGet, set = RotationSet,
 						},
 					},

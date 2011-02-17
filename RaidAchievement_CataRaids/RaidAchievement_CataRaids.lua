@@ -175,7 +175,7 @@ end
 if arg2=="UNIT_DIED" and racrcheckdeadth43296 and UnitGUID("boss1") then
 	if crraspisokon[4]==1 and raachdone1 then
 		raunitisplayer(arg6,arg7)
-		if raunitplayertrue then
+		if raunitplayertrue and UnitIsFeignDeath(arg7)==nil and UnitIsDeadOrGhost(arg7) then
 			racrcheckdeadth43296=racrcheckdeadth43296+1
 			if racrcheckdeadth43296==3 then
 				crrafailnoreason(4,arg7)

@@ -40,7 +40,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_setComboModel(self, "VUHDO_PANEL_SETUP.#PNUM#.PANEL_COLOR.barTexture", VUHDO_STATUS_BARS);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_076);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K076);
 							</OnLoad>
 						</Scripts>
 					</Button>
@@ -94,7 +94,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.PANEL_COLOR.barTexture");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_TEXTURE_NUM, 1, 18);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_077);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K077);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -150,7 +150,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.manaBarHeight");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_MANA_BAR_HEIGHT, 0, 40);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_081);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K081);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -188,7 +188,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_setComboModel(self, "VUHDO_INDICATOR_CONFIG.BOUQUETS.HEALTH_BAR_PANEL.#PNUM#", VUHDO_BOUQUET_SLOTS_COMBO_MODEL);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_483);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K483);
 							</OnLoad>
 						</Scripts>
 					</Button>
@@ -208,7 +208,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.sideLeftWidth");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_SIDE_LEFT_WIDTH, 1, 50);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_508);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K508);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -228,7 +228,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.sideRightWidth");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_SIDE_RIGHT_WIDTH, 1, 50);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_507);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K507);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -279,7 +279,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.isDamFlash");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_472);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K472);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -299,7 +299,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.damFlashFactor");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_SENSIVITY, 0.05, 1, "", 0.05);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_363);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K363);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.isDamFlash", false);
 							</OnLoad>
 						</Scripts>

@@ -46,11 +46,11 @@
 				</Size>
 				<Anchors>
 			  <Anchor point="TOPLEFT"
-					  relativeTo="PowaEnableButton"
-					  relativePoint="BOTTOMLEFT">
+					  relativeTo="PowaOptionsCpuFrame2"
+					  relativePoint="TOPRIGHT">
 				<Offset>
-				  <AbsDimension x="0"
-								y="-10" />
+				  <AbsDimension x="-200"
+								y="-15" />
 				</Offset>
 			  </Anchor>
 			</Anchors>
@@ -60,11 +60,61 @@
 						PowaDebugButtonText:SetText(PowaAuras.Text.nomDebug);
 					</OnLoad>
 					<OnClick>
-						PowaAuras:DebugChecked();
+						PowaAuras:MiscChecked(self, "debug");
 					</OnClick>
 				</Scripts>
 			</CheckButton>
 
+			<CheckButton name="PowaTimerRoundingButton" inherits="PowaCheckTemplate">
+				<Size>
+					<AbsDimension x="25" y="25"/>
+				</Size>
+				<Anchors>
+			  <Anchor point="TOPLEFT"
+					  relativeTo="PowaEnableButton"
+					  relativePoint="BOTTOMLEFT">
+				<Offset>
+				  <AbsDimension x="0"
+								y="-5" />
+				</Offset>
+			  </Anchor>
+			</Anchors>				
+				<Scripts>
+					<OnLoad>
+						self.tooltipText = PowaAuras.Text.aideTimerRounding;
+						getglobal(self:GetName().."Text"):SetText(PowaAuras.Text.nomTimerRounding);
+					</OnLoad>
+					<OnClick>
+						PowaAuras:MiscChecked(self, "TimerRoundUp");
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+
+			<CheckButton name="PowaAllowInspectionsButton" inherits="PowaCheckTemplate">
+				<Size>
+					<AbsDimension x="25" y="25"/>
+				</Size>
+				<Anchors>
+			  <Anchor point="TOPLEFT"
+					  relativeTo="PowaDebugButton"
+					  relativePoint="BOTTOMLEFT">
+				<Offset>
+				  <AbsDimension x="0"
+								y="-5" />
+				</Offset>
+			  </Anchor>
+			</Anchors>				
+				<Scripts>
+					<OnLoad>
+						self.tooltipText = PowaAuras.Text.aideAllowInspections;
+						getglobal(self:GetName().."Text"):SetText(PowaAuras.Text.nomAllowInspections);
+					</OnLoad>
+					<OnClick>
+						PowaAuras:MiscChecked(self, "AllowInspections");
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			
 			<!-- Frequency auras are checked for updates -->
 			<Slider name="PowaOptionsUpdateSlider2"
 				  inherits="PowaBarSliderTemplate">
@@ -74,11 +124,11 @@
 				</Size>
 				<Anchors>
 				  <Anchor point="TOPLEFT"
-						  relativeTo="PowaDebugButton"
+						  relativeTo="PowaTimerRoundingButton"
 						  relativePoint="BOTTOMLEFT">
 					<Offset>
 					  <AbsDimension x="0"
-									y="-20" />
+									y="-10" />
 					</Offset>
 				  </Anchor>
 				</Anchors>
@@ -247,6 +297,7 @@
 						PowaResetPositionButtonText:SetText(PowaAuras.Text.nomReset);
 					</OnLoad>
 					<OnClick>
+						PowaAuras:ResetPositions();
 						PowaAuras:MainOptionShow();
 					</OnClick>
 				</Scripts>
@@ -262,7 +313,7 @@
                           relativeTo="PowaShowAuraBrowserButton"
                           relativePoint="BOTTOMLEFT">
                     <Offset>
-                      <AbsDimension x="10"
+                      <AbsDimension x="-10"
                                     y="-25" />
                     </Offset>
                   </Anchor>
@@ -338,55 +389,112 @@
                 </Scripts>
               </Frame>
 
-			<CheckButton name="PowaTimerRoundingButton" inherits="PowaCheckTemplate">
-				<Size>
-					<AbsDimension x="25" y="25"/>
-				</Size>
-				<Anchors>
-			  <Anchor point="TOPLEFT"
-					  relativeTo="PowaDropDownDefaultTimerTexture"
-					  relativePoint="BOTTOMLEFT">
-				<Offset>
-				  <AbsDimension x="0"
-								y="-10" />
-				</Offset>
-			  </Anchor>
-			</Anchors>				
-				<Scripts>
-					<OnLoad>
-						self.tooltipText = PowaAuras.Text.aideTimerRounding;
-						getglobal(self:GetName().."Text"):SetText(PowaAuras.Text.nomTimerRounding);
-					</OnLoad>
-					<OnClick>
-						PowaAuras:TimerRoundingChecked(self);
-					</OnClick>
-				</Scripts>
-			</CheckButton>
-
-			<CheckButton name="PowaAllowInspectionsButton" inherits="PowaCheckTemplate">
-				<Size>
-					<AbsDimension x="25" y="25"/>
-				</Size>
-				<Anchors>
-			  <Anchor point="TOPLEFT"
-					  relativeTo="PowaDropDownDefaultStacksTexture"
-					  relativePoint="BOTTOMLEFT">
-				<Offset>
-				  <AbsDimension x="0"
-								y="-10" />
-				</Offset>
-			  </Anchor>
-			</Anchors>				
-				<Scripts>
-					<OnLoad>
-						self.tooltipText = PowaAuras.Text.aideAllowInspections;
-						getglobal(self:GetName().."Text"):SetText(PowaAuras.Text.nomAllowInspections);
-					</OnLoad>
-					<OnClick>
-						PowaAuras:AllowInspectionsChecked(self);
-					</OnClick>
-				</Scripts>
-			</CheckButton>
+			  
+              <EditBox name="PowaCustomSoundPath"
+                       autoFocus="false"
+                       inherits="InputBoxTemplate">
+                <Size>
+                  <AbsDimension x="380"
+                                y="16" />
+                </Size>
+                <Anchors>
+                  <Anchor point="TOPLEFT"
+                          relativeTo="PowaDropDownDefaultTimerTexture"
+                          relativePoint="BOTTOMLEFT">
+                    <Offset>
+                      <AbsDimension x="-20"
+                                    y="-15" />
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+                <Layers>
+                  <Layer level="OVERLAY">
+                    <FontString inherits="ChatFontNormal"
+                                bytes="200" />
+                  </Layer>
+                </Layers>
+                <Scripts>
+                  <OnLoad>PowaCustomSoundPathText:SetText(PowaAuras.Text.nomCustomSoundPath); self.aide = PowaAuras.Text.aideCustomSoundPath;</OnLoad>
+                  <OnEnterPressed>self:ClearFocus()</OnEnterPressed>
+                  <OnEnter>GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetText(self.aide, nil, nil, nil, nil, 1);</OnEnter>
+                  <OnLeave>GameTooltip:Hide();</OnLeave>
+                </Scripts>
+                <Layers>
+                  <Layer level="OVERLAY">
+                    <FontString name="$parentText"
+                                inherits="GameFontNormalSmall"
+                                justifyH="LEFT">
+                      <Size>
+                        <AbsDimension x="220"
+                                      y="20" />
+                      </Size>
+                      <Anchors>
+                        <Anchor point="BOTTOMLEFT"
+                                relativeTo="$parent"
+                                relativePoint="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="0"
+                                          y="0" />
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                    </FontString>
+                  </Layer>
+                </Layers>
+              </EditBox>
+			  
+              <EditBox name="PowaCustomAuraPath"
+                       autoFocus="false" justifyH="LEFT"
+                       inherits="InputBoxTemplate">
+                <Size>
+                  <AbsDimension x="380"
+                                y="16" />
+                </Size>
+                <Anchors>
+                  <Anchor point="TOPLEFT"
+                          relativeTo="PowaCustomSoundPath"
+                          relativePoint="BOTTOMLEFT">
+                    <Offset>
+                      <AbsDimension x="0"
+                                    y="-20" />
+                    </Offset>
+                  </Anchor>
+                </Anchors>
+                <Layers>
+                  <Layer level="OVERLAY">
+                    <FontString inherits="ChatFontNormal"
+                                bytes="200" />
+                  </Layer>
+                </Layers>
+                <Scripts>
+                  <OnLoad>PowaCustomAuraPathText:SetText(PowaAuras.Text.nomCustomAuraPath); self.aide = PowaAuras.Text.aideCustomAuraPath;</OnLoad>
+                  <OnEnterPressed>self:ClearFocus()</OnEnterPressed>
+                  <OnEnter>GameTooltip:SetOwner(self, "ANCHOR_RIGHT"); GameTooltip:SetText(self.aide, nil, nil, nil, nil, 1);</OnEnter>
+                  <OnLeave>GameTooltip:Hide();</OnLeave>
+                </Scripts>
+                <Layers>
+                  <Layer level="OVERLAY">
+                    <FontString name="$parentText"
+                                inherits="GameFontNormalSmall"
+                                justifyH="LEFT">
+                      <Size>
+                        <AbsDimension x="220"
+                                      y="20" />
+                      </Size>
+                      <Anchors>
+                        <Anchor point="BOTTOMLEFT"
+                                relativeTo="$parent"
+                                relativePoint="TOPLEFT">
+                          <Offset>
+                            <AbsDimension x="0"
+                                          y="0" />
+                          </Offset>
+                        </Anchor>
+                      </Anchors>
+                    </FontString>
+                  </Layer>
+                </Layers>
+              </EditBox>			  
 			
 		</Frames>
     </Frame>

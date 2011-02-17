@@ -7895,7 +7895,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 2, 46815, "", "=q4=Quel'dorei Steed", "=ds=#e26#"};
 				{ 3, 46813, "", "=q4=Silver Covenant Hippogryph", "=ds=#e27#"};
 				{ 4, 46820, "", "=q3=Shimmering Wyrmling", "=ds=#e13#"};
-				{ 5, 46817, "", "=q4=Silver Covenant Tabard", "=ds=#s7#"};
+				{ 5, 46817, "", "=q1=Silver Covenant Tabard", "=ds=#s7#"};
 			};
 		};
 		info = {
@@ -7959,7 +7959,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 2, 46816, "", "=q4=Sunreaver Hawkstrider", "=ds=#e26#"};
 				{ 3, 46814, "", "=q4=Sunreaver Dragonhawk", "=ds=#e27#"};
 				{ 4, 46821, "", "=q3=Shimmering Wyrmling", "=ds=#e13#"};
-				{ 5, 46818, "", "=q4=Sunreaver Tabard", "=ds=#s7#"};
+				{ 5, 46818, "", "=q1=Sunreaver Tabard", "=ds=#s7#"};
 			};
 		};
 		info = {
@@ -11609,7 +11609,7 @@ local moduleName = "AtlasLootWotLK"
 				{ 10, 48677, "", "=q7=Champion's Deathdealer Breastplate", "=ds=#s5#, #a3#", "2175 #justice# / 60 #champseal#"};
 				{ 11, 48683, "", "=q7=Mystical Vest of Elements", "=ds=#s5#, #a3#", "2175 #justice# / 60 #champseal#"};
 				{ 12, 48685, "", "=q7=Polished Breastplate of Valor", "=ds=#s5#, #a4#", "2175 #justice# / 60 #champseal#"};
-				{ 14, 50255, "", "=q7=Dread Pirate Ring", "=ds=#s13#", ""};
+				{ 14, 50255, "", "=q7=Dread Pirate Ring", "=ds=#s13#", "=ds="..AL["Kalu'ak Fishing Derby"]};
 				{ 16, 42944, "", "=q7=Balanced Heartseeker", "=ds=#w4#, #h1#", "2175 #justice#  / 60 #champseal#"};
 				{ 17, 42945, "", "=q7=Venerable Dal'Rend's Sacred Charge", "=ds=#w10#, #h3#", "2175 #justice#  / 60 #champseal#"};
 				{ 18, 42943, "", "=q7=Bloodied Arcanite Reaper", "=ds=#w1#, #h2#", "3500 #justice# / 95 #champseal#"};

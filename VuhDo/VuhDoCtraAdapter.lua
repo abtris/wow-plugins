@@ -11,7 +11,7 @@ end
 local function VUHDO_getMainTankNumber(aUnit)
 	local tMTNumber, tMTName;
 	for tMTNumber, tMTName in pairs(VUHDO_MAINTANK_NAMES) do
-		if (tMTName == VUHDO_RAID[aUnit].name)	then
+		if (tMTName == VUHDO_RAID[aUnit]["name"])	then
 			return tMTNumber;
 		end
 	end
@@ -27,9 +27,9 @@ function VUHDO_ctraBroadCastMaintanks()
 	for tUnit, tInfo in pairs(VUHDO_RAID) do
 		tMtNumber = VUHDO_getMainTankNumber(tUnit);
 		if (tMtNumber ~= nil) then
-			VUHDO_sendCtraMessage("SET " .. tMtNumber .. " " .. tInfo.name);
+			VUHDO_sendCtraMessage(format("SET %d %s", tMtNumber, tInfo["name"]));
 		else
-			VUHDO_sendCtraMessage("R " .. tInfo.name);
+			VUHDO_sendCtraMessage(format("R %s", tInfo["name"]));
 		end
 	end
 end
@@ -43,7 +43,7 @@ function VUHDO_parseCtraMessage(aNick, aMessage)
 	local tKey;
 
 	-- ended resurrection
-	if (aMessage == "RESNO") then
+	if ("RESNO" == aMessage) then
 		local tObject, tSubject;
 		for tObject, tSubject in pairs(VUHDO_RESSING_NAMES) do
 			if (tSubject == aNick) then
@@ -55,7 +55,7 @@ function VUHDO_parseCtraMessage(aNick, aMessage)
 			end
 		end
 	-- started resurrection
-	elseif (strsub(aMessage, 1, 3) == "RES") then
+	elseif ("RES" == strsub(aMessage, 1, 3)) then
 		local tObject;
 		_, _, tObject = strfind(aMessage, "^RES (.+)$");
 		if (tObject ~= nil) then
@@ -66,7 +66,7 @@ function VUHDO_parseCtraMessage(aNick, aMessage)
 			end
 		end
 	-- Setting main tanks
-	elseif (strsub(aMessage, 1, 4) == "SET ") then
+	elseif ("SET " == strsub(aMessage, 1, 4)) then
 		local _, _, tNum, tName = strfind(aMessage, "^SET (%d+) (.+)$");
 		if (tNum ~= nil and tName ~= nil) then
 			for tKey, _ in pairs(VUHDO_MAINTANK_NAMES) do
@@ -78,7 +78,7 @@ function VUHDO_parseCtraMessage(aNick, aMessage)
 			VUHDO_normalRaidReload();
 		end
 	-- Removing main tanks
-	elseif(strsub(aMessage, 1, 2) == "R ") then
+	elseif("R " == strsub(aMessage, 1, 2)) then
 		local _, _, tName = strfind(aMessage, "^R (.+)$");
 		if (tName ~= nil) then
 			for tKey, _ in pairs(VUHDO_MAINTANK_NAMES) do
@@ -91,4 +91,3 @@ function VUHDO_parseCtraMessage(aNick, aMessage)
 		end
 	end
 end
-

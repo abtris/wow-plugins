@@ -26,7 +26,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.HIGHLIGHT_COOLDOWN");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_021);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K021);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -46,7 +46,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.REBUFF_AT_PERCENT");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_INDICATE_REBUFF_BELOW, 1, 100, "%", 1);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_022);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K022);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -85,7 +85,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.REBUFF_MIN_MINUTES");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_INDICATE_REBUFF_BELOW, 0, 25, " " .. VUHDO_I18N_MINUTE, 0.1);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_023);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K023);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -153,7 +153,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.WHEEL_SMART_BUFF");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_451);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K451);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -203,7 +203,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.USE_COMBINED");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_500);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K500);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>

@@ -16,7 +16,7 @@
 				<Scripts>
 					<OnClick>VUHDO_newOptionsApplyWizardOnClick();</OnClick>
 					<OnLoad>
-						VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_280);
+						VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K280);
 					</OnLoad>
 				</Scripts>
 			</Button>
@@ -45,7 +45,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_WIZARD_IS_VEHICLES");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_281);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K281);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -61,7 +61,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_WIZARD_IS_PETS");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_282);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K282);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -77,7 +77,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_WIZARD_IS_PTS");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_283);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K283);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -93,7 +93,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_WIZARD_IS_MTS");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_284);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K284);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -144,7 +144,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_WIZARD_MAIN_PANEL_VAL", "UNSORT");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_285);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K285);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -160,7 +160,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_WIZARD_MAIN_PANEL_VAL", "ROLES");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_286);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K286);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -176,7 +176,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_WIZARD_MAIN_PANEL_VAL", "CLASSES");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_287);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K287);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -192,7 +192,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_WIZARD_MAIN_PANEL_VAL", "GROUPS");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_288);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K288);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>

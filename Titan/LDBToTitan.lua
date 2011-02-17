@@ -407,9 +407,17 @@ function TitanLDBShowText(name)
 		-- return values will be empty strings
 	end
 	
-	lab1 = TitanUtils_GetNormalText(lab1)
-	val1 = TitanGetVar(name, "ShowColoredText") 
-		and TitanUtils_GetGreenText(val1) or TitanUtils_GetHighlightText(val1)
+	if lab1 == "" then
+		lab1 = nil
+	else
+		lab1 = TitanUtils_GetNormalText(lab1)
+	end
+	if val1 == "" then
+		val1 = nil
+	else
+		val1 = TitanGetVar(name, "ShowColoredText") 
+			and TitanUtils_GetGreenText(val1) or TitanUtils_GetHighlightText(val1)
+	end
 	return lab1, val1
 end
 
@@ -540,10 +548,9 @@ function LDBToTitan:TitanLDBCreateObject(_, name, obj)
 	end
 	-- DATA_SOURCE text display elements
 	if obj.type == DATA_SOURCE then
-		if obj.text then
-			ldb.RegisterCallback(self, 
-				CALLBACK_PREFIX..name.."_text", "TitanLDBTextUpdate")
-		end
+		-- .text so always allow it
+		ldb.RegisterCallback(self, 
+			CALLBACK_PREFIX..name.."_text", "TitanLDBTextUpdate")
 		if obj.label then
 			ldb.RegisterCallback(self, 	
 				CALLBACK_PREFIX..name.."_label", "TitanLDBTextUpdate")

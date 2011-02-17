@@ -1,0 +1,13 @@
+v0.2
+*Fixed localization files.
+*Min buyouts are now cleared after a scan.
+*Brand new market value algorithm that should be much less vulnerable to market value poisoning as well as be far more accurate in general.
+*Many other minor bug fixes and improvements.
+
+v0.1.1
+*Added option to do a full AH scan.
+*Fixed blacksmithing scan to include belt buckles.
+*Many other minor bug fixes and improvements.
+
+v0.1
+*First version!

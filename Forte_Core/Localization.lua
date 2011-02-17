@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+﻿-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 
 --[[
 "frFR": French
@@ -298,7 +298,7 @@ if GetLocale() == "frFR" then
 
 	FWL.GENERAL_TIPS = "Some Tips";
 	FWL.GENERAL_TIPS1 = "Press enter to confirm changes to editboxes. Escape will restore its current setting.";
-	FWL.GENERAL_TIPS2 = "You can use the [default] button in the headers to restore every default in this category.";
+	FWL.GENERAL_TIPS2 = "You can use the 'default icon' in the headers to restore every default in this category.";
 	FWL.GENERAL_TIPS3 = "Left-click frame headers to toggle between display modes. Drag frame headers to move.";
 	FWL.GENERAL_TIPS4 = "Some color options also allow for transparency changing. Usually the background colors.";
 
@@ -458,6 +458,9 @@ if GetLocale() == "frFR" then
 	FWL.MY_SPELLS = "My Spells";
 	FWL.RAID_DEBUFFS = "Raid Debuffs (my target only)";
 	FWL.ALL_OTHER_COOLDOWNS = "All other Cooldowns";
+	
+	FWL.BREAK_FADE = "Break/Fade";
+	FWL.BREAK_FADE_HINT1 = "The time you set in the fade string defines when it is displayed.";
 	
 -- Russian
 elseif GetLocale() == "ruRU" then
@@ -728,6 +731,9 @@ elseif GetLocale() == "ruRU" then
 --[[>>]]FWL.RAID_DEBUFFS = "Raid Debuffs (my target only)";
 --[[>>]]FWL.ALL_OTHER_COOLDOWNS = "All other Cooldowns";
 
+	FWL.BREAK_FADE = "Прервано/Рассеивается";
+	FWL.BREAK_FADE_HINT1 = "Время отображение строки рассеивания.";
+
 	FW:SetDefaultFont("Fonts\\ARIALN.TTF",11);
 
 elseif GetLocale() == "zhCN" then
@@ -993,6 +999,9 @@ elseif GetLocale() == "zhCN" then
 --[[>>]]FWL.RAID_DEBUFFS = "Raid Debuffs (my target only)";
 --[[>>]]FWL.ALL_OTHER_COOLDOWNS = "All other Cooldowns";
 
+	FWL.BREAK_FADE = "打断/失效";
+	FWL.BREAK_FADE_HINT1 = "失效信息持续时间.";
+		
 	-- register extra fonts
 	FW:RegisterFont("Fonts\\ZYHei.TTF","中易黑");
 	FW:RegisterFont("Fonts\\ZYKai_T.TTF","中易楷");
@@ -1261,7 +1270,9 @@ elseif GetLocale() == "zhTW" then
 --[[>>]]FWL.MY_SPELLS = "My Spells";
 --[[>>]]FWL.RAID_DEBUFFS = "Raid Debuffs (my target only)";
 --[[>>]]FWL.ALL_OTHER_COOLDOWNS = "All other Cooldowns";
-
+	FWL.BREAK_FADE = "打斷/失效";
+	FWL.BREAK_FADE_HINT1 = "失效資訊持續時間.";
+		
 	-- register extra fonts
 	FW:RegisterFont("Fonts\\bLEI00D.TTF","聊天字體");
 	FW:RegisterFont("Fonts\\bHEI01B.TTF","戰鬥字體");
@@ -1532,6 +1543,9 @@ elseif GetLocale() == "deDE" then
 --[[>>]]FWL.RAID_DEBUFFS = "Raid Debuffs (my target only)";
 --[[>>]]FWL.ALL_OTHER_COOLDOWNS = "All other Cooldowns";
 
+		FWL.BREAK_FADE = "Unterbrochen/Endet";
+--[[>>]]FWL.BREAK_FADE_HINT1 = "Die Zeit die du in der Textzeile einsetzt bestimmt wann sie angezeigt wird. (Korrekte übersetzung? Originaltext: The time you set in the fade string defines when it is displayed.)";
+
 elseif GetLocale() == "koKR" then
 
 --[[>>]]FWL.MODULE_NONE = "|cffff0000None|r";
@@ -1795,7 +1809,9 @@ elseif GetLocale() == "koKR" then
 --[[>>]]FWL.MY_SPELLS = "My Spells";
 --[[>>]]FWL.RAID_DEBUFFS = "Raid Debuffs (my target only)";
 --[[>>]]FWL.ALL_OTHER_COOLDOWNS = "All other Cooldowns";
-	
+	FWL.BREAK_FADE = "풀림/사라짐";
+	FWL.BREAK_FADE_HINT1 = "사라짐 영역에 설정한 시간이 언제 표시될지를 결정합니다.";
+		
 	-- register extra fonts
 	FW:RegisterFont("Fonts\\K_Damage","MD으뜸M");
 	FW:SetDefaultFont("Fonts\\K_Damage",12);
@@ -1902,7 +1918,7 @@ else
 
 	FWL.GENERAL_TIPS = "Some Tips";
 	FWL.GENERAL_TIPS1 = "Press enter to confirm changes to editboxes. Escape will restore its current setting.";
-	FWL.GENERAL_TIPS2 = "You can use the [default] button in the headers to restore every default in this category.";
+	FWL.GENERAL_TIPS2 = "You can use the 'default icon' in the headers to restore every default in this category.";
 	FWL.GENERAL_TIPS3 = "Left-click frame headers to toggle between display modes. Drag frame headers to move.";
 	FWL.GENERAL_TIPS4 = "Some color options also allow for transparency changing. Usually the background colors.";
 
@@ -2062,7 +2078,11 @@ else
 	FWL.MY_SPELLS = "My Spells";
 	FWL.RAID_DEBUFFS = "Raid Debuffs (my target only)";
 	FWL.ALL_OTHER_COOLDOWNS = "All other Cooldowns";
+	
+	FWL.BREAK_FADE = "Break/Fade";
+	FWL.BREAK_FADE_HINT1 = "The time you set in the fade string defines when it is displayed.";
 end
+FWL.GENERAL_TIPS7 = "Click the ' + new' tab at the top of this frame to create a new profile.";
 
 FWL.CONFIRM_DELETE_PROFILE = "Are you sure you want to delete the profile '%s'?";
 FWL.CONFIRM_DELETE_CLONE = "Are you sure you want to delete the clone '%s'?";

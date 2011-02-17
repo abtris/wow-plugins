@@ -97,6 +97,13 @@ function VUHDO_initHotBars()
 			tHotBar:SetValue(0);
 			tHotBarColor = sBarColors[format("HOT%d", tCnt)];
 			tHotBar:SetStatusBarColor(tHotBarColor["R"], tHotBarColor["G"], tHotBarColor["B"], tHotBarColor["O"]);
+
+			if (VUHDO_INDICATOR_CONFIG["CUSTOM"]["HEALTH_BAR"]["turnAxis"]) then
+				tHotBar:SetOrientation("HORIZONTAL_INV");
+			else
+				tHotBar:SetOrientation("HORIZONTAL");
+			end
+
 			tHotBar:Show();
 		end
 	end
@@ -169,9 +176,9 @@ local function VUHDO_initHotIcon(anIndex)
 	elseif (sHotPos == 4) then
 		tHotIcon:SetPoint("LEFT", sButton:GetName(), "RIGHT", tOffset, 0); --  ro
 	elseif (sHotPos == 5) then
-		tHotIcon:SetPoint("TOPLEFT",  sHealthBarName, "BOTTOMLEFT", tOffset, sHotIconSize / 2); -- lb
+		tHotIcon:SetPoint("TOPLEFT",  sHealthBarName, "BOTTOMLEFT", tOffset, sHotIconSize * 0.5); -- lb
 	elseif (sHotPos == 6) then
-		tHotIcon:SetPoint("TOPRIGHT", sHealthBarName, "BOTTOMRIGHT", -tOffset,  sHotIconSize / 2); -- rb
+		tHotIcon:SetPoint("TOPRIGHT", sHealthBarName, "BOTTOMRIGHT", -tOffset,  sHotIconSize * 0.5); -- rb
 	elseif (sHotPos == 7) then
 		tHotIcon:SetPoint("TOPLEFT",  sButton:GetName(), "BOTTOMLEFT", tOffset, 0); -- lu
 	elseif (sHotPos == 8) then

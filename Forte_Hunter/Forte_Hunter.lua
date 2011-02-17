@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 -- Module started by Destard/Stormstalker fixes by Caleb & Xus
 
 if FW.CLASS == "HUNTER" then
@@ -103,6 +103,8 @@ if FW.CLASS == "HUNTER" then
 		ST:RegisterBuff(34839); -- Master Tactician
 		ST:RegisterBuff(70728); -- Exploit Weakness (t10)
 		
+		ST:RegisterBuff(63087); -- Glyph of Raptor Strike
+		
 		ST:RegisterBuff(77769,1); -- Trap Launcher
 
 		ST:RegisterSpell(34600,	0,060,0,ST.UNIQUE);-- Snake Trap
@@ -122,6 +124,17 @@ if FW.CLASS == "HUNTER" then
 		ST:RegisterMeleeBuffs();
 		ST:RegisterCasterBuffs();
 		
+		ST:RegisterBuff(53220); -- Improved Steady Shot
+		do
+			local steady_shot = FW:SpellName(56641);
+			FW:RegisterSpecialCastTime(53220,
+				function()
+					if FW.SpellInfo[steady_shot] then
+						return FW.SpellInfo[steady_shot][2]*2;
+					end
+				end
+			);
+		end
 		do
 			local bonus = {[0]=0,3,6,9};
 			local trap_mastery = FW:SpellName(19376); -- Trap Mastery talent is tracked from Freezing Trap

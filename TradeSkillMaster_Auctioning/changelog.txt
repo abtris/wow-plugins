@@ -1,0 +1,44 @@
+v0.1.9
+*Fixed the localization tags.
+*Reverted the posting code back to when it was working. It will post correctly now but may leave some uneven stacks in the player's bags.
+*Inlcuded new functions to provide compatibility with the new "Create Auctioning Groups" feature in Crafting.
+*Many other minor changes and bug fixes.
+
+v0.1.8
+*Fixed some bugs with posting multiple stacks worth of one item.
+*Randomly enchanted gear should now be posted properly.
+*You can now use the link of an item as the name of a group.
+
+v0.1.7
+*Setting threshold/fallback as a % at the category or default level should now correctly be calculated per group rather than just assigning one value to every group.
+*The evaluation of a non-overriden threshold / fallback setting will not show in the fallback/threshold editbox for the group.
+*Fixed a bug with the rows in the Log overlapping after a status scan.
+*Fixed a bug preventing posting of multiple stacks worth of some items.
+*Many other minor changes and bug fixes.
+
+v0.1.6
+*Fixed the memory leak with the log.
+*Fixed cancelall scans.
+*Fixed a bug where adding items to Auctioning through Crafting was sometimes causing an error.
+*Many other minor changes and bug fixes.
+
+v0.1.5
+*Settings should now properly transfer.
+*Bindings are now saved by character.
+*Many other bug fixes
+
+v0.1.4
+*Fixed a bug with the popups added in 0.1.3Beta
+
+v0.1.3
+*Added a popup for first time users when you first visit the Auctioning options.
+
+v0.1.2
+*Fixed a major bug with the groups not transferring correctly from APM.
+
+v0.1.1
+*Updated the changelog.
+*Fixed a typo in the posting interface.
+
+v0.1
+*First Beta Release!

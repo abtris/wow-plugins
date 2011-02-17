@@ -73,13 +73,15 @@ local SPELLFIRE = GetSpellInfo(26797);
 	AtlasLoot_Data["ALCHEMYMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "AlchemyBattleElixir", "inv_alchemy_potion_06", "=ds="..AL["Battle Elixirs"], "" };
-				{ 3, "AlchemyPotion", "inv_alchemy_elixir_02", "=ds="..AL["Potions"], "" };
-				{ 4, "AlchemyTransmute", "inv_elemental_eternal_air", "=ds="..AL["Transmutes"], "" };
-				{ 6, "AlchemyBattleElixirNEW", "inv_alchemy_potion_06", "=ds="..AL["Battle Elixirs"], "" };
-				{ 17, "AlchemyGuardianElixir", "inv_potion_164", "=ds="..AL["Guardian Elixirs"], "" };
-				{ 18, "AlchemyFlask", "inv_alchemy_endlessflask_04", "=ds="..AL["Flasks"], "" };
-				{ 19, "AlchemyMisc", "inv_misc_cauldron_frost", "=ds="..BabbleInventory["Miscellaneous"], "" };
+				{ 1, "AlchemyBattleElixir", "inv_alchemy_potion_06", "=ds="..AL["Battle Elixirs"], "" };
+				{ 2, "AlchemyGuardianElixir", "inv_potion_164", "=ds="..AL["Guardian Elixirs"], "" };			
+				{ 4, "AlchemyFlask", "inv_alchemy_endlessflask_04", "=ds="..AL["Flasks"], "" };
+				{ 5, "AlchemyCauldron", "inv_misc_cauldron_fire", "=ds="..AL["Cauldrons"], "" };
+				{ 7, "AlchemyPotion", "inv_alchemy_elixir_02", "=ds="..AL["Potions"], "" };
+				{ 16, "AlchemyOtherElixir", "inv_potion_112", "=ds="..AL["Other Elixirs"], "" };				
+				{ 18, "AlchemyOil", "inv_potion_07", "=ds="..AL["Oils"], "" };
+				{ 20, "AlchemyTransmute", "inv_elemental_eternal_air", "=ds="..AL["Transmutes"], "" };				
+				{ 21, "AlchemyMisc", "spell_holy_aspiration", "=ds="..BabbleInventory["Miscellaneous"], "" };
 			};
 		};
 		info = {
@@ -95,18 +97,21 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 3, "SmithingArmorWrath", "Trade_BlackSmithing", "=ds="..BabbleInventory["Armor"], "=q5="..AL["Wrath of the Lich King"] };
 				{ 4, "SmithingArmorBC", "Trade_BlackSmithing", "=ds="..BabbleInventory["Armor"], "=q5="..AL["Burning Crusade"] };
 				{ 5, "SmithingArmorOld", "Trade_BlackSmithing", "=ds="..BabbleInventory["Armor"], "=q5="..AL["Classic WoW"] };
-				{ 7, "SmithingEnhancement", "inv_titanium_shield_spike", "=ds="..AL["Item Enhancements"], "" };
-				{ 9, "Armorsmith", "inv_chest_plate16", "=ds="..GetSpellInfo(9788), "" };
-				{ 10, "Axesmith", "inv_axe_1h_blacksmithing_01", "=ds="..GetSpellInfo(17041), "" };
-				{ 11, "Swordsmith", "inv_sword_1h_blacksmithing_02", "=ds="..GetSpellInfo(17039), "" };
-				{ 13, "SmithingCataVendor", "inv_scroll_04", "=ds="..AL["Cataclysm Vendor Sold Plans"], "=q5="..BabbleZone["Twilight Highlands"] };
+				{ 7, "SmithingArmorEnhancement", "inv_titanium_shield_spike", "=ds="..AL["Armor Enhancements"], "" };
+				{ 8, "SmithingMisc", "inv_misc_key_07", "=ds="..BabbleInventory["Miscellaneous"], "" };
+				{ 10, "Armorsmith", "inv_chest_plate16", "=ds="..GetSpellInfo(9788), "" };
+				{ 11, "Axesmith", "inv_axe_1h_blacksmithing_01", "=ds="..GetSpellInfo(17041), "" };
+				{ 12, "Swordsmith", "inv_sword_1h_blacksmithing_02", "=ds="..GetSpellInfo(17039), "" };
+				{ 14, "SmithingCataVendor", "inv_scroll_04", "=ds="..AL["Cataclysm Vendor Sold Plans"], "=q5="..BabbleZone["Twilight Highlands"] };
+				--{ 15, "SmithingArmorRemoved", "Trade_BlackSmithing", "=ds=Removed (Temp Name)", "" };
 				{ 17, "SmithingWeaponCata", "Trade_BlackSmithing", "=ds="..AL["Weapons"], "=q5="..AL["Cataclysm"] };
 				{ 18, "SmithingWeaponWrath", "Trade_BlackSmithing", "=ds="..AL["Weapons"], "=q5="..AL["Wrath of the Lich King"] };
 				{ 19, "SmithingWeaponBC", "Trade_BlackSmithing", "=ds="..AL["Weapons"], "=q5="..AL["Burning Crusade"] };
 				{ 20, "SmithingWeaponOld", "Trade_BlackSmithing", "=ds="..AL["Weapons"], "=q5="..AL["Classic WoW"] };
-				{ 22, "SmithingMisc", "inv_misc_key_07", "=ds="..BabbleInventory["Miscellaneous"], "" };
-				{ 24, "Weaponsmith", "inv_hammer_21", "=ds="..GetSpellInfo(9787), "" };
-				{ 25, "Hammersmith", "inv_hammer_09", "=ds="..GetSpellInfo(17040), "" };
+				{ 22, "SmithingWeaponEnhancement", "inv_misc_steelweaponchain", "=ds="..AL["Weapon Enhancements"], "" };
+				{ 25, "Weaponsmith", "inv_hammer_21", "=ds="..GetSpellInfo(9787), "" };
+				{ 26, "Hammersmith", "inv_hammer_09", "=ds="..GetSpellInfo(17040), "" };
+				--{ 30, "SmithingWeaponRemoved", "Trade_BlackSmithing", "=ds=Removed (Temp Name)", "" };
 			};
 		};
 		info = {
@@ -118,16 +123,16 @@ local SPELLFIRE = GetSpellInfo(26797);
 	AtlasLoot_Data["ENCHANTINGMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "EnchantingBoots", "Trade_Engraving", "=ds="..AL["Enchant Boots"], "" };
-				{ 3, "EnchantingChest", "Trade_Engraving", "=ds="..AL["Enchant Chest"], "" };
-				{ 4, "EnchantingGloves", "Trade_Engraving", "=ds="..AL["Enchant Gloves"], "" };
-				{ 5, "EnchantingShield", "Trade_Engraving", "=ds="..AL["Enchant Shield"], "" };
-				{ 6, "Enchanting2HWeapon", "Trade_Engraving", "=ds="..AL["Enchant 2H Weapon"], "" };
-				{ 7, "EnchantingMisc", "Trade_Engraving", "=ds="..BabbleInventory["Miscellaneous"], "" };
-				{ 9, "EnchantingCataVendor", "inv_enchant_formulasuperior_01", "=ds="..AL["Cataclysm Vendor Sold Formulas"], "=q5="..BabbleZone["Twilight Highlands"] };
-				{ 17, "EnchantingBracer", "Trade_Engraving", "=ds="..AL["Enchant Bracer"], "" };
-				{ 18, "EnchantingCloak", "Trade_Engraving", "=ds="..AL["Enchant Cloak"], "" };
-				{ 19, "EnchantingRing", "Trade_Engraving", "=ds="..AL["Enchant Ring"], "" };
+				{ 2, "EnchantingBoots", "inv_enchant_formulasuperior_01", "=ds="..AL["Enchant Boots"], "" };
+				{ 3, "EnchantingBracer", "Trade_Engraving", "=ds="..AL["Enchant Bracer"], "" };
+				{ 4, "EnchantingCloak", "inv_enchant_formulasuperior_01", "=ds="..AL["Enchant Cloak"], "" };
+				{ 5, "EnchantingChest", "inv_enchant_formulagood_01", "=ds="..AL["Enchant Chest"], "" };
+				{ 6, "EnchantingGloves", "Spell_Holy_GreaterHeal", "=ds="..AL["Enchant Gloves"], "" };
+				{ 8, "EnchantingMisc", "inv_rod_enchantedadamantite", "=ds="..BabbleInventory["Miscellaneous"], "" };
+				{ 10, "EnchantingCataVendor", "inv_enchant_formulasuperior_01", "=ds="..AL["Cataclysm Vendor Sold Formulas"], "=q5="..BabbleZone["Twilight Highlands"] };
+				{ 17, "EnchantingRing", "inv_misc_note_01", "=ds="..AL["Enchant Ring"], "" };
+				{ 18, "EnchantingShield", "Spell_Holy_GreaterHeal", "=ds="..AL["Enchant Shield"], "" };
+				{ 19, "Enchanting2HWeapon", "Trade_Engraving", "=ds="..AL["Enchant 2H Weapon"], "" };
 				{ 20, "EnchantingStaff", "Trade_Engraving", "=ds="..BabbleInventory["Staff"], "" };
 				{ 21, "EnchantingWeapon", "Trade_Engraving", "=ds="..AL["Enchant Weapon"], "" };
 			};
@@ -152,7 +157,7 @@ local SPELLFIRE = GetSpellInfo(26797);
 				{ 12, "EngineeringArmor", "spell_arcane_portaldarnassus", "=ds="..BabbleInventory["Armor"], "=q5="..BabbleInventory["Miscellaneous"] };
 				{ 17, "EngineeringExplosives", "spell_shadow_mindbomb", "=ds="..BabbleInventory["Explosives"], "" };
 				{ 18, "EngineeringPetMount", "inv_misc_key_06", "=ds="..BabbleInventory["Pet"].." & "..BabbleInventory["Mount"], "" };
-				{ 19, "EngineeringTinker", "Trade_Engineering", "=ds=Tinker", "" };
+				{ 19, "EngineeringTinker", "Trade_Engineering", "=ds="..AL["Tinker"], "" };
 				{ 20, "EngineeringArmorTrinket", "inv_misc_head_dragon_bronze", "=ds="..BabbleInventory["Trinket"], "" };
 				{ 23, "Goblin", "inv_gizmo_supersappercharge", "=ds="..GetSpellInfo(20221), "" };
 				{ 25, "EngineeringArmorMail", "inv_gizmo_newgoggles", "=ds="..BabbleInventory["Armor"], "=q5="..BabbleInventory["Mail"] };
@@ -168,30 +173,20 @@ local SPELLFIRE = GetSpellInfo(26797);
 	AtlasLoot_Data["INSCRIPTIONMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "Inscription_Scrolls", "inv_scroll_15", "=ds="..AL["Scrolls"], "" };
-				{ 3, "Inscription_Misc", "INV_Inscription_Tradeskill01", "=ds="..BabbleInventory["Miscellaneous"], "" };
-				{ 5, "Inscription_DeathKnightMajor", "spell_deathknight_classicon", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["Major Glyph"] };
-				{ 6, "Inscription_DruidMajor", "ability_druid_maul", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Major Glyph"] };
-				{ 7, "Inscription_HunterMajor", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], "=q5="..AL["Major Glyph"] };
-				{ 8, "Inscription_MageMajor", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], "=q5="..AL["Major Glyph"] };
-				{ 9, "Inscription_PaladinMajor", "ability_thunderbolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Major Glyph"] };
-				{ 10, "Inscription_PriestMajor", "inv_staff_30", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Major Glyph"] };
-				{ 11, "Inscription_RogueMajor", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], "=q5="..AL["Major Glyph"] };
-				{ 12, "Inscription_ShamanMajor", "spell_nature_bloodlust", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Major Glyph"] };
-				{ 13, "Inscription_WarlockMajor", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], "=q5="..AL["Major Glyph"] };
-				{ 14, "Inscription_WarriorMajor", "inv_sword_27", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Major Glyph"] };
-				{ 17, "Inscription_OffHand", "inv_misc_book_09", "=ds="..AL["Off-Hand Items"], "" };
-				{ 18, "Inscription_Reagents", "inv_inscription_inkred01", "=ds="..AL["Reagents"], "" };
-				{ 20, "Inscription_DeathKnightMinor", "spell_deathknight_classicon", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["Minor Glyph"] };
-				{ 21, "Inscription_DruidMinor", "ability_druid_maul", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Minor Glyph"] };
-				{ 22, "Inscription_HunterMinor", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], "=q5="..AL["Minor Glyph"] };
-				{ 23, "Inscription_MageMinor", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], "=q5="..AL["Minor Glyph"] };
-				{ 24, "Inscription_PaladinMinor", "ability_thunderbolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Minor Glyph"] };
-				{ 25, "Inscription_PriestMinor", "inv_staff_30", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Minor Glyph"] };
-				{ 26, "Inscription_RogueMinor", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], "=q5="..AL["Minor Glyph"] };
-				{ 27, "Inscription_ShamanMinor", "spell_nature_bloodlust", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Minor Glyph"] };
-				{ 28, "Inscription_WarlockMinor", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], "=q5="..AL["Minor Glyph"] };
-				{ 29, "Inscription_WarriorMinor", "inv_sword_27", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Minor Glyph"] };
+				{ 2, "Inscription_RelicsEnchants", "inv_misc_mastersinscription", "=ds="..AL["Relics/Shoulder Enchants"], "" };
+				{ 17, "Inscription_OffHand", "inv_misc_book_16", "=ds="..AL["Off-Hand Items"], "" };
+				{ 3, "Inscription_Scrolls", "inv_scroll_15", "=ds="..AL["Scrolls"].."/"..AL["Darkmoon Faire Card"], "" };
+				{ 18, "Inscription_Misc", "INV_Inscription_Tradeskill01", "=ds="..BabbleInventory["Miscellaneous"], "" };
+				{ 5, "Inscription_DeathKnight", "spell_deathknight_classicon", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DEATHKNIGHT"], "=q5="..AL["Glyph"] };
+				{ 20, "Inscription_Druid", "ability_druid_maul", "=ds="..LOCALIZED_CLASS_NAMES_MALE["DRUID"], "=q5="..AL["Glyph"] };
+				{ 6, "Inscription_Hunter", "inv_weapon_bow_07", "=ds="..LOCALIZED_CLASS_NAMES_MALE["HUNTER"], "=q5="..AL["Glyph"] };
+				{ 21, "Inscription_Mage", "inv_staff_13", "=ds="..LOCALIZED_CLASS_NAMES_MALE["MAGE"], "=q5="..AL["Glyph"] };
+				{ 7, "Inscription_Paladin", "ability_thunderbolt", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PALADIN"], "=q5="..AL["Glyph"] };
+				{ 22, "Inscription_Priest", "inv_staff_30", "=ds="..LOCALIZED_CLASS_NAMES_MALE["PRIEST"], "=q5="..AL["Glyph"] };
+				{ 8, "Inscription_Rogue", "inv_throwingknife_04", "=ds="..LOCALIZED_CLASS_NAMES_MALE["ROGUE"], "=q5="..AL["Glyph"] };
+				{ 23, "Inscription_Shaman", "spell_nature_bloodlust", "=ds="..LOCALIZED_CLASS_NAMES_MALE["SHAMAN"], "=q5="..AL["Glyph"] };
+				{ 9, "Inscription_Warlock", "spell_nature_drowsy", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARLOCK"], "=q5="..AL["Glyph"] };
+				{ 24, "Inscription_Warrior", "inv_sword_27", "=ds="..LOCALIZED_CLASS_NAMES_MALE["WARRIOR"], "=q5="..AL["Glyph"] };
 			};
 		};
 		info = {
@@ -228,19 +223,23 @@ local SPELLFIRE = GetSpellInfo(26797);
 	AtlasLoot_Data["LEATHERWORKINGMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "LeatherLeatherArmorOld", "INV_Misc_ArmorKit_17", "=ds="..AL["Leather Armor"], "=q5="..AL["Classic WoW"] };
-				{ 3, "LeatherLeatherArmorBC", "INV_Misc_ArmorKit_17", "=ds="..AL["Leather Armor"], "=q5="..AL["Burning Crusade"] };
-				{ 4, "LeatherLeatherArmorWrath", "INV_Misc_ArmorKit_17", "=ds="..AL["Leather Armor"], "=q5="..AL["Wrath of the Lich King"] };
-				{ 6, "LeatherCloaks", "inv_misc_cape_05", "=ds="..AL["Cloaks"], "" };
-				{ 7, "LeatherLeather", "inv_misc_leatherscrap_10", "=ds="..BabbleInventory["Leather"], "" };
+				{ 2, "LeatherLeatherArmorCata", "INV_Misc_ArmorKit_17", "=ds="..AL["Leather Armor"], "=q5="..AL["Cataclysm"] };
+				{ 3, "LeatherLeatherArmorWrath", "INV_Misc_ArmorKit_17", "=ds="..AL["Leather Armor"], "=q5="..AL["Wrath of the Lich King"] };
+				{ 4, "LeatherLeatherArmorBC", "INV_Misc_ArmorKit_17", "=ds="..AL["Leather Armor"], "=q5="..AL["Burning Crusade"] };
+				{ 5, "LeatherLeatherArmorOld", "INV_Misc_ArmorKit_17", "=ds="..AL["Leather Armor"], "=q5="..AL["Classic WoW"] };
+				{ 7, "LeatherItemEnhancement", "inv_misc_armorkit_18", "=ds="..AL["Item Enhancements"], "" };
 				{ 9, "Dragonscale", "INV_Misc_ArmorKit_17", "=ds="..GetSpellInfo(10656), "" };
-				{ 10, "Tribal", "INV_Misc_ArmorKit_17", "=ds="..GetSpellInfo(10660), "" };
-				{ 17, "LeatherMailArmorOld", "INV_Misc_ArmorKit_17", "=ds="..AL["Mail Armor"], "=q5="..AL["Classic WoW"] };
-				{ 18, "LeatherMailArmorBC", "INV_Misc_ArmorKit_17", "=ds="..AL["Mail Armor"], "=q5="..AL["Burning Crusade"] };
-				{ 19, "LeatherMailArmorWrath", "INV_Misc_ArmorKit_17", "=ds="..AL["Mail Armor"], "=q5="..AL["Wrath of the Lich King"] };
-				{ 21, "LeatherItemEnhancement", "inv_misc_armorkit_18", "=ds="..AL["Item Enhancements"], "" };
-				{ 22, "LeatherDrumsBagsMisc", "inv_misc_drum_03", "=ds="..AL["Drums, Bags and Misc."], "" };
-				{ 24, "Elemental", "INV_Misc_ArmorKit_17", "=ds="..GetSpellInfo(10658), "" };
+				{ 10, "Elemental", "INV_Misc_ArmorKit_17", "=ds="..GetSpellInfo(10658), "" };
+				{ 12, "LeatherLeather", "inv_misc_leatherscrap_10", "=ds="..BabbleInventory["Leather"], "" };
+				{ 14, "LeatherworkingCataVendor", "inv_scroll_03", "=ds="..AL["Cataclysm Vendor Sold Plans"], "=q5="..BabbleZone["Twilight Highlands"] };
+				{ 17, "LeatherMailArmorCata", "INV_Misc_ArmorKit_17", "=ds="..AL["Mail Armor"], "=q5="..AL["Cataclysm"] };
+				{ 18, "LeatherMailArmorWrath", "INV_Misc_ArmorKit_17", "=ds="..AL["Mail Armor"], "=q5="..AL["Wrath of the Lich King"] };
+				{ 19, "LeatherMailArmorBC", "INV_Misc_ArmorKit_17", "=ds="..AL["Mail Armor"], "=q5="..AL["Burning Crusade"] };
+				{ 20, "LeatherMailArmorOld", "INV_Misc_ArmorKit_17", "=ds="..AL["Mail Armor"], "=q5="..AL["Classic WoW"] };
+				{ 22, "LeatherCloaks", "inv_misc_cape_05", "=ds="..AL["Cloaks"], "" };
+				{ 24, "Tribal", "INV_Misc_ArmorKit_17", "=ds="..GetSpellInfo(10660), "" };
+				{ 27, "LeatherDrumsBagsMisc", "inv_misc_drum_03", "=ds="..AL["Drums, Bags and Misc."], "" };
+				
 			};
 		};
 		info = {
@@ -252,15 +251,19 @@ local SPELLFIRE = GetSpellInfo(26797);
 	AtlasLoot_Data["TAILORINGMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "TailoringArmorOld", "Trade_Tailoring", "=ds="..AL["Cloth Armor"], "=q5="..AL["Classic WoW"] };
-				{ 3, "TailoringArmorBC", "Trade_Tailoring", "=ds="..AL["Cloth Armor"], "=q5="..AL["Burning Crusade"] };
-				{ 4, "TailoringArmorWotLK", "Trade_Tailoring", "=ds="..AL["Cloth Armor"], "=q5="..AL["Wrath of the Lich King"] };
-				{ 6, "Mooncloth", "Trade_Tailoring", "=ds="..GetSpellInfo(26798), "" };
-				{ 7, "Shadoweave", "Trade_Tailoring", "=ds="..GetSpellInfo(26801), "" };
+				{ 2, "TailoringArmorCata", "Trade_Tailoring", "=ds="..AL["Cloth Armor"], "=q5="..AL["Cataclysm"] };
+				{ 3, "TailoringArmorWotLK", "Trade_Tailoring", "=ds="..AL["Cloth Armor"], "=q5="..AL["Wrath of the Lich King"] };
+				{ 4, "TailoringArmorBC", "Trade_Tailoring", "=ds="..AL["Cloth Armor"], "=q5="..AL["Burning Crusade"] };
+				{ 5, "TailoringArmorOld", "Trade_Tailoring", "=ds="..AL["Cloth Armor"], "=q5="..AL["Classic WoW"] };
+				{ 7, "TailoringItemEnhancement", "inv_misc_thread_01", "=ds="..AL["Item Enhancements"], "" };
+				{ 9, "Mooncloth", "Trade_Tailoring", "=ds="..GetSpellInfo(26798), "" };
+				{ 10, "Shadoweave", "Trade_Tailoring", "=ds="..GetSpellInfo(26801), "" };
+				{ 12, "TailoringCataVendor", "inv_scroll_05", "=ds="..AL["Cataclysm Vendor Sold Plans"], "=q5="..BabbleZone["Twilight Highlands"] };
 				{ 17, "TailoringBags", "inv_misc_bag_enchantedrunecloth", "=ds="..AL["Bags"], "" };
 				{ 18, "TailoringMisc", "ability_mount_magnificentflyingcarpet", "=ds="..BabbleInventory["Miscellaneous"], "" };
 				{ 19, "TailoringShirts", "inv_shirt_white_01", "=ds="..AL["Shirts"], "" };
-				{ 21, "Spellfire", "Trade_Tailoring", "=ds="..GetSpellInfo(26797), "" };
+				{ 20, "TailoringCloth", "inv_fabric_netherweave_bolt", "=ds="..BabbleInventory["Cloth"], "" };
+				{ 24, "Spellfire", "Trade_Tailoring", "=ds="..GetSpellInfo(26797), "" };
 			};
 		};
 		info = {
@@ -272,8 +275,17 @@ local SPELLFIRE = GetSpellInfo(26797);
 	AtlasLoot_Data["ARCHAEOLOGYMENU"] = {
 		["Normal"] = {
 			{
-				{ 2, "ArchaeologyArmorAndWeapons", "trade_archaeology_ancientorcshamanheaddress", "=ds="..BabbleInventory["Armor"].." & "..AL["Weapons"], "" };
-				{ 17, "ArchaeologyMisc", "trade_archaeology_tinydinosaurskeleton", "=ds="..BabbleInventory["Miscellaneous"], "" };
+				{ 2, "ArchaeologyDwarf", "trade_archaeology_dwarf_runestone", "=ds="..AL["Dwarf"], "" };
+				{ 3, "ArchaeologyDraenei", "trade_archaeology_draenei_tome", "=ds="..AL["Draenei"], "" };
+				{ 4, "ArchaeologyFossil", "trade_archaeology_dwarf_runestone", "=ds="..AL["Fossil"], "" };
+				{ 5, "ArchaeologyNightElf", "trade_archaeology_highborne_scroll", "=ds="..AL["Night Elf"], "" };
+				{ 6, "ArchaeologyNerubian", "trade_archaeology_nerubian_obelisk", "=ds="..AL["Nerubian"], "" };
+				{ 17, "ArchaeologyOrc", "trade_archaeology_orc_bloodtext", "=ds="..AL["Orc"], "" };
+				{ 18, "ArchaeologyTolvir", "trade_archaeology_aqir_artifactfragment", "=ds="..AL["Tol'vir"], "" };
+				{ 19, "ArchaeologyTroll", "trade_archaeology_troll_tablet", "=ds="..AL["Troll"], "" };
+				{ 20, "ArchaeologyVrykul", "trade_archaeology_vrykul_runestick", "=ds="..AL["Vrykul"], "" };
+				{ 8, "ArchaeologyArmorAndWeapons", "trade_archaeology_ancientorcshamanheaddress", "=ds="..BabbleInventory["Armor"].." & "..AL["Weapons"], "" };
+				{ 23, "ArchaeologyMisc", "trade_archaeology_tinydinosaurskeleton", "=ds="..BabbleInventory["Miscellaneous"], "" };
 			};
 		};
 		info = {
@@ -386,8 +398,8 @@ local SPELLFIRE = GetSpellInfo(26797);
 		["Normal"] = {
 			{
 				{ 2, "CookingDaily#1", "inv_misc_food_meat_cooked_09", "=ds="..BabbleZone["Stormwind"] .." / "..BabbleZone["Orgrimmar"], "=q5="..AL["Cataclysm"] };
-				{ 3, "CookingDaily#4", "inv_misc_cauldron_arcane", "=ds="..BabbleZone["Shattrath"], "=q5="..AL["Burning Crusade"] };
-				{ 17, "CookingDaily#2", "inv_misc_food_12", "=ds="..BabbleZone["Dalaran"], "=q5="..AL["Wrath of the Lich King"] };
+				{ 3, "CookingDaily#5", "inv_misc_cauldron_arcane", "=ds="..BabbleZone["Shattrath"], "=q5="..AL["Burning Crusade"] };
+				{ 17, "CookingDaily#3", "inv_misc_food_12", "=ds="..BabbleZone["Dalaran"], "=q5="..AL["Wrath of the Lich King"] };
 			};
 		};
 		info = {

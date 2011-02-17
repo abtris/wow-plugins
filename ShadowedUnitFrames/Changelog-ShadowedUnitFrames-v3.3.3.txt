@@ -1,0 +1,18 @@
+tag v3.3.3
+2dc6c44975f093affe4594ce0c40abdb4cf2af10
+Hendrik Leppkes <h.leppkes@gmail.com>
+2011-02-09 17:02:55 +0100
+
+Tag as v3.3.3
+
+
+--------------------
+
+Hendrik Leppkes:
+	- Allow the boss frames being shown in 5man instances as well as raids.
+	- In levelcolor tag, show ?? for friendly targets with unknown level instead of -1
+	- Add a hide option for the player alt. power bar (off by default).
+	- Update the alt. power bar when showing it.
+	- Greatly simplified the range module which should fix units showing in/out of range, when they are actually not.
+	- Added a Alt. Power bar module to display the alternate power of units used in some raid encounters.
+	- Run our initialization before Clique, so the on-press mode works properly.

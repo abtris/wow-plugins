@@ -4,24 +4,28 @@ TITANREP_VERSION = GetAddOnMetadata("TitanReputation", "Version") or "UnKnown Ve
 TITANREP_TITLE = GetAddOnMetadata("TitanReputation", "Title") or "UnKnown Title"
 TITANREP_BUTTON_ICON = "Interface\\AddOns\\TitanReputation\\TitanReputation";
 TITANREP_EventTime = GetTime();
+TITANREP_RTS = {};
 --check Glamour version
 --
-local min_version = 1.2;
-local major, minor, _ = strsplit(".", Glamour_VERSION);
-local glam_ver = tonumber(major.."."..minor);
 
-if (glam_ver < min_version) then
-	StaticPopupDialogs["! ! ! Glamour Outdated ! ! !"] = {
-		  text = "An outdated version of Glamour has been detected. Running an older version of Glamour can have undesired effects on Glamour enabled addons.\n\n"..
-		  	"Reporting Addon:\n"..TITANREP_TITLE.." v"..TITANREP_VERSION.."\n\n"..
-			"Glamour Version Detected: "..Glamour_VERSION.."\nGlamour Version Required: "..min_version.."\n\n",
-		  button1 = "Ok",
-		  timeout = 0,
-		  whileDead = true,
-		  hideOnEscape = true,
-	}
-	StaticPopup_Show ("! ! ! Glamour Outdated ! ! !");
-end	
+if(IsAddOnLoaded("Glamour")) then
+	local min_version = 1.2;
+	local major, minor, _ = strsplit(".", Glamour_VERSION);
+	local glam_ver = tonumber(major.."."..minor);
+
+	if (glam_ver < min_version) then
+		StaticPopupDialogs["! ! ! Glamour Outdated ! ! !"] = {
+			  text = "An outdated version of Glamour has been detected. Running an older version of Glamour can have undesired effects on Glamour enabled addons.\n\n"..
+		  		"Reporting Addon:\n"..TITANREP_TITLE.." v"..TITANREP_VERSION.."\n\n"..
+				"Glamour Version Detected: "..Glamour_VERSION.."\nGlamour Version Required: "..min_version.."\n\n",
+			  button1 = "Ok",
+			  timeout = 0,
+			  whileDead = true,
+			  hideOnEscape = true,
+		}
+		StaticPopup_Show ("! ! ! Glamour Outdated ! ! !");
+	end	
+end
 
 --new color coding
 local TITANREP_COLORS_DEFAULT = {	
@@ -76,12 +80,12 @@ local TITANREP_SHOW_STATS = "Show Exalted Total";
 local TITANREP_SHOW_SUMMARY = "Show Session Summary";
 local TITANREP_SHOW_ANNOUNCE = "Announce Standing Changes";
 local TITANREP_SHOW_ANNOUNCE_FRAME = "Glamourize Standing Changes";
+local TITANREP_SHOW_ANNOUNCE_MIK = " - Use MikSBT for Announcement";
 
 -- local
 local TITANREP_BUTTON_TEXT = TITANREP_NO_FACTION_LABEL;
 local TITANREP_TOOLTIP_TEXT = "";
 local TITANREP_HIGHCHANGED = 0;
-local TITANREP_RTS = {};
 local TITANREP_TIME = GetTime();
 local TITANREP_CHANGEDFACTION = "none";
 local TITANREP_TABLE = {};
@@ -123,6 +127,7 @@ function TitanPanelReputationButton_OnLoad(self)
 			ShowTipStanding = 1,
 			ShowAnnounce = 1,
 			ShowAnnounceFrame = 1,
+			ShowAnnounceMik = 1,
 			ShortTipStanding = false
 		}
 	};	
@@ -141,19 +146,19 @@ function TitanPanelReputationButton_OnClick(self, button)
 end
 
 function TitanPanelReputationButton_OnEvent(event, ...)	
-	if(GetTime() - TITANREP_EventTime > 1) then
+	local EventTime = GetTime();
+	local EventTimeDiff = EventTime - TITANREP_EventTime;
+	--print(event, EventTime, TITANREP_EventTime, EventTimeDiff, ...);
+	TitanPanelReputation_GatherFactions(TitanPanelReputation_GetChangedName);
+	if( EventTimeDiff > .15) then
+		TITANREP_HIGHCHANGED = 0;
 		TITANREP_EventTime = GetTime();
-		--print(event);
-		--print("EventTime: "..TITANREP_EventTime);
-		--print(...);
-		TitanPanelReputation_GatherFactions(TitanPanelReputation_GetChangedName);
 		if(TitanGetVar(TITANREP_ID, "AutoChange")) then
-			TITANREP_HIGHCHANGED = 0;
 			if(not (TITANREP_CHANGEDFACTION == "none")) then
 				TitanSetVar(TITANREP_ID, "TITANREP_WATCHED_FACTION", TITANREP_CHANGEDFACTION);
 			end		
 		end
-	end		
+	end	
 	TitanPanelReputation_GatherFactions(TitanPanelReputation_GatherValues);
 	TitanPanelReputation_Refresh();
 	TitanPanelButton_UpdateTooltip();
@@ -425,7 +430,12 @@ function TitanPanelRightClickMenu_PrepareReputationMenu()
 	TitanPanelRightClickMenu_AddTitle2(TitanPlugins[TITANREP_ID].menuText.." v"..TITANREP_VERSION);
 	TitanPanelRightClickMenu_AddToggleVar(TITANREP_AUTO_CHANGE, TITANREP_ID, "AutoChange");	
 	TitanPanelRightClickMenu_AddToggleVar(TITANREP_SHOW_ANNOUNCE, TITANREP_ID, "ShowAnnounce");	
-	TitanPanelRightClickMenu_AddToggleVar(TITANREP_SHOW_ANNOUNCE_FRAME, TITANREP_ID, "ShowAnnounceFrame");	
+	if(IsAddOnLoaded("MikScrollingBattleText")) then
+		TitanPanelRightClickMenu_AddToggleVar(TITANREP_SHOW_ANNOUNCE_MIK, TITANREP_ID, "ShowAnnounceMik");	
+	end
+	if(IsAddOnLoaded("Glamour")) then	
+		TitanPanelRightClickMenu_AddToggleVar(TITANREP_SHOW_ANNOUNCE_FRAME, TITANREP_ID, "ShowAnnounceFrame");	
+	end
 	TitanPanelRightClickMenu_AddSpacer2();
 	TitanPanelReputation_GatherFactions(TitanPanelReputation_BuildRightClickMenu);
 	TitanPanelRightClickMenu_AddSpacer2();
@@ -605,19 +615,17 @@ function TitanPanelReputation_GetChangedName(name, parentName, standingId, topVa
 			local tag = " ";
 			if(TITANREP_TABLE[name].standingId < standingId) then
 				if(MYBARCOLORS) then
-					TitanReputationFrameGlowFrameGlow:SetVertexColor(MYBARCOLORS[standingId].r,MYBARCOLORS[standingId].g,MYBARCOLORS[standingId].b);
 					msg = TitanUtils_GetColoredText(name.." - "..getglobal("FACTION_STANDING_LABEL"..standingId),MYBARCOLORS[standingId]);	
 					dsc = dsc..TitanUtils_GetColoredText(getglobal("FACTION_STANDING_LABEL"..standingId),MYBARCOLORS[standingId]);	
 				else
-					TitanReputationFrameGlowFrameGlow:SetVertexColor(0.5,0.5,0);
 					msg = TitanUtils_GetGoldText(name.." - "..getglobal("FACTION_STANDING_LABEL"..standingId));	
 					dsc = dsc..TitanUtils_GetGoldText(getglobal("FACTION_STANDING_LABEL"..standingId));	
 				end
 				dsc = dsc.." standing with "..name..".";
 				msg = tag..msg..tag;
 				if(TitanGetVar(TITANREP_ID, "ShowAnnounce")) then 
-					if(IsAddOnLoaded("MikScrollingBattleText")) then
-						MikSBT.DisplayMessage("|T"..TITANREP_BUTTON_ICON..":32|t"..msg.."|T"..TITANREP_BUTTON_ICON..":32|t","Static",1);
+					if(IsAddOnLoaded("MikScrollingBattleText") and TitanGetVar(TITANREP_ID, "ShowAnnounceMik")) then
+						MikSBT.DisplayMessage("|T"..TITANREP_BUTTON_ICON..":32|t"..msg.."|T"..TITANREP_BUTTON_ICON..":32|t","Notification",1);
 					else
 						UIErrorsFrame:AddMessage("|T"..TITANREP_BUTTON_ICON..":32|t"..msg.."|T"..TITANREP_BUTTON_ICON..":32|t", 2.0, 2.0, 0.0, 53, 30);
 					end
@@ -625,43 +633,33 @@ function TitanPanelReputation_GetChangedName(name, parentName, standingId, topVa
 				if(TitanGetVar(TITANREP_ID, "ShowAnnounceFrame")) then 					
 					if(IsAddOnLoaded("Glamour")) then
 							local MyData = { };
-							MyData.Text = msg;
+							MyData.Text = name.." - "..getglobal("FACTION_STANDING_LABEL"..standingId);
 	 						MyData.Icon = "Interface\\ICONS\\Achievement_Reputation_"..TITANREP_ICONS[standingId];
-	 						MyData.tText = "";
-							MyData.bText = "";
-							MyData.Points = 0;
 							local color = { };
 							color.r = TITANREP_COLORS_ARMORY[standingId].r;
 							color.g = TITANREP_COLORS_ARMORY[standingId].g;
 							color.b = TITANREP_COLORS_ARMORY[standingId].b;
-							MyData.tText = "";
-							MyData.bText = "";
-							MyData.Title = "Faction Standing Upgrade";
+							MyData.bTitle = "Faction Standing Upgrade";
+							MyData.FrameStyle = "GuildAchievement";
+							MyData.BannerColor = color;
 							local LastAlertFrame = GlamourShowAlert(400, MyData, color, color);
-							--_G[LastAlertFrame.."IconTexture"]:SetVertexColor(color.r,color.g,color.b);
-					else
-						TitanReputation_Title:SetText(msg);
-						TitanReputation_Desc:SetText(dsc);
-						TitanReputationFrame_Show(); 
 					end
 				end
 				earnedAmount = TITANREP_TABLE[name].topValue - TITANREP_TABLE[name].earnedValue;
 				earnedAmount = earnedValue + earnedAmount;
 			elseif(TITANREP_TABLE[name].standingId > standingId) then
 				if(MYBARCOLORS) then
-					TitanReputationFrameGlowFrameGlow:SetVertexColor(MYBARCOLORS[standingId].r,MYBARCOLORS[standingId].g,MYBARCOLORS[standingId].b);
 					msg = TitanUtils_GetColoredText(name.." - "..getglobal("FACTION_STANDING_LABEL"..standingId),MYBARCOLORS[standingId]);	
 					dsc = dsc..TitanUtils_GetColoredText(getglobal("FACTION_STANDING_LABEL"..standingId),MYBARCOLORS[standingId]);	
 				else
-					TitanReputationFrameGlowFrameGlow:SetVertexColor(0.5,0.5,0);
 					msg = TitanUtils_GetGoldText(name.." - "..getglobal("FACTION_STANDING_LABEL"..standingId));	
 					dsc = dsc..TitanUtils_GetGoldText(getglobal("FACTION_STANDING_LABEL"..standingId));	
 				end
 				dsc = dsc.." standing with "..name..".";
 				msg = tag..msg..tag;
 				if(TitanGetVar(TITANREP_ID, "ShowAnnounce")) then 
-					if(IsAddOnLoaded("MikScrollingBattleText")) then
-						MikSBT.DisplayMessage("|T"..TITANREP_BUTTON_ICON..":32|t"..msg.."|T"..TITANREP_BUTTON_ICON..":32|t","Static",1);
+					if(IsAddOnLoaded("MikScrollingBattleText") and TitanGetVar(TITANREP_ID, "ShowAnnounceMik")) then
+						MikSBT.DisplayMessage("|T"..TITANREP_BUTTON_ICON..":32|t"..msg.."|T"..TITANREP_BUTTON_ICON..":32|t","Notification",1);
 					else
 						UIErrorsFrame:AddMessage("|T"..TITANREP_BUTTON_ICON..":32|t"..msg.."|T"..TITANREP_BUTTON_ICON..":32|t", 2.0, 2.0, 0.0, 53, 30);
 					end
@@ -669,24 +667,16 @@ function TitanPanelReputation_GetChangedName(name, parentName, standingId, topVa
 				if(TitanGetVar(TITANREP_ID, "ShowAnnounceFrame")) then 
 					if(IsAddOnLoaded("Glamour")) then
 							local MyData = { };
-							MyData.Text = msg;
+							MyData.Text = name.." - "..getglobal("FACTION_STANDING_LABEL"..standingId);
 	 						MyData.Icon = "Interface\\ICONS\\Achievement_Reputation_"..TITANREP_ICONS[standingId];
-	 						MyData.tText = "";
-							MyData.bText = "";
-							MyData.Points = 0;
 							local color = { };
 							color.r = TITANREP_COLORS_ARMORY[standingId].r;
 							color.g = TITANREP_COLORS_ARMORY[standingId].g;
 							color.b = TITANREP_COLORS_ARMORY[standingId].b;
-							MyData.tText = "";
-							MyData.bText = "";
-							MyData.Title = "Faction Standing Downgrade";
+							MyData.bTitle = "Faction Standing Downgrade";
+							MyData.FrameStyle = "GuildAchievement";
+							MyData.BannerColor = color;
 							local LastAlertFrame = GlamourShowAlert(400, MyData, color, color);
-							--_G[LastAlertFrame.."IconTexture"]:SetVertexColor(color.r,color.g,color.b);
-					else
-						TitanReputation_Title:SetText(msg);
-						TitanReputation_Desc:SetText(dsc);
-						TitanReputationFrame_Show(); 
 					end
 				end
 				earnedAmount = earnedValue - topValue;
@@ -697,7 +687,6 @@ function TitanPanelReputation_GetChangedName(name, parentName, standingId, topVa
 				else
 					earnedAmount = earnedValue - TITANREP_TABLE[name].earnedValue;
 				end
-
 			end
 			if(TITANREP_RTS[name]) then
 				TITANREP_RTS[name] = TITANREP_RTS[name] + earnedAmount;
@@ -742,18 +731,4 @@ function TitanPanelReputation_GatherFactions(method)
 			index = index+1;
 			if(index>count) then done = true; end;
 		end		
-end
-
-function TitanReputationFrame_Hide() 
-	TitanReputationFrame:Hide(); 
-end
-
-function TitanReputationFrame_Show()
-	local frame = TitanReputationFrame
-	frame:Show();
-	frame.animIn:Play();
-	TitanReputationFrameGlowFrame.glow.animIn:Play();
-	frame.waitAndAnimOut:Stop();
-	frame.waitAndAnimOut.animOut:SetStartDelay(4.5);
-	frame.waitAndAnimOut:Play();
 end

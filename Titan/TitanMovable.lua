@@ -1,14 +1,9 @@
 -- Globals
-TITAN_PANEL_PLACE_TOP = 1;
-TITAN_PANEL_PLACE_BOTTOM = 2;
-TITAN_PANEL_PLACE_BOTH = 3;
-TITAN_PANEL_MOVING = 0;
 
 -- Locals
 local TITAN_PANEL_DROPOFF_ADDON = nil;
 local TITAN_PANEL_MOVE_ADDON = nil
 
-local TitanMovableModule = LibStub("AceAddon-3.0"):NewAddon("TitanMovable", "AceHook-3.0", "AceTimer-3.0")
 local _G = getfenv(0);
 local InCombatLockdown	= _G.InCombatLockdown;
 
@@ -22,29 +17,37 @@ end
 
 
 local TitanMovable = {};
+-- This table governs the adjustment of the frames Titan is interested in.
+-- "iup" = ignore user placed: there are some quests involving a vehicle where
+-- for whatever reason Blizz sets the user placed flag of the vehicle bar causing
+-- the routine to ignore it (not move it)
 local TitanMovableData = {
-	PlayerFrame = {frameName = "PlayerFrame", frameArchor = "TOPLEFT", xArchor = "LEFT", y = -4, position = TITAN_PANEL_PLACE_TOP},
-	TargetFrame = {frameName = "TargetFrame", frameArchor = "TOPLEFT", xArchor = "LEFT", y = -4, position = TITAN_PANEL_PLACE_TOP},
-	PartyMemberFrame1 = {frameName = "PartyMemberFrame1", frameArchor = "TOPLEFT", xArchor = "LEFT", y = -128, position = TITAN_PANEL_PLACE_TOP},
-	TicketStatusFrame = {frameName = "TicketStatusFrame", frameArchor = "TOPRIGHT", xArchor = "RIGHT", y = 0, position = TITAN_PANEL_PLACE_TOP},
---	TemporaryEnchantFrame = {frameName = "TemporaryEnchantFrame", frameArchor = "TOPRIGHT", xArchor = "RIGHT", y = -13, position = TITAN_PANEL_PLACE_TOP},
-	ConsolidatedBuffs = {frameName = "ConsolidatedBuffs", frameArchor = "TOPRIGHT", xArchor = "RIGHT", y = -13, position = TITAN_PANEL_PLACE_TOP},
-	BuffFrame = {frameName = "BuffFrame", frameArchor = "TOPRIGHT", xArchor = "RIGHT", y = -13, position = TITAN_PANEL_PLACE_TOP},
-	MinimapCluster = {frameName = "MinimapCluster", frameArchor = "TOPRIGHT", xArchor = "RIGHT", y = 0, position = TITAN_PANEL_PLACE_TOP},
-	WorldStateAlwaysUpFrame = {frameName = "WorldStateAlwaysUpFrame", frameArchor = "TOP", xArchor = "CENTER", y = -15, position = TITAN_PANEL_PLACE_TOP},
-	MainMenuBar = {frameName = "MainMenuBar", frameArchor = "BOTTOM", xArchor = "CENTER", y = 0, position = TITAN_PANEL_PLACE_BOTTOM},
-	MultiBarRight = {frameName = "MultiBarRight", frameArchor = "BOTTOMRIGHT", xArchor = "RIGHT", y = 98, position = TITAN_PANEL_PLACE_BOTTOM},
-	VehicleMenuBar = {frameName = "VehicleMenuBar", frameArchor = "BOTTOM", xArchor = "CENTER", y = 0, position = TITAN_PANEL_PLACE_BOTTOM},	
+	PlayerFrame = {frameName = "PlayerFrame", frameArchor = "TOPLEFT", xArchor = "LEFT", y = -4, position = TITAN_PANEL_PLACE_TOP, iup = false},
+	TargetFrame = {frameName = "TargetFrame", frameArchor = "TOPLEFT", xArchor = "LEFT", y = -4, position = TITAN_PANEL_PLACE_TOP, iup = false},
+	PartyMemberFrame1 = {frameName = "PartyMemberFrame1", frameArchor = "TOPLEFT", xArchor = "LEFT", y = -128, position = TITAN_PANEL_PLACE_TOP, iup = false},
+	TicketStatusFrame = {frameName = "TicketStatusFrame", frameArchor = "TOPRIGHT", xArchor = "RIGHT", y = 0, position = TITAN_PANEL_PLACE_TOP, iup = false},
+--	TemporaryEnchantFrame = {frameName = "TemporaryEnchantFrame", frameArchor = "TOPRIGHT", xArchor = "RIGHT", y = -13, position = TITAN_PANEL_PLACE_TOP, iup = false},
+--	ConsolidatedBuffs = {frameName = "ConsolidatedBuffs", frameArchor = "TOPRIGHT", xArchor = "RIGHT", y = -13, position = TITAN_PANEL_PLACE_TOP, iup = false},
+	BuffFrame = {frameName = "BuffFrame", frameArchor = "TOPRIGHT", xArchor = "RIGHT", y = -13, position = TITAN_PANEL_PLACE_TOP, iup = false},
+	MinimapCluster = {frameName = "MinimapCluster", frameArchor = "TOPRIGHT", xArchor = "RIGHT", y = 0, position = TITAN_PANEL_PLACE_TOP, iup = false},
+	WorldStateAlwaysUpFrame = {frameName = "WorldStateAlwaysUpFrame", frameArchor = "TOP", xArchor = "CENTER", y = -15, position = TITAN_PANEL_PLACE_TOP, iup = false},
+	MainMenuBar = {frameName = "MainMenuBar", frameArchor = "BOTTOM", xArchor = "CENTER", y = 0, position = TITAN_PANEL_PLACE_BOTTOM, iup = false},
+	MultiBarRight = {frameName = "MultiBarRight", frameArchor = "BOTTOMRIGHT", xArchor = "RIGHT", y = 98, position = TITAN_PANEL_PLACE_BOTTOM, iup = false},
+	VehicleMenuBar = {frameName = "VehicleMenuBar", frameArchor = "BOTTOM", xArchor = "CENTER", y = 0, position = TITAN_PANEL_PLACE_BOTTOM, iup = true},	
 }
 
 local function TitanMovableFrame_CheckThisFrame(frameName)
 	-- Add to the table that will checked.
 	-- Once 'full' the table will be looped through to see
 	-- if the frame must be moved or not.
-	table.insert(TitanMovable, frameName)
+	
+	-- For safety check if the frame is in the table to adjust
+	if TitanMovableData[frameName] then
+		table.insert(TitanMovable, frameName)
+	end
 end
 
-local function TitanMovable_GetPanelYOffset(framePosition)
+function TitanMovable_GetPanelYOffset(framePosition) -- used by other addons
 	-- framePosition is top or bottom. Return the Y offset
 	-- depending on which bars the user has shown.
 	--
@@ -82,7 +85,8 @@ local function TitanMovable_GetPanelYOffset(framePosition)
 		if framePosition == TITAN_PANEL_PLACE_TOP then
 			return (-TITAN_PANEL_BAR_HEIGHT * scale)*(barnum_top);
 		elseif framePosition == TITAN_PANEL_PLACE_BOTTOM then
-			return (TITAN_PANEL_BAR_HEIGHT * scale)*(barnum_bot);
+			return (TITAN_PANEL_BAR_HEIGHT * scale)*(barnum_bot)-1; 
+			-- no idea why -1 is needed... seems anchoring to bottom is off a pixel
 		end
 	end
 	return 0
@@ -136,10 +140,6 @@ function TitanMovableFrame_CheckFrames(position)
 			TitanMovableFrame_CheckThisFrame(TicketStatusFrame:GetName())
 		end
 		
-		-- Move TemporaryEnchantFrame. 
-		-- Seems this will be deprecated in the future in favor of BuffFrame ...
---		TitanMovableFrame_CheckThisFrame(TemporaryEnchantFrame:GetName())
-	
 		-- Move MinimapCluster
 		if not CleanMinimap then
 			if not TitanPanelGetVar("MinimapAdjust") then
@@ -148,7 +148,6 @@ function TitanMovableFrame_CheckFrames(position)
 		end
 		-- Move BuffFrame
 		TitanMovableFrame_CheckThisFrame(BuffFrame:GetName())
-		TitanMovableFrame_CheckThisFrame(ConsolidatedBuffs:GetName())
 
 		-- Move WorldStateAlwaysUpFrame				
 		TitanMovableFrame_CheckThisFrame(WorldStateAlwaysUpFrame:GetName());
@@ -173,7 +172,11 @@ function TitanMovableFrame_MoveFrames(position)
 	-- Once the frames to check have been collected, 
 	-- move them as needed.
 	local frameData, frame, frameName, frameArchor, xArchor, y, xOffset, yOffset, panelYOffset;
-	
+--[[
+TitanDebug ("_MoveFrames "
+..(position or "?").." "
+)
+--]]
 	-- Collect the frames we need to move
 	TitanMovableFrame_CheckFrames(position);
 	
@@ -187,7 +190,8 @@ function TitanMovableFrame_MoveFrames(position)
 				frameArchor = frameData.frameArchor;
 			end
 
-			if frame and (not frame:IsUserPlaced()) then
+			if (frame and (not frame:IsUserPlaced())) 
+			or frameData.iup then
 				xArchor = frameData.xArchor;
 				y = frameData.y;
 				
@@ -197,10 +201,13 @@ function TitanMovableFrame_MoveFrames(position)
 				-- properly adjust buff frame(s) if GM Ticket is visible
 --				if (frameName == "TemporaryEnchantFrame"
 --				or frameName == "ConsolidatedBuffs")
-				if (frameName == "ConsolidatedBuffs")
-				and TicketStatusFrame:IsVisible()
+				-- Use IsShown rather than IsVisible. In some cases (after closing
+				-- full screen map) the ticket may not yet be visible.
+				if (frameName == "BuffFrame")
+				and TicketStatusFrame:IsShown()
 				and TitanPanelGetVar("TicketAdjust") then
-					yOffset = (-TicketStatusFrame:GetHeight()) + panelYOffset
+					yOffset = (-TicketStatusFrame:GetHeight()) 
+								+ panelYOffset
 				else
 					yOffset = y + panelYOffset;
 				end
@@ -225,64 +232,42 @@ function TitanMovableFrame_MoveFrames(position)
 				and playerlevel < _G["MAX_PLAYER_LEVEL"] then
 					yOffset = yOffset + 8;
 				end
-				
+--[[
+if frameName == "VehicleMenuBar" then
+TitanDebug ("_MoveFrames > "
+..(frameName or "?").." "
+..(TitanPanelGetVar("TicketAdjust") and "T" or "F").." "
+..(panelYOffset or "?").." "
+..(yOffset or "?").." "
+..(frameArchor or "?").." "
+--..(TicketStatusFrame:IsVisible() and "T" or "F").." "
+--..(TicketStatusFrame:IsShown() and "T" or "F").." "
+--..(-TicketStatusFrame:GetHeight() or "?").." "
+)
+end
+--]]
 				frame:ClearAllPoints();		
 				frame:SetPoint(frameArchor, "UIParent", frameArchor, 
 					xOffset, yOffset);
 			else
 				--Leave frame where it is as it has been moved by a user
+--[[
+TitanDebug ("_MoveFrames * "
+..(frameName or "?").." "
+)
+--]]
 			end
 			-- Move bags as needed
 			updateContainerFrameAnchors();
 		end
-	end
-end
-
-local function Titan_TicketStatusFrame_OnShow()  
--- always check the routine we are overriding!
-	-- The Blizz routine moved the buffs to the right. 
-	-- This keeps them where they were to avoid
-	-- odd placement of the temp & consolidated buffs. 
-	-- Depending on the exact steps used the 
-	-- placement of temp buffs is inconsistent 
-	-- (likely Blizz but more testing needed)
-	local panelYOffset = TitanMovable_GetPanelYOffset(TITAN_PANEL_PLACE_TOP);
-	if not InCombatLockdown() or (InCombatLockdown()) then
---	and not TemporaryEnchantFrame:IsProtected()) then
-		if not TitanPanelGetVar("ScreenAdjust") 
-		and TitanPanelGetVar("TicketAdjust") then
-			ConsolidatedBuffs:SetPoint("TOPRIGHT", TicketStatusFrame:GetParent(), 
-				"TOPRIGHT", -180, (-TicketStatusFrame:GetHeight() + panelYOffset));
-		else
-			ConsolidatedBuffs:SetPoint("TOPRIGHT", TicketStatusFrame:GetParent(), 
-				"TOPRIGHT", -180, (-TicketStatusFrame:GetHeight()));
-		end
-	end
-	TitanPanel_AdjustFrames(TITAN_PANEL_PLACE_TOP, false)
---	ConsolidatedBuffs:SetPoint("TOPRIGHT", self:GetParent(), "TOPRIGHT", -205, (-self:GetHeight()));
-end
-
-local function Titan_TicketStatusFrame_OnHide()
-	local panelYOffset = TitanMovable_GetPanelYOffset(TITAN_PANEL_PLACE_TOP);
-	-- this is to replicate Blizzard's check in FrameXML/HelpFrame.xml
-	if not GMChatStatusFrame or not GMChatStatusFrame:IsShown() then 
-		if not InCombatLockdown() or (InCombatLockdown()) then
---		and not TemporaryEnchantFrame:IsProtected()) then
-			if not TitanPanelGetVar("ScreenAdjust") then
-				ConsolidatedBuffs:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", 
-					-180, -13 + panelYOffset);
-			else
-				ConsolidatedBuffs:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", 
-					-180, -13);
-			end
-		end
-	end
-	TitanPanel_AdjustFrames(TITAN_PANEL_PLACE_TOP, false)
---[[ Blizz code
-	if( not GMChatStatusFrame or not GMChatStatusFrame:IsShown() ) then
-		ConsolidatedBuffs:SetPoint("TOPRIGHT", "UIParent", "TOPRIGHT", -180, -13);
-	end
+	else
+--[[
+TitanDebug ("_MoveFrames ! "
+..(InCombatLockdown() and "T" or "F").." "
+)
 --]]
+
+	end
 end
 
 local function Titan_FCF_UpdateDockPosition()
@@ -386,22 +371,26 @@ local function TitanMovableFrame_AdjustBlizzardFrames()
 	end
 end
 
-local function Titan_ManageFramesVehicle()
-	TitanPanel_AdjustFrames(TITAN_PANEL_PLACE_BOTH, false)
-end
-
-local function Titan_ManageVehicles()		
-	TitanMovableModule:CancelAllTimers()
-	TitanMovableModule:ScheduleTimer(Titan_ManageFramesVehicle, 2)
---	TitanMovableModule:ScheduleTimer(Titan_ManageFramesNew, 2)
-end
-
 local function Titan_AdjustUIScale()	
 	-- Refresh panel scale and buttons	
 	Titan_AdjustScale()
 end
 
+local function Titan_Hook_Adjust_Both()
+--TitanDebug ("Titan_Hook_Adjust_Both")
+	-- These could arrive quickly. To prevent
+	-- many adjusts from stacking, cancel any pending
+	-- then queue this one.
+	TitanPanelAce:CancelAllTimers()
+	TitanPanelAce:ScheduleTimer("Titan_ManageFramesNew", 1)
+end
+
 function TitanPanel_AdjustFrames(position, blizz)
+--[[
+TitanDebug ("_AdjustFrames "
+..(position or "?").." "
+)
+--]]
 	-- Adjust frame positions top only, bottom only, or both
 	TitanMovableFrame_MoveFrames(position)
 
@@ -411,51 +400,74 @@ function TitanPanel_AdjustFrames(position, blizz)
 	end
 end
 
-function Titan_ManageFramesNew()
+function TitanPanelAce:Titan_ManageFramesNew()
+-- Only the top or bottom may need to be adjusted but
+-- if we cancel we may 'drop' the last adjust. To be
+-- safe we'll do both if they are put on a timer.
 	if Titan__InitializedPEW then
 		-- We know the desired bars are now drawn so we can adjust
-		TitanPanel_AdjustFrames(TITAN_PANEL_PLACE_BOTTOM, false)
+		if InCombatLockdown() then
+			-- Character entered combat before Titan could adjust
+			TitanPanelAce:CancelAllTimers()
+			TitanPanelAce:ScheduleTimer("Titan_ManageFramesNew", 1)
+		else
+--TitanDebug ("Titan_ManageFramesNew ")
+			TitanPanel_AdjustFrames(TITAN_PANEL_PLACE_BOTH, false)
+		end
 	end
+-- There is a chance the person stays in combat so this could
+-- keep looping...
 end
 
-function Titan_AdjustScale()		
-	TitanPanel_SetScale();
-	
-	TitanPanel_ClearAllBarTextures()
-	TitanPanel_CreateBarTextures()
+function Titan_AdjustScale()
+	-- Only adjust if Titan is fully initialized
+	if Titan__InitializedPEW then 
+		TitanPanel_SetScale();
+		
+		TitanPanel_ClearAllBarTextures()
+		TitanPanel_CreateBarTextures()
 
-	for idx,v in pairs (TitanBarData) do
-		TitanPanel_SetTexture(TITAN_PANEL_DISPLAY_PREFIX..TitanBarData[idx].name
-			, TITAN_PANEL_PLACE_TOP);
+		for idx,v in pairs (TitanBarData) do
+			TitanPanel_SetTexture(TITAN_PANEL_DISPLAY_PREFIX..TitanBarData[idx].name
+				, TITAN_PANEL_PLACE_TOP);
+		end
+
+		TitanPanelBarButton_DisplayBarsWanted()
+		TitanPanel_RefreshPanelButtons();
 	end
-
-	TitanPanelBarButton_DisplayBarsWanted()
-	TitanPanel_RefreshPanelButtons();
 end
 
 function TitanMovable_SecureFrames()
-	if Titan__InitializedPEW then
-	else
---TitanDebug ("Test delay of secure hooks!!!")
-		-- We know the desired bars are now drawn so we can adjust
-		TitanMovableModule:SecureHook("FCF_UpdateDockPosition", Titan_FCF_UpdateDockPosition) -- FloatingChatFrame
-		TitanMovableModule:SecureHook("UIParent_ManageFramePositions", Titan_ManageFramesNew) -- UIParent.lua
+	if not TitanPanelAce:IsHooked("FCF_UpdateDockPosition", Titan_FCF_UpdateDockPosition) then
+		TitanPanelAce:SecureHook("FCF_UpdateDockPosition", Titan_FCF_UpdateDockPosition) -- FloatingChatFrame
+	end
+	if not TitanPanelAce:IsHooked("UIParent_ManageFramePositions", Titan_Hook_Adjust_Both) then
+		TitanPanelAce:SecureHook("UIParent_ManageFramePositions", Titan_Hook_Adjust_Both) -- UIParent.lua
 		TitanPanel_AdjustFrames(TITAN_PANEL_PLACE_BOTTOM, false)
 	end
-end
 
--- Titan Hooks
--- Overwrite Blizzard Frame positioning functions
-TitanMovableModule:SecureHook(TicketStatusFrame, "Show", Titan_TicketStatusFrame_OnShow) -- HelpFrame.xml
-TitanMovableModule:SecureHook(TicketStatusFrame, "Hide", Titan_TicketStatusFrame_OnHide) -- HelpFrame.xml
-TitanMovableModule:SecureHook("updateContainerFrameAnchors", Titan_ContainerFrames_Relocate) -- ContainerFrame.lua
-TitanMovableModule:SecureHook(WorldMapFrame, "Hide", Titan_ManageFramesNew) -- WorldMapFrame.lua
-TitanMovableModule:SecureHook("VehicleSeatIndicator_SetUpVehicle", Titan_ManageVehicles) -- VehicleMenuBar.lua
-TitanMovableModule:SecureHook("VehicleSeatIndicator_UnloadTextures", Titan_ManageVehicles) -- VehicleMenuBar.lua
--- Properly Adjust UI Scale if set
--- Note: These are the least intrusive hooks we could think of, to properly adjust the Titan Bar(s)
--- without having to resort to a SetCvar secure hook. Any addon using SetCvar should make sure to use the 3rd
--- argument in the API call and trigger the CVAR_UPDATE event with an appropriate argument so that other addons
--- can detect this behavior and fire their own functions (where applicable).
-TitanMovableModule:SecureHook("VideoOptionsFrameOkay_OnClick", Titan_AdjustUIScale) -- VideoOptionsFrame.lua
-TitanMovableModule:SecureHook(VideoOptionsFrame, "Hide", Titan_AdjustUIScale) -- VideoOptionsFrame.xml
+	if not TitanPanelAce:IsHooked(TicketStatusFrame, "Show", Titan_Hook_Adjust_Both) then
+		-- Titan Hooks to Blizzard Frame positioning functions
+		--TitanPanelAce:SecureHook("TicketStatusFrame_OnShow", Titan_Hook_Adjust_Both) -- HelpFrame.xml
+		--TitanPanelAce:SecureHook("TicketStatusFrame_OnHide", Titan_Hook_Adjust_Both) -- HelpFrame.xml
+		TitanPanelAce:SecureHook(TicketStatusFrame, "Show", Titan_Hook_Adjust_Both) -- HelpFrame.xml
+		TitanPanelAce:SecureHook(TicketStatusFrame, "Hide", Titan_Hook_Adjust_Both) -- HelpFrame.xml
+		TitanPanelAce:SecureHook(MainMenuBar, "Show", Titan_Hook_Adjust_Both) -- HelpFrame.xml
+		TitanPanelAce:SecureHook(MainMenuBar, "Hide", Titan_Hook_Adjust_Both) -- HelpFrame.xml
+		TitanPanelAce:SecureHook(VehicleMenuBar, "Show", Titan_Hook_Adjust_Both) -- HelpFrame.xml
+		TitanPanelAce:SecureHook(VehicleMenuBar, "Hide", Titan_Hook_Adjust_Both) -- HelpFrame.xml
+		TitanPanelAce:SecureHook("updateContainerFrameAnchors", Titan_ContainerFrames_Relocate) -- ContainerFrame.lua
+		TitanPanelAce:SecureHook(WorldMapFrame, "Hide", Titan_Hook_Adjust_Both) -- WorldMapFrame.lua
+		TitanPanelAce:SecureHook("BuffFrame_Update", Titan_Hook_Adjust_Both) -- BuffFrame.lua
+	end
+		
+	if not TitanPanelAce:IsHooked("VideoOptionsFrameOkay_OnClick", Titan_AdjustUIScale) then
+		-- Properly Adjust UI Scale if set
+		-- Note: These are the least intrusive hooks we could think of, to properly adjust the Titan Bar(s)
+		-- without having to resort to a SetCvar secure hook. Any addon using SetCvar should make sure to use the 3rd
+		-- argument in the API call and trigger the CVAR_UPDATE event with an appropriate argument so that other addons
+		-- can detect this behavior and fire their own functions (where applicable).
+		TitanPanelAce:SecureHook("VideoOptionsFrameOkay_OnClick", Titan_AdjustUIScale) -- VideoOptionsFrame.lua
+		TitanPanelAce:SecureHook(VideoOptionsFrame, "Hide", Titan_AdjustUIScale) -- VideoOptionsFrame.xml
+	end
+end

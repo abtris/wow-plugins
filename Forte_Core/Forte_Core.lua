@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 
 FW = {}; -- core table
 FC_Saved = {}; -- save table
@@ -47,7 +47,7 @@ local type = type;
 local _G = _G;
 
 FW.TITLE = "ForteXorcist";
-local VERSION = "v1.974.2";
+local VERSION = "v1.974.5";
 local ENABLE = false;
 FW.GROUPED = false;
 FW.RAID = false;
@@ -450,7 +450,6 @@ do
 	end
 end
 
-
 FW.Sets = {};
 
 FW.BORDER = 3;
@@ -704,8 +703,20 @@ FW.Glyph = {};
 
 FW.SpellInfo = {};-- id [,casttime,minrange,maxrange]
 
-function FW:CastTime(spell)
-	return FW.SpellInfo[spell] and FW.SpellInfo[spell][2] or 0;
+do
+	local SpecialCastTimes = {};
+	function FW:RegisterSpecialCastTime(spell,func)
+		spell = FW:SpellName(spell);
+		SpecialCastTimes[spell] = func;
+	end
+
+	function FW:CastTime(spell)
+		if SpecialCastTimes[spell] then
+			return SpecialCastTimes[spell]() or 0;
+		else
+			return FW.SpellInfo[spell] and FW.SpellInfo[spell][2] or 0;
+		end
+	end
 end
 
 function FW:SpellId(name)
@@ -748,15 +759,9 @@ function FW:NumberCheck(editbox)
 end
 
 do
-	local function FW_Largest(x,y)
-		if x>y then
-			return x;
-		else
-			return y;
-		end
-	end
+	local max = math.max;
 	function FW:FixIntensity(r,g,b)
-		local largest = FW_Largest(FW_Largest(r,g),b);
+		local largest = max(max(r,g),b);
 		if largest < 1 then
 			return 0.7*r/largest+0.3,0.7*g/largest+0.3,0.7*b/largest+0.3;
 		elseif largest > 0 then
@@ -994,6 +999,15 @@ local function FW_InitFrameVars() -- also contains compatibility fixes (these sh
 	end
 end
 
+local function fixTimerSettings19743(settings)
+	if settings then
+		if settings["Time"] ~= nil then
+			settings["TimeRight"] = settings["Time"];
+			settings["Time"] = true;
+		end
+	end
+end
+
 local function fixTimerSettings(settings)
 	if settings then
 		-- fix downgrade-upgrade bug...
@@ -1187,7 +1201,18 @@ local function FW_Variables()
 					end
 				end
 			end
-
+			if FC_Saved.VERSION < "v1.974.3" then
+				if FC_Saved.Profiles then
+					for p,d in pairs( FC_Saved.Profiles ) do
+						fixTimerSettings19743(FC_Saved.Profiles[p]["Timer"]);
+						if FC_Saved.Profiles[p]["CustomInstances"] and FC_Saved.Profiles[p]["CustomInstances"]["Timer"] then
+							for clone,data in ipairs(FC_Saved.Profiles[p]["CustomInstances"]["Timer"]) do
+								fixTimerSettings19743(FC_Saved.Profiles[p][ data[1] ]);
+							end
+						end
+					end
+				end
+			end
 		end
 		-- !!! END COMPATIBILITY FIXES !!! --
 		FC_Saved.VERSION = VERSION;

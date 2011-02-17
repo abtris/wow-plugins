@@ -139,22 +139,22 @@ local auctionTable = {
 	{ "WOW_ITEM_TYPE_CONSUMABLE_SCROLL", 4, 7 },
 	{ "WOW_ITEM_TYPE_CONTAINER", 3 },
 	{ "WOW_ITEM_TYPE_CONTAINER_BAG", 3, 1 },
-	{ "WOW_ITEM_TYPE_CONTAINER_ENCHANTING", 3, 4 },
-	{ "WOW_ITEM_TYPE_CONTAINER_ENGINEERING", 3, 5 },
-	{ "WOW_ITEM_TYPE_CONTAINER_GEM", 3, 6 },
-	{ "WOW_ITEM_TYPE_CONTAINER_HERB", 3, 3 },
-	{ "WOW_ITEM_TYPE_CONTAINER_INSCRIPTION", 3, 9 },
-	{ "WOW_ITEM_TYPE_CONTAINER_LEATHERWORKING", 3, 8 },
-	{ "WOW_ITEM_TYPE_CONTAINER_MINING", 3, 7 },
-	{ "WOW_ITEM_TYPE_CONTAINER_TACKLE", 3, 10 },
-	{ "WOW_ITEM_TYPE_GEM", 10 },
+	{ "WOW_ITEM_TYPE_CONTAINER_ENCHANTING", 3, 3 },
+	{ "WOW_ITEM_TYPE_CONTAINER_ENGINEERING", 3, 4 },
+	{ "WOW_ITEM_TYPE_CONTAINER_GEM", 3, 5 },
+	{ "WOW_ITEM_TYPE_CONTAINER_HERB", 3, 2 },
+	{ "WOW_ITEM_TYPE_CONTAINER_INSCRIPTION", 3, 8 },
+	{ "WOW_ITEM_TYPE_CONTAINER_LEATHERWORKING", 3, 7 },
+	{ "WOW_ITEM_TYPE_CONTAINER_MINING", 3, 6 },
+	{ "WOW_ITEM_TYPE_CONTAINER_TACKLE", 3, 9 },
+	{ "WOW_ITEM_TYPE_GEM", 8 },
 	{ "WOW_ITEM_TYPE_GLYPH", 5 },
-	{ "WOW_ITEM_TYPE_MISC", 11 },
-	{ "WOW_ITEM_TYPE_MISC_MOUNT", 11, 6 },
-	{ "WOW_ITEM_TYPE_MISC_PET", 11, 3 },
-	{ "WOW_ITEM_TYPE_MISC_REAGENT", 11, 2 },
-	{ "WOW_ITEM_TYPE_QUEST", 12 },
-	{ "WOW_ITEM_TYPE_RECIPE", 9 },
+	{ "WOW_ITEM_TYPE_MISC", 9 },
+	{ "WOW_ITEM_TYPE_MISC_MOUNT", 9, 6 },
+	{ "WOW_ITEM_TYPE_MISC_PET", 9, 3 },
+	{ "WOW_ITEM_TYPE_MISC_REAGENT", 9, 2 },
+	{ "WOW_ITEM_TYPE_QUEST", 10 },
+	{ "WOW_ITEM_TYPE_RECIPE", 7 },
 	{ "WOW_ITEM_TYPE_TRADE_GOODS", 6 },
 	{ "WOW_ITEM_TYPE_TRADE_GOODS_CLOTH", 6, 2 },
 	{ "WOW_ITEM_TYPE_TRADE_GOODS_DEVICES", 6, 10 },
@@ -168,35 +168,25 @@ local auctionTable = {
 	{ "WOW_ITEM_TYPE_TRADE_GOODS_METAL_AND_STONE", 6, 4 },
 	{ "WOW_ITEM_TYPE_TRADE_GOODS_PARTS", 6, 9 },
 	
-	{ "WOW_SKILL_ALCHEMY", 9, 7 },
-	{ "WOW_SKILL_BLACKSMITHING", 9, 5 },
-	{ "WOW_SKILL_COOKING", 9, 6 },
-	{ "WOW_SKILL_ENCHANTING", 9, 9 },
-	{ "WOW_SKILL_ENGINEERING", 9, 4 },
-	{ "WOW_SKILL_FIRST_AID", 9, 8 },
-	{ "WOW_SKILL_FISHING", 9, 10 },
-	{ "WOW_SKILL_JEWELCRAFTING", 9, 11 },
-	{ "WOW_SKILL_LEATHERWORKING", 9, 2 },
-	{ "WOW_SKILL_TAILORING", 9, 3 },
+	{ "WOW_SKILL_ALCHEMY", 7, 7 },
+	{ "WOW_SKILL_BLACKSMITHING", 7, 5 },
+	{ "WOW_SKILL_COOKING", 7, 6 },
+	{ "WOW_SKILL_ENCHANTING", 7, 9 },
+	{ "WOW_SKILL_ENGINEERING", 7, 4 },
+	{ "WOW_SKILL_FIRST_AID", 7, 8 },
+	{ "WOW_SKILL_FISHING", 7, 10 },
+	{ "WOW_SKILL_JEWELCRAFTING", 7, 11 },
+	{ "WOW_SKILL_LEATHERWORKING", 7, 2 },
+	{ "WOW_SKILL_TAILORING", 7, 3 },
 	
-	{ "LOCATION_MOUNT", 11, 6 },
-	{ "LOCATION_PET", 11, 3 },
+	{ "LOCATION_MOUNT", 9, 6 },
+	{ "LOCATION_PET", 9, 3 },
 
 	{ "CATEGORY_CONSUMABLE", 4 },
 	{ "CATEGORY_TRADE_GOODS", 6 },
 	{ "CATEGORY_OTHER", 4, 8 },
 
 }
-
---	for i1, class in ipairs( { GetAuctionItemClasses( ) } ) do
---		print( string.format( "[%s] %s", i1, class ) )
---		for i2, sub in ipairs( { GetAuctionItemSubClasses( i1 ) } ) do
---			if i1 == 6 then
---				print( string.format( "[%s] %s > [%s] %s", i1, class, i2, sub ) )
---			end
---		end
---	end
-
 
 for _, v in ipairs( auctionTable ) do
 	
@@ -215,6 +205,8 @@ for _, v in ipairs( auctionTable ) do
 		if text then
 			L[key] = text
 		end
+		
+		--print( string.format( "%s (%s-%s) = %s", key, i1, i2 or 0, text or "nil" ) )
 		
 	end
 	

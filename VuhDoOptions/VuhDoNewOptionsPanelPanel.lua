@@ -10,6 +10,7 @@ local function VUHDO_hideAllPanel()
 	VuhDoNewOptionsPanelHots:Hide();
 	VuhDoNewOptionsPanelHotBars:Hide();
 	VuhDoNewOptionsPanelMisc:Hide();
+	collectgarbage('collect');
 end
 
 

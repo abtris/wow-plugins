@@ -1,6 +1,6 @@
 --[[
 Name: LibBabble-Inventory-3.0
-Revision: $Rev: 119 $
+Revision: $Rev: 123 $
 Maintainers: ckknight, nevcairiel, Ackis
 Website: http://www.wowace.com/projects/libbabble-inventory-3-0/
 Dependencies: None
@@ -8,7 +8,7 @@ License: MIT
 ]]
 
 local MAJOR_VERSION = "LibBabble-Inventory-3.0"
-local MINOR_VERSION = 90000 + tonumber(("$Rev: 119 $"):match("%d+"))
+local MINOR_VERSION = 90000 + tonumber(("$Rev: 123 $"):match("%d+"))
 
 if not LibStub then error(MAJOR_VERSION .. " requires LibStub.") end
 local lib = LibStub("LibBabble-3.0"):New(MAJOR_VERSION, MINOR_VERSION)
@@ -203,7 +203,7 @@ elseif GAME_LOCALE == "deDE" then
 	Bullet = "Kugel",
 	Chest = "Brust",
 	Cloth = "Stoff",
-	-- Cogwheel = "",
+	Cogwheel = "Zahnrad",
 	Companion = "Haustier",
 	Companions = "Haustiere",
 	Consumable = "Verbrauchbar",
@@ -253,12 +253,12 @@ elseif GAME_LOCALE == "deDE" then
 	Herbalism = "Kräuterkunde",
 	Holiday = "Festtag",
 	Hunter = "Jäger",
-	-- Hydraulic = "",
+	Hydraulic = "Hydraulisch", -- Needs review
 	Idol = "Götze",
 	Idols = "Götzen",
 	Inscription = "Inschriftenkunde",
 	["Inscription Bag"] = "Schreibertasche",
-	-- ["Item Enchantment"] = "",
+	["Item Enchantment"] = "Gegenstandsverzauberung",
 	["Item Enhancement"] = "Gegenstandsverbesserung",
 	Jewelcrafting = "Juwelenschleifen",
 	Junk = "Plunder",
@@ -326,9 +326,9 @@ elseif GAME_LOCALE == "deDE" then
 	Sword = "Schwert",
 	Tabard = "Wappenrock",
 	Tabards = "Wappenröcke",
-	-- ["Tackle Box"] = "",
+	["Tackle Box"] = "Kasten", -- Needs review
 	Tailoring = "Schneiderei",
-	Thrown = "Wurfwaffen",
+	Thrown = "Wurfwaffe",
 	Totem = "Totem",
 	Totems = "Totems",
 	["Trade Goods"] = "Handwerkswaren",
@@ -1352,7 +1352,7 @@ elseif GAME_LOCALE == "zhTW" then
 	Bullet = "子彈",
 	Chest = "胸部",
 	Cloth = "布料",
-	-- Cogwheel = "",
+	Cogwheel = "榫輪",
 	Companion = "夥伴",
 	Companions = "夥伴們",
 	Consumable = "消耗品",
@@ -1403,12 +1403,12 @@ elseif GAME_LOCALE == "zhTW" then
 	Herbalism = "草藥學",
 	Holiday = "節慶用品",
 	Hunter = "獵人",
-	-- Hydraulic = "",
+	Hydraulic = "液壓",
 	Idol = "塑像",
 	Idols = "塑像",
 	Inscription = "銘文學",
 	["Inscription Bag"] = "銘文包",
-	-- ["Item Enchantment"] = "",
+	["Item Enchantment"] = "物品附魔",
 	["Item Enhancement"] = "物品強化",
 	Jewelcrafting = "珠寶設計",
 	Junk = "垃圾",
@@ -1476,7 +1476,7 @@ elseif GAME_LOCALE == "zhTW" then
 	Sword = "劍",
 	Tabard = "外袍",
 	Tabards = "外袍",
-	-- ["Tackle Box"] = "",
+	["Tackle Box"] = "工具箱",
 	Tailoring = "裁縫",
 	Thrown = "投擲武器",
 	Totem = "圖騰",

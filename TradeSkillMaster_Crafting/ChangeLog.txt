@@ -1,0 +1,50 @@
+v0.2.2
+*Updated with new recipes from 4.0.6.
+*Fixed an issue with leather not showing under leatherworking.
+*Fixed a bunch of issues with the Craft Next button disabling / enabling incorrectly.
+*Cleaned up a lot of the code which should result in a drastic decrease in processing when loading / using the Craft Management Window.
+*Many other minor bug fixes and improvements.
+
+v0.2.1
+*Using datastore for alt data can now get data from multiple accounts.
+*Fixed a bug with the "Open Profession" button not working on non-english realms.
+*Alchemy should no longer freeze the game client when skyflare diamond is enabled.
+*Few other minor bug fixes and improvements.
+
+v0.2
+*Profession scanning should no longer cause the game to lag.
+*Equipped items and bags are no longer included in the number in player's bags.
+*When removing an override from a mat cost, the cost will be recalcuated correctly.
+*Fixed a bug with intermediate crafts not queuing up correctly.
+*Added a button for forcing a profession scan.
+*Added frame to overlay profession window during scanning.
+*Crafts which create more than 1 of the craft item per craft will now have their profits calculated correctly.
+*Added option for only creating Auctioning groups for enabled crafts.
+*Many other minor bug fixes and changes.
+
+v0.1.4
+*Fixed a bug with the restock queue when set to a % min profit.
+*Fixed the localizations file to work properly on non-english clients.
+*Added a way to quickly and easily add crafted items to Auctioning groups. This can be found next to the "Enable/Disable All" buttons in the main TSM window.
+
+v0.1.3
+*Profile tab should now work properly.
+*Incrased max value for "Minimum Profit (in gold)" slider.
+*Optimized and throttled profession scans more.
+*Added additional crafts.
+*Optimized queuing part of craft management window.
+*Added "All" category to queuing part of craft management window.
+*Put in some per-profession options / overrides.
+*Many other minor improvements and bug fixes.
+
+v0.1.2
+*Crafting now properly prices vendor bought items and should no longer export them to Shopping.
+*Crafting should no work on non-english clients.
+*Including items on the AH is now enabled by default.
+*Many minor bug fixes.
+
+v0.1.1
+*The first time crafts are added, they will be set to be enabled to help first time users.
+
+v0.1
+*First Commit Version

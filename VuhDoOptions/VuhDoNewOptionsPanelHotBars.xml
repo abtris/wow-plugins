@@ -105,7 +105,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.HOTS.BARS.width");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_SIZE, 1, 100, "%", 0.5);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_318);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K318);
 							</OnLoad>
 						</Scripts>
 					</Frame>

@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+﻿-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 
 --[[
 "frFR": French
@@ -34,5 +34,4 @@ if FW.CLASS == "HUNTER" then
 	else
 	end
 	FWL.SNAKE1 = "Viper";
-	--FWL.SNAKE2 = "Venomous Snake";
 end

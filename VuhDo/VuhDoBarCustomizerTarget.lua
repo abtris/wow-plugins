@@ -17,6 +17,10 @@ local UnitIsConnected = UnitIsConnected;
 local UnitIsUnit = UnitIsUnit;
 local UnitExists = UnitExists;
 local UnitCreatureType = UnitCreatureType;
+local UnitIsTappedByPlayer = UnitIsTappedByPlayer;
+local UnitIsTapped = UnitIsTapped;
+local UnitIsPlayer = UnitIsPlayer;
+local CheckInteractDistance = CheckInteractDistance;
 local strfind = strfind;
 local gsub = gsub;
 local UnitIsFriend = UnitIsFriend;
@@ -44,7 +48,9 @@ local VUHDO_getTargetBarRoleIcon;
 local VUHDO_POWER_TYPE_COLORS;
 local VUHDO_BUTTON_CACHE;
 local VUHDO_getUnitZoneName;
+local VUHDO_getDisplayUnit;
 
+local sOOROpacity;
 
 function VUHDO_customTargetInitBurst()
 	VUHDO_CUSTOM_INFO = VUHDO_GLOBAL["VUHDO_CUSTOM_INFO"];
@@ -62,25 +68,37 @@ function VUHDO_customTargetInitBurst()
 	VUHDO_getTargetBarRoleIcon = VUHDO_GLOBAL["VUHDO_getTargetBarRoleIcon"];
 	VUHDO_POWER_TYPE_COLORS =  VUHDO_GLOBAL["VUHDO_POWER_TYPE_COLORS"];
 	VUHDO_getUnitZoneName = VUHDO_GLOBAL["VUHDO_getUnitZoneName"];
+	VUHDO_getDisplayUnit = VUHDO_GLOBAL["VUHDO_getDisplayUnit"];
+
+	if (VUHDO_PANEL_SETUP["BAR_COLORS"]["OUTRANGED"]["useOpacity"]) then
+		sOOROpacity = VUHDO_PANEL_SETUP["BAR_COLORS"]["OUTRANGED"]["O"];
+	else
+		sOOROpacity = 1;
+	end
 end
 ------------------------------------------------------------------
 
 
 --
 local tManaBar;
-local function VUHDO_customizeManaBar(aButton, aColor, anInfo)
+local tInfo;
+local tColor;
+local function VUHDO_customizeManaBar(aButton, anIsSetColor)
 
-	if (anInfo["connected"]) then
+	_, tInfo = VUHDO_getDisplayUnit(aButton);
+
+	if (tInfo["connected"]) then
 		tManaBar = VUHDO_getHealthBar(aButton, 2);
 		-- Some addons return 1 mana-max instead of zero
-		if (anInfo["powermax"] < 2) then
+		if (tInfo["powermax"] < 2) then
 			tManaBar:SetValue(0);
 		else
-			tManaBar:SetValue(100 * anInfo["power"] / anInfo["powermax"]);
+			tManaBar:SetValue(100 * tInfo["power"] / tInfo["powermax"]);
 		end
 
-		if (aColor ~= nil) then
-			tManaBar:SetStatusBarColor(aColor["R"], aColor["G"], aColor["B"], aColor["O"]);
+		if (anIsSetColor) then
+			tColor = VUHDO_POWER_TYPE_COLORS[tInfo["powertype"]];
+			tManaBar:SetStatusBarColor(tColor["R"], tColor["G"], tColor["B"], tColor["O"]);
 		end
 	else
 		VUHDO_getHealthBar(aButton, 2):SetValue(0);
@@ -94,7 +112,7 @@ local tInfo;
 local tLocalClass, tClassName;
 local tPowerType;
 local tName;
-local function VUHDO_fillCustomInfo(aUnit)
+function VUHDO_fillCustomInfo(aUnit)
 	tLocalClass, tClassName = UnitClass(aUnit);
 	tPowerType = UnitPowerType(aUnit);
 	tName = UnitName(aUnit);
@@ -120,6 +138,7 @@ local function VUHDO_fillCustomInfo(aUnit)
 	tInfo["zone"], tInfo["map"] = (VUHDO_RAID["player"] or { })["zone"], (VUHDO_RAID["player"] or { })["map"];
 	tInfo["fixResolveId"] = nil;
 end
+local VUHDO_fillCustomInfo = VUHDO_fillCustomInfo;
 
 
 
@@ -128,36 +147,58 @@ local tManaColor;
 local tTexture;
 local tTargetBar;
 local tRaidTargetColor;
-
-local function VUHDO_customizeTargetBar(aButton, anIsFriend, anIsEnemy, anIcon, anIsDead, anIconIndex)
+local tOpacity;
+local tIsFriend, tIconIdx, tIsDead, tIsMine;
+function VUHDO_customizeTargetBar(aButton, aUnit, anIsInRange)
 	tTargetBar = VUHDO_getHealthBar(aButton, 1);
 	tTargetBar:Show();
 
-	if (anIsDead) then
-		tTargetBar:SetStatusBarColor(0, 0, 0, 1);
-	elseif (anIconIndex ~= nil and anIcon ~= nil and VUHDO_PANEL_SETUP["BAR_COLORS"]["RAID_ICONS"]["enable"]) then
-		tRaidTargetColor = VUHDO_PANEL_SETUP["BAR_COLORS"]["RAID_ICONS"][anIconIndex];
-		tTargetBar:SetStatusBarColor(tRaidTargetColor["R"], tRaidTargetColor["G"], tRaidTargetColor["B"], 1);
-	elseif (anIsFriend) then
-		tTargetBar:SetStatusBarColor(0, 1, 0, 1);
-	elseif (anIsEnemy) then
-		tTargetBar:SetStatusBarColor(1, 0, 0, 1);
+	if (not anIsInRange) then
+		tOpacity = sOOROpacity;
 	else
-		tTargetBar:SetStatusBarColor(1, 1, 0, 1);
+	  tOpacity = 1;
+	end
+
+	tIconIdx = GetRaidTargetIndex(aUnit);
+	if (tIconIdx == nil
+		or not VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RAID_ICON"]["show"]
+		or not VUHDO_PANEL_SETUP["RAID_ICON_FILTER"][tIconIdx]) then
+
+		tIconIdx = nil;
+	end
+
+	tIsFriend = UnitIsFriend("player", aUnit);
+	tIsDead = UnitIsDeadOrGhost(aUnit);
+	tIsMine = UnitIsPlayer(aUnit) or not UnitIsTapped(aUnit) or UnitIsTappedByPlayer(aUnit);
+
+	if (not tIsMine and not tIsFriend and not tIsDead) then
+		tTargetBar:SetStatusBarColor(0.4, 0.4, 0.4, tOpacity);
+	elseif (tIsDead) then
+		tTargetBar:SetStatusBarColor(0, 0, 0, tOpacity);
+	elseif (tIconIdx ~= nil and VUHDO_PANEL_SETUP["BAR_COLORS"]["RAID_ICONS"]["enable"]) then
+		tRaidTargetColor = VUHDO_PANEL_SETUP["BAR_COLORS"]["RAID_ICONS"][tostring(tIconIdx)];
+		tTargetBar:SetStatusBarColor(tRaidTargetColor["R"], tRaidTargetColor["G"], tRaidTargetColor["B"], tOpacity);
+	elseif (tIsFriend) then
+		tTargetBar:SetStatusBarColor(0, 1, 0, tOpacity);
+	elseif (UnitIsEnemy("player", aUnit)) then
+		tTargetBar:SetStatusBarColor(1, 0, 0, tOpacity);
+	else
+		tTargetBar:SetStatusBarColor(1, 1, 0, tOpacity);
 	end
 
 	VUHDO_customizeBarSize(aButton);
 	VUHDO_customizeText(aButton, 1, true); -- VUHDO_UPDATE_ALL
-	VUHDO_customizeManaBar(aButton, VUHDO_POWER_TYPE_COLORS[VUHDO_CUSTOM_INFO["powertype"]], VUHDO_CUSTOM_INFO);
+	VUHDO_customizeManaBar(aButton, true);
 
-	if (anIcon ~= nil) then
+	if (tIconIdx ~= nil) then
 		tTexture = VUHDO_getTargetBarRoleIcon(aButton, 50);
-		VUHDO_setRaidTargetIconTexture(tTexture, anIcon);
+		VUHDO_setRaidTargetIconTexture(tTexture, tIconIdx);
 		tTexture:Show();
 	else
 		VUHDO_getTargetBarRoleIcon(aButton, 50):Hide();
 	end
 end
+local VUHDO_customizeTargetBar = VUHDO_customizeTargetBar;
 
 
 
@@ -207,7 +248,6 @@ local tTarget;
 local tTargetOfTarget;
 local tIcon;
 local tPanelNum;
-local tDispIcon;
 function VUHDO_updateTargetBars(aUnit)
 	if (strfind(aUnit, "target", 1, true) and aUnit ~= "target") then
 		aUnit = gsub(aUnit, "target", "");
@@ -250,23 +290,9 @@ function VUHDO_updateTargetBars(aUnit)
 	VUHDO_fillCustomInfo(tTarget);
 
 	for _, tButton in pairs(tAllButtons) do
-		tPanelNum = VUHDO_BUTTON_CACHE[tButton];
-
-		if (VUHDO_PANEL_SETUP[tPanelNum]["SCALING"]["showTarget"]) then
-			tIcon = GetRaidTargetIndex(tTarget);
-			if (tIcon ~= nil and VUHDO_PANEL_SETUP[tPanelNum]["RAID_ICON"]["show"] and VUHDO_PANEL_SETUP["RAID_ICON_FILTER"][tIcon]) then
-				tDispIcon = tIcon;
-			else
-				tDispIcon = nil;
-			end
+		if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["SCALING"]["showTarget"]) then
 			tTargetButton = VUHDO_getTargetButton(tButton);
-			VUHDO_customizeTargetBar(tTargetButton,
-				UnitIsFriend(aUnit, tTarget),
-				UnitIsEnemy(aUnit, tTarget),
-				tDispIcon,
-				UnitIsDeadOrGhost(tTarget),
-				tostring(tDispIcon));
-
+			VUHDO_customizeTargetBar(tTargetButton, tTarget, CheckInteractDistance(tTarget, 1));
 			tTargetButton:SetAlpha(1);
 			VUHDO_rememberTargetButton(tTarget, tTargetButton);
 		end
@@ -284,21 +310,9 @@ function VUHDO_updateTargetBars(aUnit)
 	VUHDO_fillCustomInfo(tTargetOfTarget);
 
 	for _, tButton in pairs(tAllButtons) do
-		tPanelNum = VUHDO_BUTTON_CACHE[tButton];
-		if (VUHDO_PANEL_SETUP[tPanelNum]["SCALING"]["showTot"]) then
-			tIcon = GetRaidTargetIndex(tTargetOfTarget);
-			if (tIcon ~= nil and VUHDO_PANEL_SETUP[tPanelNum]["RAID_ICON"]["show"] and VUHDO_PANEL_SETUP["RAID_ICON_FILTER"][tIcon]) then
-				tDispIcon = tIcon;
-			else
-				tDispIcon = nil;
-			end
+		if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["SCALING"]["showTot"]) then
 			tTotButton = VUHDO_getTotButton(tButton);
-			VUHDO_customizeTargetBar(tTotButton,
-				UnitIsFriend(aUnit, tTargetOfTarget),
-				UnitIsEnemy(aUnit, tTargetOfTarget),
-				tDispIcon,
-				UnitIsDeadOrGhost(tTargetOfTarget),
-				tostring(tDispIcon));
+			VUHDO_customizeTargetBar(tTotButton, tTargetOfTarget, CheckInteractDistance(tTargetOfTarget, 1));
 
 			tTotButton:SetAlpha(1);
 			VUHDO_rememberTargetButton(tTargetOfTarget, tTotButton);
@@ -340,10 +354,7 @@ local function VUHDO_updateTargetHealth(aUnit, aTargetUnit)
 	if (VUHDO_IN_RAID_TARGETS[aTargetUnit] == nil)  then
 		VUHDO_fillCustomInfo(aTargetUnit);
 		for _, tButton in pairs(tAllButtons) do
-			tButton = VUHDO_getTargetButton(tButton);
-			VUHDO_customizeBarSize(tButton);
-			VUHDO_customizeText(tButton, VUHDO_UPDATE_HEALTH, true);
-			VUHDO_customizeManaBar(tButton, nil, VUHDO_CUSTOM_INFO);
+			VUHDO_customizeTargetBar(VUHDO_getTargetButton(tButton), aTargetUnit, CheckInteractDistance(aTargetUnit, 1));
 		end
 	end
 
@@ -358,10 +369,7 @@ local function VUHDO_updateTargetHealth(aUnit, aTargetUnit)
 	if (VUHDO_IN_RAID_TARGETS[tTotUnit] == nil and UnitExists(tTotUnit))  then
 		VUHDO_fillCustomInfo(tTotUnit);
 		for _, tButton in pairs(tAllButtons) do
-			tButton = VUHDO_getTotButton(tButton);
-			VUHDO_customizeBarSize(tButton);
-			VUHDO_customizeText(tButton, VUHDO_UPDATE_HEALTH, true);
-			VUHDO_customizeManaBar(tButton, nil, VUHDO_CUSTOM_INFO);
+			VUHDO_customizeTargetBar(VUHDO_getTotButton(tButton), tTotUnit, CheckInteractDistance(tTotUnit, 1));
 		end
 	end
 end

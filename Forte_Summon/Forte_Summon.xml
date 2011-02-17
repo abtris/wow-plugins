@@ -149,10 +149,10 @@ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
 		</Frames>
 		<Scripts>
 			<OnMouseDown>
-				FW:StartMoving(self, arg1 or button);
+				FW:StartMoving(self,button);
 			</OnMouseDown>
 			<OnMouseUp>
-				FW:SUFrame_OnClick(arg1 or button);
+				FW:SUFrame_OnClick(button);
 				FW:StopMoving(self);
 			</OnMouseUp>
 			<OnLoad>

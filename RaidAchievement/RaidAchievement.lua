@@ -6,7 +6,7 @@ psealocale()
 end
 
 
-	raversion=1.064
+	raversion=1.065
 	raversshow="ver-"..raversion.." (release)"
 	if(thisaddonworkea==nil) then thisaddonworkea=true end
 	if pseashowfailreas==nil then pseashowfailreas=true end
@@ -811,7 +811,7 @@ end
 end
 
 --Накс Сарт
-if GetCurrentMapAreaID()==535 or GetCurrentMapAreaID()==718 or GetCurrentMapAreaID()==13 or GetCurrentMapAreaID()==531 then --ыытест 13 - временно! для того чтоб загрузить ониксию, что не грузится из за бага близзов
+if GetCurrentMapAreaID()==535 or GetCurrentMapAreaID()==718 or GetCurrentMapAreaID()==531 then
 if IsAddOnLoaded("RaidAchievement_Naxxramas")==nil and wasnaxtryloadea==nil then
 wasnaxtryloadea=1
 local loaded, reason = LoadAddOn("RaidAchievement_Naxxramas")

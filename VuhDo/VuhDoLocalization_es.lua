@@ -126,7 +126,7 @@ VUHDO_I18N_BUFFC_SKIN = "01Piel de demonio";
 -- Mage
 VUHDO_I18N_BUFFC_ARMOR_MAGE = "03Armadura";
 -- Death Knight
-VUHDO_SPELL_ID_BUFFC_PRESENCE    = "03Presencia";
+VUHDO_BUFFC_PRESENCE    = "03Presencia";
 -- Warrior
 VUHDO_I18N_BUFFC_SHOUT = "01Grito";
 -- Hunter
@@ -344,3 +344,13 @@ VUHDO_I18N_BOUQUET_PLAYER_FOCUS = "Flag: Player Focus";
 VUHDO_I18N_SIDE_BAR_LEFT = "Side Left";
 VUHDO_I18N_SIDE_BAR_RIGHT = "Side Right";
 VUHDO_I18N_OWN_PET = "Own Pet";
+-- 2.72
+VUHDO_I18N_SPELL = "Spell";
+VUHDO_I18N_COMMAND = "Command";
+VUHDO_I18N_MACRO = "Macro";
+VUHDO_I18N_ITEM = "Item";
+-- 2.75
+VUHDO_I18N_ERR_NO_BOUQUET = "\"%s\" tries to hook to bouquet \"%s\" which doesn't exist!";
+
+VUHDO_I18N_BOUQUET_HEALTH_BELOW_ABS = "Flag: Health < k";
+VUHDO_I18N_BOUQUET_HEALTH_ABOVE_ABS = "Flag: Health > k";

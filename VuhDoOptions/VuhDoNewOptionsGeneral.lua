@@ -11,6 +11,7 @@ local function VUHDO_hideAllPanel()
 	VuhDoNewOptionsGeneralCluster:Hide();
 	VuhDoNewOptionsGeneralBouquet:Hide();
 	VuhDoNewOptionsGeneralIndicators:Hide();
+	collectgarbage('collect');
 end
 
 

@@ -263,7 +263,7 @@ local function VUHDO_determineDfToolRole(anInfo)
 		elseif (anInfo["classId"] == VUHDO_ID_PRIESTS) then
 			VUHDO_DF_TOOL_ROLES[tName] = VUHDO_ID_RANGED_DAMAGE;
 			tReturnRole = VUHDO_ID_RANGED_DAMAGE;
-		else
+		else -- Shaman/Druid
 			VUHDO_DF_TOOL_ROLES[tName] = VUHDO_ID_MELEE_DAMAGE;
 			tReturnRole = nil;
 		end
@@ -322,7 +322,7 @@ function VUHDO_determineRole(aUnit)
 	end
 
 	if (29 == tClassId) then -- VUHDO_ID_DEATH_KNIGHT
-		_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_FROST_PRESENCE);
+		_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID.BUFF_FROST_PRESENCE);
 		if (tBuffExist) then
 			--VUHDO_FIX_ROLES[tName] = 60; -- VUHDO_ID_MELEE_TANK
 			return 60; -- VUHDO_ID_MELEE_TANK
@@ -332,7 +332,7 @@ function VUHDO_determineRole(aUnit)
 		end
 
 	elseif (28 == tClassId) then -- VUHDO_ID_PRIESTS
-		_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_SHADOWFORM);
+		_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID.SHADOWFORM);
 		if (tBuffExist) then
 			VUHDO_FIX_ROLES[tName] = 62; -- VUHDO_ID_RANGED_DAMAGE
 			return 62; -- VUHDO_ID_RANGED_DAMAGE
@@ -353,12 +353,12 @@ function VUHDO_determineRole(aUnit)
 	elseif (27 == tClassId) then -- VUHDO_ID_DRUIDS
 		tPowerType = UnitPowerType(aUnit);
 		if (VUHDO_UNIT_POWER_MANA == tPowerType) then
-			_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_MOONKIN_FORM);
+			_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID.MOONKIN_FORM);
 			if (tBuffExist) then
 				VUHDO_FIX_ROLES[tName] = 62; -- VUHDO_ID_RANGED_DAMAGE
 				return 62; -- VUHDO_ID_RANGED_DAMAGE
 			else
-				_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_TREE_OF_LIFE);
+				_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID.TREE_OF_LIFE);
 				if (tBuffExist) then
 					VUHDO_FIX_ROLES[tName] = 63; -- VUHDO_ID_RANGED_HEAL
 				end

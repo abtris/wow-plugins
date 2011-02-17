@@ -728,21 +728,29 @@ HEALBOT_D_DURATION              = "Dur\195\169e des sorts directs ";
 HEALBOT_H_DURATION              = "Dur\195\169e des HoT ";
 HEALBOT_C_DURATION 				= "Dur\195\169e des sorts canalis\195\169s ";
 
-HEALBOT_HELP={  [1] = "[HealBot] /hb h -- Afficher l\'aide",
-                [2] = "[HealBot] /hb o -- Bascule options",
-                [3] = "[HealBot] /hb d -- R\195\160Z des options",
-                [4] = "[HealBot] /hb ui -- Recharger UI (reloadui)",
-                [5] = "[HealBot] /hb ri -- R\195\160Z HealBot",
-                [6] = "[HealBot] /hb t -- Bascule Healbot activ\195\169/d\195\169sactiv\195\169",
-                [7] = "[HealBot] /hb bt -- Bascule moniteur de Buffs activ\195\169/d\195\169sactiv\195\169", 
-                [8] = "[HealBot] /hb dt -- Bascule moniteur de D\195\169buffs activ\195\169/d\195\169sactiv\195\169",
-                [9] = "[HealBot] /hb skin <skinName> -- Changer de Skin",
-                [10] = "[HealBot] /hb tr <Role> -- D\195\169termine le r\195\180le prioritaire pour le sous-tri par r\195\180le. Les r\195\180les valides sont 'TANK', 'HEALER' ou 'DPS'",
-                [11] = "[HealBot] /hb use10 -- Utilisation auto. du slot 10 d\'ing\195\169nieur",
-                [12] = "[HealBot] /hb pcs <n> -- Ajuste la taille de l\indicateur de charge de Puissance Sacr\195\169e \195\160 <n>, valeur par d\195\169faut : 7 ",
-                [13] = "[HealBot] /hb info -- Afficher la fen\195\170tre d\'information",
-                [14] = "[HealBot] /hb spt -- Bascule Self Pet",
-                [15] = "[HealBot] /hb ws -- Bascule l\'affichage de l\'ic\195\180ne d\'Ame affaiblie au lieu de MdP : Bouclier avec un -",
+HEALBOT_HELP={ 
+    [1] = "[HealBot] /hb h -- Afficher l\'aide",
+    [2] = "[HealBot] /hb o -- Bascule options",
+    [3] = "[HealBot] /hb ri -- R\195\160Z HealBot",
+    [4] = "[HealBot] /hb t -- Bascule Healbot activ\195\169/d\195\169sactiv\195\169",
+    [5] = "[HealBot] /hb bt -- Bascule moniteur de Buffs activ\195\169/d\195\169sactiv\195\169", 
+    [6] = "[HealBot] /hb dt -- Bascule moniteur de D\195\169buffs activ\195\169/d\195\169sactiv\195\169",
+    [7] = "[HealBot] /hb skin <skinName> -- Changer de Skin",
+    [8] = "[HealBot] /hb hs -- Afficher les commandes slash suppl\195\169mentaires",
+}
+
+HEALBOT_HELP2={ 
+    [1] = "[HealBot] /hb d -- R\195\160Z des options",
+    [2] = "[HealBot] /hb ui -- Recharger UI (reloadui)",
+    [3] = "[HealBot] /hb ri -- R\195\160Z HealBot",
+    [4] = "[HealBot] /hb tr <Role> -- D\195\169termine le r\195\180le prioritaire pour le sous-tri par r\195\180le. Les r\195\180les valides sont 'TANK', 'HEALER' ou 'DPS'",
+    [5] = "[HealBot] /hb use10 -- Utilisation auto. du slot 10 d\'ing\195\169nieur",
+    [6] = "[HealBot] /hb pcs <n> -- Ajuste la taille de l\indicateur de charge de Puissance Sacr\195\169e \195\160 <n>, valeur par d\195\169faut : 7 ",
+    [7] = "[HealBot] /hb info -- Afficher la fen\195\170tre d\'information",
+    [8] = "[HealBot] /hb spt -- Bascule Self Pet",
+    [9] = "[HealBot] /hb ws -- Bascule l\'affichage de l\'ic\195\180ne d\'Ame affaiblie au lieu de MdP : Bouclier avec un -",
+    [10] = "[HealBot] /hb flb -- Toggle frame lock bypass (frame always moves with Ctrl+Alt+Left click)",
+    [11] = "[HealBot] /hb rtb -- Bascule restriction barre de cible sur bt gauche=SmartCast et bt droit=ajouter/enlever de 'Mes cibles'",
 }
               
 HEALBOT_OPTION_HIGHLIGHTACTIVEBAR   = "Surbrillance au mouseover"
@@ -977,5 +985,11 @@ HEALBOT_RANDOMGOUNDMOUNT                = "Monture terrestre al\195\169atoire"
 HEALBOT_RANDOMPET                       = "Mascotte al\195\169atoire"
 HEALBOT_ZONE_AQ40                       = "Ahn\'Qiraj"
 HEALBOT_ZONE_THEOCULUS                  = "L\'Oculus"
+HEALBOT_RESLAG_INDICATOR                = "Dur\195\169e d\'affichage du nom en vert apr\195\168s rez"
+HEALBOT_RESLAG_INDICATOR_ERROR          = "Dur\195\169e d\'affichage du nom en vert apr\195\168s rez entre 1 et 30"
+HEALBOT_FRAMELOCK_BYPASS_OFF            = "Bouger le cadre malgr\195\169 le verrouillage : inactif"
+HEALBOT_FRAMELOCK_BYPASS_OFF            = "Bouger le cadre malgr\195\169 le verrouillage : actif  (Ctl+Alt+Gauche)"
+HEALBOT_RESTRICTTARGETBAR_ON            = "Restriction barre de cible Active"
+HEALBOT_RESTRICTTARGETBAR_OFF           = "Restriction barre de cible Inactive"
 
 end

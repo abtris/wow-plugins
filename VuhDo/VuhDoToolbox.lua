@@ -131,18 +131,18 @@ end
 local VUHDO_PROFILE_TIMER = 0; -- Profilers starting time stamp
 
 -- Init by setting start time stamp
-function VUHDO_initProfiler()
+--[[function VUHDO_initProfiler()
 	VUHDO_Msg("Init Profiler");
 	VUHDO_PROFILE_TIMER = GetTime() * 1000;
-end
+end]]
 
 
 
 -- Dump the duration in ms since profiler has been initialized
-function VUHDO_seeProfiler()
+--[[function VUHDO_seeProfiler()
 	local tTimeDelta = floor(GetTime() * 1000 - VUHDO_PROFILE_TIMER);
 	VUHDO_Msg("Duration: " .. tTimeDelta);
-end
+end]]
 
 
 
@@ -408,30 +408,6 @@ end
 
 
 
--- returns the players rank in a raid which is 0 = raid member, 1 = assist, 2 = leader
--- returns leader if not in raid, and member if solo, as no main tank are needed
-local tUnitNo;
-local tRank, tIsMl;
-function VUHDO_getPlayerRank()
-	for tUnit, _ in pairs(VUHDO_RAID) do
-		if (tUnit == "player") then
-			if (UnitInRaid("player")) then
-				tUnitNo = VUHDO_getUnitNo(tUnit);
-				_, tRank, _, _, _, _, _, _, _, _, tIsMl = GetRaidRosterInfo(tUnitNo);
-				return tRank, tIsMl;
-			elseif (GetNumPartyMembers() > 0) then
-				return 2, true;
-			else
-				return 2, true;
-			end
-		end
-	end
-
-	return 2, true;
-end
-
-
-
 -- returns the units rank in a raid which is 0 = raid member, 1 = assist, 2 = leader
 -- returns 2 if not in raid
 local tRank, tIsMl;
@@ -439,9 +415,23 @@ function VUHDO_getUnitRank(aUnit)
 	if (UnitInRaid("player")) then
 		_, tRank, _, _, _, _, _, _, _, _, tIsMl = GetRaidRosterInfo(VUHDO_getUnitNo(aUnit));
 		return tRank, tIsMl;
+	elseif (UnitExists("party1")) then
+		if (UnitIsPartyLeader(aUnit)) then
+			return 2, true;
+		else
+			return 0, true;
+		end
+	else
+		return 2, true;
 	end
+end
 
-	return 2, true;
+
+
+-- returns the players rank in a raid which is 0 = raid member, 1 = assist, 2 = leader
+-- returns leader if not in raid, and member if solo, as no main tank are needed
+function VUHDO_getPlayerRank()
+	return VUHDO_getUnitRank("player");
 end
 
 
@@ -451,7 +441,7 @@ local tCnt, tRaidUnit;
 function VUHDO_getPlayerRaidUnit()
 	if (UnitInRaid("player")) then
 		for tCnt = 1, 40 do
-			tRaidUnit = "raid" .. tCnt;
+			tRaidUnit = format("raid%d", tCnt);
 			if (UnitIsUnit("player", tRaidUnit)) then
 				return tRaidUnit;
 			end
@@ -504,9 +494,6 @@ end
 
 
 --
-local tZoneOkay;
-local tUnitZone, tPlayerZone;
-local tIdx;
 local tEmptyZone = { };
 function VUHDO_isInSameZone(aUnit)
 	return (VUHDO_RAID[aUnit] or tEmptyZone)["map"] == (VUHDO_RAID["player"] or tEmptyZone)["map"];
@@ -547,8 +534,8 @@ function VUHDO_getDurationTextSince(aStartTime)
 	end
 
 	tDeltaSecs = GetTime() - aStartTime;
-	if (tDeltaSecs >= 3600) then
-		return format("(|cffffffff%.1f %s|r)", tDeltaSecs / 3600, VUHDO_I18N_HOURS);
+	if (tDeltaSecs >= 0) then
+		return format("(|cffffffff%.0f:%02d %s|r)", tDeltaSecs / 3600, floor(tDeltaSecs / 60) % 60, VUHDO_I18N_HOURS);
 	elseif(tDeltaSecs >= 60) then
 		return format("(|cffffffff%d %s|r)", tDeltaSecs / 60, VUHDO_I18N_MINS);
 	else
@@ -569,7 +556,6 @@ function VUHDO_getDistanceText(aUnit)
 	else
 		return VUHDO_I18N_UNKNOWN;
 	end
-
 end
 
 
@@ -577,7 +563,7 @@ end
 --
 local tPet;
 function VUHDO_getPetUnit(anOwnerUnit)
-	_, tPet, _ = VUHDO_getUnitIds();
+	_, tPet = VUHDO_getUnitIds();
 
 	if ("player" == anOwnerUnit) then
 		return "pet";
@@ -606,12 +592,12 @@ end
 --
 function VUHDO_getResurrectionSpells()
 	if (VUHDO_RESURRECTION_SPELLS[VUHDO_PLAYER_CLASS] == nil) then
-		return nil, nil;
+		return nil;
 	else
 		if (InCombatLockdown() and #VUHDO_RESURRECTION_SPELLS[VUHDO_PLAYER_CLASS] > 1) then
-			return VUHDO_RESURRECTION_SPELLS[VUHDO_PLAYER_CLASS][2], VUHDO_RESURRECTION_SPELLS[VUHDO_PLAYER_CLASS][1];
+			return VUHDO_RESURRECTION_SPELLS[VUHDO_PLAYER_CLASS][2];
 		else
-			return VUHDO_RESURRECTION_SPELLS[VUHDO_PLAYER_CLASS][1], VUHDO_RESURRECTION_SPELLS[VUHDO_PLAYER_CLASS][2];
+			return VUHDO_RESURRECTION_SPELLS[VUHDO_PLAYER_CLASS][1];
 		end
 	end
 end
@@ -719,17 +705,17 @@ end
 local tInfo;
 function VUHDO_replaceMacroTemplates(aText, aUnit)
 	if (aUnit ~= nil) then
-		aText = gsub(aText, "vuhdo", aUnit);
+		aText = gsub(aText, "[Vv][Uu][Hh][Dd][Oo]", aUnit);
 		tInfo = VUHDO_RAID[aUnit];
 		if (tInfo ~= nil) then
-			aText = gsub(aText, "vdname", tInfo["name"]);
+			aText = gsub(aText, "[Vv][Dd][Nn][Aa][Mm][Ee]", tInfo["name"]);
 
 			if (tInfo["petUnit"] ~= nil) then
-				aText = gsub(aText, "vdpet", tInfo["petUnit"]);
+				aText = gsub(aText, "[Vv][Dd][Pp][Ee][Tt]", tInfo["petUnit"]);
 			end
 
 			if (tInfo["targetUnit"] ~= nil) then
-				aText = gsub(aText, "vdtarget", tInfo["targetUnit"]);
+				aText = gsub(aText, "[Vv][Dd][Tt][Aa][Rr][Gg][Ee][Tt]", tInfo["targetUnit"]);
 			end
 		end
 	end

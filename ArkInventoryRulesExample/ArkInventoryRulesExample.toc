@@ -1,5 +1,5 @@
 ﻿## Interface: 40000
-## X-Curse-Packaged-Version: 3.02.73
+## X-Curse-Packaged-Version: 3.02.76
 ## X-Curse-Project-Name: ArkInventory
 ## X-Curse-Project-ID: ark-inventory
 ## X-Curse-Repository-ID: wow/ark-inventory/mainline

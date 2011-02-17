@@ -82,11 +82,11 @@ end
 
 
 local VUHDO_TALENT_CHANGE_SPELLS = {
-	[VUHDO_SPELL_ID_ACTIVATE_FIRST_TALENT] = true,
-	[VUHDO_SPELL_ID_ACTIVATE_SECOND_TALENT] = true,
-	[VUHDO_SPELL_ID_BUFF_FROST_PRESENCE] = true,
-	[VUHDO_SPELL_ID_BUFF_BLOOD_PRESENCE] = true,
-	[VUHDO_SPELL_ID_BUFF_UNHOLY_PRESENCE] = true,
+	[VUHDO_SPELL_ID.ACTIVATE_FIRST_TALENT] = true,
+	[VUHDO_SPELL_ID.ACTIVATE_SECOND_TALENT] = true,
+	[VUHDO_SPELL_ID.BUFF_FROST_PRESENCE] = true,
+	[VUHDO_SPELL_ID.BUFF_BLOOD_PRESENCE] = true,
+	[VUHDO_SPELL_ID.BUFF_UNHOLY_PRESENCE] = true,
 }
 
 
@@ -108,9 +108,9 @@ function VUHDO_spellcastSucceeded(aUnit, aSpellName)
 		VUHDO_updateAllCyclicBouquets("player");
 	end
 
-	if (VUHDO_SPELL_ID_ACTIVATE_FIRST_TALENT == aSpellName) then
+	if (VUHDO_SPELL_ID.ACTIVATE_FIRST_TALENT == aSpellName) then
 		VUHDO_activateSpecc(1);
-	elseif (VUHDO_SPELL_ID_ACTIVATE_SECOND_TALENT == aSpellName) then
+	elseif (VUHDO_SPELL_ID.ACTIVATE_SECOND_TALENT == aSpellName) then
 		VUHDO_activateSpecc(2);
 	end
 end
@@ -146,7 +146,7 @@ function VUHDO_spellcastSent(aUnit, aSpellName, aSpellRank, aTargetName)
 		VUHDO_IS_RESURRECTING = true;
 
 		if (VUHDO_CONFIG["RES_IS_SHOW_TEXT"]) then
-			tText = gsub(VUHDO_CONFIG["RES_ANNOUNCE_TEXT"], "vuhdo", aTargetName);
+			tText = gsub(VUHDO_CONFIG["RES_ANNOUNCE_TEXT"], "[Vv][Uu][Hh][Dd][Oo]", aTargetName);
 
 			if (GetNumRaidMembers() > 0) then
 				SendChatMessage(tText, "RAID", nil, nil);

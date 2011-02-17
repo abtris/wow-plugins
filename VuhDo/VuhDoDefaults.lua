@@ -117,12 +117,12 @@ local VUHDO_DEFAULT_RANGE_SPELLS = {
 	["WARRIOR"] = nil,
 	["ROGUE"] = nil,
 	["HUNTER"] = nil,
-	["PALADIN"] = VUHDO_SPELL_ID_HOLY_LIGHT,
+	["PALADIN"] = VUHDO_SPELL_ID.HOLY_LIGHT,
 	["MAGE"] = nil,
 	["WARLOCK"] = nil,
-	["SHAMAN"] = VUHDO_SPELL_ID_HEALING_WAVE,
-	["DRUID"] = VUHDO_SPELL_ID_HEALING_TOUCH,
-	["PRIEST"] = VUHDO_SPELL_ID_HEAL,
+	["SHAMAN"] = VUHDO_SPELL_ID.HEALING_WAVE,
+	["DRUID"] = VUHDO_SPELL_ID.HEALING_TOUCH,
+	["PRIEST"] = VUHDO_SPELL_ID.HEAL,
 	["DEATHKNIGHT"] = nil,
 }
 
@@ -136,82 +136,82 @@ local VUHDO_DEFAULT_SPELLS_KEYBOARD = nil;
 
 local VUHDO_CLASS_DEFAULT_SPELL_ASSIGNMENT = {
 	["PALADIN"] = {
-		["1"] = {"", "1", VUHDO_SPELL_ID_FLASH_OF_LIGHT},
-		["2"] = {"", "2", VUHDO_SPELL_ID_PALA_CLEANSE},
+		["1"] = {"", "1", VUHDO_SPELL_ID.FLASH_OF_LIGHT},
+		["2"] = {"", "2", VUHDO_SPELL_ID.PALA_CLEANSE},
 		["3"] = {"", "3", "menu"},
-		["4"] = {"", "4", VUHDO_SPELL_ID_DIVINE_FAVOR},
-		["5"] = {"", "5", VUHDO_SPELL_ID_DIVINE_ILLUMINATION},
+		["4"] = {"", "4", VUHDO_SPELL_ID.DIVINE_FAVOR},
+		["5"] = {"", "5", VUHDO_SPELL_ID.DIVINE_ILLUMINATION},
 
 		["alt1"] = {"alt-", "1", "target"},
 
-		["ctrl1"] = {"ctrl-", "1", VUHDO_SPELL_ID_HOLY_LIGHT},
-		["ctrl2"] = {"ctrl-", "2", VUHDO_SPELL_ID_HOLY_LIGHT},
+		["ctrl1"] = {"ctrl-", "1", VUHDO_SPELL_ID.HOLY_LIGHT},
+		["ctrl2"] = {"ctrl-", "2", VUHDO_SPELL_ID.HOLY_LIGHT},
 
-		["shift1"] = {"shift-", "1", VUHDO_SPELL_ID_HOLY_SHOCK},
-		["shift2"] = {"shift-", "2", VUHDO_SPELL_ID_LAY_ON_HANDS},
+		["shift1"] = {"shift-", "1", VUHDO_SPELL_ID.HOLY_SHOCK},
+		["shift2"] = {"shift-", "2", VUHDO_SPELL_ID.LAY_ON_HANDS},
 	},
 
 	["SHAMAN"] = {
-		["1"] = {"", "1", VUHDO_SPELL_ID_LESSER_HEALING_WAVE},
-		["2"] = {"", "2", VUHDO_SPELL_ID_CHAIN_HEAL},
+		["1"] = {"", "1", VUHDO_SPELL_ID.LESSER_HEALING_WAVE},
+		["2"] = {"", "2", VUHDO_SPELL_ID.CHAIN_HEAL},
 		["3"] = {"", "3", "menu"},
 
-		["alt1"] = {"alt-", "1", VUHDO_SPELL_ID_BUFF_EARTH_SHIELD},
-		["alt2"] = {"alt-", "2", VUHDO_SPELL_ID_GIFT_OF_THE_NAARU},
+		["alt1"] = {"alt-", "1", VUHDO_SPELL_ID.BUFF_EARTH_SHIELD},
+		["alt2"] = {"alt-", "2", VUHDO_SPELL_ID.GIFT_OF_THE_NAARU},
 		["alt3"] = {"alt-", "3", "menu"},
 
 		["ctrl1"] = {"ctrl-", "1", "target"},
 		["ctrl2"] = {"ctrl-", "2", "target"},
 		["ctrl3"] = {"ctrl-", "3", "menu"},
 
-		["shift1"] = {"shift-", "1", VUHDO_SPELL_ID_HEALING_WAVE},
-		["shift2"] = {"shift-", "2", VUHDO_SPELL_ID_CHAIN_HEAL},
+		["shift1"] = {"shift-", "1", VUHDO_SPELL_ID.HEALING_WAVE},
+		["shift2"] = {"shift-", "2", VUHDO_SPELL_ID.CHAIN_HEAL},
 		["shift3"] = {"shift-", "3", "menu" },
 
-		["altctrl1"] = {"alt-ctrl-", "1", VUHDO_SPELL_ID_PURGE},
-		["altctrl2"] = {"alt-ctrl-", "2", VUHDO_SPELL_ID_PURGE},
+		["altctrl1"] = {"alt-ctrl-", "1", VUHDO_SPELL_ID.PURGE},
+		["altctrl2"] = {"alt-ctrl-", "2", VUHDO_SPELL_ID.PURGE},
 	},
 
 	["PRIEST"] = {
-		["1"] = {"", "1", VUHDO_SPELL_ID_FLASH_HEAL},
-		["2"] = {"", "2", VUHDO_SPELL_ID_GREATER_HEAL},
-		["3"] = {"", "3", VUHDO_SPELL_ID_DESPERATE_PRAYER},
-		["4"] = {"", "4", VUHDO_SPELL_ID_RENEW},
-		["5"] = {"", "5", VUHDO_SPELL_ID_BINDING_HEAL},
+		["1"] = {"", "1", VUHDO_SPELL_ID.FLASH_HEAL},
+		["2"] = {"", "2", VUHDO_SPELL_ID.GREATER_HEAL},
+		["3"] = {"", "3", VUHDO_SPELL_ID.DESPERATE_PRAYER},
+		["4"] = {"", "4", VUHDO_SPELL_ID.RENEW},
+		["5"] = {"", "5", VUHDO_SPELL_ID.BINDING_HEAL},
 
 		["alt1"] = {"alt-", "1", "target"},
 		["alt2"] = {"alt-", "2", "focus"},
-		["alt3"] = {"alt-", "3", VUHDO_SPELL_ID_POWERWORD_SHIELD},
-		["alt4"] = {"alt-", "4", VUHDO_SPELL_ID_POWERWORD_SHIELD},
-		["alt5"] = {"alt-", "5", VUHDO_SPELL_ID_POWERWORD_SHIELD},
+		["alt3"] = {"alt-", "3", VUHDO_SPELL_ID.POWERWORD_SHIELD},
+		["alt4"] = {"alt-", "4", VUHDO_SPELL_ID.POWERWORD_SHIELD},
+		["alt5"] = {"alt-", "5", VUHDO_SPELL_ID.POWERWORD_SHIELD},
 
-		["ctrl1"] = {"ctrl-", "1", VUHDO_SPELL_ID_PRAYER_OF_HEALING},
-		["ctrl2"] = {"ctrl-", "2", VUHDO_SPELL_ID_CIRCLE_OF_HEALING},
+		["ctrl1"] = {"ctrl-", "1", VUHDO_SPELL_ID.PRAYER_OF_HEALING},
+		["ctrl2"] = {"ctrl-", "2", VUHDO_SPELL_ID.CIRCLE_OF_HEALING},
 		["ctrl3"] = {"ctrl-", "3", "menu"},
-		["ctrl4"] = {"ctrl-", "4", VUHDO_SPELL_ID_PRAYER_OF_MENDING},
-		["ctrl5"] = {"ctrl-", "5", VUHDO_SPELL_ID_PRAYER_OF_MENDING},
+		["ctrl4"] = {"ctrl-", "4", VUHDO_SPELL_ID.PRAYER_OF_MENDING},
+		["ctrl5"] = {"ctrl-", "5", VUHDO_SPELL_ID.PRAYER_OF_MENDING},
 
-		["shift2"] = {"shift-", "2", VUHDO_SPELL_ID_DISPEL_MAGIC},
+		["shift2"] = {"shift-", "2", VUHDO_SPELL_ID.DISPEL_MAGIC},
 		["shift3"] = {"shift-", "3", "menu"},
 	},
 
 	["DRUID"] = {
-		["1"] = {"", "1", VUHDO_SPELL_ID_HEALING_TOUCH},
-		["2"] = {"", "2", VUHDO_SPELL_ID_REJUVENATION},
+		["1"] = {"", "1", VUHDO_SPELL_ID.HEALING_TOUCH},
+		["2"] = {"", "2", VUHDO_SPELL_ID.REJUVENATION},
 		["3"] = {"", "3", "menu"},
-		["4"] = {"", "4", VUHDO_SPELL_ID_INNERVATE},
-		["5"] = {"", "5", VUHDO_SPELL_ID_INNERVATE},
+		["4"] = {"", "4", VUHDO_SPELL_ID.INNERVATE},
+		["5"] = {"", "5", VUHDO_SPELL_ID.INNERVATE},
 
 		["alt1"] = {"alt-", "1", "target"},
 		["alt2"] = {"alt-", "2", "focus"},
 		["alt3"] = {"alt-", "3", "menu"},
 
-		["ctrl1"] = {"ctrl-", "1", VUHDO_SPELL_ID_REGROWTH},
-		["ctrl2"] = {"ctrl-", "2", VUHDO_SPELL_ID_LIFEBLOOM},
-		["ctrl4"] = {"ctrl-", "4", VUHDO_SPELL_ID_TRANQUILITY},
-		["ctrl5"] = {"ctrl-", "5", VUHDO_SPELL_ID_TRANQUILITY},
+		["ctrl1"] = {"ctrl-", "1", VUHDO_SPELL_ID.REGROWTH},
+		["ctrl2"] = {"ctrl-", "2", VUHDO_SPELL_ID.LIFEBLOOM},
+		["ctrl4"] = {"ctrl-", "4", VUHDO_SPELL_ID.TRANQUILITY},
+		["ctrl5"] = {"ctrl-", "5", VUHDO_SPELL_ID.TRANQUILITY},
 
-		["shift2"] = {"shift-", "2", VUHDO_SPELL_ID_REMOVE_CURSE},
+		["shift2"] = {"shift-", "2", VUHDO_SPELL_ID.REMOVE_CURSE},
 	}
 };
 
@@ -445,11 +445,10 @@ end
 --
 local function VUHDO_addCustomSpellIds(...)
 	local tCnt;
-	local tBuffName;
+	local tArg;
 	for tCnt = 1, select("#", ...) do
-		local tArg = select(tCnt, ...);
-		tBuffName = select(1, GetSpellInfo(tArg));
-		VUHDO_tableUniqueAdd(VUHDO_CONFIG["CUSTOM_DEBUFF"]["STORED"], tBuffName);
+		tArg = select(tCnt, ...);
+		VUHDO_tableUniqueAdd(VUHDO_CONFIG["CUSTOM_DEBUFF"]["STORED"], select(1, GetSpellInfo(tArg)));
 	end
 end
 
@@ -457,6 +456,8 @@ end
 
 --
 local VUHDO_DEFAULT_CONFIG = {
+	["VERSION"] = 2,
+
 	["SHOW_PANELS"] = true,
 	["HIDE_PANELS_SOLO"] = false,
 	["HIDE_PANELS_PARTY"] = false,
@@ -506,7 +507,9 @@ local VUHDO_DEFAULT_CONFIG = {
 	["IS_ALWAYS_OVERWRITE_PROFILE"] = false,
 	["HIDE_EMPTY_PANELS"] = false,
 	["ON_MOUSE_UP"] = false,
+
 	["STANDARD_TOOLTIP"] = false,
+	["DEBUFF_TOOLTIP"] = true,
 
 	["AUTO_PROFILES"] = {
 		["1"] = nil,
@@ -536,7 +539,7 @@ local VUHDO_DEFAULT_CONFIG = {
 		["xAdjust"] = -2,
 		["yAdjust"] = -34,
 		["BUTTON_FACADE"] = "Blizzard",
-		["STORED"] = { VUHDO_SPELL_ID_DEBUFF_FROST_BLAST },
+		["STORED"] = { VUHDO_SPELL_ID.DEBUFF_FROST_BLAST },
 	},
 
 	["THREAT"] = {
@@ -631,11 +634,14 @@ function VUHDO_loadDefaultConfig()
 			VUHDO_CONFIG["RANGE_SPELL"] = VUHDO_DEFAULT_RANGE_SPELLS[tClass];
 			VUHDO_CONFIG["RANGE_PESSIMISTIC"] = false;
 		end
+	elseif ((VUHDO_CONFIG["VERSION"] or 1) < 2) then
+		VUHDO_CONFIG["DEBUFF_TOOLTIP"] = true;
+		VUHDO_CONFIG["VERSION"] = 2;
 	end
 
 	VUHDO_CONFIG = VUHDO_ensureSanity("VUHDO_CONFIG", VUHDO_CONFIG, VUHDO_DEFAULT_CONFIG);
 
-	if (VUHDO_CONFIG["CUSTOM_DEBUFF"].version == nil or VUHDO_CONFIG["CUSTOM_DEBUFF"].version < 2) then
+	if ((VUHDO_CONFIG["CUSTOM_DEBUFF"].version or 0) < 2) then
 		VUHDO_CONFIG["CUSTOM_DEBUFF"].version = 2;
 		VUHDO_addCustomSpellIds(
 			-- WotLK
@@ -669,7 +675,7 @@ function VUHDO_loadDefaultConfig()
 			67297, -- Touch of Light
 			66001, -- Touch of Darkness
 			66013, -- Penetrating Cold
-			67861 -- Acid-Drenched Mandibles
+			67861  -- Acid-Drenched Mandibles
 		);
 	end
 
@@ -758,6 +764,46 @@ function VUHDO_loadDefaultConfig()
 		VUHDO_addCustomSpellIds(
 			-- ICC
 			73912 -- Necrotic plague, Lich King
+		);
+	end
+
+	if (VUHDO_CONFIG["CUSTOM_DEBUFF"].version < 14) then
+		VUHDO_CONFIG["CUSTOM_DEBUFF"].version = 14;
+
+		VUHDO_addCustomSpellIds(
+			95173, -- Consuming Darkness
+			91911, -- Constricting Chains
+			94679, -- Parasitic Infection
+			94617, -- Mangle
+			79835, -- Poison Soaked Shell
+			91433, -- Lightning Conductor
+			91521, -- Incineration Security Measure
+			77699, -- Flash Freeze
+			77760, -- Biting Chill
+			92423, -- Searing Flame
+			92485, -- Roaring Flame
+			92407, -- Sonic Breath
+			82881, -- Break
+			89084, -- Low Health
+			92878, -- Blackout
+			86840, -- Devouring Flames
+			95639, -- Engulfing Magic
+			39171, -- Malevolent Strikes
+			92511, -- Hydro Lance
+			82762, -- Waterlogged
+			92505, -- Frozen
+			92518, -- Flame Torrent
+			83099, -- Lightning Rod
+			92075, -- Gravity Core
+			92488, -- Gravity Crush
+			86028, -- Cho's Blast
+			86029, -- Gall's Blast
+			93131, -- Ice Patch
+			86206, -- Soothing Breeze
+			93122, -- Toxic Spores
+			93058, -- Slicing Gale
+			93260, -- Ice Storm
+			93295  -- Lightning Rod
 		);
 	end
 
@@ -1196,6 +1242,7 @@ local VUHDO_DEFAULT_PER_PANEL_SETUP = {
 		["position"] = VUHDO_LT_POS_ABOVE,
 		["verbose"] = false,
 		["hideIrrelevant"] = false,
+		["showTotalHp"] = false;
 	},
 
 	["ID_TEXT"] = {

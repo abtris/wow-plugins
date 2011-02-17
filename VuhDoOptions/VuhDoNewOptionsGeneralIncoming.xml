@@ -25,7 +25,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.SHOW_OWN_INCOMING");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_063);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K063);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -41,7 +41,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.SHOW_INCOMING");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_216);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K216);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -57,7 +57,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.SHOW_TEXT_OVERHEAL");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_217);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K217);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -73,7 +73,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.SHOW_OVERHEAL");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_062);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K062);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>

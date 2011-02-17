@@ -6,14 +6,6 @@ local GetTime = GetTime
 local dbg
 
 local db
-local GetHaste
-
-local db_tolerance = 0.05
-
---[[
-Inq > HoW > Exo > 3 HP TV > CS > HoL TV at 1 or 2 HP > J > HW > Cons
-Against Undead or Demons: Exo > HoW
---]]
 
 -- @defines
 --------------------------------------------------------------------------------
@@ -34,402 +26,390 @@ local inqId					= 84963 -- inquisition
 local csName			= GetSpellInfo(csId)
 -- buffs
 local buffZeal 	= GetSpellInfo(zealId)	-- zealotry
-local buffHoL		= GetSpellInfo(90174)		-- hand of light
+local buffDP		= GetSpellInfo(90174)		-- divine purpose
 local buffAoW		= GetSpellInfo(59578)		-- the art of war
 local buffInq 	= GetSpellInfo(inqId)		-- inquisition
 
--- skill 1, skill 2
-local sx, s1, s2, s1time
 -- status vars
-local ctime, gcd, hp, zeal, aow, inq, hol, haste, targetType
-local csCd, howCd, jCd, hwCd, consCd
+local s1, s2
+local s_ctime, s_otime, s_gcd, s_hp, s_inq, s_zeal, s_aow, s_dp, s_haste, s_targetType
 local justCS, justCSHP = 0, 0
-local start, duration, cd
 
--- get cooldown
+-- the queue
+local q = {}
+
 local function GetCooldown(id)
-	start, duration = GetSpellCooldown(id)
-	cd = start + duration - ctime - gcd
+	local start, duration = GetSpellCooldown(id)
+	local cd = start + duration - s_ctime - s_gcd
 	if cd < 0 then return 0 end
 	return cd
 end
 
-local function GetBuffStatus()
-	local expires
-	_, _, _, _, _, _, expires = UnitBuff("player", buffAoW, nil, "PLAYER")
-	if expires then
-		aow = expires - ctime - gcd
-		if aow < 0 then aow = 0 end
-	else
-		aow = 0
+-- actions ---------------------------------------------------------------------
+local actions = {
+	-- inquisition, apply, 3 hp
+	inqa = {
+		id = inqId,
+		GetCD = function()
+			if s_inq <= 0 and (s_hp >= db.inqApplyMin or s_dp > 0) then
+				return 0
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5 / s_haste
+			s_inq = 100	-- make sure it's not shown for next skill
+			if s_dp > 0 then s_dp = 0 else s_hp = 0 end -- adjust hp/dp
+		end,
+		info = "apply Inquisition",
+	},
+	inqahp = {
+		id = inqId,
+		GetCD = function()
+			if s_inq <= 0 and s_hp >= db.inqApplyMin then
+				return 0
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5 / s_haste
+			s_inq = 100	-- make sure it's not shown for next skill
+			if s_dp > 0 then s_dp = 0 else s_hp = 0 end -- adjust hp/dp
+		end,
+		info = "apply Inquisition at x HP",
+	},
+	inqadp = {
+		id = inqId,
+		GetCD = function()
+			if s_inq <= 0 and s_dp > 0 then
+				return 0
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5 / s_haste
+			s_inq = 100	-- make sure it's not shown for next skill
+			if s_dp > 0 then s_dp = 0 else s_hp = 0 end -- adjust hp/dp
+		end,
+		info = "apply Inquisition at DP",
+	},
+	inqr = {
+		id = inqId,
+		GetCD = function()
+			if s_inq <= db.inqRefresh and (s_hp >= db.inqRefreshMin or s_dp > 0) then
+				return 0
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5 / s_haste
+			s_inq = 100	-- make sure it's not shown for next skill
+			if s_dp > 0 then s_dp = 0 else s_hp = 0 end -- adjust hp/dp
+		end,
+		info = "refresh Inquisition",
+	},
+	inqrhp = {
+		id = inqId,
+		GetCD = function()
+			if s_inq <= db.inqRefresh and s_hp >= db.inqRefreshMin then
+				return 0
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5 / s_haste
+			s_inq = 100	-- make sure it's not shown for next skill
+			if s_dp > 0 then s_dp = 0 else s_hp = 0 end -- adjust hp/dp
+		end,
+		info = "refresh Inquisition at x HP",
+	},
+	inqrdp = {
+		id = inqId,
+		GetCD = function()
+			if s_inq <= db.inqRefresh and s_dp > 0 then
+				return 0
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5 / s_haste
+			s_inq = 100	-- make sure it's not shown for next skill
+			if s_dp > 0 then s_dp = 0 else s_hp = 0 end -- adjust hp/dp
+		end,
+		info = "refresh Inquisition at DP",
+	},
+	exoud = {
+		id = exoId,
+		GetCD = function()
+			if (targetType == db.undead or targetType == db.demon) and s_aow > 0 then
+				return 0
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5 / s_haste
+			s_aow = 0 -- make sure it's not shown for next skill
+		end,
+		info = "Exorcism with guaranteed crit",
+	},
+	exo = {
+		id = exoId,
+		GetCD = function()
+			if s_aow > 0 then
+				return 0
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5 / s_haste
+			s_aow = 0 -- make sure it's not shown for next skill
+		end,
+		info = "Exorcism",
+	},
+	how = {
+		id = howId,
+		GetCD = function()
+			if IsUsableSpell(howId) and s1 ~= howId then
+				return GetCooldown(howId)
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5 / s_haste
+		end,
+		info = "Hammer of Wrath",
+	},
+	tv = {
+		id = tvId,
+		GetCD = function()
+			if s_hp >= 3 or s_dp > 0 then
+				return 0
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5
+			if s_dp > 0 then s_dp = 0 else s_hp = 0 end -- adjust hp/dp
+		end,
+		info = "Templar's Verdict",
+	},
+	tvhp = {
+		id = tvId,
+		GetCD = function()
+			if s_hp >= 3 then
+				return 0
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5
+			if s_dp > 0 then s_dp = 0 else s_hp = 0 end -- adjust hp/dp
+		end,
+		info = "Templar's Verdict at 3 HP",
+	},
+	tvdp = {
+		id = tvId,
+		GetCD = function()
+			if s_dp > 0 then
+				return 0
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5
+			if s_dp > 0 then s_dp = 0 else s_hp = 0 end -- adjust hp/dp
+		end,
+		info = "Templar's Verdict at DP",
+	},
+	cs = {
+		id = csId,
+		GetCD = function()
+			if s_hp >= 3 then return 100 end
+			if s1 == csId then
+				return (4.5 / s_haste - 1.5)
+			else
+				return GetCooldown(csId)
+			end
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5
+			if db.predictCS then
+				if s_zeal > 0 then
+					s_hp = 3
+				else
+					s_hp = s_hp + 1
+				end
+			end
+		end,
+		info = "Crusader Strike",
+	},
+	j = {
+		id = jId,
+		GetCD = function()
+			if s1 ~= jId then
+				return GetCooldown(jId) + db.jClash
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5
+		end,
+		info = "Judgement",
+	},
+	hw = {
+		id = hwId,
+		GetCD = function()
+			if s1 ~= hwId then
+				return GetCooldown(hwId) + db.hwClash
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5 / s_haste
+		end,
+		info = "Holy Wrath",
+	},
+	cons = {
+		id = consId,
+		GetCD = function()
+			if s1 ~= consId and UnitPower("player") > db.consMana then
+				return GetCooldown(consId) + db.consClash
+			end
+			return 100
+		end,
+		UpdateStatus = function()
+			s_ctime = s_ctime + s_gcd + 1.5 / s_haste
+		end,
+		info = "Consecration",
+	},
+}
+clcret.RR_actions = actions
+--------------------------------------------------------------------------------
+
+function clcret.RR_UpdateQueue()
+	-- get the current db
+	db = clcret.db.profile.rotation
+
+	q = {}
+	for v in string.gmatch(db.prio, "[^ ]+") do
+		if actions[v] then
+			table.insert(q, v)
+		else
+			print("clcret", "invalid action:", v)
+		end
 	end
-	
-	_, _, _, _, _, _, expires = UnitBuff("player", buffZeal, nil, "PLAYER")
-	if expires then
-		zeal = expires - ctime - gcd
-		if zeal < 0 then zeal = 0 end
-	else
-		zeal = 0
-	end
-	
-	_, _, _, _, _, _, expires = UnitBuff("player", buffHoL, nil, "PLAYER")
-	if expires then
-		hol = expires - ctime - gcd
-		if hol < 0 then hol = 0 end
-	else
-		hol = 0
-	end
-	
-	_, _, _, _, _, _, expires = UnitBuff("player", buffInq, nil, "PLAYER")
-	if expires then
-		inq = expires - ctime - gcd
-		if inq < 0 then inq = 0 end
-	else
-		inq = 0
-	end
+	db.prio = table.concat(q, " ")
 end
 
-local function GetNextSkill()
-	-- 1] Inquisition
-	------------------------------------------------------------------------------
-	if db.useInq then
-		if inq <= db_tolerance and (hp >= 3 or hol > 0) then
-			sx = inqId
-			s1time = 1.5 / haste
-			-- adjust hp
-			if hol == 0 then
-				hp = 0
+local function GetBuff(buff)
+	local left
+	_, _, _, _, _, _, expires = UnitBuff("player", buff, nil, "PLAYER")
+	if expires then
+		left = expires - s_ctime - s_gcd
+		if left < 0 then left = 0 end
+	else
+		left = 0
+	end
+	return left
+end
+
+-- reads all the interesting data
+local function GetStatus()
+	-- current time
+	s_ctime = GetTime()
+	
+	-- gcd value
+	local start, duration = GetSpellCooldown(gcdId)
+	s_gcd = start + duration - s_ctime
+	if s_gcd < 0 then s_gcd = 0 end
+	
+	-- the buffs
+	s_dp = GetBuff(buffDP)
+	s_aow = GetBuff(buffAoW)
+	s_zeal = GetBuff(buffZeal)
+	s_inq = GetBuff(buffInq)
+	
+	-- client hp and haste
+	s_hp = UnitPower("player", SPELL_POWER_HOLY_POWER)
+	s_haste = 1 + UnitSpellHaste("player") / 100
+	
+	-- adjust hp with + 1 after a cs
+	---[[
+	if s_ctime - justCS < db.hpDelay then
+		if justCSHP == s_hp then
+			if s_zeal > 0 then
+				s_hp = 3
 			else
-				hol = 0
+				s_hp = s_hp + 1
 			end
-			-- random add inq
-			inq = 100
-			return
+		else
+			justCS = 0
 		end
+	end
+	--]]
+	
+	-- undead/demon -> different exorcism
+	s_targetType = UnitCreatureType("target")
+end
+
+local function GetNextAction()
+	local n = #q
+	
+	-- parse once, get cooldowns, return first 0
+	for i = 1, n do
+		local action = actions[q[i]]
+		local cd = action.GetCD()
+		if cd == 0 then
+			return action.id, q[i]
+		end
+		action.cd = cd
 	end
 	
-	-- test if target undead or demon
-	-- exo > how in that case
-	if targetType == db.undead or targetType == db.demon then
-		-- 2] Exorcism
-		----------------------------------------------------------------------------
-		if aow >= db_tolerance then
-			sx = exoId
-			s1time = 1.5 / haste
-			aow = 0
-			return
-		end
-		
-		-- 3] Hammer of Wrath
-		----------------------------------------------------------------------------
-		-- first test if the skill is out of cooldown and usable, otherwise it will be handled later
-		if howCd <= db_tolerance then
-			sx = howId
-			s1time = 1.5 / haste
-			howCd = 1000
-			return
-		end
-	else
-		-- 2] Hammer of Wrath
-		----------------------------------------------------------------------------
-		-- first test if the skill is out of cooldown and usable, otherwise it will be handled later
-		if howCd <= db_tolerance then
-			sx = howId
-			s1time = 1.5 / haste
-			howCd = 1000
-			return
-		end
-		
-		-- 3] Exorcism
-		----------------------------------------------------------------------------
-		if aow >= db_tolerance then
-			sx = exoId
-			s1time = 1.5 / haste
-			aow = 0
-			return
+	-- parse again, return min cooldown
+	local minQ = 1
+	local minCd = actions[q[1]].cd
+	for i = 2, n do
+		local action = actions[q[i]]
+		if minCd > action.cd then
+			minCd = action.cd
+			minQ = i
 		end
 	end
-	
-	-- 4] 3 HP
-	------------------------------------------------------------------------------
-	if hp >= 3 then
-		-- first check if we need to refresh Inquisition
-		-- adjust hp
-		if hol == 0 then
-			hp = 0
-		else
-			hol = 0
-		end
-		if db.useInq and inq < db.preInq then
-			sx = inqId
-			s1time = 1.5 / haste
-			inq = 100
-			return
-		-- else do TV
-		else
-			sx = tvId
-			s1time = 1.5
-			return
-		end
-	end
-	
-	-- 5] CS
-	------------------------------------------------------------------------------
-	-- same as with HoW, this is only when it's out of cooldown, cooldown clashing later
-	if csCd <= db_tolerance then
-		sx = csId
-		s1time = 1.5
-		csCd = 6
-		if zeal >= db_tolerance then
-			hp = 3
-		else
-			hp = hp + 1
-		end
-		return
-	end
-	
-	-- 6] HoL
-	if hol > db_tolerance then
-		-- first check if we need to refresh Inquisition
-		hol = 0
-		if db.useInq and inq < db.preInq then
-			sx = inqId
-			s1time = 1.5 / haste
-			inq = 100
-			return
-		-- else do TV
-		else
-			sx = tvId
-			s1time = 1.5
-			return
-		end
-	end
-	
-	-- cooldown clashing now
-	------------------------------------------------------------------------------
-	-- new cooldown values are pretty irrelevant
-	-- only cs could be in a cs, cs succesion
-	local minCd = min(howCd, csCd, jCd, hwCd, consCd)
-	if minCd == howCd then
-		sx = howId
-		s1time = 1.5 / haste
-		howCd = 1000
-	elseif minCd == csCd then
-		sx = csId
-		s1time = 1.5
-		if zeal >= db_tolerance then
-			hp = 3
-		else
-			hp = hp + 1
-		end
-		csCd = 6	-- todo: logic better
-	elseif minCd == jCd then
-		sx = jId
-		s1time = 1.5
-		jCd = 100
-	elseif minCd == hwCd then
-		sx = hwId
-		s1time = 1.5 / haste
-		hwCd = 100
-	else
-		sx = consId
-		s1time = 1.5 / haste
-		consCd = 100
-	end
+	return actions[q[minQ]].id, q[minQ]
 end
 
 function clcret.RetRotation()
 	-- get the current db
 	db = clcret.db.profile.rotation
 
-	-- how much s1 will take to complete
-	-- should be latency + 1.5 or latency + 1.5 / haste
-	s1time = 0
+	s1 = nil
+	GetStatus()
+	local action
+	s1, action = GetNextAction()
+	s_otime = s_ctime -- save it so we adjust buffs for next
+	actions[action].UpdateStatus()
 	
-	-- curent time
-	ctime = GetTime()
-
-	-- gcd
-	start, duration = GetSpellCooldown(gcdId)
-	gcd = start + duration - ctime
-	if gcd < 0 then gcd = 0 end
+	-- adjust buffs
+	s_otime = s_ctime - s_otime
+	s_dp = max(0, s_dp - s_otime)
+	s_aow = max(0, s_aow - s_otime)
+	s_zeal = max(0, s_zeal - s_otime)
+	s_inq = max(0, s_inq - s_otime)
 	
-	-- buff info
-	-- adjusted to the time when gcd ends
-	GetBuffStatus()
+	s2, action = GetNextAction()
 	
-	-- status data
-	-- TODO: adjust more
-	hp = UnitPower("player", SPELL_POWER_HOLY_POWER)
-	haste = GetHaste()
-	
-	-- adjust hp with + 1 after a cs
-	if ctime - justCS < db.hpDelay then
-		if justCSHP == hp then
-			if zeal >= db_tolerance then
-				hp = 3
-			else
-				hp = hp + 1
-			end
-		else
-			justCS = 0
-		end
-	end
-	
-	-- undead or demon -> different exorcism behavior
-	targetType = UnitCreatureType("target")
-	
-	-- get cooldowns
-	--[ --------------------------------------------------------------------------
-	howCd = 1000
-	if IsUsableSpell(howId) then
-		howCd = GetCooldown(howId)
-	end
-	csCd = GetCooldown(csId)
-	
-	-- judgement, holy wrath and consecration have a configurable clash time
-	-- if other abilities get of cooldown during that time, delay
-	jCd	= GetCooldown(jId) + db.jClash
-	
-	-- check if we use consecration and hw 
-	hwCd = 100
-	if db.hw then
-		hwCd = GetCooldown(hwId) + db.hwClash
-	end
-	
-	consCd = 100
-	if db.cons and UnitPower("player") >= db.consMana then
-		consCd 	= GetCooldown(consId) + db.consClash
-	end
-	
-	--] --------------------------------------------------------------------------
-	
-	
-	-- first skill detection
-	------------------------------------------------------------------------------
-	-- dbg.AddStatus()
-	
-	GetNextSkill()
-	s1 = sx
-	
-	-- dbg.AddBoth("s1", GetSpellInfo(s1))
-	
-	-- adjust status
-	------------------------------------------------------------------------------
-	s1time = s1time + db_tolerance
-	-- dbg.AddBoth(s1time)
-	aow = max(0, aow - s1time)
-	hol = max(0, hol - s1time)
-	zeal = max(0, zeal - s1time)
-	inq = max(0, inq - s1time)
-	csCd = max(0, csCd - s1time)
-	howCd = max(0, howCd - s1time)
-	jCd = max(0, jCd - s1time) + db.jClash
-	hwCd = max (0, hwCd - s1time) + db.hwClash
-	consCd = max(0, consCd - s1time) + db.consClash
-	
-	-- second skill
-	------------------------------------------------------------------------------
-	-- dbg.AddStatus()
-	
-	GetNextSkill()
-	s2 = sx
-	
-	-- dbg.AddBoth("s2", GetSpellInfo(s2))
 	return s1, s2
 end
---------------------------------------------------------------------------------
 
 local ef = CreateFrame("Frame") 
 ef:Hide()
 ef:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 ef:SetScript("OnEvent", function(self, event, unit, spell)
-	if spell == csName and unit == "player" then
+	if not db then return end
+	if db.predictCS and spell == csName and unit == "player" then
 		justCSHP = UnitPower("player", SPELL_POWER_HOLY_POWER)
 		if justCSHP < 3 then
 			justCS = GetTime()
 		end
 	end
 end)
-
--- get haste from CS cooldown
-do
-	local tooltip = CreateFrame("GameTooltip")
-	tooltip:Hide()
-	local tooltipL, tooltipR = {}, {}
-	for i = 1, 3 do
-		local left, right = tooltip:CreateFontString(), tooltip:CreateFontString()
-		tooltip:AddFontStrings(left, right)
-		tooltipL[i], tooltipR[i] = left, right
-	end
-	GetHaste = function()
-		tooltip:SetOwner(clcret.frame)
-		tooltip:SetSpellByID(csId)
-		return 4.5 / tonumber(strmatch(tooltipR[3]:GetText(), "[^%d]*(%d[^%s]*).*"))
-	end
-end
-
-
-
--- todo
--- worth checking aw expiration for 2nd skill ?
-
-
--- debug stuff
---[[
-dbg = CreateFrame("Frame")
-dbg:SetSize(200, 600)
-dbg:SetPoint("LEFT", UIParent, 300, 30)
-dbg:SetBackdrop(GameTooltip:GetBackdrop())
-dbg:SetBackdropColor(GameTooltip:GetBackdropColor())
-dbg.numLeft, dbg.numRight = 0, 0
-dbg.left, dbg.right = {}, {}
-
-for i = 1, 50 do
-	dbg.left[i] = dbg:CreateFontString(nil, nil, "GameTooltipTextSmall")
-	dbg.left[i]:SetJustifyH("LEFT")
-	dbg.left[i]:SetPoint("TOPLEFT", 10, -15 * i)
-	dbg.right[i] = dbg:CreateFontString(nil, nil, "GameTooltipTextSmall")
-	dbg.right[i]:SetJustifyH("RIGHT")
-	dbg.right[i]:SetPoint("TOPRIGHT", -10, -15 * i)
-end
-
-function dbg.ClearLines()
-	dbg.numLeft, dbg.numRight = 0, 0
-	for i = 1, 30 do
-		dbg.left[i]:SetText("")
-		dbg.right[i]:SetText("")
-	end
-end
-
-function dbg.AddLeft(text)
-	dbg.numLeft = dbg.numLeft + 1
-	dbg.left[dbg.numLeft]:SetText(text)
-end
-
-function dbg.AddRight(text)
-	dbg.numRight = dbg.numRight + 1
-	dbg.right[dbg.numRight]:SetText(text)
-end
-
-function dbg.AddBoth(t1, t2)
-	dbg.AddLeft(t1)
-	dbg.AddRight(t2)
-end
-
-function dbg.AddStatus()
-	dbg.AddBoth("ctime", ctime)
-	dbg.AddBoth("gcd", gcd)
-	dbg.AddBoth("hp", hp)
-	dbg.AddBoth("zeal", zeal)
-	dbg.AddBoth("aow", aow)
-	dbg.AddBoth("inq", inq)
-	dbg.AddBoth("hol", hol)
-	dbg.AddBoth("haste", haste)
-	dbg.AddBoth("csCd", csCd)
-	dbg.AddBoth("howCd", howCd)
-	dbg.AddBoth("jCd", jCd)
-	dbg.AddBoth("hwCd", hwCd)
-	dbg.AddBoth("consCd", consCd)
-end
---]]

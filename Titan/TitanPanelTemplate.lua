@@ -279,8 +279,10 @@ local function TitanPanelButton_SetButtonText(id)
 				end
 				buttonText:SetText(text);
 			else
+				-- Output something...
+				buttonText:SetText("<?>");
+--[[
 				-- This could generate a lot of output...
---[
 				TitanDebug("Set button text error "
 				..(id or "?").." "
 				.."| "..label1 -- the error

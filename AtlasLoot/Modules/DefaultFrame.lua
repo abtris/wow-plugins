@@ -183,7 +183,7 @@ do
 		Frame:ClearAllPoints()
 		Frame:SetParent(UIParent)
 		Frame:SetPoint("CENTER", UIParent, "CENTER")
-		Frame:SetFrameStrata("HIGH")
+		--Frame:SetFrameStrata("HIGH")
 		Frame:SetWidth(921)
 		Frame:SetHeight(601)
 		Frame:SetMovable(true)

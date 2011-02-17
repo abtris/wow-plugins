@@ -169,13 +169,13 @@ local function VUHDO_setupStaticBuffPanel(aCategoryName, aBuffPanel, anIsPresent
 
 	local tMissButton = VUHDO_GLOBAL[aBuffPanel:GetName() .. "MissingCheckButton"];
 	VUHDO_lnfSetModel(tMissButton, "VUHDO_BUFF_SETTINGS." .. aCategoryName .. ".missingColor.show");
-	VUHDO_lnfSetTooltip(tMissButton, VUHDO_I18N_TT_386);
+	VUHDO_lnfSetTooltip(tMissButton, VUHDO_I18N_TT.K386);
 	tMissButton:Hide();
 	tMissButton:Show();
 
 	local tMissTexture = VUHDO_GLOBAL[aBuffPanel:GetName() .. "MissingTexture"];
 	VUHDO_lnfSetModel(tMissTexture, "VUHDO_BUFF_SETTINGS." .. aCategoryName .. ".missingColor");
-	VUHDO_lnfSetTooltip(tMissTexture, VUHDO_I18N_TT_385);
+	VUHDO_lnfSetTooltip(tMissTexture, VUHDO_I18N_TT.K385);
 	tMissTexture:Hide();
 	tMissTexture:Show();
 end
@@ -413,7 +413,7 @@ function VUHDO_buffWatchSetupFilterChanged(aComboBox, aValue, anArrayModel)
 			anArrayModel[VUHDO_ID_ALL] = nil;
 		end
 		VUHDO_lnfComboSetSelectedValue(aComboBox, nil);
-		VUHDO_updateBuffFilters();
+		VUHDO_updateBuffRaidGroup();
 	end
 end
 

@@ -128,7 +128,7 @@
 				</Anchors>
 				<Scripts>
 					<OnLoad>
-						VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_387);
+						VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K387);
 					</OnLoad>
 					<OnClick>
 						VUHDO_buffUpButtonClicked(self);
@@ -149,7 +149,7 @@
 				</Anchors>
 				<Scripts>
 					<OnLoad>
-						VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_388);
+						VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K388);
 					</OnLoad>
 					<OnClick>
 						VUHDO_buffDownButtonClicked(self);

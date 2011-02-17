@@ -29,7 +29,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.UPDATE_HOTS_MS")
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_REFRESH_RATE, 50, 1000, " " .. VUHDO_I18N_MSEC, 50);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_173);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K173);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -45,7 +45,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_CONFIG.SCAN_RANGE", "0");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_466);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K466);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -61,7 +61,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_CONFIG.SCAN_RANGE", "1");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_467);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K467);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -77,7 +77,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_CONFIG.SCAN_RANGE", "2");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_468);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K468);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -93,7 +93,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_CONFIG.SCAN_RANGE", "3");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_469);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K469);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -148,7 +148,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.RANGE_CHECK_DELAY")
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_REFRESH_RATE, 20, 1000, " " .. VUHDO_I18N_MSEC, 20);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_065);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K065);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -164,7 +164,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_CONFIG.RANGE_PESSIMISTIC", true);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_066);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K066);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -183,7 +183,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.RANGE_SPELL");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_067);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K067);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.RANGE_PESSIMISTIC", true);
 							</OnLoad>
 							<OnTextChanged>
@@ -204,7 +204,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_CONFIG.RANGE_PESSIMISTIC", false);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_068);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K068);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -258,7 +258,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.DIRECTION.enable");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_490);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K490);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -274,7 +274,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.DIRECTION.isDistanceText");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_489);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K489);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.DIRECTION.enable", false);
 							</OnLoad>
 						</Scripts>
@@ -291,7 +291,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.DIRECTION.isAlways");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_509);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K509);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.DIRECTION.enable", false);
 							</OnLoad>
 						</Scripts>
@@ -308,7 +308,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.DIRECTION.isDeadOnly");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_488);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K488);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.DIRECTION.enable", false);
 							</OnLoad>
 						</Scripts>
@@ -329,7 +329,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.DIRECTION.scale");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_SCALE, 24, 100, " %", 2);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_493);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K493);
 								VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.DIRECTION.enable", false);
 							</OnLoad>
 						</Scripts>
@@ -362,7 +362,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.IS_SCAN_TALENTS");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_470);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K470);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>

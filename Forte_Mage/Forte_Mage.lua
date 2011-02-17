@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 -- Forte Mage Module attempt by Amros of Gilneas
 
 if FW.CLASS == "MAGE" then
@@ -48,8 +48,10 @@ if FW.CLASS == "MAGE" then
 			ST:RegisterTickSpeed(82731, 1); -- set tick speed to 1 instead of 3	
 		
 		ST:RegisterSpell(11129,1,010,1,ST.DEFAULT); -- Combustion
+		
 			ST:RegisterTickSpeed(11129, 2); -- set tick speed to 2 instead of 3	
 
+		
 		
 		ST:RegisterBuff(12536); -- Clearcasting
 		ST:RegisterBuff(44445); -- Hot Streak
@@ -75,13 +77,16 @@ if FW.CLASS == "MAGE" then
 		
 		ST:RegisterBuff(44543); -- Fingers of Frost
 		ST:RegisterBuff(64343); -- Impact
+		ST:RegisterBuff(11426); -- Ice Barrier
 		
 		-- self debuffs
 		ST:RegisterSelfDebuff(36032); -- Arcane Blast
 
-		--debuffs
+		--target debuffs
 		ST:RegisterDebuff(120); -- cone of cold
 		ST:RegisterDebuff(122); -- frost nova
+		ST:RegisterDebuff(83301); -- Improved Cone of Cold
+		ST:RegisterDebuff(33395); -- Freeze
 		
 		ST:RegisterCooldown(2136,008); -- Fire Blast
 
@@ -94,15 +99,7 @@ if FW.CLASS == "MAGE" then
 				CA:CastShow("PolymorphBreak",unit);
 			end
 		end);
-		ST:RegisterOnTimerFade(function(unit,mark,spell,t)
-			if spell == poly then
-				if t <= ST:GetFadeTime("PolymorphFade") then
-					if mark~=0 then unit=FW.RaidIcons[mark]..unit;end
-					CA:CastShow("PolymorphFade",unit);
-					return 1;
-				end
-			end
-		end);
+		ST:RegisterOnTimerFade(poly,"PolymorphFade");
 		
 		local clearcasting = FW:SpellName(12536);
 		ST:RegisterOnBuffGain(function(buff)

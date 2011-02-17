@@ -45,7 +45,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_POWER_TYPE_COLORS.##0");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_MANA, VUHDO_I18N_MANA);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_158);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K158);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -62,7 +62,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_POWER_TYPE_COLORS.##1");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_RAGE, VUHDO_I18N_RAGE);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_159);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K159);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -79,7 +79,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_POWER_TYPE_COLORS.##3");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_ENERGY, VUHDO_I18N_ENERGY);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_160);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K160);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -96,7 +96,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_POWER_TYPE_COLORS.##6");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_RUNES, VUHDO_I18N_RUNES);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_161);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K161);
 							</OnLoad>
 						</Scripts>
 					</Frame>

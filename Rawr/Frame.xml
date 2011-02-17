@@ -1,0 +1,728 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+	<Script file="Frame.lua"/>
+
+	<!-- Template: ItemButtons -->
+	<Button name="Rawr_PaperDollItemButtonTemplate" inherits="ItemButtonTemplate" virtual="true" >
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture name="$parentBorderTexture" file="Interface\Addons\Rawr\Textures\Border">
+					<Size x="41" y="41"/>
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+		</Layers>
+		<NormalTexture />
+		<Scripts>
+			<OnLoad>
+				Rawr:ItemSlots_OnLoad(self)
+			</OnLoad>
+			<OnEnter>
+				Rawr:ItemSlots_OnEnter(self)
+			</OnEnter>
+			<OnLeave>
+				Rawr:ItemSlots_OnLeave(self)
+			</OnLeave>
+			<OnClick>
+				Rawr:ItemSlots_OnClick(self, button, down)
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<!-- Template: Direct Upgrade Buttons -->
+	<Button name="Rawr_UpgradeButtonTemplate" inherits="ItemButtonTemplate" virtual="true">
+		<Size x="41" y="41"/>
+		<Layers>
+			<Layer level="OVERLAY">
+				<Texture name="$parentBorderTexture" file="Interface\Addons\Rawr\Textures\Border">
+					<Size x="41" y="41"/>
+					<Anchors>
+						<Anchor point="CENTER"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK" >
+				<FontString name="$parentText" inherits="GameFontHighlight" justifyH="LEFT">
+					<Size x="150" y="16" />
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentBorderTexture" relativePoint="RIGHT">
+							<Offset x="5" y="0"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+		<NormalTexture />
+		<Scripts>
+			<OnEnter>
+				Rawr:ItemSlots_OnEnter(self)
+			</OnEnter>
+			<OnLeave>
+				Rawr:ItemSlots_OnLeave(self)
+			</OnLeave>
+			<OnClick>
+				Rawr:ItemSlots_OnClick(self, button, down)
+			</OnClick>
+		</Scripts>
+	</Button>
+
+	<!-- Template: Direct Upgrade Check Buttons -->
+	<CheckButton name="Rawr_UpgradesCheckboxTemplate" virtual="true" checked="true" >
+		<Size>
+			<AbsDimension x="24" y="24"/>
+		</Size>
+		<Scripts>
+			<OnClick>
+				Rawr:SlotEnableClicked(self, arg1)
+			</OnClick>
+            <OnEnter>
+				Rawr:CheckBoxToolTipShow(self)
+            </OnEnter>
+            <OnLeave>
+				GameTooltip:Hide()
+            </OnLeave>
+		</Scripts>
+		<NormalTexture file="Interface\Buttons\UI-CheckBox-Up"/>
+		<PushedTexture file="Interface\Buttons\UI-CheckBox-Down"/>
+		<HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD"/>
+		<CheckedTexture file="Interface\Buttons\UI-CheckBox-Check"/>
+		<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
+	</CheckButton>
+	
+	<!-- Main Frame -->
+	<Frame name="Rawr_PaperDollFrame" toplevel="true" movable="true" frameStrata="MEDIUM" enableMouse="true" parent="UIParent" hidden="true">
+		<Size x="384" y="440"/>
+		<Anchors>
+			<Anchor point="CENTER"/>
+		</Anchors>
+		<HitRectInsets left="12" right="35" top="10" bottom="2"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentPortrait">
+					<Size x="60" y="60"/>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="7" y="-6"/>
+						</Anchor>
+					</Anchors>
+				</Texture>
+			</Layer>
+			<Layer level="ARTWORK">
+				<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-TopLeft">
+					<Size x="256" y="256"/>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-TopRight">
+					<Size x="128" y="256"/>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="256" y="0"/>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-BottomLeft">
+					<Size x="256" y="256"/>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="0" y="-256"/>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture file="Interface\PaperDollInfoFrame\UI-Character-General-BottomRight">
+					<Size x="128" y="256"/>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="256" y="-256"/>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<FontString name="$parentTitle" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOP" relativePoint="TOP">
+							<Offset x="0" y="-17"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentDetails" inherits="GameFontHighlightSmall">
+					<Anchors>
+						<Anchor point="TOP" relativeTo="$parentTitle" relativePoint="BOTTOM">
+							<Offset x="0" y="-13"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+				<FontString name="$parentGuild" inherits="GameFontHighlightSmall">
+					<Anchors>
+						<Anchor point="TOP" relativeTo="$parentDetails" relativePoint="BOTTOM">
+							<Offset x="0" y="-2"/>
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+			<Layer level="OVERLAY">
+
+				<!-- Model Background Textures -->
+				<Texture name="$parentBackgroundTopLeft">
+					<Size x="256" y="270"/>
+					<Anchors>
+						<Anchor point="TOPLEFT">
+							<Offset x="22" y="-76"/>
+						</Anchor>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentBackgroundTopRight">
+					<Size x="64" y="270"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentBackgroundTopLeft" relativePoint="RIGHT"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentBackgroundBotLeft">
+					<Size x="256" y="141"/>
+					<Anchors>
+						<Anchor point="TOP" relativeTo="$parentBackgroundTopLeft" relativePoint="BOTTOM"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentBackgroundBotRight">
+					<Size x="64" y="141"/>
+					<Anchors>
+						<Anchor point="LEFT" relativeTo="$parentBackgroundBotLeft" relativePoint="RIGHT"/>
+					</Anchors>
+				</Texture>
+
+			</Layer>
+		</Layers>
+		<Frames>
+			<Button name="$parentCloseButton" inherits="UIPanelCloseButton">
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="TOPRIGHT">
+						<Offset x="-46" y="-25"/>
+					</Anchor>
+				</Anchors>
+			</Button>
+
+			<Button name="$parentChangesButton" inherits="UIPanelButtonTemplate">
+				<Size>
+					<AbsDimension x="100" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="CENTER">
+						<Offset x="-122" y="-197"/>
+					</Anchor>
+				</Anchors>
+				<ButtonText name="$parentText" justifyH="LEFT" setAllPoints="true" />
+				<NormalFont style="GameFontNormalSmall" />
+				<HighlightFont style="GameFontNormalSmall" />
+				<Scripts>
+					<OnClick>Rawr:ChangesButton_OnClick()</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="$parentImportButton" inherits="UIPanelButtonTemplate">
+				<Size>
+					<AbsDimension x="97" y="25" />
+				</Size>
+				<Anchors>
+					<Anchor point="CENTER" relativePoint="CENTER">
+						<Offset x="102" y="-197"/>
+					</Anchor>
+				</Anchors>
+				<ButtonText name="$parentText" justifyH="LEFT" setAllPoints="true" />
+				<NormalFont style="GameFontNormalSmall" />
+				<HighlightFont style="GameFontNormalSmall" />
+				<Scripts>
+					<OnClick>Rawr:ImportButton_OnClick()</OnClick>
+				</Scripts>
+			</Button>
+			
+			<Button name="$parentCheckAll" inherits="UIPanelButtonTemplate" >
+				<Size x="65" y="20" />
+				<Anchors>
+					<Anchor point="TOPLEFT" relativePoint="TOPLEFT" >
+						<Offset x="70" y="-35"/>
+					</Anchor>
+				</Anchors>
+				<NormalFont style="GameFontNormalSmall" />
+				<HighlightFont style="GameFontNormalSmall" />
+				<Scripts>
+					<OnLoad>self:SetText("Check All")</OnLoad>
+					<OnClick>Rawr:CheckAll_OnClick()</OnClick>
+				</Scripts>
+			</Button>
+
+			<Button name="$parentClearAll" inherits="UIPanelButtonTemplate" >
+				<Size x="65" y="20" />
+				<Anchors>
+					<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT" >
+						<Offset x="-38" y="-35"/>
+					</Anchor>
+				</Anchors>
+				<NormalFont style="GameFontNormalSmall" />
+				<HighlightFont style="GameFontNormalSmall" />
+				<Scripts>
+					<OnLoad>self:SetText("Clear All")</OnLoad>
+					<OnClick>Rawr:ClearAll_OnClick()</OnClick>
+				</Scripts>
+			</Button>
+
+			<!-- Direct Upgrades Scroll Frame -->
+			<Frame name="Rawr_UpgradesFrame" movable="false" frameStrata="MEDIUM" enableMouse="true" parent="Rawr_PaperDollFrame" hidden="false">
+				<Size x="200" y="305" />
+				<Anchors>
+					<Anchor point="TOPLEFT" >
+						<Offset><AbsDimension x="68" y="-77" /></Offset>
+					</Anchor>
+				</Anchors>
+				<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+					<BackgroundInsets>
+						<AbsInset left="0" right="0" top="0" bottom="0"/>
+					</BackgroundInsets>
+					<TileSize>
+						<AbsValue val="6"/>
+					</TileSize>
+					<EdgeSize>
+						<AbsValue val="6"/>
+					</EdgeSize>
+				</Backdrop>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture setAllPoints="true">
+							<Color r="0.05" g="0.05" b="0.05" a="0.05" />
+						</Texture>
+					</Layer>
+					<Layer level="ARTWORK">
+						<FontString name="$parentHeaderText" inherits="GameFontHighlight" justifyH="CENTER">
+							<Size x="200" y="16" />
+							<Anchors>
+								<Anchor point="TOPLEFT" >
+									<Offset x="6" y="-6"/>
+								</Anchor>
+							</Anchors>
+						</FontString>
+					</Layer>
+				</Layers>
+				<Frames>
+					<Button name="$parentButton1" inherits="Rawr_UpgradeButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentHeaderText" >
+								<Offset x="0" y="-5"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton2" inherits="Rawr_UpgradeButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentButton1" >
+								<Offset x="0" y="-5"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton3" inherits="Rawr_UpgradeButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentButton2" >
+								<Offset x="0" y="-5"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton4" inherits="Rawr_UpgradeButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentButton3" >
+								<Offset x="0" y="-5"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton5" inherits="Rawr_UpgradeButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentButton4" >
+								<Offset x="0" y="-5"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="$parentButton6" inherits="Rawr_UpgradeButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" relativeTo="$parentButton5" >
+								<Offset x="0" y="-5"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Slider name="Rawr_UpgradesFrameVSlider" orientation="VERTICAL" minValue="0" maxValue="100" defaultValue="0" valueStep="1">
+						<Size x="25" y="275" />
+						<Anchors>
+							<Anchor point="LEFT" relativePoint="RIGHT" relativeTo="Rawr_UpgradesFrame" />
+						</Anchors>
+						<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+							<BackgroundInsets>
+								<AbsInset left="0" right="0" top="0" bottom="0"/>
+							</BackgroundInsets>
+							<TileSize>
+								<AbsValue val="4"/>
+							</TileSize>
+							<EdgeSize>
+								<AbsValue val="4"/>
+							</EdgeSize>
+						</Backdrop>
+						<Frames>
+							<Button name="$parentScrollUpButton" inherits="UIPanelScrollUpButtonTemplate">
+								<Anchors>
+									<Anchor point="BOTTOM" relativePoint="TOP"/>
+								</Anchors>
+								<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+									<BackgroundInsets>
+										<AbsInset left="0" right="0" top="0" bottom="0"/>
+									</BackgroundInsets>
+									<TileSize>
+										<AbsValue val="6"/>
+									</TileSize>
+									<EdgeSize>
+										<AbsValue val="6"/>
+									</EdgeSize>
+								</Backdrop>
+								<Scripts>
+									<OnClick>
+										local parent = self:GetParent()
+										parent:SetValue(parent:GetValue() - 1)
+										PlaySound("UChatScrollButton")
+									</OnClick>
+								</Scripts>
+							</Button>
+							<Button name="$parentScrollDownButton" inherits="UIPanelScrollDownButtonTemplate">
+								<Anchors>
+									<Anchor point="TOP" relativePoint="BOTTOM"/>
+								</Anchors>
+								<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+									<BackgroundInsets>
+										<AbsInset left="0" right="0" top="0" bottom="0"/>
+									</BackgroundInsets>
+									<TileSize>
+										<AbsValue val="6"/>
+									</TileSize>
+									<EdgeSize>
+										<AbsValue val="6"/>
+									</EdgeSize>
+								</Backdrop>
+								<Scripts>
+									<OnClick>
+										local parent = self:GetParent()
+										parent:SetValue(parent:GetValue() + 1)
+										PlaySound("UChatScrollButton")
+									</OnClick>
+								</Scripts>
+							</Button>
+						</Frames>
+						<ThumbTexture name="$parentThumb" file="Interface\Buttons\UI-ScrollBar-Knob">
+							<Size x="30" y="30" />
+						</ThumbTexture>
+						<Scripts>
+							<OnValueChanged>
+								Rawr:UpgradesScrollBarScrolled(self:GetValue())
+							</OnValueChanged>
+						</Scripts>
+					</Slider>
+				</Frames>
+				<Scripts>
+					<OnLoad>
+						Rawr:LoadUpgradesList()
+					</OnLoad>
+					<OnMouseWheel>
+						Rawr:DirectUpgrade_OnMouseWheel(self, delta)
+					</OnMouseWheel>
+				</Scripts>
+			</Frame>
+			
+			<!-- Model Frame -->
+			<PlayerModel name="Rawr_PaperDollModel" scale="2.0">
+				<Size x="320" y="354"/>
+				<Anchors>
+					<Anchor point="BOTTOM">
+						<Offset x="-11" y="10"/>
+					</Anchor>
+				</Anchors>
+				<Frames>
+
+					<!-- Inventory Item Slots (Left) -->
+					<Button name="Rawr_PaperDoll_ItemHeadSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPLEFT">
+								<Offset x="4" y="-3"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemNeckSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemHeadSlot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemShoulderSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemNeckSlot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemBackSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemShoulderSlot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemChestSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemBackSlot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemShirtSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemChestSlot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemTabardSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemShirtSlot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemWristSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemTabardSlot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+
+					<!-- Inventory Item Slots (Right) -->
+					<Button name="Rawr_PaperDoll_ItemHandsSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOPRIGHT">
+								<Offset x="-6" y="-3"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemWaistSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemHandsSlot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemLegsSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemWaistSlot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemFeetSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemLegsSlot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemFinger0Slot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemFeetSlot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemFinger1Slot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemFinger0Slot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemTrinket0Slot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemFinger1Slot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemTrinket1Slot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="TOP" relativeTo="Rawr_PaperDoll_ItemTrinket0Slot" relativePoint="BOTTOM">
+								<Offset x="0" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+
+					<!-- Inventory Item Slots (Bottom) -->
+					<Button name="Rawr_PaperDoll_ItemMainHandSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="BOTTOM" relativePoint="BOTTOM">
+								<Offset x="-40" y="5"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemSecondaryHandSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="Rawr_PaperDoll_ItemMainHandSlot" relativePoint="RIGHT">
+								<Offset x="5" y="0"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					<Button name="Rawr_PaperDoll_ItemRangedSlot" inherits="Rawr_PaperDollItemButtonTemplate">
+						<Anchors>
+							<Anchor point="LEFT" relativeTo="Rawr_PaperDoll_ItemSecondaryHandSlot" relativePoint="RIGHT">
+								<Offset x="5" y="0"/>
+							</Anchor>
+						</Anchors>
+					</Button>
+					
+					<!-- CheckButtons Left" -->
+					<CheckButton name="Rawr_PaperDoll_ItemHeadSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemHeadSlot" relativePoint="BOTTOMRIGHT" >
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemNeckSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemNeckSlot" relativePoint="BOTTOMRIGHT" >
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemShoulderSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemShoulderSlot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemBackSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemBackSlot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemChestSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemChestSlot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<!-- We don't actually filter on Shirt or Tabard
+					<CheckButton name="Rawr_PaperDoll_ItemShirtSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemChestSlot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemTabardSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemShirtSlot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					-->
+					<CheckButton name="Rawr_PaperDoll_ItemWristSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemWristSlot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					
+					<!-- Right Hand column -->
+					<CheckButton name="Rawr_PaperDoll_ItemHandsSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemHandsSlot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemWaistSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemWaistSlot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemLegsSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemLegsSlot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemFeetSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemFeetSlot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemFinger0SlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemFinger0Slot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemFinger1SlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemFinger1Slot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemTrinket0SlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemTrinket0Slot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemTrinket1SlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemTrinket1Slot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					
+					<!-- Bottom Row checkboxes -->
+					<CheckButton name="Rawr_PaperDoll_ItemMainHandSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemMainHandSlot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemSecondaryHandSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemSecondaryHandSlot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+					<CheckButton name="Rawr_PaperDoll_ItemRangedSlotCheck" inherits="Rawr_UpgradesCheckboxTemplate" frameStrata="HIGH" >
+						<Anchors>
+							<Anchor point="BOTTOMRIGHT" relativeTo="Rawr_PaperDoll_ItemRangedSlot" relativePoint="BOTTOMRIGHT">
+								<Offset x="4" y="-4"/>
+							</Anchor>
+						</Anchors>
+					</CheckButton>
+				</Frames>
+			</PlayerModel>
+		</Frames>
+	</Frame>
+
+</Ui>

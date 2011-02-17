@@ -23,6 +23,7 @@ local VUHDO_getUnitButtons;
 local VUHDO_getBarRoleIcon;
 local VUHDO_getBarIconFrame;
 local VUHDO_updateClusterHighlights;
+local VUHDO_customizeTargetBar;
 
 local VUHDO_PANEL_SETUP;
 local VUHDO_BUTTON_CACHE;
@@ -82,6 +83,7 @@ function VUHDO_customHealthInitBurst()
 	VUHDO_getBarRoleIcon = VUHDO_GLOBAL["VUHDO_getBarRoleIcon"];
 	VUHDO_getBarIconFrame = VUHDO_GLOBAL["VUHDO_getBarIconFrame"];
   VUHDO_updateClusterHighlights = VUHDO_GLOBAL["VUHDO_updateClusterHighlights"];
+	VUHDO_customizeTargetBar = VUHDO_GLOBAL["VUHDO_customizeTargetBar"];
 
 	-- statics
 	sIsOverhealText = VUHDO_CONFIG["SHOW_TEXT_OVERHEAL"]
@@ -132,12 +134,18 @@ end
 
 
 --
-local function VUHDO_getKiloText(aNumber, aSetup)
-	if (abs(aNumber) < 100 or aSetup["LIFE_TEXT"]["verbose"]) then
+local function VUHDO_getKiloText(aNumber, aMaxNumber, aSetup)
+	if (aSetup["LIFE_TEXT"]["verbose"]) then
 		return aNumber;
 	end
 
-  return format("%.1fk", aNumber * 0.001);
+	if (aMaxNumber > 100000) then
+		return format("%.0fk", aNumber * 0.001);
+	elseif (aMaxNumber > 10000) then
+		return format("%.1fk", aNumber * 0.001);
+	else
+		return aNumber;
+	end
 end
 
 
@@ -258,7 +266,7 @@ local VUHDO_CUSTOM_INFO = VUHDO_CUSTOM_INFO;
 
 --
 local tUnit;
-local function VUHDO_getDisplayUnit(aButton)
+function VUHDO_getDisplayUnit(aButton)
 	tUnit = aButton:GetAttribute("unit");
 
 	if (strfind(tUnit, "target", 1, true) and tUnit ~= "target") then
@@ -274,6 +282,7 @@ local function VUHDO_getDisplayUnit(aButton)
 		return tUnit, VUHDO_RAID[tUnit];
 	end
 end
+local VUHDO_getDisplayUnit = VUHDO_getDisplayUnit;
 
 
 
@@ -362,7 +371,7 @@ function VUHDO_customizeText(aButton, aMode, anIsTarget)
 	  end
 
   	-- Add player flags
-  	if (tSetup["ID_TEXT"]["showTags"]) then
+  	if (tSetup["ID_TEXT"]["showTags"] and not anIsTarget) then
     	if (not tInfo["connected"]) then
     		tTextString = format("%s-%s", VUHDO_I18N_DC, tTextString);
     	elseif (tInfo["dead"]) then
@@ -403,12 +412,30 @@ function VUHDO_customizeText(aButton, aMode, anIsTarget)
 		elseif (3 == tLifeConfig["mode"]) then -- VUHDO_LT_MODE_MISSING
 			tMissLife = tLifeAmount - tInfo["healthmax"];
 			if (tMissLife < -10) then
-				tLifeString =  VUHDO_getKiloText(tMissLife, tSetup);
+				if (tLifeConfig["showTotalHp"]) then
+					tLifeString = format("%s / %s",
+						VUHDO_getKiloText(tMissLife, tInfo["healthmax"], tSetup),
+						VUHDO_getKiloText(tInfo["healthmax"], tInfo["healthmax"], tSetup)
+					);
+				else
+					tLifeString = VUHDO_getKiloText(tMissLife, tInfo["healthmax"], tSetup);
+				end
 			else
-				tLifeString = "";
+				if (tLifeConfig["showTotalHp"]) then
+					tLifeString = VUHDO_getKiloText(tInfo["healthmax"], tInfo["healthmax"], tSetup);
+				else
+					tLifeString = "";
+				end
 			end
 		else -- VUHDO_LT_MODE_LEFT
-			tLifeString = format("%s / %s", VUHDO_getKiloText(tLifeAmount, tSetup), VUHDO_getKiloText(tInfo["healthmax"], tSetup));
+			if (tLifeConfig["showTotalHp"]) then
+				tLifeString = format("%s / %s",
+					VUHDO_getKiloText(tLifeAmount, tInfo["healthmax"], tSetup),
+					VUHDO_getKiloText(tInfo["healthmax"], tInfo["healthmax"], tSetup)
+				);
+			else
+				tLifeString = format("%s", VUHDO_getKiloText(tLifeAmount, tInfo["healthmax"], tSetup));
+			end
 		end
 
 		if (not tIsLifeInName) then
@@ -470,7 +497,7 @@ end
 
 
 --
-local tAllButtons, tButton, tHealthBar, tQuota, tTargetQuota;
+local tAllButtons, tButton, tHealthBar, tQuota, tInfo;
 function VUHDO_healthBarBouquetCallback(aUnit, anIsActive, anIcon, aCurrValue, aCounter, aMaxValue, aColor, aBuffName, aBouquetName, aLevel, aCurrValue2)
 	aMaxValue = aMaxValue or 0;
 	aCurrValue = aCurrValue or 0;
@@ -509,38 +536,20 @@ function VUHDO_healthBarBouquetCallback(aUnit, anIsActive, anIcon, aCurrValue, a
 		end
 	end
 
-	if (VUHDO_RAID[aUnit] == nil) then
+	tInfo = VUHDO_RAID[aUnit]
+	if (tInfo == nil) then
 		return;
 	end
 
-	tTargetQuota = nil;
-
 	-- Targets und targets-of-target, die im Raid sind
-  tAllButtons = VUHDO_IN_RAID_TARGET_BUTTONS[VUHDO_RAID[aUnit]["name"]];
+  tAllButtons = VUHDO_IN_RAID_TARGET_BUTTONS[tInfo["name"]];
 	if (tAllButtons == nil) then
 		return;
 	end
+
+	VUHDO_CUSTOM_INFO["fixResolveId"] = aUnit;
 	for _, tButton in pairs(tAllButtons) do
-		if (tTargetQuota == nil and aCurrValue2 ~= nil and aCurrValue2 ~= aCurrValue) then
-			if (aCurrValue2 == 0 and aMaxValue == 0) then
-				if (anIsActive) then
-					tQuota = 100;
-				else
-					tQuota = 0;
-				end
-			elseif (aMaxValue > 1) then
-				tQuota = 100 * aCurrValue2 / aMaxValue;
-			else
-				tQuota = 0;
-			end
-		end
-		tTargetQuota = tQuota;
-		tHealthBar = VUHDO_getHealthBar(tButton, 1);
-		if (tQuota > 0) then
-			tHealthBar:SetValue(tQuota);
-		else
-			tHealthBar:SetValue(0);
-		end
+		VUHDO_customizeTargetBar(tButton, aUnit, tInfo["range"]);
 	end
 
 end
@@ -677,7 +686,9 @@ local function VUHDO_customizeDebuffIconsRange(aButton)
     end
 
   	for tCnt = 40, 44 do
-  		VUHDO_getBarIconFrame(aButton, tCnt):SetAlpha(tAlpha);
+  		if (VUHDO_getBarIconFrame(aButton, tCnt):GetAlpha() > 0) then
+  			VUHDO_getBarIconFrame(aButton, tCnt):SetAlpha(tAlpha);
+  		end
   	end
   end
 end
@@ -759,12 +770,12 @@ function VUHDO_updateHealthBarsFor(aUnit, anUpdateMode)
 
 		VUHDO_updateIncHeal(aUnit);
 	end
-
+--[[
 	------------------
 	-- In-Raid Targets
 	------------------
 
-  tAllButtons = VUHDO_IN_RAID_TARGET_BUTTONS[tInfo["name"]];
+  tAllButtons = VUHDO_IN_RAID_TARGET_BUTTONS[ tInfo["name"] ];
 	if (tAllButtons == nil) then
 		return;
 	end
@@ -788,7 +799,7 @@ function VUHDO_updateHealthBarsFor(aUnit, anUpdateMode)
 		for _, tButton in pairs(tAllButtons) do
 			VUHDO_customizeText(tButton, 1, true); -- VUHDO_UPDATE_ALL
 		end
-	end
+	end]]
 end
 
 

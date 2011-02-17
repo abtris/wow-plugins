@@ -184,7 +184,7 @@ local function VUHDO_generateTargetMacroText(aTarget, aFriendlyAction, aHostileA
 		return "";
 	end
 
-	tMacroId = GetMacroIndexByName(aHostileAction)
+	tMacroId = GetMacroIndexByName(aHostileAction);
 	if (tMacroId == 0) then
 		tMacroId = GetMacroIndexByName(aFriendlyAction);
 	end
@@ -312,7 +312,7 @@ end
 
 
 local VUHDO_PROHIBIT_HELP = {
-	[VUHDO_SPELL_ID_REBIRTH] = true,
+	[VUHDO_SPELL_ID.REBIRTH] = true,
 }
 
 
@@ -348,11 +348,11 @@ local function VUHDO_generateRaidMacroTemplate(anAction, anIsKeyboard, aTarget, 
 			if (VUHDO_SPELL_CONFIG["smartCastModi"] ~= "all") then
 				tSpellPost = tSpellPost .. "mod:" .. VUHDO_SPELL_CONFIG["smartCastModi"] .. ",";
 			end
-			tSpellPost =  tSpellPost .. "@mouseover] " .. VUHDO_SPELL_ID_REBIRTH .. "\n";
+			tSpellPost =  tSpellPost .. "@mouseover] " .. VUHDO_SPELL_ID.REBIRTH .. "\n";
 		end
 	end
 
-	if (VUHDO_SPELL_CONFIG["IS_KEEP_STANCE"] and VUHDO_SPELL_ID_REBIRTH ~= anAction
+	if (VUHDO_SPELL_CONFIG["IS_KEEP_STANCE"] and VUHDO_SPELL_ID.REBIRTH ~= anAction
 		and VUHDO_SPELLS[anAction] ~= nil and not VUHDO_SPELLS[anAction]["nostance"]) then
 
 		if ("DRUID" == VUHDO_PLAYER_CLASS) then
@@ -379,7 +379,7 @@ local function VUHDO_generateRaidMacroTemplate(anAction, anIsKeyboard, aTarget, 
 		tText = tText .. "/use [" .. tModiSpell .. "@mouseover] " .. anAction .. "\n";
 		tText = tText .. tSpellPost;
 	else
-		if (aPet ~= nil and VUHDO_SPELL_ID_REBIRTH ~= anAction) then
+		if (aPet ~= nil and VUHDO_SPELL_ID.REBIRTH ~= anAction) then
 			tVehicleCond = "[nodead,help,nobonusbar:5,@vdpet]";
 		else
 			tVehicleCond = "";
@@ -401,20 +401,26 @@ local function VUHDO_generateRaidMacroTemplate(anAction, anIsKeyboard, aTarget, 
 end
 
 
+
 --
 local tIndex;
 local tPet;
 local tText;
 function VUHDO_buildMacroText(anAction, anIsKeyboard, aTarget)
-	if (anIsKeyboard) then
-		tIndex = anAction .. "$K";
-	else
-		tIndex = anAction .. "$M";
-	end
-
 	tPet = VUHDO_getMacroPetUnit(aTarget);
-	if (tPet == nil) then
-		tIndex = tIndex .. "P";
+
+	if (anIsKeyboard) then
+		if (tPet == nil) then
+			tIndex = anAction .. "KP";
+		else
+			tIndex = anAction .. "K";
+		end
+	else
+		if (tPet == nil) then
+			tIndex = anAction .. "P";
+		else
+			tIndex = anAction;
+		end
 	end
 
 	if (VUHDO_RAID_MACRO_CACHE[tIndex] == nil) then

@@ -1,4 +1,4 @@
-﻿-- $Id: constants.mx.lua 3121 2010-12-07 20:55:18Z celellach $
+﻿-- $Id: constants.mx.lua 3245 2011-01-22 11:41:05Z dynaletik $
 --[[
 constants.es.lua --- Traduction ES por maqjav
 This file defines an AceLocale table for all the various text strings needed
@@ -606,7 +606,6 @@ if AL then
 	AL["Matron Li-sahar"] = "Matrona Li-sahar";
 	AL["Solus the Eternal"] = "Solus el Eterno";
 	AL["Smokywood Pastures Vendor"] = "Vendedor de Pastos de Bosquehumeante";
-	--AL["Shartuul"] = true,
 	AL["Darkscreecher Akkarai"] = "Estridador oscuro Akkarai";
 	--AL["Karrog"] = true,
 	AL["Gezzarak the Huntress"] = "Gezzarak la Cazadora";
@@ -633,11 +632,9 @@ if AL then
 	--AL["Thomas Yance"] = true,
 	AL["Knot Thimblejack"] = "Knot Thimblejack";
 	AL["Shen'dralar Provisioner"] = "Proveedor Shen'dralar";
-	AL["Namdo Bizzfizzle"] = "Namdo Silvabín";
 	AL["The Nameles Prophet"] = "El profeta sin nombre";
 	AL["Rajaxx's Captains"] = "Capitanes de Rajaxx";
 	AL["Razorfen Spearhide"] = "Lanceur de Tranchebauge";
-	AL["Kalldan Felmoon"] = "Kalldan Lunavil";
 	AL["Magregan Deepshadow"] = "Magregan Sombraprofunda";
 	--AL["Don Carlos"] = true,
 	--AL["Thomas Yance"] = "Thomas Yance";
@@ -664,17 +661,11 @@ if AL then
 	AL["The Vault"] = "La caja fuerte";
 	AL["Ogre Tannin Basket"] = "Cesta de Ogro Tanino";
 	AL["Fengus's Chest"] = "Cofre de Fengus";
-	AL["The Prince's Chest"] = "El cofre del Príncipe";
-	AL["Doan's Strongbox"] = "Caja fuerte de Doan";
-	AL["Frostwhisper's Embalming Fluid"] = "Líquido de embalsamar Levescarcha";
-	AL["Unforged Rune Covered Breastplate"] = "Coraza cubierta de runas sin forjar";
-	AL["Malor's Strongbox"] = "Caja fuerte de Malor";
 	AL["Unfinished Painting"] = "Pintura sin terminar"; --Comprobar
 	AL["Felvine Shard"] = "Fragmento de gangrevid";
 	AL["Baelog's Chest"] = "Cofre de Baelog";
 	AL["Lorgalis Manuscript"] = "Manuscrito de Lorgalis";
 	AL["Fathom Core"] = "Núcleo de las profundidades";
-	AL["Conspicuous Urn"] = "Urna llamativa";
 	AL["Gift of Adoration"] = "Ofrenda de adoración";
 	AL["Box of Chocolates"] = "Caja de bombones";
 	AL["Treat Bag"] = "Bolsa de premios";

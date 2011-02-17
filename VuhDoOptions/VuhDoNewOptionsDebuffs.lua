@@ -4,6 +4,7 @@
 local function VUHDO_hideAllPanel()
 	VuhDoNewOptionsDebuffsStandard:Hide();
 	VuhDoNewOptionsDebuffsCustom:Hide();
+	collectgarbage('collect');
 end
 
 

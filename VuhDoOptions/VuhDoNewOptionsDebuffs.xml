@@ -32,7 +32,7 @@
 							</OnClick>
 							<OnLoad>
 								VUHDO_lnfCheckButtonOnLoad(self);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_263);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K263);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -52,7 +52,7 @@
 							</OnClick>
 							<OnLoad>
 								VUHDO_lnfCheckButtonOnLoad(self);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_264);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K264);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>

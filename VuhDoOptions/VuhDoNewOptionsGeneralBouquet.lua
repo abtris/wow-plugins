@@ -341,6 +341,13 @@ function VUHDO_rebuildBouquetContextEditors(anIndex)
 				tSpecialName = VUHDO_BOUQUETS["STORED"][tBouquetName][tIndex]["name"];
 				VUHDO_lnfSliderOnLoad(tSlider, VUHDO_BOUQUET_BUFFS_SPECIAL[tSpecialName]["displayName"], 0, 100, "");
 				tSubPanel:Show();
+			elseif (VUHDO_BOUQUET_BUFFS_SPECIAL[tBuffName]["custom_type"] == VUHDO_BOUQUET_CUSTOM_TYPE_HEALTH) then
+				tSubPanel = VUHDO_GLOBAL[tInnerPanel:GetName() .. "PercentFrame"];
+				tSlider = VUHDO_GLOBAL[tSubPanel:GetName() .. "Slider"];
+				VUHDO_lnfSetModel(tSlider, tModel .. ".custom.##1");
+				tSpecialName = VUHDO_BOUQUETS["STORED"][tBouquetName][tIndex]["name"];
+				VUHDO_lnfSliderOnLoad(tSlider, VUHDO_BOUQUET_BUFFS_SPECIAL[tSpecialName]["displayName"], 0, 200, "k");
+				tSubPanel:Show();
 			elseif (VUHDO_BOUQUET_BUFFS_SPECIAL[tBuffName]["custom_type"] == VUHDO_BOUQUET_CUSTOM_TYPE_PLAYERS) then
 				tSubPanel = VUHDO_GLOBAL[tInnerPanel:GetName() .. "PercentFrame"];
 				tSlider = VUHDO_GLOBAL[tSubPanel:GetName() .. "Slider"];
@@ -494,6 +501,7 @@ local VUHDO_GENERIC_BOUQUETS = {
 	[VUHDO_I18N_DEF_BOUQUET_BAR_HEALTH_CLASS_COLOR] = true,
 	[VUHDO_I18N_DEF_BOUQUET_BAR_HEALTH_SOLID] = true,
 }
+
 
 
 --

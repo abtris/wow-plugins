@@ -8,7 +8,7 @@ PowaAuras = {
 	CurrentAuraId = 1;
 	NextCheck = 0.2; 
 	Tstep = 0.09765625;
-	NextDebugCheck = 0;
+	NextDebugCheck = 0.0;
 	InspectTimeOut = 12;
 	InspectDelay = 2;
 	ExportMaxSize = 4000;
@@ -16,7 +16,7 @@ PowaAuras = {
 	TextureCount = 186;
 	
 	DebugEvents = false;
-	--DebugAura = 10;
+	--DebugAura = 3;
 	
 	-- Internal counters
 	DebugTimer = 0;
@@ -231,7 +231,7 @@ PowaAuras = {
 		PartySpells = false,
 		RaidSpells = false,
 		
-		OwnSpells = false,
+		SpellCooldowns = false,
 		
 		Totems = false,
 		Runes = false,
@@ -261,7 +261,7 @@ PowaAuras = {
 		PvP=12,
 		SpellAlert=13,
 		Stance=14,
-		OwnSpell=15,
+		SpellCooldown=15,
 		StealableSpell=16,
 		PurgeableSpell=17,
 		Static=18,
@@ -544,7 +544,12 @@ PowaAuras = {
 		"PowaDropDownGTFO",
 		"PowaDropDownPowerType",
 	};
-	
+
+	Backdrop = {
+		bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+		insets = {left = 0, top = 0, right = 0, bottom = 0},
+		tile = true
+	};
 };
 
 function PowaAuras:RegisterAuraType(auraType)
@@ -613,7 +618,7 @@ PowaAuras:RegisterAuraType('PurgeableSpells');
 PowaAuras:RegisterAuraType('PurgeableTargetSpells');
 PowaAuras:RegisterAuraType('PurgeableFocusSpells');
 
-PowaAuras:RegisterAuraType('OwnSpells');
+PowaAuras:RegisterAuraType('SpellCooldowns');
 		
 PowaAuras:RegisterAuraType('Static');
 		

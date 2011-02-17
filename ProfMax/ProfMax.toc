@@ -1,0 +1,15 @@
+## Interface: 40000
+## Title: TS Prof Max |CFF1E90FFby Coomacheek
+## Author: Coomacheek
+## Notes: Calculates the total market price for TradeSkill items.
+## Version: 2.0
+## eMail: coomacheek@gmail.com
+## LoadOnDemand: 1
+## LoadWith: Blizzard_TradeSkillUI
+## SavedVariablesPerCharacter: ProfMaxDB
+## OptionalDeps: Auc-Advanced
+
+ProfMax_Options.xml
+ProfMax.xml
+
+

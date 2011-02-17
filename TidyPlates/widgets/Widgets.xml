@@ -9,7 +9,6 @@
 	<Script file="AuraWidget.lua"/>
 	<Script file="RangeWidget.lua"/>
 	<Script file="TotemIconWidget.lua"/>
-	<Script file="DetectHealer.lua"/>
 	<Script file="SelectionWidget.lua"/>
 	<Script file="SpellCastMonitor.lua"/>
 	<Script file="Tanks.lua"/>

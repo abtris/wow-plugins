@@ -1,4 +1,4 @@
--- $Id: constants.en.lua 3146 2010-12-20 12:15:37Z celellach $
+-- $Id: constants.en.lua 3271 2011-01-29 09:38:42Z celellach $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -313,6 +313,7 @@ if AL then
 	AL["PvP Misc"] = true;
 	AL["PVP Gems/Enchants/Jewelcrafting Designs"] = true;
 	AL["PvP Class Items"] = true;
+	AL["PvP Trinkets"] = true;
 	AL["NOT AVAILABLE ANYMORE"] = true;
 
 	-- World Events
@@ -335,6 +336,7 @@ if AL then
 	AL["Pilgrim's Bounty"] = true;
 	AL["Skettis"] = true;
 	AL["Stranglethorn Fishing Extravaganza"] = true;
+	AL["Kalu'ak Fishing Derby"] = true;
 	AL["Elemental Unrest"] = true;
 
 	-- Minimap Button
@@ -394,13 +396,20 @@ if AL then
 
 	-- Alchemy
 	AL["Battle Elixirs"] = true;
+	AL["Cauldron"] = true;
+	AL["Cauldrons"] = true;
 	AL["Guardian Elixirs"] = true;
+	AL["Oils"] = true;
+	AL["Other Elixirs"] = true;
 	AL["Potions"] = true;
 	AL["Transmutes"] = true;
 	AL["Flasks"] = true;
+	AL["Guild"] = true;
 
 	-- Blacksmithing
 	AL["Cataclysm Vendor Sold Plans"] = true;
+	AL["Armor Enhancements"] = true;
+	AL["Weapon Enhancements"] = true;
 
 	-- Enchanting
 	AL["Enchant Boots"] = true;
@@ -414,11 +423,21 @@ if AL then
 	AL["Enchant Weapon"] = true;
 	AL["Cataclysm Vendor Sold Formulas"] = true;
 
+	-- Engineering
+	AL["Tinker"] = true;
+
 	-- Inscription
+	AL["Glyph"] = true;
+	AL["Prime Glyph"] = true;
 	AL["Major Glyph"] = true;
 	AL["Minor Glyph"] = true;
+	AL["Runescrolls"] = true;
+	AL["Recall"] = true;
 	AL["Scrolls"] = true;
 	AL["Off-Hand Items"] = true;
+	AL["Relics/Shoulder Enchants"] = true;
+	AL["Relics"] = true;
+	AL["Shoulder Enchants"] = true;
 	AL["Reagents"] = true;
 	AL["Book of Glyph Mastery"] = true;
 
@@ -433,6 +452,7 @@ if AL then
 	AL["Cloth Armor"] = true;
 	AL["Shirts"] = true;
 	AL["Bags"] = true;
+	AL["Cataclysm Vendor Sold Patterns"] = true;
 
 	-- Labels for loot descriptions
 	AL["Classes:"] = true;
@@ -540,11 +560,13 @@ if AL then
 	AL["Random"] = true;
 	AL["Brew of the Month Club"] = true;
 
-	-- Cooking descriptions
+	-- Profession descriptions
 	AL["Buff"] = true;
 	AL["Agility"] = true;
 	AL["Intellect"] = true;
 	AL["Strength"] = true;
+	AL["Spirit"] = true;
+	AL["Stamina"] = true;
 	AL["Agility, Intellect, Strength"] = true;
 	AL["Spell Power"] = true;
 	AL["Attack Power"] = true;
@@ -558,7 +580,10 @@ if AL then
 	AL["Mastery Rating"] = true;
 	AL["Parry Rating"] = true;
 	AL["Other Ratings"] = true;
+	AL["Ratings"] = true;
 	AL["Resistance"] = true;
+	AL["Specific Resistance"] = true;
+	AL["Damage Absorption"] = true;
 	AL["Health / Second"] = true;
 	AL["Mana / Second"] = true;
 	AL["Tracking"] = true;
@@ -568,10 +593,26 @@ if AL then
 	AL["Mana"] = true;
 	AL["Health and Mana"] = true;
 	AL["Other Buffs"] = true;
+	AL["Other"] = true;
 	AL["Standard Buffs"] = true;
 	AL["Food without Buffs"] = true;
 	AL["Special"] = true;
 	AL["Feasts"] = true;
+	AL["Speed"] = true;
+	AL["Rod"] = true;
+	AL["Oil"] = true;
+	AL["Dwarf"] = true;
+	AL["Draenei"] = true;
+	AL["Night Elf"] = true;
+	AL["Fossil"] = true;
+	AL["Nerubian"] = true;
+	AL["Vrykul"] = true;
+	AL["Troll"] = true;
+	AL["Tol'vir"] = true;
+	AL["Orc"] = true;
+	AL["Stats"] = true;
+	AL["Resilience"] = true;
+	AL["Professions"] = true;
 
 	-- Extra Text in Boss lists
 	AL["Set: Embrace of the Viper"] = true;
@@ -735,6 +776,9 @@ if AL then
 
 	-- Thirtheenth set
 	AL["Worldbreaker"] = true;
+	AL["Mottled Drake"] = true;
+	AL["Grim Campfire"] = true;
+	AL["Landro's Lil' XT"] = true;
 
 	-- Battleground Brackets
 	AL["Old PvP Rewards"] = true;
@@ -944,7 +988,6 @@ if AL then
 	AL["Matron Li-sahar"] = true;
 	AL["Solus the Eternal"] = true;
 	AL["Smokywood Pastures Vendor"] = true;
-	AL["Shartuul"] = true;
 	AL["Darkscreecher Akkarai"] = true;
 	AL["Karrog"] = true;
 	AL["Gezzarak the Huntress"] = true;
@@ -971,11 +1014,9 @@ if AL then
 	AL["Thomas Yance"] = true;
 	AL["Knot Thimblejack"] = true;
 	AL["Shen'dralar Provisioner"] = true;
-	AL["Namdo Bizzfizzle"] = true;
 	AL["The Nameles Prophet"] = true;
 	AL["Rajaxx's Captains"] = true;
 	AL["Razorfen Spearhide"] = true;
-	AL["Kalldan Felmoon"] = true;
 	AL["Magregan Deepshadow"] = true;
 	AL["Don Carlos"] = true;
 	AL["Thomas Yance"] = true;
@@ -990,7 +1031,9 @@ if AL then
 	AL["Aeonaxx"] = true;
 	AL["Prince Sarsarun"] = true;
 	AL["Highlord Kruul"] = true; -- added until decided if the set gets removed
-	AL["Dormus the Camel-Hoarder"] = true; 
+	AL["Dormus the Camel-Hoarder"] = true;
+	AL["The Behemoth"] = true;
+	AL["Master Elemental Shaper Krixix"] = true;
 
 	-- Zones
 	AL["World Drop"] = true;
@@ -1017,17 +1060,11 @@ if AL then
 	AL["The Vault"] = true;
 	AL["Ogre Tannin Basket"] = true;
 	AL["Fengus's Chest"] = true;
-	AL["The Prince's Chest"] = true;
-	AL["Doan's Strongbox"] = true;
-	AL["Frostwhisper's Embalming Fluid"] = true;
-	AL["Unforged Rune Covered Breastplate"] = true;
-	AL["Malor's Strongbox"] = true;
 	AL["Unfinished Painting"] = true;
 	AL["Felvine Shard"] = true;
 	AL["Baelog's Chest"] = true;
 	AL["Lorgalis Manuscript"] = true;
 	AL["Fathom Core"] = true;
-	AL["Conspicuous Urn"] = true;
 	AL["Gift of Adoration"] = true;
 	AL["Box of Chocolates"] = true;
 	AL["Treat Bag"] = true;

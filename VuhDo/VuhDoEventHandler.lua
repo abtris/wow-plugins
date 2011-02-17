@@ -35,6 +35,7 @@ local VUHDO_updateAllClusters;
 local VUHDO_updateBouquetsForEvent;
 local VUHDO_getUnitZoneName;
 local VUHDO_updateClusterHighlights;
+local VUHDO_updateCustomDebuffTooltip;
 
 local GetTime = GetTime;
 local CheckInteractDistance = CheckInteractDistance;
@@ -81,6 +82,7 @@ local function VUHDO_eventHandlerInitBurst()
 	VUHDO_updateDirectionFrame = VUHDO_GLOBAL["VUHDO_updateDirectionFrame"];
 	VUHDO_getUnitZoneName = VUHDO_GLOBAL["VUHDO_getUnitZoneName"];
 	VUHDO_updateClusterHighlights = VUHDO_GLOBAL["VUHDO_updateClusterHighlights"];
+	VUHDO_updateCustomDebuffTooltip = VUHDO_GLOBAL["VUHDO_updateCustomDebuffTooltip"];
 
 	sRangeSpell = VUHDO_CONFIG["RANGE_SPELL"] or "*foo*";
 	sIsHealerMode = not VUHDO_CONFIG["THREAT"]["IS_TANK_MODE"];
@@ -118,6 +120,7 @@ VUHDO_TIMERS = {
 	["RELOAD_ROSTER"] = 0,
 	["REFRESH_DRAG"] = 0.05,
 	["MIRROR_TO_MACRO"] = 8,
+	["REFRESH_CUDE_TOOLTIP"] = 1,
 };
 local VUHDO_TIMERS = VUHDO_TIMERS;
 
@@ -1048,7 +1051,7 @@ function VUHDO_OnUpdate(_, aTimeDelta)
 	-- These need to update very frequenly to not stutter
 	-- --------------------------------------------------
 
-	-- Update custom debuff animation with every tick
+	-- Update custom debuff animation
 	if (VUHDO_DEBUFF_ANIMATION > 0) then
 		VUHDO_updateAllDebuffIcons();
 		VUHDO_DEBUFF_ANIMATION = VUHDO_DEBUFF_ANIMATION - aTimeDelta;
@@ -1066,7 +1069,7 @@ function VUHDO_OnUpdate(_, aTimeDelta)
 		end
 	end
 
-	-- Direction Frame
+	-- Direction Arrow
 	if (sIsDirectionArrow and VuhDoDirectionFrame["shown"]) then
 		VUHDO_updateDirectionFrame();
 	end
@@ -1234,6 +1237,16 @@ function VUHDO_OnUpdate(_, aTimeDelta)
 			end
 		end
 	end
+
+	-- Refresh custom debuff Tooltip
+	if (VUHDO_TIMERS["REFRESH_CUDE_TOOLTIP"] > 0) then
+		VUHDO_TIMERS["REFRESH_CUDE_TOOLTIP"] = VUHDO_TIMERS["REFRESH_CUDE_TOOLTIP"] - aTimeDelta;
+		if (VUHDO_TIMERS["REFRESH_CUDE_TOOLTIP"] <= 0) then
+			VUHDO_updateCustomDebuffTooltip();
+			VUHDO_TIMERS["REFRESH_CUDE_TOOLTIP"] = 1;
+		end
+	end
+
 
 	-- automatic profiles
 	if (VUHDO_TIMERS["CHECK_PROFILES"] > 0) then

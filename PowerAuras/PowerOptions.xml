@@ -12,7 +12,7 @@
 				self:RegisterForClicks("LeftButtonUp", "RightButtonDown");
 			</OnLoad>
 			<OnClick>
-				PowaAuras:IconeClick(self, button)
+				PowaAuras:IconClick(self, button)
 			</OnClick>
 			<OnEnter>
 				PowaAuras:IconeEntered(self)
@@ -224,6 +224,27 @@
 					</OnLoad>
 					<OnClick>
 						PowaAuras:OptionTestAll();
+						PowaAuras:UpdateMainOption();
+						PlaySound("igCharacterInfoTab");
+					</OnClick>
+				</Scripts>
+			</Button>
+			
+			-- Lock Button
+			<Button name="PowaMainLockButton" inherits="OptionsButtonTemplate">
+				<Anchors>
+					<Anchor point="BOTTOMLEFT" relativeTo="PowaMainTestAllButton" relativePoint="TOPLEFT">
+						<Offset>
+							<AbsDimension x="0" y="10"/>
+						</Offset>
+					</Anchor>
+				</Anchors>
+				<Scripts>
+					<OnLoad>
+						PowaAuras:SetLockButtonText();
+					</OnLoad>
+					<OnClick>
+						PowaAuras:ToggleLock();
 						PowaAuras:UpdateMainOption();
 						PlaySound("igCharacterInfoTab");
 					</OnClick>
@@ -960,7 +981,8 @@
 							</Anchor>
 						</Anchors>
 					</Button>
-					-- bouton Renommer
+					
+					-- Rename Button
 					<Button name="PowaOptionsRename" inherits="OptionsButtonTemplate" text="Renommer">
 						<Size>
 							<AbsDimension x="90" y="22"/>
@@ -997,7 +1019,7 @@
 								</Offset>
 							</Anchor>
 						</Anchors>
-                    <Layers>
+						<Layers>
 			                <Layer level="OVERLAY">
 				                <FontString inherits="GameFontNormalSmall" bytes="15"/>
 			                </Layer>

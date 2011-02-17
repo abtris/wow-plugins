@@ -8,7 +8,6 @@ local tonumber = tonumber;
 local pairs = pairs;
 local ipairs = ipairs;
 
-local InCombatLockdown = InCombatLockdown;
 
 
 local VUHDO_ACTIVE_LABEL_COLOR = {
@@ -89,7 +88,7 @@ function VUHDO_lnfRadioButtonClicked(aCheckButton)
 
 	for _, tButton in pairs(tAllButtons) do
 		if (tButton:IsObjectType("CheckButton") and strfind(tButton:GetName(), "Radio", 1, true)) then
-			tButton:SetChecked(aCheckButton:GetName() == tButton:GetName());
+			tButton:SetChecked(aCheckButton == tButton);
 			VUHDO_lnfCheckButtonClicked(tButton);
 		end
 	end
@@ -108,7 +107,7 @@ function VUHDO_lnfTabCheckButtonClicked(aCheckButton)
 
 	for _, tButton in pairs(tAllButtons) do
 		if (tButton:IsObjectType("CheckButton") and strfind(tButton:GetName(), "Radio", 1, true)) then
-			if (aCheckButton:GetName() == tButton:GetName()) then
+			if (aCheckButton == tButton) then
 				tButton:SetChecked(true);
 				VUHDO_lnfTabCheckButtonOnEnter(tButton);
 			else
@@ -199,7 +198,9 @@ end
 
 
 --
+local tName;
 function VUHDO_lnfTabCheckButtonOnLeave(aCheckButton)
+	tName = aCheckButton:GetName();
 	VUHDO_GLOBAL[tName .. "TextureActiveSwatch"]:Hide();
 
 	if (aCheckButton:GetChecked()) then
@@ -653,8 +654,7 @@ end
 -- Radio Button
 --
 function VUHDO_lnfRadioButtonUpdateModel(aRadioButton)
-	local tValue = aRadioButton:GetAttribute("radio_value");
-	VUHDO_lnfUpdateVarFromModel(aRadioButton, tValue);
+	VUHDO_lnfUpdateVarFromModel(aRadioButton, aRadioButton:GetAttribute("radio_value"));
 end
 
 
@@ -715,10 +715,8 @@ end
 
 
 --
-local tText;
 function VUHDO_lnfEditBoxInitFromModel(anEditBox)
-	tText = VUHDO_lnfGetValueFromModel(anEditBox) or "";
-	anEditBox:SetText(tText);
+	anEditBox:SetText(VUHDO_lnfGetValueFromModel(anEditBox) or "");
 end
 
 
@@ -940,14 +938,6 @@ function VUHDO_lnfComboSetSelectedValue(aComboBox, aValue, anIsEditBox)
 	else
 		VUHDO_lnfUpdateVarFromModel(aComboBox, aValue, nil);
 	end
-
-
---	tFunction = aComboBox:GetAttribute("custom_function_post");
---	if (tFunction ~= nil) then
---		tIsInCustomFunction = true;
---		tFunction();
---		tIsInCustomFunction = false;
---	end
 end
 
 
@@ -1114,10 +1104,8 @@ end
 --
 function VUHDO_lnfScrollFrameOnLoad(aFrame)
 	local tScrollBar = VUHDO_GLOBAL[aFrame:GetName() .. "ScrollBar"];
-	local tUpButton = VUHDO_GLOBAL[tScrollBar:GetName() .. "ScrollUpButton"];
-	tUpButton:Hide();
-	local tDownButton = VUHDO_GLOBAL[tScrollBar:GetName() .. "ScrollDownButton"];
-	tDownButton:Hide();
+	VUHDO_GLOBAL[tScrollBar:GetName() .. "ScrollUpButton"]:Hide();
+	VUHDO_GLOBAL[tScrollBar:GetName() .. "ScrollDownButton"]:Hide();
 	local tThumbTexture = VUHDO_GLOBAL[tScrollBar:GetName() .. "ThumbTexture"];
 	tThumbTexture:SetTexture("Interface\\AddOns\\VuhDoOptions\\Images\\slider_thumb_v");
 	tThumbTexture:SetWidth(18);
@@ -1188,10 +1176,8 @@ function VUHDO_lnfUpdateComponentsByConstraints(aChangedComponent)
 		if (VUHDO_LF_CONSTRAINT_DISABLE == tConstraint["TYPE"]) then
 			if (VUHDO_lnfIsDisabledByConstraint(tConstraint["COMPONENT"])) then
 				tConstraint["COMPONENT"]:SetAlpha(0.5);
-				--tConstraint["COMPONENT"]:EnableMouse(false);
 			else
 				tConstraint["COMPONENT"]:SetAlpha(1);
-				--tConstraint["COMPONENT"]:EnableMouse(true);
 			end
 		end
 	end

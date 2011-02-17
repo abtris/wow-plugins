@@ -218,7 +218,7 @@ function VUHDO_playerTargetDropDown_Initialize(aFrame, aLevel)
 		end
 
 		VUHDO_playerTargetAddSetting(tText, VUHDO_MAINTANK_NAMES[tCnt] == tName, tCnt, VUHDO_MENU_UNIT,
-			VUHDO_mainTankItemSelected, false, VUHDO_getPlayerRank() < 1, tColor);
+		VUHDO_mainTankItemSelected, false, VUHDO_getPlayerRank() < 1, tColor);
 	end
 
 	-- Unique Spells

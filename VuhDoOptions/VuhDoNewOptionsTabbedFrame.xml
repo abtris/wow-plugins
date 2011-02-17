@@ -220,7 +220,7 @@
 						<Scripts>
 							<OnClick>VUHDO_tabbedPanelOkayClicked(self)</OnClick>
 							<OnLoad>
-								 VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_154);
+								 VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K154);
 							</OnLoad>
 						</Scripts>
 					</Button>
@@ -236,7 +236,7 @@
 						<Scripts>
 							<OnClick>VUHDO_tabbedPanelCancelClicked(self)</OnClick>
 						<OnLoad>
-							 VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_155);
+							 VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K155);
 						</OnLoad>
 						</Scripts>
 					</Button>
@@ -251,13 +251,9 @@
 			<OnShow>
 				self:SetScale(VUHDO_OPTIONS_SETTINGS.scale);
 				VuhDoNewOptionsScaleSlider:Show();
-				if (#VUHDO_STATUS_BARS > 0) then
-					VuhDoNewOptionsPanelBarsTexturePanelTextureSliderSlider:SetMinMaxValues(1, #VUHDO_STATUS_BARS);
-					VuhDoNewOptionsPanelHeaderHeaderBgPanelTextureSliderSlider:SetMinMaxValues(1, #VUHDO_STATUS_BARS);
-				end
-				if (#VUHDO_SOUNDS > 0) then
-					VuhDoNewOptionsDebuffsStandardSoundPanelSoundSliderSlider:SetMinMaxValues(1, #VUHDO_SOUNDS);
-				end
+				VuhDoNewOptionsPanelBarsTexturePanelTextureSliderSlider:SetMinMaxValues(1, #VUHDO_STATUS_BARS);
+				VuhDoNewOptionsPanelHeaderHeaderBgPanelTextureSliderSlider:SetMinMaxValues(1, #VUHDO_STATUS_BARS);
+				VuhDoNewOptionsDebuffsStandardSoundPanelSoundSliderSlider:SetMinMaxValues(1, #VUHDO_SOUNDS);
 
 				VUHDO_IS_CONFIG = true;
 				if (DESIGN_MISC_PANEL_NUM == nil) then
@@ -359,8 +355,11 @@
 			<OnLoad>
 				VUHDO_lnfSetModel(self, "VUHDO_OPTIONS_SETTINGS.scale");
 				VUHDO_lnfSliderOnLoad(self, "", 0.5, 2, "", 0.05);
-				VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_480);
+				VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K480);
 			</OnLoad>
+			<OnHide>
+				collectgarbage('collect');
+			</OnHide>
 		</Scripts>
 	</Frame>
 </Ui>

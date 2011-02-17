@@ -22,7 +22,7 @@
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="255" y="-54" />
+									<AbsDimension x="270" y="-54" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -85,7 +85,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.position", 1);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_138);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K138);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.show", false);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.STANDARD_TOOLTIP", true);
 									</OnLoad>
@@ -103,7 +103,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.position", 3);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_139);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K139);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.show", false);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.STANDARD_TOOLTIP", true);
 									</OnLoad>
@@ -121,7 +121,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.position", 2);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_140);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K140);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.show", false);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.STANDARD_TOOLTIP", true);
 									</OnLoad>
@@ -336,12 +336,12 @@
 
 					<Frame name="$parentTooltipPanel" inherits="VuhDoPanelTemplate">
 						<Size>
-							<AbsDimension x="160" y="236" />
+							<AbsDimension x="239" y="236" />
 						</Size>
 						<Anchors>
 							<Anchor point="TOPLEFT">
 								<Offset>
-									<AbsDimension x="25" y="-25" />
+									<AbsDimension x="13" y="-25" />
 								</Offset>
 							</Anchor>
 						</Anchors>
@@ -353,7 +353,7 @@
 								<Anchors>
 									<Anchor point="TOPLEFT">
 										<Offset>
-											<AbsDimension x="12" y="-4" />
+											<AbsDimension x="13" y="-4" />
 										</Offset>
 									</Anchor>
 								</Anchors>
@@ -369,14 +369,14 @@
 								<Anchors>
 									<Anchor point="TOPLEFT">
 										<Offset>
-											<AbsDimension x="25" y="-35" />
+											<AbsDimension x="13" y="-35" />
 										</Offset>
 									</Anchor>
 								</Anchors>
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.show");
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_141);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K141);
 									</OnLoad>
 								</Scripts>
 							</CheckButton>
@@ -385,14 +385,14 @@
 								<Anchors>
 									<Anchor point="TOPLEFT">
 										<Offset>
-											<AbsDimension x="25" y="-73" />
+											<AbsDimension x="13" y="-73" />
 										</Offset>
 									</Anchor>
 								</Anchors>
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetModel(self, "VUHDO_CONFIG.STANDARD_TOOLTIP");
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_292);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K292);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.show", false);
 									</OnLoad>
 								</Scripts>
@@ -402,14 +402,14 @@
 								<Anchors>
 									<Anchor point="TOPLEFT">
 										<Offset>
-											<AbsDimension x="25" y="-108" />
+											<AbsDimension x="13" y="-108" />
 										</Offset>
 									</Anchor>
 								</Anchors>
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.inFight");
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_142);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K142);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.show", false);
 									</OnLoad>
 								</Scripts>
@@ -419,14 +419,31 @@
 								<Anchors>
 									<Anchor point="TOPLEFT">
 										<Offset>
-											<AbsDimension x="25" y="-150" />
+											<AbsDimension x="126" y="-35" />
 										</Offset>
 									</Anchor>
 								</Anchors>
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetModel(self, "VUHDO_SPELL_CONFIG.IS_TOOLTIP_INFO");
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_346);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K346);
+										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.show", false);
+										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.STANDARD_TOOLTIP", true);
+									</OnLoad>
+								</Scripts>
+							</CheckButton>
+							<CheckButton name="$parentCustomDebuffsCheckButton" checked="true" text="VUHDO_I18N_DEBUFFS" inherits="VuhDoCheckButtonTemplate">
+								<Anchors>
+									<Anchor point="TOPLEFT">
+										<Offset>
+											<AbsDimension x="126" y="-73" />
+										</Offset>
+									</Anchor>
+								</Anchors>
+								<Scripts>
+									<OnLoad>
+										VUHDO_lnfSetModel(self, "VUHDO_CONFIG.DEBUFF_TOOLTIP");
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K514);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.show", false);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.STANDARD_TOOLTIP", true);
 									</OnLoad>
@@ -441,7 +458,7 @@
 								<Anchors>
 									<Anchor point="TOPLEFT">
 										<Offset>
-											<AbsDimension x="14" y="-188" />
+											<AbsDimension x="13" y="-150" />
 										</Offset>
 									</Anchor>
 								</Anchors>
@@ -449,7 +466,7 @@
 									<OnLoad>
 										VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.SCALE");
 										VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_SCALE, 0.5, 2, "", 0.05)
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_143);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K143);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.show", false);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.STANDARD_TOOLTIP", true);
 									</OnLoad>
@@ -484,7 +501,7 @@
 									<OnLoad>
 										VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.BACKGROUND");
 										VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_BACKGROUND);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_144);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K144);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.show", false);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.STANDARD_TOOLTIP", true);
 									</OnLoad>
@@ -522,7 +539,7 @@
 									<OnLoad>
 										VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.BORDER");
 										VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_BORDER);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_145);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K145);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_PANEL_SETUP.#PNUM#.TOOLTIP.show", false);
 										VUHDO_lnfAddConstraint(self, VUHDO_LF_CONSTRAINT_DISABLE, "VUHDO_CONFIG.STANDARD_TOOLTIP", true);
 									</OnLoad>

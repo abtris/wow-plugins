@@ -2,6 +2,7 @@ VUHDO_BOUQUET_CUSTOM_TYPE_PERCENT = 1;
 VUHDO_BOUQUET_CUSTOM_TYPE_PLAYERS = 2;
 VUHDO_BOUQUET_CUSTOM_TYPE_STATUSBAR = 3;
 VUHDO_BOUQUET_CUSTOM_TYPE_BRIGHTNESS = 4;
+VUHDO_BOUQUET_CUSTOM_TYPE_HEALTH = 5;
 
 VUHDO_FORCE_RESET = false;
 
@@ -337,6 +338,20 @@ end
 --
 local function VUHDO_healthAboveValidator(anInfo, someCustom)
 	return 100 * anInfo["health"] / anInfo["healthmax"] >= someCustom["custom"][1], nil, -1, -1, -1, nil, nil;
+end
+
+
+
+--
+local function VUHDO_healthBelowAbsValidator(anInfo, someCustom)
+	return anInfo["health"] * 0.001 < someCustom["custom"][1], nil, -1, -1, -1, nil, nil;
+end
+
+
+
+--
+local function VUHDO_healthAboveAbsValidator(anInfo, someCustom)
+	return anInfo["health"] * 0.001 >= someCustom["custom"][1], nil, -1, -1, -1, nil, nil;
 end
 
 
@@ -712,6 +727,20 @@ VUHDO_BOUQUET_BUFFS_SPECIAL = {
 		["displayName"] = VUHDO_I18N_BOUQUET_HEALTH_ABOVE,
 		["validator"] = VUHDO_healthAboveValidator,
 		["custom_type"] = VUHDO_BOUQUET_CUSTOM_TYPE_PERCENT,
+		["interests"] = { VUHDO_UPDATE_HEALTH, VUHDO_UPDATE_HEALTH_MAX },
+	},
+
+	["HEALTH_BELOW_ABS"] = {
+		["displayName"] = VUHDO_I18N_BOUQUET_HEALTH_BELOW_ABS,
+		["validator"] = VUHDO_healthBelowAbsValidator,
+		["custom_type"] = VUHDO_BOUQUET_CUSTOM_TYPE_HEALTH,
+		["interests"] = { VUHDO_UPDATE_HEALTH, VUHDO_UPDATE_HEALTH_MAX },
+	},
+
+	["HEALTH_ABOVE_ABS"] = {
+		["displayName"] = VUHDO_I18N_BOUQUET_HEALTH_ABOVE_ABS,
+		["validator"] = VUHDO_healthAboveAbsValidator,
+		["custom_type"] = VUHDO_BOUQUET_CUSTOM_TYPE_HEALTH,
 		["interests"] = { VUHDO_UPDATE_HEALTH, VUHDO_UPDATE_HEALTH_MAX },
 	},
 

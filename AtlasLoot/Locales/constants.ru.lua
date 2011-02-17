@@ -1,4 +1,4 @@
-﻿-- $Id: constants.ru.lua 3121 2010-12-07 20:55:18Z celellach $
+﻿-- $Id: constants.ru.lua 3264 2011-01-27 20:10:48Z dynaletik $
 --[[
 constants.ru.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -303,8 +303,8 @@ if AL then
 
 	-- PvP Menu
 	AL["Arathi Basin Sets"] = "Комплекты Низины Арати";
-	AL["PvP Accessories"] = "PvP Аксессуары";
-	AL["PvP Armor Sets"] = "PvP Комплекты Доспехов";
+	AL["PvP Accessories"] = "PvP предметы";
+	AL["PvP Armor Sets"] = "PvP комплекты доспехов";
 	AL["PvP Weapons"] = "PvP Оружие";
 	AL["PvP Non-Set Epics"] = "PvP Превосходные не из комплектов";
 	AL["PvP Reputation Sets"] = "PvP комплекты за репутацию";
@@ -312,6 +312,7 @@ if AL then
 	AL["PvP Misc"] = "PvP ювелирные эскизы";
 	AL["PVP Gems/Enchants/Jewelcrafting Designs"] = "PvP Самоцветы/Чары/Ювелирные эскизы";
 	AL["PvP Class Items"] = "PvP предметы";
+	AL["PvP Trinkets"] = "PvP аксессуары";
 	AL["NOT AVAILABLE ANYMORE"] = "Больше не доступно";
 
 	-- World Events
@@ -334,6 +335,7 @@ if AL then
 	AL["Pilgrim's Bounty"] = "Пиршество странников";
 	AL["Skettis"] = "Скеттис";
 	AL["Stranglethorn Fishing Extravaganza"] = "Рыбомания Тернистой долины";
+	AL["Kalu'ak Fishing Derby"] = "Калуакское рыбоборье";
 	AL["Elemental Unrest"] = "Нашествие элементалей";
 
 	-- Minimap Button
@@ -392,11 +394,21 @@ if AL then
 	AL["Cloak"] = "Плащ";
 
 	-- Alchemy
-	AL["Battle Elixirs"] = "Боевые Эликсиры";
-	AL["Guardian Elixirs"] = "Оборонительные Эликсиры";
+	AL["Battle Elixirs"] = "Боевые эликсиры";
+	AL["Cauldron"] = "Котел";
+	AL["Cauldrons"] = "Котлы";
+	AL["Guardian Elixirs"] = "Оборонительные эликсиры";
+	AL["Oils"] = "Масла";
+	AL["Other Elixirs"] = "Другие элексиры";
 	AL["Potions"] = "Зелья";
 	AL["Transmutes"] = "Трансмутация";
 	AL["Flasks"] = "Фляги";
+	AL["Guild"] = "Гильдия";
+	
+	-- Blacksmithing
+	AL["Cataclysm Vendor Sold Plans"] = "Чертежы Cataclysmа у торговцев";
+	AL["Armor Enhancements"] = "Улучшения доспехов";
+	AL["Weapon Enhancements"] = "Улучшения оружия";
 
 	-- Enchanting
 	AL["Enchant Boots"] = "Чары для обуви";
@@ -408,12 +420,23 @@ if AL then
 	AL["Enchant Shield"] = "Чары для щита";
 	AL["Enchant 2H Weapon"] = "Чары для двуручного оружия";
 	AL["Enchant Weapon"] = "Чары для оружия";
+	AL["Cataclysm Vendor Sold Formulas"] = "Формулы Cataclysmа у торговцев";
+	
+	-- Engineering
+	AL["Tinker"] = "Конструирование";
 
 	-- Inscription
+	AL["Glyph"] = "Символ";
+	AL["Prime Glyph"] = "Основной символ";
 	AL["Major Glyph"] = "Большой символ";
 	AL["Minor Glyph"] = "Малый символ";
+	AL["Runescrolls"] = "Рунические свитки";
+	AL["Recall"] = "Возвраты";
 	AL["Scrolls"] = "Свитки";
 	AL["Off-Hand Items"] = "Предметы в левую руку";
+	AL["Relics/Shoulder Enchants"] = "Реликвии";
+	AL["Relics"] = "Реликвии";
+	AL["Shoulder Enchants"] = "Наложения на плечи";
 	AL["Reagents"] = "Реагенты";
 	AL["Book of Glyph Mastery"] = "Книга познания символов";
 
@@ -428,6 +451,7 @@ if AL then
 	AL["Cloth Armor"] = "Тканевая броня";
 	AL["Shirts"] = "Рубашки";
 	AL["Bags"] = "Сумки";
+	AL["Cataclysm Vendor Sold Patterns"] = "Выкройки Cataclysmа у торговцев";
 
 	-- Labels for loot descriptions
 	AL["Classes:"] = "Классы:";
@@ -535,11 +559,13 @@ if AL then
 	AL["Random"] = "Случайный";
 	AL["Brew of the Month Club"] = "Клуб \"Пиво месяца\"";
 
-	-- Cooking descriptions
+	-- Profession descriptions
 	AL["Buff"] = "Полож. эффект";
 	AL["Agility"] = "Ловкость";
 	AL["Intellect"] = "Интеллект";
 	AL["Strength"] = "Сила";
+	AL["Spirit"] = "Дух";
+	AL["Stamina"] = "Выносливость";
 	AL["Agility, Intellect, Strength"] = "Ловкость, Интеллект, Сила";
 	AL["Spell Power"] = "Сила заклинаний";
 	AL["Attack Power"] = "Сила атаки";
@@ -553,7 +579,9 @@ if AL then
 	AL["Mastery Rating"] = "Искусность";
 	AL["Parry Rating"] = "Парирование";
 	AL["Other Ratings"] = "Другое";
+	AL["Ratings"] = "Рейтинги";
 	AL["Resistance"] = "Сопротивление";
+	AL["Damage Absorption"] = "Поглощение урона";
 	AL["Health / Second"] = "Здоровье / сек.";
 	AL["Mana / Second"] = "Мана / сек.";
 	AL["Tracking"] = "Отслеживание";
@@ -563,10 +591,25 @@ if AL then
 	AL["Mana"] = "Мана";
 	AL["Health and Mana"] = "Здоровье и Мана";
 	AL["Other Buffs"] = "Другие эффекты";
+	AL["Other"] = "Другое";
 	AL["Standard Buffs"] = "Стандартные эффекты";
 	AL["Food without Buffs"] = "Еда без эффектов";
 	AL["Special"] = "Специальное";
 	AL["Feasts"] = "Пиры";
+	AL["Speed"] = "Скорость";
+	AL["Rod"] = "Жезл";
+	AL["Oil"] = "Масло";
+	AL["Dwarf"] = "Дворфы";
+	AL["Draenei"] = "Дренеи";
+	AL["Night Elf"] = "Ночные эльфы";
+	AL["Fossil"] = "Окаменелости";
+	AL["Nerubian"] = "Нерубы";
+	AL["Vrykul"] = "Врайкулы";
+	AL["Troll"] = "Тролли";
+	AL["Tol'vir"] = "Тол'виры";
+	AL["Orc"] = "Орки";
+	AL["Stats"] = "Статистика";
+	AL["Resilience"] = "Устойчивость";
 
 	-- Extra Text in Boss lists
 	AL["Set: Embrace of the Viper"] = "Комплект: Объятия гадюки";
@@ -597,9 +640,13 @@ if AL then
 	AL["Trial of the Crusader Patterns/Plans"] = "Испытание крестоносца - выкройки/чертежы";
 	AL["BRD Blacksmithing Plans"] = "ГЧГ - Чертежи для кузнецов";
 
-	-- Companions
+	-- General titles
 	AL["Achievement"] = "Достижение";
-	AL["Achievement & Faction Reward Companions"] = "Спутники за достижения и за фракции";
+	AL["Promotional & Card Game"] = "Поощрительные и карточные игры";
+	
+	-- Companions
+	AL["Achievement & Faction Reward Companions"] = "Спутники за достижения и фракции";
+	AL["Achievement & Faction Reward"] = "Награды за достижения и фракции";
 	AL["Card Game Companions"] = "Спутники с игровых карт";
 	AL["Companion Accessories"] = "Аксессуары спутников";
 	AL["Companion Store"] = "Магазин спутников";
@@ -631,7 +678,7 @@ if AL then
 	AL["Unobtainable Mounts"] = "Недоступный транспорт";
 
 	-- Tabards
-	AL["Achievement & Quest Reward Tabards"] = "Накидки за достижения и за фракции";
+	AL["Achievement & Quest Reward Tabards"] = "Накидки за достижения и фракции";
 	AL["Alliance Tabards"] = "Накидки альянса";
 	AL["Card Game Tabards"] = "Накидки с игровых карт";
 	AL["Horde Tabards"] = "Накидки орды";
@@ -642,11 +689,11 @@ if AL then
 	-- Darkmoon Faire
 	AL["Darkmoon Faire Rewards"] = "Награды Ярмарки Новолуния";
 	AL["Low Level Decks"] = "Низко уровневые колоды";
-	AL["Level 60 Trinkets"] = "Акксесуанры на 60урв";
-	AL["Level 70 Trinkets"] = "Акксесуанры на 70урв";
-	AL["Level 60 & 70 Trinkets"] = "Акксесуанры на 60/70 урв";
-	AL["Level 80 Trinkets"] = "Акксесуанры на 80 урв";
-	AL["Level 85 Trinkets"] = "Акксесуанры на 85 урв";
+	AL["Level 60 Trinkets"] = "Аксессуары на 60урв";
+	AL["Level 70 Trinkets"] = "Аксессуары на 70урв";
+	AL["Level 60 & 70 Trinkets"] = "Аксессуары на 60/70 урв";
+	AL["Level 80 Trinkets"] = "Аксессуары на 80 урв";
+	AL["Level 85 Trinkets"] = "Аксессуары на 85 урв";
 
 	-- Card Game Decks and descriptions
 	AL["Loot Card Items"] = "Предметы с карт";
@@ -726,6 +773,9 @@ if AL then
 
 	-- Thirtheenth set
 	AL["Worldbreaker"] = "Миродробитель";
+	AL["Mottled Drake"] = "Пятнистый верховой дракон";
+	AL["Grim Campfire"] = "Мрачный костер";
+	AL["Landro's Lil' XT"] = "Разрушитель XXS-002 Ландро";
 
 	-- Battleground Brackets
 	AL["Old PvP Rewards"] = "Старые нарады PvP";
@@ -935,7 +985,6 @@ if AL then
 	AL["Matron Li-sahar"] = "Сестра Ли-саар";
 	AL["Solus the Eternal"] = "Солус Вечный";
 	AL["Smokywood Pastures Vendor"] = "торговец-Пастбища Дымного Леса";
-	AL["Shartuul"] = "Шартуул";
 	AL["Darkscreecher Akkarai"] = "Темный Крикун Аккарай";
 	AL["Karrog"] = "Каррог";
 	AL["Gezzarak the Huntress"] = "Геззарак Охотница";
@@ -962,11 +1011,9 @@ if AL then
 	AL["Thomas Yance"] = "Томас Янс";
 	AL["Knot Thimblejack"] = "Уззл Наперстяк";
 	AL["Shen'dralar Provisioner"] = "Шен'драларский поставщик";
-	AL["Namdo Bizzfizzle"] = "Намдо Вклвыкл";
 	AL["The Nameles Prophet"] = "Безымянный пророк";
 	AL["Rajaxx's Captains"] = "Капитаны Раджакса";
 	AL["Razorfen Spearhide"] = "Копьешкур из племени Иглошкурых";
-	AL["Kalldan Felmoon"] = "Калидан Лунный Серп";
 	AL["Magregan Deepshadow"] = "Магреган Чернотень";
 	AL["Don Carlos"] = "Дон Карлос";
 	AL["Thomas Yance"] = "Томас Янс";
@@ -977,8 +1024,13 @@ if AL then
 	AL["Razzashi Raptor"] = "Ящер Раззаши";
 	AL["Deviate Ravager/Deviate Guardian"] = "Загадочный опустошитель/Загадочный страж";
 	AL["Servant's Quarter Animal Bosses"] = "Боссы Комнаты Слуг";
-	--AL["Jadefang"] = true;
-	--AL["Aeonaxx"] = true;
+	AL["Jadefang"] = "Яшмовый Клык";
+	AL["Aeonaxx"] = "Эонакс";
+	AL["Prince Sarsarun"] = "Принц Сарсарун";
+	--AL["Highlord Kruul"] = ""; -- added until decided if the set gets removed
+	AL["Dormus the Camel-Hoarder"] = "Дормус Погонщик Верблюдов"; 
+	AL["The Behemoth"] = "Чудище";
+	AL["Master Elemental Shaper Krixix"] = "Ваятель стихий Криксикс";
 
 	-- Zones
 	AL["World Drop"] = "Мировой выпад";
@@ -1005,17 +1057,11 @@ if AL then
 	AL["The Vault"] = "Чертог";
 	AL["Ogre Tannin Basket"] = "Огрский дубильный чан";
 	AL["Fengus's Chest"] = "Сундук Фенгуса";
-	AL["The Prince's Chest"] = "Сундук принца";
-	AL["Doan's Strongbox"] = "Сейф Доана";
-	AL["Frostwhisper's Embalming Fluid"] = "Бальзамировочный состав Ледяного Шепота";
-	AL["Unforged Rune Covered Breastplate"] = "Некованная руническая кираса";
-	AL["Malor's Strongbox"] = "Сейф Малора";
 	AL["Unfinished Painting"] = "Незаконченная картина";
 	AL["Felvine Shard"] = "Сквернит";
 	AL["Baelog's Chest"] = "Сундук Бейлога";
 	AL["Lorgalis Manuscript"] = "Манускрипт Лоргалиса";
 	AL["Fathom Core"] = "Глубинный сердечник";
-	AL["Conspicuous Urn"] = "Подозрительная урна";
 	AL["Gift of Adoration"] = "Дар обожания";
 	AL["Box of Chocolates"] = "Коробка шоколада";
 	AL["Treat Bag"] = "Сумка с лакомствами";

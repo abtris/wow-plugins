@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 
 local FW = FW;
 local FWL = FW.L;
@@ -473,8 +473,8 @@ function FW:SUFrame_OnClick(button)
 end
 
 function FW:IgnoreClick()
-	local unitName = UnitName(this.unit);
-	su:setkey(unitName, this.unit,(FW:IsWarlock(this.unit) or 2),0,(GetTime()+10),SUMMON_PRIOR.IGNORE,unitName);
+	local unitName = UnitName(self.unit);
+	su:setkey(unitName, self.unit,(FW:IsWarlock(self.unit) or 2),0,(GetTime()+10),SUMMON_PRIOR.IGNORE,unitName);
 	SU_DrawSummon();
 end
 

@@ -52,8 +52,9 @@ local GetSpellCooldown = GetSpellCooldown;
 local GetSpellBookItemName = GetSpellBookItemName;
 local GetSpellInfo = GetSpellInfo;
 local InCombatLockdown = InCombatLockdown;
-
 local GetWeaponEnchantInfo = GetWeaponEnchantInfo;
+local UnitOnTaxi = UnitOnTaxi;
+
 local tonumber = tonumber;
 local tinsert = tinsert;
 local pairs = pairs;
@@ -348,7 +349,7 @@ function VuhDoBuffPreClick(aButton, aMouseButton)
 	end
 
 	if (VUHDO_BUFF_TARGET_TOTEM == tVariant[2] and VUHDO_BUFF_SETTINGS["CONFIG"]["USE_COMBINED"]) then
-		VUHDO_setupAllBuffButtonsTo(aButton, VUHDO_SPELL_ID_CALL_OF_THE_ELEMENTS, tTarget, VUHDO_SPELL_ID_CALL_OF_THE_ELEMENTS);
+		VUHDO_setupAllBuffButtonsTo(aButton, VUHDO_SPELL_ID.CALL_OF_THE_ELEMENTS, tTarget, VUHDO_SPELL_ID.CALL_OF_THE_ELEMENTS);
 	else
 		VUHDO_setupAllBuffButtonsTo(aButton, tBuff, tTarget, tBuff);
 	end
@@ -432,7 +433,7 @@ end
 
 
 local VUHDO_BLACKLIST_BUFFS = {
-	[VUHDO_SPELL_ID_BUFF_VIGILANCE] = "Interface\\Icons\\Spell_Nature_Sleep", -- "Wachsamkeit" gibt's einmal als racial und als warri-talent
+	[VUHDO_SPELL_ID.BUFF_VIGILANCE] = "Interface\\Icons\\Spell_Nature_Sleep", -- "Wachsamkeit" gibt's einmal als racial und als warri-talent
 }
 
 
@@ -466,7 +467,7 @@ function VUHDO_initBuffsFromSpellBook()
 
 	if (VUHDO_PLAYER_CLASS == "WARRIOR") then
 		_, _, tIcon = GetSpellInfo(50720)
-		VUHDO_BUFFS[VUHDO_SPELL_ID_BUFF_VIGILANCE] = {
+		VUHDO_BUFFS[VUHDO_SPELL_ID.BUFF_VIGILANCE] = {
 			["present"] = true,
 			["icon"] = tIcon,
 			["id"] = 50720,
@@ -559,6 +560,11 @@ local function VUHDO_getMissingBuffs(someBuffVariants, someUnits, aCategSpec)
 	tLowestUnit = nil;
 	tNow = GetTime();
 	tMaxCount = 0;
+
+	if (UnitOnTaxi("player")) then
+		return tMissGroup, tLowGroup, tGoodTarget, tLowestRest, tLowestUnit, tOkayGroup, tOorGroup, tMaxCount;
+	end
+
 
 	for _, tUnit in pairs(someUnits) do
 		tInfo = VUHDO_RAID[tUnit];
@@ -800,7 +806,6 @@ end
 --
 local tCountStr;
 local function VUHDO_setBuffSwatchTimer(aSwatchName, aSecsNum, aCount)
-
 	if ((aSecsNum or -1) >= 0) then
 		if ((aCount or 0) > 0 and not VUHDO_BUFF_SETTINGS["CONFIG"]["HIDE_CHARGES"]) then
 			tCountStr = format("|cffffffff%dx |r", aCount);

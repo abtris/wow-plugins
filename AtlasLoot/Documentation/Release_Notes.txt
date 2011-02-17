@@ -1,22 +1,37 @@
-AtlasLoot Enhanced
+﻿AtlasLoot Enhanced
 
 This mod is distributed under Version 2 of the GPL.  A copy of the GPL is included in this zip file with links to non-english translations.
 
 -Hegarol
 
 Patch Notes
+
+v6.02.00
+Reorganized Justice Points menu.
+Added missing PvP stuff.
+Revamped Archaeology.
+Updated Alchemy with Cataclysm recipes. (Thanks to Yinzara)
+Updated Blacksmithing Cataclysm and Classic level armor and weapons pages. Armor Enhancements, Weapons Enhancements and Miscellaneous pages have also been updated.
+Updated Inscription with Cataclysm recipes. (Thanks to Xecration)
+Updated Leatherworking with Cataclysm vendor sold patterns.
+Uddated Tailoring with Cataclysm recipes and vendor sold patterns. (Thanks to Panik, Earthen Ring)
+Added new stuff coming with Patch 4.0.6.
+Added support for Atlas 1.18.2.
+Removed Cataclysm dungeon and raid heroic trash drops.
+Many minor fixes, additions and translations.
+
 v6.01.02
 Archaeology updated with Rare and Epic quality rewards.
-Blacksmith updated with vendor sold plans.
+Blacksmithing updated with vendor sold plans.
 Enchanting updated with vendor sold formulas.
-Many minor fixes, additions and translations
+Many minor fixes, additions and translations.
 
 v6.01.01
 
-Fixed a bug that got people disconnected
-Added raid loot: Throne of the Four Winds, Bastion of Twilight, Blackwing Descent, Baradin Hold
-Updated frFR translation
-Many minor fixes and additions
+Fixed a bug that got people disconnected.
+Added raid loot: Throne of the Four Winds, Bastion of Twilight, Blackwing Descent, Baradin Hold.
+Updated frFR translation.
+Many minor fixes and additions.
 
 v6.01.00
 New slash command "/al wishlist"

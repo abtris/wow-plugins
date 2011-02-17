@@ -213,10 +213,10 @@ function HealBot_Comms_CheckVer(userName, version)
             hbMinor=tMinor
             hbPatch=tPatch
             hbHealbot=tHealbot
-            if HealBot_Config.UpdateMsg and not HealBot_MsgUpdateAvail then
+            if HealBot_Globals.UpdateMsg and not HealBot_MsgUpdateAvail then
                 HealBot_AddChat(HEALBOT_CHAT_ADDONID..HEALBOT_CHAT_NEWVERSION1)
                 HealBot_AddChat(HEALBOT_CHAT_ADDONID..HEALBOT_CHAT_NEWVERSION2)
-				HealBot_Config.UpdateMsg=false
+				HealBot_Globals.UpdateMsg=false
             end
             HealBot_MsgUpdateAvail = hbMajor.."."..hbMinor.."."..hbPatch.."."..hbHealbot
         end
@@ -232,21 +232,21 @@ function HealBot_Comms_OnShow(self)
     HealBot_Error_Clientx:SetText(HEALBOT_WORD_CLIENT.."="..GetLocale())
     HealBot_Error_Versionx:SetText(HEALBOT_WORD_VERSION.."="..HEALBOT_VERSION)
     HealBot_Error_Classx:SetText(HEALBOT_SORTBY_CLASS.."="..HealBot_PlayerClassEN)
-    if HealBot_Config.AcceptSkins==1 then
+    if HealBot_Globals.AcceptSkins==1 then
         HealBot_Info_AcceptSkinsVal:SetText("ON")
         HealBot_Info_AcceptSkinsVal:SetTextColor(0.1,1,0.1)
     else
         HealBot_Info_AcceptSkinsVal:SetText("OFF")
         HealBot_Info_AcceptSkinsVal:SetTextColor(0.88,0.1,0.1)
     end
-    if HealBot_Config.MacroSuppressError==1 then
+    if HealBot_Globals.MacroSuppressError==1 then
         HealBot_Info_SuppressErrorsVal:SetText("ON")
         HealBot_Info_SuppressErrorsVal:SetTextColor(0.1,1,0.1)
     else
         HealBot_Info_SuppressErrorsVal:SetText("OFF")
         HealBot_Info_SuppressErrorsVal:SetTextColor(0.88,0.1,0.1)
     end
-    if HealBot_Config.MacroSuppressSound==1 then
+    if HealBot_Globals.MacroSuppressSound==1 then
         HealBot_Info_SuppressSoundsVal:SetText("ON")
         HealBot_Info_SuppressSoundsVal:SetTextColor(0.1,1,0.1)
     else

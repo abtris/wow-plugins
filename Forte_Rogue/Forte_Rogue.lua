@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 
 if FW.CLASS == "ROGUE" then
 	local FW = FW;
@@ -56,9 +56,40 @@ if FW.CLASS == "ROGUE" then
 		ST:RegisterBuff(32645); -- Envenom
 		ST:RegisterBuff(73651); -- Recuperate
 		
-		ST:RegisterMeleeBuffs();			
+		ST:RegisterMeleeBuffs();		
+
+		local sap = FW:SpellName(6770);
+		ST:RegisterOnTimerBreak(function(unit,mark,spell)
+			if spell == sap then
+				if mark~=0 then unit=FW.RaidIcons[mark]..unit;end
+				CA:CastShow("SapBreak",unit);
+			end
+		end);
+		ST:RegisterOnTimerFade(sap,"SapFade");		
 	end
 	if CD then
 		CD:RegisterMeleePowerupCooldowns();
 	end
+	
+	FW:SetMainCategory(FWL.RAID_MESSAGES,FW.ICON.MESSAGE,10,"RAIDMESSAGES");
+		FW:SetSubCategory(FW.NIL,FW.NIL,1);
+			FW:RegisterOption(FW.INF,2,FW.NON,FWL.RAID_MESSAGES_HINT1);
+			FW:RegisterOption(FW.INF,2,FW.NON,FWL.RAID_MESSAGES_HINT2);
+			FW:RegisterOption(FW.CHK,2,FW.NON,FWL.SHOW_IN_RAID,		FWL.SHOW_IN_RAID_TT,    "OutputRaid");
+			FW:RegisterOption(FW.MSG,2,FW.NON,FWL.SHOW_IN_CHANNEL,	FWL.SHOW_IN_CHANNEL_TT,	"Output");
+
+	if ST then
+		FW:SetSubCategory(FWL.BREAK_FADE,FW.ICON.SPECIFIC,2);
+			FW:RegisterOption(FW.INF,2,FW.NON,FWL.BREAK_FADE_HINT1);
+			FW:RegisterOption(FW.MS2,2,FW.NON,FWL.SAP_BREAK,		"",    "SapBreak");
+			FW:RegisterOption(FW.MS2,2,FW.NON,FWL.SAP_FADE,		"",    "SapFade");
+	end
+	
+	FW.Default.OutputRaid = true;
+	FW.Default.Output = true;
+	FW.Default.OutputMsg = "MyProRogueChannel";
+
+	FW.Default.SapBreak = 0;	FW.Default.SapBreakMsg = ">> Sap on %s Broke Early! <<";
+	FW.Default.SapFade = 0;	FW.Default.SapFadeMsg = ">> Sap on %s Fading in 3 seconds! <<";
+	
 end

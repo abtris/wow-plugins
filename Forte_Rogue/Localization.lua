@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+﻿-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 
 --[[
 "frFR": French
@@ -16,20 +16,44 @@
 
 --[[>> still needs translating]]
 
---[[if FW.CLASS == "PRIEST" then
+if FW.CLASS == "ROGUE" then
 	local FWL = FW.L;
-	if GetLocale() == "ruRU" then
-	-- FR
-	elseif GetLocale() == "frFR" then
-	-- DE 
-	elseif GetLocale() == "deDE" then
-	-- SPANISH
-	elseif GetLocale() == "esES" then
-	-- Simple Chinese
+
+	-- THESE ARE INTERFACE STRINGS ONLY AND TRANSLATING THEM IS OPTIONAL
+
+	-- French
+	if GetLocale() == "frFR" then
+	--[[>>]]FWL.SAP_BREAK = "Sap Break";
+	--[[>>]]FWL.SAP_FADE = "Sap Fade";
+		
+	-- Russian
+	elseif GetLocale() == "ruRU" then
+	--[[>>]]FWL.SAP_BREAK = "Sap Break";
+	--[[>>]]FWL.SAP_FADE = "Sap Fade";
+		
+	-- simplified chinese
 	elseif GetLocale() == "zhCN" then
-	-- tradition Chinese
+	--[[>>]]FWL.SAP_BREAK = "Sap Break";
+	--[[>>]]FWL.SAP_FADE = "Sap Fade";
+
+	-- traditional chinese
 	elseif GetLocale() == "zhTW" then
+	--[[>>]]FWL.SAP_BREAK = "Sap Break";
+	--[[>>]]FWL.SAP_FADE = "Sap Fade";
+		
+	-- DE by DeaTHCorE (found a error? have a better translation? send me a email at dhaft@gmx.de)
+	elseif GetLocale() == "deDE" then
+	--[[>>]]FWL.SAP_BREAK = "Sap Break";
+	--[[>>]]FWL.SAP_FADE = "Sap Fade";
+		
+	--Korean
+	elseif GetLocale() == "koKR" then
+	--[[>>]]FWL.SAP_BREAK = "Sap Break";
+	--[[>>]]FWL.SAP_FADE = "Sap Fade";	
+		
 	-- ENGLISH
-	else
+	else	-- standard english version
+		FWL.SAP_BREAK = "Sap Break";
+		FWL.SAP_FADE = "Sap Fade";
 	end
-end]]
+end

@@ -7,7 +7,7 @@ local VUHDO_FULL_DURATION_DEBUFFS = {
 VUHDO_MAY_DEBUFF_ANIM = true;
 
 local VUHDO_DEBUFF_ICONS = { };
-local sScale, sIsAnim, sIsTimer, sIsStacks, sIsName;
+local sIsAnim, sIsTimer, sIsStacks, sIsName;
 
 -- BURST CACHE ---------------------------------------------------
 
@@ -41,7 +41,6 @@ function VUHDO_customDebuffIconsInitBurst()
 
 	VUHDO_CONFIG = VUHDO_GLOBAL["VUHDO_CONFIG"];
 	sCuDeConfig = VUHDO_CONFIG["CUSTOM_DEBUFF"];
-	sScale = VUHDO_CONFIG["CUSTOM_DEBUFF"]["scale"];
 	sMaxIcons = VUHDO_CONFIG["CUSTOM_DEBUFF"]["max_num"];
 end
 
@@ -58,6 +57,7 @@ local tExpiry, tRemain;
 local tStacks;
 local tCuDeStoConfig;
 local tIconIndex;
+local tIconButton;
 
 local function VUHDO_animateDebuffIcon(aButton, someIconInfos, aNow)
 	for tCnt = 1, sMaxIcons do
@@ -94,6 +94,7 @@ local function VUHDO_animateDebuffIcon(aButton, someIconInfos, aNow)
 			end
 
 			tIconFrame = VUHDO_getBarIconFrame(aButton, tIconIndex);
+			tIconButton = VUHDO_getBarIconButton(aButton, tIconIndex);
 
 			if (tIconInfo[2] < 0) then
 				tTimestamp = aNow;
@@ -102,11 +103,11 @@ local function VUHDO_animateDebuffIcon(aButton, someIconInfos, aNow)
 					VUHDO_getBarIconName(aButton, tIconIndex):SetText(tIconInfo[3]);
 					VUHDO_getBarIconName(aButton, tIconIndex):SetAlpha(1);
 				end
-				tIconFrame:SetScale(0.7 * sScale);
-				tIconFrame:Show();
+				tIconFrame:SetAlpha(1);
 
 				if (sIsAnim) then
 					VUHDO_setDebuffAnimation(1.2);
+					--tIconButton:SetScale(1);
 				end
 
 			else
@@ -116,12 +117,12 @@ local function VUHDO_animateDebuffIcon(aButton, someIconInfos, aNow)
 			tAliveTime = aNow - tTimestamp;
 			if (sIsAnim) then
 				if (tAliveTime <= 0.4) then
-					tIconFrame:SetScale((0.7 + (tAliveTime * 2.5)) * sScale);
+					tIconButton:SetScale((1 + (tAliveTime * 2.5)));
 				elseif (tAliveTime <= 0.6) then
 					 -- Keep size
 				elseif (tAliveTime <= 1.1) then
 					tDelta = (tAliveTime - 0.6) * 2;
-					tIconFrame:SetScale((0.7 + (1 - tDelta)) * sScale);
+					tIconButton:SetScale((1 + (1 - tDelta)));
 				end
 			end
 
@@ -164,7 +165,8 @@ end
 local tCnt;
 local tSlot;
 local tOldest;
-function VUHDO_addDebuffIcon(aUnit, anIcon, aName, anExpiry, aStacks, aDuration)
+local tAllButtons, tButton, tFrame;
+function VUHDO_addDebuffIcon(aUnit, anIcon, aName, anExpiry, aStacks, aDuration, anIsBuff)
 	if (VUHDO_DEBUFF_ICONS[aUnit] == nil) then
 		VUHDO_DEBUFF_ICONS[aUnit] = { };
 	end
@@ -180,6 +182,15 @@ function VUHDO_addDebuffIcon(aUnit, anIcon, aName, anExpiry, aStacks, aDuration)
 				tOldest = VUHDO_DEBUFF_ICONS[aUnit][tCnt][2];
 				tSlot = tCnt;
 			end
+		end
+	end
+
+	tAllButtons = VUHDO_getUnitButtons(aUnit);
+	if (tAllButtons ~= nil) then
+		for _, tButton in pairs(tAllButtons) do
+			tFrame = VUHDO_getBarIconFrame(tButton, tSlot + 39);
+			tFrame["debuffInfo"] = aName;
+			tFrame["isBuff"] = anIsBuff;
 		end
 	end
 
@@ -207,6 +218,7 @@ end
 
 --
 local tAllButtons2, tCnt2, tButton2;
+local tFrame;
 function VUHDO_removeDebuffIcon(aUnit, aName)
 	tAllButtons2 = VUHDO_getUnitButtons(aUnit);
 	if (tAllButtons2 == nil) then
@@ -217,7 +229,9 @@ function VUHDO_removeDebuffIcon(aUnit, aName)
 		if (VUHDO_DEBUFF_ICONS[aUnit][tCnt2] ~= nil and VUHDO_DEBUFF_ICONS[aUnit][tCnt2][3] == aName) then
 			VUHDO_DEBUFF_ICONS[aUnit][tCnt2][2] = 1; -- ~= -1, lock icon to not be processed by onupdate
 			for _, tButton2 in pairs(tAllButtons2) do
-				VUHDO_getBarIconFrame(tButton2, tCnt2 + 39):Hide();
+				tFrame = VUHDO_getBarIconFrame(tButton2, tCnt2 + 39);
+				tFrame:SetAlpha(0);
+				tFrame["debuffInfo"] = nil;
 			end
 
 			VUHDO_DEBUFF_ICONS[aUnit][tCnt2] = nil;
@@ -229,6 +243,7 @@ end
 
 --
 local tAllButtons3, tCnt3, tButton3;
+local tFrame;
 function VUHDO_removeAllDebuffIcons(aUnit)
 	tAllButtons3 = VUHDO_getUnitButtons(aUnit);
 	if (tAllButtons3 == nil) then
@@ -236,8 +251,10 @@ function VUHDO_removeAllDebuffIcons(aUnit)
 	end
 
 	for _, tButton3 in pairs(tAllButtons3) do
-		for tCnt3 = 1, 5 do
-			VUHDO_getBarIconFrame(tButton3, tCnt3 + 39):Hide();
+		for tCnt3 = 40, 44 do
+			tFrame = VUHDO_getBarIconFrame(tButton3, tCnt3);
+			tFrame:SetAlpha(0);
+			tFrame["debuffInfo"] = nil;
 		end
 	end
 

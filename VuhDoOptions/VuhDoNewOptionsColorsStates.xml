@@ -45,7 +45,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.CLUSTER_FAIR");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_FAIR, VUHDO_I18N_FAIR);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_440);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K440);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -62,7 +62,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.CLUSTER_GOOD");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_GOOD, VUHDO_I18N_GOOD);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_441);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K441);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -114,7 +114,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.DEAD");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_DEAD, VUHDO_I18N_DEAD);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_036);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K036);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -131,7 +131,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.OFFLINE");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_OFFLINE, VUHDO_I18N_OFFLINE);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_037);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K037);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -148,7 +148,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.CHARMED");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_CHARMED, VUHDO_I18N_CHARMED);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_038);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K038);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -165,7 +165,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.GCD_BAR");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_GCD, VUHDO_I18N_GLOBAL_COOLDOWN);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_443);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K443);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -386,7 +386,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.DEBUFF1");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_POISON, VUHDO_I18N_POISON);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_040);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K040);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -403,7 +403,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.DEBUFF2");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_DISEASE, VUHDO_I18N_DISEASE);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_041);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K041);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -420,7 +420,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.DEBUFF4");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_CURSE, VUHDO_I18N_CURSE);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_042);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K042);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -437,7 +437,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.DEBUFF3");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_MAGIC, VUHDO_I18N_MAGIC);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_043);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K043);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -454,7 +454,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.DEBUFF6");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_CUSTOM, VUHDO_I18N_CUSTOM);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_261);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K261);
 							</OnLoad>
 						</Scripts>
 					</Frame>

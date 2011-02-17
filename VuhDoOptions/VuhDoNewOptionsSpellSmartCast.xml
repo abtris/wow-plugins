@@ -27,7 +27,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.SMARTCAST_CLEANSE");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_048);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K048);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -43,7 +43,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.SMARTCAST_RESURRECT");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_049);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K049);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -59,7 +59,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.SMARTCAST_BUFF");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_215);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K215);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -75,7 +75,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_SPELL_CONFIG.autoBattleRez");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_360);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K360);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -135,7 +135,7 @@
 										{ "alt", VUHDO_I18N_ALT },
 									}
 								);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_359);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K359);
 							</OnLoad>
 						</Scripts>
 

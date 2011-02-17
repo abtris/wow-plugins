@@ -28,7 +28,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfCheckButtonOnLoad(self);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_104);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K104);
 							</OnLoad>
 							<OnClick>VUHDO_newOptionsPanelHeaderClicked(self); VUHDO_lnfRadioButtonClicked(self)</OnClick>
 						</Scripts>
@@ -45,7 +45,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfCheckButtonOnLoad(self);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_105);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K105);
 							</OnLoad>
 							<OnClick>VUHDO_newOptionsPanelBasicClicked(self); VUHDO_lnfRadioButtonClicked(self)</OnClick>
 						</Scripts>
@@ -63,7 +63,7 @@
 							<OnClick>VUHDO_newOptionsPanelTooltipClicked(self); VUHDO_lnfRadioButtonClicked(self)</OnClick>
 							<OnLoad>
 								VUHDO_lnfCheckButtonOnLoad(self);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_106);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K106);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -80,7 +80,7 @@
 							<OnClick>VUHDO_newOptionsPanelTextClicked(self); VUHDO_lnfRadioButtonClicked(self)</OnClick>
 							<OnLoad>
 								VUHDO_lnfCheckButtonOnLoad(self);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_107);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K107);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -97,7 +97,7 @@
 							<OnClick>VUHDO_newOptionsPanelHotsClicked(self); VUHDO_lnfRadioButtonClicked(self)</OnClick>
 							<OnLoad>
 								VUHDO_lnfCheckButtonOnLoad(self);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_337);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K337);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -114,7 +114,7 @@
 							<OnClick>VUHDO_newOptionsPanelHotBarsClicked(self); VUHDO_lnfRadioButtonClicked(self)</OnClick>
 							<OnLoad>
 								VUHDO_lnfCheckButtonOnLoad(self);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_338);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K338);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -131,7 +131,7 @@
 							<OnClick>VUHDO_newOptionsPanelMiscClicked(self); VUHDO_lnfRadioButtonClicked(self)</OnClick>
 							<OnLoad>
 								VUHDO_lnfCheckButtonOnLoad(self);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_402);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K402);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -147,7 +147,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfCheckButtonOnLoad(self);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_108);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K108);
 							</OnLoad>
 							<OnClick>VUHDO_newOptionsPanelTargetClicked(self); VUHDO_lnfRadioButtonClicked(self)</OnClick>
 						</Scripts>
@@ -164,7 +164,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfCheckButtonOnLoad(self);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_109);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K109);
 							</OnLoad>
 							<OnClick>VUHDO_newOptionsPanelSizeClicked(self); VUHDO_lnfRadioButtonClicked(self)</OnClick>
 						</Scripts>
@@ -181,7 +181,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfCheckButtonOnLoad(self);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_110);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K110);
 							</OnLoad>
 							<OnClick>VUHDO_newOptionsPanelBarsClicked(self); VUHDO_lnfRadioButtonClicked(self)</OnClick>
 						</Scripts>
@@ -201,7 +201,7 @@
 				<Scripts>
 					<OnClick>VUHDO_newOptionsApplyToAllOnClick();</OnClick>
 					<OnLoad>
-						 VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_111);
+						 VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K111);
 					</OnLoad>
 				</Scripts>
 			</Button>

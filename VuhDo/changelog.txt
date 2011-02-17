@@ -1,3 +1,197 @@
+since Version 2.86 (to 2.87):
+
+Bugfixes:
+-- Fixed: Clique compat mode
+-- Minor bugfixes
+
+Improvements:
+
+Changes:
+
+Features:
+-- Added bouquet items for absolute health > / < x k.
+   (Now you can copy your health bar bouquet for
+    "Chimearon" encounter to add one of these bouquet
+    items)
+
+
+--------------------------------------------------------------
+since Version 2.85 (to 2.86):
+
+Bugfixes:
+-- Fixed: Interface\AddOns\VuhDo\VuhDoDirections.lua:168:
+          attempt to index local 'aButton' (a nil value)
+Improvements:
+
+Changes:
+
+Features:
+
+--------------------------------------------------------------
+since Version 2.84 (to 2.85):
+
+Bugfixes:
+-- Minor bugfixes
+
+Improvements:
+
+Changes:
+
+Features:
+
+--------------------------------------------------------------
+since Version 2.83 (to 2.84):
+
+Bugfixes:
+-- Minor bugfixes
+
+Improvements:
+
+Changes:
+
+Features:
+
+--------------------------------------------------------------
+since Version 2.82 (to 2.83):
+
+Bugfixes:
+-- Fixed: Clique compatibility mode
+
+
+Improvements:
+
+Changes:
+
+Features:
+
+--------------------------------------------------------------
+since Version 2.80 (to 2.81):
+
+Bugfixes:
+-- Fixed: Buttons not clickable after smart cast
+
+
+Improvements:
+
+Changes:
+
+Features:
+
+--------------------------------------------------------------
+since Version 2.79 (to 2.80):
+
+Bugfixes:
+-- Fixed: Frame level bug (Buttons behind panel)
+
+
+Improvements:
+
+Changes:
+
+Features:
+
+--------------------------------------------------------------
+since Version 2.78 (to 2.79):
+
+Bugfixes:
+-- Fixed: Only left click working on debuff icons
+
+
+Improvements:
+
+Changes:
+
+Features:
+
+--------------------------------------------------------------
+since Version 2.77 (to 2.78):
+
+Bugfixes:
+
+
+Improvements:
+-- Debuff icons now are clickable too (keeping tooltips)
+-- Resurrection announce text is not case sensitive anymore
+-- Macro templates vuhdo,vdname,vdpet and vdtarget are not
+   case sensitive anymore
+
+Changes:
+-- Removed libButtonFacade support for debuff icons
+   (for reason see: Improvements)
+-- Slightly increased text shadow for debuff icon timer
+
+Features:
+
+--------------------------------------------------------------
+since Version 2.76 (to 2.77):
+
+Bugfixes:
+-- Fixed bug with raid target icons disappearing on target bars
+
+Improvements:
+
+Changes:
+
+Features:
+
+--------------------------------------------------------------
+since Version 2.74 (to 2.75):
+
+Bugfixes:
+-- Attempt to fix a rare frame strata bug
+-- Minor bugfixes and improvemtents
+
+Improvements:
+-- Added 33 default custom debuffs for cataclysm raids
+-- Performance optimizations
+
+Changes:
+-- Changed the way health text is displayed
+-- Hot bar orientation will follow health bar orientation
+
+
+Features:
+-- Added an option to show hide hp total
+   (Options=>Panels=>Text)
+
+--------------------------------------------------------------
+since Version 2.73 (to 2.74):
+
+Bugfixes:
+-- Fixed a bug with libButtonFacade
+
+
+Improvements:
+
+Changes:
+
+
+Features:
+
+
+--------------------------------------------------------------
+since Version 2.72 (to 2.73):
+
+Bugfixes:
+-- Fixed some minor bugs
+
+Improvements:
+-- Added some map sizes of cc dungeons to cluster finder
+-- Updated russian translation (Thanks to: Lord Kuper!)
+-- Redcued overall usage of global name space
+-- Performance optimizations
+-- Tapped units from other players will show grey in target bars
+-- Units out of range will reduce opacity in target bars
+
+Changes:
+
+
+Features:
+-- Custom debuff icons now have tooltips
+   (disable in options=>panels=>tooltips)
+
+
+--------------------------------------------------------------
 since Version 2.71 (to 2.72):
 
 Bugfixes:

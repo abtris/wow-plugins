@@ -10,7 +10,13 @@ function PowaAuras:VARIABLES_LOADED(...)
 	for k in pairs(PowaMisc) do
 		if (PowaAuras.PowaMiscDefault[k]==nil) then PowaMisc[k] = nil; end
 	end
-	
+	for k, v in pairs(PowaAuras.PowaGlobalMiscDefault) do
+		if (PowaGlobalMisc[k]==nil) then PowaGlobalMisc[k] = v; end
+	end
+	-- Remove redundant settings
+	for k in pairs(PowaGlobalMisc) do
+		if (PowaAuras.PowaGlobalMiscDefault[k]==nil) then PowaGlobalMisc[k] = nil; end
+	end	
 	if (PowaMisc.OverrideMaxTextures) then
 		self.MaxTextures = PowaMisc.UserSetMaxTextures;
 	else
@@ -28,8 +34,6 @@ function PowaAuras:VARIABLES_LOADED(...)
 		self:DisplayText(self.Colors.Purple.."<Power Auras Classic>|r "..self.Colors.Gold..self.Version.."|r - "..self.Text.welcome);
 		PowaMisc.Version = self.Version;
 	end
-	
-	PowaOptionsCpuFrame2_OnShow();
 
 	if (TestPA==nil) then
 		PowaState = {};
@@ -48,6 +52,7 @@ function PowaAuras:VARIABLES_LOADED(...)
 	
 	PowaBarAuraTextureSlider:SetMinMaxValues(1, self.MaxTextures);
 	PowaBarAuraTextureSliderHigh:SetText(self.MaxTextures);
+	PowaAuras:SetLockButtonText();
 	
 	self:FindAllChildren();
 	self:CreateEffectLists();
@@ -316,9 +321,9 @@ function PowaAuras:UNIT_SPELLCAST_SUCCEEDED(...)
 				self.DoCheck.Power = true;
 				self.DoCheck.CheckIt = true;
 			end			
-			for _, auraId in pairs(self.AurasByType.OwnSpells) do	
-				--self:ShowText("Pending set for OwnSpells ", auraId);
-				self.DoCheck.OwnSpells = true;
+			for _, auraId in pairs(self.AurasByType.SpellCooldowns) do	
+				--self:ShowText("Pending set for SpellCooldowns ", auraId);
+				self.DoCheck.SpellCooldowns = true;
 				self.DoCheck.CheckIt = true;
 				self.Pending[auraId] = GetTime() + 0.5; -- Allow 0.5 sec for client to update or time may be wrong
 			end
@@ -743,7 +748,7 @@ end
 	
 function PowaAuras:SPELL_UPDATE_COOLDOWN(...)
 	if (self.ModTest) then return; end
-	self.DoCheck.OwnSpells = true;
+	self.DoCheck.SpellCooldowns = true;
 	self.DoCheck.CheckIt = true;
 end
 		

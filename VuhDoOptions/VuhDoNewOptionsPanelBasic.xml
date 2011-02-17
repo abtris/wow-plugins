@@ -28,7 +28,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.maxColumnsWhenStructured");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_MAX_COLUMNS, 1, 15);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_083);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K083);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -47,7 +47,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.MODEL.ordering", 1);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_084);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K084);
 							</OnLoad>
 							<OnClick>
 								VUHDO_lnfRadioButtonClicked(self);
@@ -91,7 +91,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.MODEL.ordering", 0);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_085);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K085);
 							</OnLoad>
 							<OnClick>
 								VUHDO_lnfRadioButtonClicked(self);
@@ -132,7 +132,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.arrangeHorizontal");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_310);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K310);
 							</OnLoad>
 							<OnClick>
 								VUHDO_lnfCheckButtonUpdateModel(self);
@@ -153,7 +153,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.alignBottom");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_376);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K376);
 							</OnLoad>
 							<OnClick>
 								VUHDO_lnfCheckButtonUpdateModel(self);
@@ -174,7 +174,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.ommitEmptyWhenStructured");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_086);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K086);
 							</OnLoad>
 							<OnClick>
 								VUHDO_lnfCheckButtonUpdateModel(self);
@@ -195,7 +195,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.isPlayerOnTop");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_311);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K311);
 							</OnLoad>
 							<OnClick>
 								VUHDO_lnfCheckButtonUpdateModel(self);
@@ -220,7 +220,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.SCALING.maxRowsWhenLoose");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_MAX_ROWS, 1, 25);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_087);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K087);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -252,7 +252,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.POSITION.growth", "TOPLEFT");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_088);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K088);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -320,7 +320,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.POSITION.growth", "TOPRIGHT");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_089);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K089);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -336,7 +336,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.POSITION.growth", "BOTTOMLEFT");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_090);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K090);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -352,7 +352,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.POSITION.growth", "BOTTOMRIGHT");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_091);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K091);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -368,7 +368,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.POSITION.growth", "TOP");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_312);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K312);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -384,7 +384,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.POSITION.growth", "BOTTOM");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_313);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K313);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -400,7 +400,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.POSITION.growth", "LEFT");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_314);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K314);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -416,7 +416,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.POSITION.growth", "RIGHT");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_315);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K315);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -450,7 +450,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.MODEL.sort", 3);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_316);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K316);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -469,7 +469,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.MODEL.sort", 0);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_092);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K092);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -488,7 +488,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.MODEL.sort", 4);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_384);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K384);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -507,7 +507,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.MODEL.isReverse");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_390);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K390);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -526,7 +526,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.MODEL.sort", 2);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_317);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K317);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -545,7 +545,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetRadioModel(self, "VUHDO_PANEL_SETUP.#PNUM#.MODEL.sort", 1);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_094);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K094);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -615,7 +615,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.PANEL_COLOR.BACK");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_BACKGROUND, VUHDO_I18N_BACKGROUND);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_078);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K078);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -632,7 +632,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.PANEL_COLOR.BORDER", "Border");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_PANEL_BORDER, VUHDO_I18N_PANEL_BORDER);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_079);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K079);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -652,7 +652,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.PANEL_COLOR.BORDER.edgeSize");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_EDGE_SIZE, 1, 20);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_378);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K378);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -672,7 +672,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.PANEL_COLOR.BORDER.insets");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_EDGE_INSETS, 0, 20);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_379);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K379);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -691,7 +691,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_setComboModel(self, "VUHDO_PANEL_SETUP.#PNUM#.PANEL_COLOR.BORDER.file", VUHDO_BORDERS);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_377);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K377);
 							</OnLoad>
 						</Scripts>
 					</Button>

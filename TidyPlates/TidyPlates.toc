@@ -2,7 +2,7 @@
 ## Title: Tidy Plates
 ## Notes: Enjoys long walks on Darkshore 
 ## Author: Binbwen and Friends
-## Version: 6.0.7 (r103)
+## Version: 6.0.8 (r103.1)
 ## SavedVariablesPerCharacter: TidyPlatesOptions
 
 widgets\Statusbar.lua

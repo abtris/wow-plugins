@@ -147,7 +147,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_setComboModel(self, "VUHDO_BOUQUETS.SELECTED", VUHDO_BOUQET_COMBO_MODEL);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_452);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K452);
 								self:SetAttribute("custom_function_post", VUHDO_bouquetsComboValueChanged);
 							</OnLoad>
 						</Scripts>
@@ -186,7 +186,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, nil);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_459);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K459);
 							</OnLoad>
 						</Scripts>
 					</EditBox>
@@ -493,7 +493,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_setComboModel(self, nil, VUHDO_BOUQET_DETAILS_COMBO_MODEL);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_453);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K453);
 								self:SetAttribute("custom_function_post", VUHDO_bouquetsBuffComboValueChanged);
 								self:SetAttribute("derive_custom", true);
 							</OnLoad>
@@ -533,7 +533,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, nil);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_460);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K460);
 							</OnLoad>
 							<OnTextChanged>
 								VUHDO_lnfEditBoxUpdateModel(self);
@@ -569,7 +569,7 @@
 									</OnMouseDown>
 									<OnLoad>
 										VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_ITEM, VUHDO_I18N_ITEM);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_454);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K454);
 										self:SetAttribute("custom_function_post", VUHDO_bouquetsBuffColorChanged);
 									</OnLoad>
 								</Scripts>
@@ -726,7 +726,7 @@
 									<OnLoad>
 										VUHDO_setComboModel(self, nil, VUHDO_BOUQUET_ICON_COMBO_MODEL);
 										self:SetAttribute("custom_function_post", VUHDO_bouquetsBuffComboValueChanged);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_455);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K455);
 									</OnLoad>
 								</Scripts>
 							</Button>
@@ -862,7 +862,7 @@
 									</OnMouseDown>
 									<OnLoad>
 										VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_ITEM, VUHDO_I18N_ITEM);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_454);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K454);
 										self:SetAttribute("custom_function_post", VUHDO_bouquetsBuffColorChanged);
 									</OnLoad>
 								</Scripts>
@@ -922,7 +922,7 @@
 									</OnMouseDown>
 									<OnLoad>
 										VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_LOW, VUHDO_I18N_LOW);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_461);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K461);
 									</OnLoad>
 								</Scripts>
 							</Frame>
@@ -944,7 +944,7 @@
 									</OnMouseDown>
 									<OnLoad>
 										VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_FAIR, VUHDO_I18N_FAIR);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_462);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K462);
 									</OnLoad>
 								</Scripts>
 							</Frame>
@@ -967,7 +967,7 @@
 									</OnMouseDown>
 									<OnLoad>
 										VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_GOOD, VUHDO_I18N_GOOD);
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_463);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K463);
 										self:SetAttribute("custom_function_post", VUHDO_bouquetsBuffColorChanged);
 									</OnLoad>
 								</Scripts>
@@ -992,7 +992,7 @@
 				<Scripts>
 					<OnClick>VUHDO_generalBouquetBackButtonClicked(self:GetParent())</OnClick>
 				<OnLoad>
-					 VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_478);
+					 VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K478);
 				</OnLoad>
 				</Scripts>
 			</Button>

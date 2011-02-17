@@ -22,10 +22,6 @@ if not L then return end
 	L["WOW_SKILL_HEADER_SECONDARY"] = "第二專長"
 	
 	
---	wow skill names - must match exactly what is in game
-	L["WOW_SKILL_RIDING"] = "騎術"
-	
-	
 --	wow tooltip text - must match exactly what is in game
 	L["WOW_ITEM_TOOLTIP_FOOD"] = "進食時必須保持坐姿"
 	L["WOW_ITEM_TOOLTIP_DRINK"] = "喝水時必須保持坐姿"

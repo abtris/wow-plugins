@@ -1,11 +1,13 @@
 local VUHDO_PI, VUHDO_2_PI = math.pi, math.pi * 2;
+local VUHDO_1_DIV_2_PI_MUL_108 = 108 / VUHDO_2_PI;
 local WorldMapFrame = WorldMapFrame;
 local GetMouseFocus = GetMouseFocus;
 local GetPlayerFacing = GetPlayerFacing;
 local GetPlayerMapPosition = GetPlayerMapPosition;
+local UnitIsUnit = UnitIsUnit;
 local floor = floor;
 local VUHDO_atan2 = math.atan2;
-local tOldButton;
+local tOldButton, tOldDistance;
 local sIsDeadOnly;
 local sIsAlways;
 local sIsDistanceText;
@@ -14,6 +16,7 @@ local VuhDoDirectionFrame;
 local VuhDoDirectionFrameArrow;
 local VuhDoDirectionFrameText;
 local VUHDO_setMapToCurrentZone;
+local VUHDO_getDistanceBetween;
 
 local VUHDO_RAID = { };
 function VUHDO_directionsInitBurst()
@@ -26,7 +29,9 @@ function VUHDO_directionsInitBurst()
 	VuhDoDirectionFrameArrow = VUHDO_GLOBAL["VuhDoDirectionFrameArrow"];
 	VuhDoDirectionFrameText = VUHDO_GLOBAL["VuhDoDirectionFrameText"];
 	VUHDO_setMapToCurrentZone = VUHDO_GLOBAL["VUHDO_setMapToCurrentZone"];
+	VUHDO_getDistanceBetween = VUHDO_GLOBAL["VUHDO_getDistanceBetween"];
 	tOldButton = nil;
+	tOldDistance = nil;
 end
 
 
@@ -83,7 +88,8 @@ local tInfo;
 local tDistance;
 local tHeight;
 local tQuota;
-local tR1, tG1, tInvModi;
+local tR1, tG2, tInvModi;
+local tDestR, tDestG;
 function VUHDO_updateDirectionFrame(aButton)
 	if (aButton ~= nil) then
 		tButton = aButton;
@@ -113,7 +119,7 @@ function VUHDO_updateDirectionFrame(aButton)
 		return;
 	end
 
-	tCell = floor(tDirection / VUHDO_2_PI * 108 + 0.5) % 108;
+	tCell = floor(tDirection * VUHDO_1_DIV_2_PI_MUL_108 + 0.5) % 108;
 	if (tCell ~= sLastCell) then
 		sLastCell = tCell;
 		tStartX = (tCell % 9) * 0.109375;
@@ -124,43 +130,46 @@ function VUHDO_updateDirectionFrame(aButton)
 	if (sIsDistanceText) then
 		tDistance = VUHDO_getDistanceBetween("player", tUnit);
 		if ((tDistance or 0) > 0) then
-			VuhDoDirectionFrameText:SetText(floor(tDistance + 0.5));
-			tQuota = (tDistance - 40) * 0.05;
-			if (tQuota > 2) then
-				tQuota = 2;
-			elseif(tQuota < 0) then
-				tQuota = 0;
+			tDistance = floor(tDistance + 0.5);
+
+			if (tDistance ~= tOldDistance) then
+				tOldDistance = tDistance;
+
+				VuhDoDirectionFrameText:SetText(tDistance);
+				tQuota = (tDistance - 40) * 0.05;
+				if (tQuota > 2) then
+					tQuota = 2;
+				elseif (tQuota < 0) then
+					tQuota = 0;
+				end
+				tQuota = 2 - tQuota;
+
+				if (tQuota > 1) then
+					tR1, tG2 = 0, 1;
+					tQuota = tQuota - 1;
+				else
+					tR1, tG2 = 1, 0;
+				end
+
+				tInvModi = 1 - tQuota;
+				tDestR = tInvModi + tR1 * tQuota;
+				tDestG = tG2 * tInvModi + tQuota;
+
+				VuhDoDirectionFrameText:SetTextColor(tDestR, tDestG, 0.2, 0.8);
+				VuhDoDirectionFrameArrow:SetVertexColor(tDestR, tDestG, 0);
 			end
-			tQuota = 2 - tQuota;
-
-			if (tQuota > 1) then
-				tR1, tG1, tR2, tG2 = 0, 1, 1, 1;
-				tQuota = tQuota - 1;
-			else
-				tR1, tG1, tR2, tG2 = 1, 1, 1, 0;
-			end
-
-			tInvModi = 1 - tQuota;
-			tDestR = tR2 * tInvModi + tR1 * tQuota;
-			tDestG = tG2 * tInvModi + tG1 * tQuota;
-
-			VuhDoDirectionFrameText:SetTextColor(tDestR, tDestG, 0.2, 0.8);
-			VuhDoDirectionFrameArrow:SetVertexColor(tDestR, tDestG, 0);
 		else
 			VuhDoDirectionFrameText:SetText("");
 		end
-	else
-		VuhDoDirectionFrameText:SetText("");
 	end
 
 	if (tOldButton ~= tButton) then
-		tHeight = tButton:GetHeight() * sScale;
+		tOldButton = tButton;
+		tHeight = tButton:GetHeight() * sScale * tButton:GetEffectiveScale();
 		VuhDoDirectionFrame:SetPoint("CENTER", tButton:GetName(), "CENTER", 0, 0);
 		VuhDoDirectionFrame:SetWidth(tHeight);
 		VuhDoDirectionFrame:SetHeight(tHeight);
 	end
 	VuhDoDirectionFrame:Show();
 	VuhDoDirectionFrame["shown"] = true;
-
-	tOldButton = tButton;
 end

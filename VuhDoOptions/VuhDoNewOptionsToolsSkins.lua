@@ -282,9 +282,9 @@ end
 
 --
 local function VUHDO_broadcastCustomDebuffsToAllProfiles(anIsSameToonOnly, anIsReplace)
-	local tProfileNum, tProfile;
+	local tProfile;
 
-	for tProfileNum, tProfile in pairs(VUHDO_PROFILES) do
+	for _, tProfile in pairs(VUHDO_PROFILES) do
 		if (VUHDO_PLAYER_NAME == tProfile["ORIGINATOR_TOON"] or not anIsSameToonOnly) then
 			VUHDO_broadcastCustomDebuffsToProfile(tProfile["NAME"], anIsReplace);
 		end
@@ -312,12 +312,11 @@ function VUHDO_profilesReplaceCudeClicked(_, anIsReplace)
 					VUHDO_broadcastCustomDebuffsToProfile(VUHDO_CUSTOM_DEBUFF_PROFILE, VUHDO_EXPORT_CUDE_IS_REPLACE);
 				end
 
+				VUHDO_initAllBurstCaches();
 				VUHDO_initCustomDebuffComboModel();
 			end
 		end
 	);
 	VuhDoYesNoFrame:Show();
-
-
 end
 

@@ -1,4 +1,4 @@
-﻿-- $Id: constants.tw.lua 3149 2010-12-21 06:28:32Z zhTW $
+﻿-- $Id: constants.tw.lua 3267 2011-01-28 13:38:58Z dynaletik $
 --[[
 constants.tw.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -168,7 +168,7 @@ if AL then
 	AL["Delete"] = "刪除";
 	AL["Lock"] = "鎖定";
 	AL["Enable"] = "啟用";
-	
+
 	-- Query Server / Query all
 	AL["Query Server"] = "向伺服器查詢";
 	AL["Queries the server for all items \non this page. The items will be \nrefreshed when you next mouse \nover them."] = "向伺服器查詢此頁所有物品。完成後滑鼠移至物品圖示上即可更新。";
@@ -268,7 +268,7 @@ if AL then
 	AL["Crafting Daily Quests"] = "交易技能每日任務";
 	AL["Cooking Daily"] = "烹飪每日任務";
 	AL["Fishing Daily"] = "釣魚每日任務";
-	AL["Jewelcrafting Daily"] = "珠寶加工每日任務";
+	AL["Jewelcrafting Daily"] = "珠寶設計每日任務";
 	AL["Crafted Sets"] = "交易技能套裝";
 	AL["Crafted Epic Weapons"] = "交易技能史詩武器";
 	AL["Dragon's Eye"] = "龍瞳石";
@@ -280,12 +280,12 @@ if AL then
 	AL["Justice Points"] = "英雄點數";
 	AL["Valor Points"] = "勇氣點數";
 	AL["Badge of Justice"] = "正義徽章"; --should be removed
-	AL["Emblem Rewards"] = "紋章獎勵";
-	AL["Emblem of Valor"] = "勇氣紋章";
-	AL["Emblem of Heroism"] = "英雄紋章";
-	AL["Emblem of Conquest"] = "征服紋章";
-	AL["Emblem of Triumph"] = "凱旋紋章";
-	AL["Emblem of Frost"] = "冰霜紋章";
+	AL["Emblem Rewards"] = "紋章獎勵"; --should be removed
+	AL["Emblem of Valor"] = "勇氣紋章"; --should be removed
+	AL["Emblem of Heroism"] = "英雄紋章"; --should be removed
+	AL["Emblem of Conquest"] = "征服紋章"; --should be removed
+	AL["Emblem of Triumph"] = "凱旋紋章"; --should be removed
+	AL["Emblem of Frost"] = "冰霜紋章"; --should be removed
 	AL["BoE World Epics"] = "裝綁世界掉落紫裝";
 	AL["Legendary Items"] = "傳說物品";
 	AL["Misc Sets"] = "其他套裝";
@@ -309,9 +309,10 @@ if AL then
 	AL["PvP Non-Set Epics"] = "PvP 非套裝史詩物品";
 	AL["PvP Reputation Sets"] = "PvP 聲望套裝";
 	AL["Arena PvP Weapons"] = "競技場 PvP 武器";
-	AL["PvP Misc"] = "PvP 珠寶加工設計圖";
+	AL["PvP Misc"] = "PvP 珠寶設計設計圖";
 	AL["PVP Gems/Enchants/Jewelcrafting Designs"] = "PvP 珠寶/附魔設計圖";
 	AL["PvP Class Items"] = "PvP 職業物品";
+	AL["PvP Trinkets"] = "PvP 飾品";
 	AL["NOT AVAILABLE ANYMORE"] = "再也無法使用";
 
 	--World Events
@@ -334,6 +335,7 @@ if AL then
 	AL["Pilgrim's Bounty"] = "旅人豐年祭";
 	AL["Skettis"] = "司凱堤斯";
 	AL["Stranglethorn Fishing Extravaganza"] = "荊棘谷釣魚大賽";
+	AL["Kalu'ak Fishing Derby"] = "卡魯耶克釣魚大賽";
 	AL["Elemental Unrest"] = "元素風潮";
 
 	--Minimap Button
@@ -392,14 +394,21 @@ if AL then
 	AL["Cloak"] = "披風";
 
 	--Alchemy
-	AL["Battle Elixirs"] = "戰鬥藥劑";
-	AL["Guardian Elixirs"] = "防護藥劑";
+	AL["Battle Elixirs"] = "作戰藥劑";
+	AL["Cauldron"] = "大鍋";
+	AL["Cauldrons"] = "大鍋";
+	AL["Guardian Elixirs"] = "守護藥劑";
+	AL["Oils"] = "附魔油";
+	AL["Other Elixirs"] = "其他藥劑";
 	AL["Potions"] = "藥水";
 	AL["Transmutes"] = "轉化";
-	AL["Flasks"] = "精煉藥劑";
+	AL["Flasks"] = "精鍊藥劑";
+	AL["Guild"] = "公會";
 
 	-- Blacksmithing
 	AL["Cataclysm Vendor Sold Plans"] = "浩劫與重生供應商出售設計圖";
+	AL["Armor Enhancements"] = "護甲附魔";
+	AL["Weapon Enhancements"] = "武器附魔";
 
 	--Enchanting
 	AL["Enchant Boots"] = "附魔靴子";
@@ -413,13 +422,23 @@ if AL then
 	AL["Enchant Weapon"] = "附魔武器";
 	AL["Cataclysm Vendor Sold Formulas"] = "浩劫與重生供應商出售公式";
 
+	-- Engineering
+	AL["Tinker"] = "工程師專屬";
+
 	--Inscription
+	AL["Glyph"] = "雕紋";
+	AL["Prime Glyph"] = "主要雕紋";
 	AL["Major Glyph"] = "極效雕紋";
 	AL["Minor Glyph"] = "初階雕紋";
+	AL["Runescrolls"] = "符文卷軸";
+	AL["Recall"] = "召回";
 	AL["Scrolls"] = "卷軸";
 	AL["Off-Hand Items"] = "副手物品";
+	AL["Relics/Shoulder Enchants"] = "聖物/肩部附魔";
+	AL["Relics"] = "聖物";
+	AL["Shoulder Enchants"] = "肩部附魔";
 	AL["Reagents"] = "材料";
-	AL["Book of Glyph Mastery"] = "雕紋專精書籍";
+	AL["Book of Glyph Mastery"] = "雕紋精通之書";
 
 	--Leatherworking
 	AL["Leather Armor"] = "皮甲護甲";
@@ -432,6 +451,7 @@ if AL then
 	AL["Cloth Armor"] = "護甲";
 	AL["Shirts"] = "襯衣";
 	AL["Bags"] = "容器";
+	AL["Cataclysm Vendor Sold Patterns"] = "浩劫與重生商人販售的圖樣";
 
 	--Labels for loot descriptions
 	AL["Classes:"] = "職業: ";
@@ -467,7 +487,7 @@ if AL then
 	AL["Classic WoW"] = "原始的魔獸世界";
 	AL["Burning Crusade"] = "燃燒的遠征";
 	AL["Wrath of the Lich King"] = "巫妖王之怒";
-	AL["Cataclysm"] = "浩劫重生後的魔獸世界";
+	AL["Cataclysm"] = "浩劫與重生";
 	AL["Entrance"] = "入口";
 	AL["Dungeon Set 1"] = "副本套裝 1";
 	AL["Dungeon Set 2"] = "副本套裝 2";
@@ -512,7 +532,7 @@ if AL then
 	--Labels for loot table sections
 	AL["Additional Heroic Loot"] = "更多的英雄物品";
 	AL["Heroic Mode"] = "英雄模式";
-	AL["Normal Mode"] = "一般模式";
+	AL["Normal Mode"] = "普通模式";
 	AL["Raid"] = "團隊";
 	AL["Hard Mode"] = "困難模式";
 	AL["Bonus Loot"] = "額外獎勵";
@@ -539,11 +559,13 @@ if AL then
 	AL["Random"] = "隨機";
 	AL["Brew of the Month Club"] = "每月啤酒俱樂部";
 
-	-- Cooking descriptions
+	-- Profession descriptions
 	AL["Buff"] = "增益";
 	AL["Agility"] = "敏捷";
 	AL["Intellect"] = "智力";
 	AL["Strength"] = "力量";
+	AL["Spirit"] = "精神";
+	AL["Stamina"] = "耐力";
 	AL["Agility, Intellect, Strength"] = "敏捷, 智力, 力量";
 	AL["Spell Power"] = "法術能量";
 	AL["Attack Power"] = "攻擊強度";
@@ -553,13 +575,15 @@ if AL then
 	AL["Crit/Hit Rating"] = "致命一擊/命中等級";
 	AL["Haste Rating"] = "加速等級";
 	AL["Dodge Rating"] = "閃躲等級";
-	AL["Expertise Rating"] = "熟練等級";
+	AL["Expertise Rating"] = "專精等級";
 	AL["Mastery Rating"] = "精通等級";
 	AL["Parry Rating"] = "招架等級";
 	AL["Other Ratings"] = "其他等級";
+	AL["Ratings"] = "等級";
 	AL["Resistance"] = "抗性";
-	AL["Health / Second"] = "每秒回復生命";
-	AL["Mana / Second"] = "每秒回復法力";
+	AL["Damage Absorption"] = "吸收傷害";
+	AL["Health / Second"] = "每秒恢復生命";
+	AL["Mana / Second"] = "每秒恢復法力";
 	AL["Tracking"] = "追蹤";
 	AL["Emotions"] = "情緒";
 	AL["Alcohol"] = "酒類";
@@ -567,10 +591,25 @@ if AL then
 	AL["Mana"] = "法力";
 	AL["Health and Mana"] = "生命和法力";
 	AL["Other Buffs"] = "其他增益";
+	AL["Other"] = "其他";
 	AL["Standard Buffs"] = "標準增益";
 	AL["Food without Buffs"] = "沒有增益的食物";
 	AL["Special"] = "特殊";
 	AL["Feasts"] = "宴類";
+	AL["Speed"] = "速度";
+--	AL["Rod"] = true; -- where did it be used?
+--	AL["Oil"] = true; -- where did it be used?
+	AL["Dwarf"] = "矮人";
+	AL["Draenei"] = "德萊尼";
+	AL["Night Elf"] = "夜精靈";
+	AL["Fossil"] = "化石";
+	AL["Nerubian"] = "奈幽";
+	AL["Vrykul"] = "維酷";
+	AL["Troll"] = "食人妖";
+	AL["Tol'vir"] = "托維爾";
+	AL["Orc"] = "獸人";
+	AL["Stats"] = "屬性";
+	AL["Resilience"] = "韌性";
 
 	-- Extra Text in Boss lists
 	AL["Set: Embrace of the Viper"] = "套裝:毒蛇的擁抱";
@@ -733,7 +772,10 @@ if AL then
 	AL["Paint Bomb"] = "漆彈"; -- confirmed
 
 	-- Thirtheenth set
-	AL["Worldbreaker"] = "碎界者"; -- confirmed
+	AL["Worldbreaker"] = "碎界者";
+	AL["Mottled Drake"] = "雜斑龍";
+	AL["Grim Campfire"] = "陰森的篝火";
+	AL["Landro's Lil' XT"] = "藍卓的XT小小拆解者";
 
 	--Battleground Brackets
 	AL["Old PvP Rewards"] = "舊 PvP 獎勵";
@@ -943,7 +985,6 @@ if AL then
 	AL["Matron Li-sahar"] = "女侍衛長利薩哈爾";
 	AL["Solus the Eternal"] = "智者索勒斯";
 	AL["Smokywood Pastures Vendor"] = "燻木牧場商人";
-	AL["Shartuul"] = "夏圖歐";
 	AL["Darkscreecher Akkarai"] = "黑暗尖叫者阿卡萊";
 	AL["Karrog"] = "凱羅格";
 	AL["Gezzarak the Huntress"] = "女獵人吉札拉";
@@ -970,11 +1011,9 @@ if AL then
 	AL["Thomas Yance"] = "湯瑪斯·陽斯";
 	AL["Knot Thimblejack"] = "諾特·希姆加克";
 	AL["Shen'dralar Provisioner"] = "辛德拉聖職者";
-	AL["Namdo Bizzfizzle"] = "納姆杜";
 	AL["The Nameles Prophet"] = "無名預言者";
 	AL["Rajaxx's Captains"] = "拉賈克斯的上尉們";
 	AL["Razorfen Spearhide"] = "剃刀沼澤刺鬃守衛";
-	AL["Kalldan Felmoon"] = "卡爾丹·暗月";
 	AL["Magregan Deepshadow"] = "馬格雷甘·深影";
 	AL["Don Carlos"] = "卡洛斯先生龍舌蘭酒";
 	AL["Thomas Yance"] = "湯瑪斯·陽斯";
@@ -985,11 +1024,13 @@ if AL then
 	AL["Razzashi Raptor"] = "拉札希迅猛龍";
 	AL["Deviate Ravager/Deviate Guardian"] = "變異劫毀者/變異守護者";
 	AL["Servant's Quarter Animal Bosses"] = "伺從區";
---	AL["Jadefang"] = true;
+	AL["Jadefang"] = "翡翠牙";
 	AL["Aeonaxx"] = "艾歐納克斯";
 	AL["Prince Sarsarun"] = "薩爾撒倫王子";
 	AL["Highlord Kruul"] = "卡魯歐大領主"; -- added until decided if the set gets removed
---	AL["Dormus the Camel-Hoarder"] = true; 
+--	AL["Dormus the Camel-Hoarder"] = true;
+	AL["The Behemoth"] = "貝希摩斯";
+	AL["Master Elemental Shaper Krixix"] = "大元素師克里希克";
 
 	--Zones
 	AL["World Drop"] = "世界掉落";
@@ -1016,17 +1057,11 @@ if AL then
 	AL["The Vault"] = "寶窟";
 	AL["Ogre Tannin Basket"] = "巨魔鞣酸籃";
 	AL["Fengus's Chest"] = "衛兵芬古斯的箱子";
-	AL["The Prince's Chest"] = "王子的箱子";
-	AL["Doan's Strongbox"] = "杜安的箱子";
-	AL["Frostwhisper's Embalming Fluid"] = "萊斯·霜語的防腐液";
-	AL["Unforged Rune Covered Breastplate"] = "未鑄造的符文覆飾胸甲";
-	AL["Malor's Strongbox"] = "瑪洛爾的箱子";
 	AL["Unfinished Painting"] = "未完成的畫作";
 	AL["Felvine Shard"] = "魔藤碎片";
 	AL["Baelog's Chest"] = "巴爾洛戈的箱子";
 	AL["Lorgalis Manuscript"] = "洛迦里斯手稿";
 	AL["Fathom Core"] = "深淵之核";
-	AL["Conspicuous Urn"] = "顯眼的石罐";
 	AL["Gift of Adoration"] = "愛慕之禮";
 	AL["Box of Chocolates"] = "巧克力盒";
 	AL["Treat Bag"] = "糖果包";

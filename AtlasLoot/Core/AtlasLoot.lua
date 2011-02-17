@@ -15,15 +15,15 @@ local BabbleFaction = AtlasLoot_GetLocaleLibBabble("LibBabble-Faction-3.0")
 
 --Establish version number and compatible version of Atlas
 local VERSION_MAJOR = "6";
-local VERSION_MINOR = "01";
-local VERSION_BOSSES = "02";
+local VERSION_MINOR = "02";
+local VERSION_BOSSES = "00";
 ATLASLOOT_VERSION = "|cffFF8400AtlasLoot Enhanced v"..VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES.."|r";
 ATLASLOOT_VERSION_NUM = VERSION_MAJOR.."."..VERSION_MINOR.."."..VERSION_BOSSES
 
 --Now allows for multiple compatible Atlas versions.  Always put the newest first
 ATLASLOOT_MIN_ATLAS = "1.18.0"
-ATLASLOOT_CURRENT_ATLAS = {"1.18.0"};
-ATLASLOOT_PREVIEW_ATLAS = {"1.19.0", "1.18.1"};
+ATLASLOOT_CURRENT_ATLAS = {"1.18.2"};
+ATLASLOOT_PREVIEW_ATLAS = {"1.19.0", "1.18.3"};
 
 --ATLASLOOT_POSITION = AL["Position:"];
 ATLASLOOT_DEBUGMESSAGES = false;
@@ -355,7 +355,7 @@ function AtlasLoot:CreateSelectBossLineButton(parent, point, name)
 	local bossLineButton = {}
 	
 	bossLineButton = CreateFrame("Button", name, parent)
-	bossLineButton:SetFrameStrata("HIGH")
+	---bossLineButton:SetFrameStrata("HIGH")
 	bossLineButton:SetWidth(336)
 	bossLineButton:SetHeight(15)
 	bossLineButton:SetHighlightTexture("Interface\\QuestFrame\\UI-QuestTitleHighlight", "ADD")

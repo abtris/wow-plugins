@@ -249,6 +249,19 @@ end
 
 
 --
+--[[local tFrame;
+local function VUHDO_registerFacadeIcon2(aButton, aNum, aGroup)
+	tFrame = VUHDO_getBarIconButton(aButton, aNum);
+
+	VUHDO_LibButtonFacade:Group("VuhDo", aGroup):AddButton(tFrame, {
+		["Button"] = tFrame,
+		["Icon"] = VUHDO_getBarIcon(aButton, aNum),
+	});
+end
+]]
+
+
+--
 local tCnt;
 function VUHDO_initButtonButtonFacade(aButton)
 	if (VUHDO_LibButtonFacade ~= nil) then
@@ -258,9 +271,9 @@ function VUHDO_initButtonButtonFacade(aButton)
 		for tCnt = 9, 10 do
 			VUHDO_registerFacadeIcon(aButton, tCnt, VUHDO_I18N_HOTS);
 		end
-		for tCnt = 40, 44 do
-			VUHDO_registerFacadeIcon(aButton, tCnt, VUHDO_I18N_DEBUFFS);
-		end
+		--[[for tCnt = 40, 44 do
+			VUHDO_registerFacadeIcon2(aButton, tCnt, VUHDO_I18N_DEBUFFS);
+		end]]
 	end
 end
 
@@ -275,10 +288,10 @@ local tUnit;
 local tGroupArray;
 local tModelId;
 local tGroupIndex, tColumnIndex, tButtonIndex;
-local tCnt;
 local tBorderCol;
 local tModelArray;
 local tPanelName;
+local tCnt;
 local function VUHDO_positionAllHealButtons(aPanel, aPanelNum)
 	tModelArray = VUHDO_getDynamicModelArray(aPanelNum);
 	tPanelName  = aPanel:GetName();
@@ -302,12 +315,15 @@ local function VUHDO_positionAllHealButtons(aPanel, aPanelNum)
 			VUHDO_positionHealButton(tHealButton);
 
 			tXPos,  tYPos = VUHDO_getHealButtonPos(tColumnIndex, tGroupIndex, aPanelNum);
-			if (VUHDO_isDifferentButtonPoint(tHealButton, tXPos, -tYPos)) then
+			--if (VUHDO_isDifferentButtonPoint(tHealButton, tXPos, -tYPos)) then
 				tHealButton:ClearAllPoints();
 				tHealButton:SetPoint("TOPLEFT", tPanelName, "TOPLEFT", tXPos, -tYPos);
-			end
+			--end
 
-			VUHDO_setupAllHealButtonAttributes(tHealButton, tUnit, false, 70 == tModelId, false); -- VUHDO_ID_VEHICLES
+			VUHDO_setupAllHealButtonAttributes(tHealButton, tUnit, false, 70 == tModelId, false, false); -- VUHDO_ID_VEHICLES
+			for tCnt = 40, 44 do
+				VUHDO_setupAllHealButtonAttributes(VUHDO_getBarIconFrame(tHealButton, tCnt), tUnit, false, 70 == tModelId, false, true); -- VUHDO_ID_VEHICLES
+			end
 			VUHDO_setupAllTargetButtonAttributes(VUHDO_getTargetButton(tHealButton),  tUnit);
 			VUHDO_setupAllTotButtonAttributes(VUHDO_getTotButton(tHealButton), tUnit);
 
@@ -537,6 +553,9 @@ local function VUHDO_initAggroBar()
 	tAggroBar:SetValue(0);
 	tAggroBar:Show();
 end
+
+
+
 --
 local tX, tY;
 local function VUHDO_initRaidIcon(aHealthBar, anIcon, aWidth)
@@ -780,13 +799,19 @@ end
 
 --
 local tCnt;
-local tHealthBar, tIsInverted, tOrientation;
+local tHealthBar, tIsInverted, tOrientation, tIconNum;
 function VUHDO_initHealButton(aButton, aPanelNum)
 
 	if (VUHDO_CONFIG["ON_MOUSE_UP"]) then
 		aButton:RegisterForClicks("AnyUp");
+		for tCnt = 40, 44 do
+			VUHDO_getBarIconFrame(aButton, tCnt):RegisterForClicks("AnyUp");
+		end
 	else
 		aButton:RegisterForClicks("AnyDown");
+		for tCnt = 40, 44 do
+			VUHDO_getBarIconFrame(aButton, tCnt):RegisterForClicks("AnyDown");
+		end
 	end
 
 	-- Texture
@@ -867,6 +892,9 @@ function VUHDO_initHealButton(aButton, aPanelNum)
 		ClickCastFrames[aButton] = true;
 		ClickCastFrames[VUHDO_GLOBAL[aButton:GetName() .. "Tg"]] = true;
 		ClickCastFrames[VUHDO_GLOBAL[aButton:GetName() .. "Tot"]] = true;
+		for tIconNum = 40, 44 do
+			ClickCastFrames[VUHDO_GLOBAL[format("%sBgBarIcBarHlBarIc%d", aButton:GetName(), tIconNum)]] = true;
+		end
 	end
 
 end
@@ -944,7 +972,7 @@ local function VUHDO_initPanel(aPanel, aPanelNum)
 	aPanel:SetPoint(tPosition["orientation"],  "UIParent", tPosition["relativePoint"],  tPosition["x"],  tPosition["y"]);
 	aPanel:EnableMouseWheel(1);
 	aPanel:SetFrameStrata(tSetup["frameStrata"] or "MEDIUM");
-	aPanel:SetFrameLevel(aPanelNum * 20);
+	--aPanel:SetFrameLevel(aPanelNum * 20);
 
 	if (aPanel:IsShown()) then
 		tX, tY = VUHDO_getAnchorCoords(aPanel, tGrowth, tFactor);
@@ -990,7 +1018,6 @@ local function VUHDO_initPanel(aPanel, aPanelNum)
 
 	if (VUHDO_IS_PANEL_CONFIG) then
 		tLabel:SetText("[PANEL "  .. aPanelNum .. "]");
-		--tLabel:GetParent():ClearAllPoints();
 		tLabel:GetParent():SetPoint("BOTTOM", aPanel:GetName(), "TOP", 0, 3);
 		tLabel:GetParent():Show();
 
@@ -1059,9 +1086,9 @@ end
 --
 local tPanel;
 function VUHDO_redrawPanel(aPanelNum)
+	tPanel = VUHDO_getActionPanel(aPanelNum);
 
 	if (VUHDO_isPanelPopulated(aPanelNum)) then
-		tPanel = VUHDO_getActionPanel(aPanelNum);
 		VUHDO_initLocalVars(aPanelNum);
 		VUHDO_initAllHealButtons(tPanel, aPanelNum);
 
@@ -1074,13 +1101,15 @@ function VUHDO_redrawPanel(aPanelNum)
 		VUHDO_positionTableHeaders(tPanel,  aPanelNum);
 		VUHDO_initPanel(tPanel, aPanelNum);
 		if (VUHDO_isPanelVisible(aPanelNum)) then
+			VUHDO_fixFrameLevels(tPanel, 2, tPanel:GetChildren());
 			tPanel:Show();
 		else
 			tPanel:Hide();
 		end
 	else
-		VUHDO_getActionPanel(aPanelNum):Hide();
+		tPanel:Hide();
 	end
+
 end
 local VUHDO_redrawPanel = VUHDO_redrawPanel;
 
@@ -1093,7 +1122,6 @@ function VUHDO_redrawAllPanels()
 	resetSizeCalcCaches();
 	twipe(VUHDO_UNIT_BUTTONS);
 	if (VUHDO_LibButtonFacade ~= nil) then
-		VUHDO_LibButtonFacade:Group("VuhDo", VUHDO_I18N_DEBUFFS):Skin(VUHDO_CONFIG["CUSTOM_DEBUFF"]["BUTTON_FACADE"]);
 		VUHDO_LibButtonFacade:Group("VuhDo", VUHDO_I18N_HOTS):Skin(VUHDO_PANEL_SETUP["HOTS"]["BUTTON_FACADE"]);
 	end
 
@@ -1102,7 +1130,6 @@ function VUHDO_redrawAllPanels()
 	for tCnt  = 1, 10 do -- VUHDO_MAX_PANELS
 		VUHDO_redrawPanel(tCnt);
 	end
-
 
 	VUHDO_updateAllRaidBars();
 
@@ -1118,7 +1145,12 @@ function VUHDO_redrawAllPanels()
 	VuhDoDirectionFrameArrow:SetVertexColor(1, 0.4, 0.4);
 	VuhDoDirectionFrameText:SetFont(VUHDO_getFont(VUHDO_PANEL_SETUP["HOTS"]["font"]), 6, "OUTLINE");
 	VuhDoDirectionFrameText:SetPoint("TOP", "VuhDoDirectionFrameArrow", "CENTER", 5,  -2);
+	VuhDoDirectionFrameText:SetText("");
 	VuhDoDirectionFrame:SetFrameStrata("TOOLTIP");
+
+	--[[if (VUHDO_LibButtonFacade ~= nil) then
+		VUHDO_LibButtonFacade:Group("VuhDo", VUHDO_I18N_DEBUFFS):Skin(VUHDO_CONFIG["CUSTOM_DEBUFF"]["BUTTON_FACADE"]);
+	end]]
 
 	VUHDO_initAllEventBouquets();
 end
@@ -1160,7 +1192,6 @@ function VUHDO_lnfReloadUI()
 	VUHDO_buildGenericHealthBarBouquet();
 	VUHDO_bouqetsChanged();
 	VUHDO_initAllBurstCaches();
-	collectgarbage('collect');
 	VUHDO_IS_RELOADING = false;
 end
 

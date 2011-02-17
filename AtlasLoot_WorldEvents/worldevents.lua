@@ -30,7 +30,6 @@ local moduleName = "AtlasLoot_WorldEvents"
 --- Triggered Events
 ---- Abyssal Council
 ---- Ethereum Prison
----- Shartuul
 ---- Skettis
 
 	------------------------
@@ -50,7 +49,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 4, 45716, "", "=q2=Gnomeregan Commendation Badge", "=ds=", "1 #champwrit#"};
 				{ 5, 45717, "", "=q2=Ironforge Commendation Badge", "=ds=", "1 #champwrit#"};
 				{ 6, 45718, "", "=q2=Stormwind Commendation Badge", "=ds=", "1 #champwrit#"};
-				{ 15, 46114, "", "=q2=Champion's Writ", "=ds=#m17#"};
+				{ 15, 46114, "", "=q1=Champion's Writ", "=ds=#m17#"};
 				{ 16, 0, "INV_BannerPVP_01", "=q6=#m6#", ""};
 				{ 17, 45719, "", "=q2=Orgrimmar Commendation Badge", "=ds=", "1 #champwrit#"};
 				{ 18, 45723, "", "=q2=Undercity Commendation Badge", "=ds=", "1 #champwrit#"};
@@ -71,7 +70,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 10, 45577, "", "=q1=Ironforge Tabard", "=ds=#s7#", "50 #champseal#"};
 				{ 11, 45574, "", "=q1=Stormwind Tabard", "=ds=#s7#", "50 #champseal#"};
 				{ 12, 46817, "", "=q1=Silver Covenant Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 15, 44990, "", "=q2=Champion's Seal", "=ds=#m17#"};
+				{ 15, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
 				{ 16, 0, "INV_BannerPVP_01", "=q6=#m6#", ""};
 				{ 17, 45014, "", "=q1=Orgrimmar Banner", "=ds=#e14#", "15 #champseal#"};
 				{ 18, 45016, "", "=q1=Undercity Banner", "=ds=#e14#", "15 #champseal#"};
@@ -81,7 +80,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 22, 45581, "", "=q1=Orgrimmar Tabard", "=ds=#s7#", "50 #champseal#"};
 				{ 23, 45583, "", "=q1=Undercity Tabard", "=ds=#s7#", "50 #champseal#"};
 				{ 24, 45584, "", "=q1=Thunder Bluff Tabard", "=ds=#s7#", "50 #champseal#"};
-				{ 25, 45582, "", "=q1=Sen'jin Tabard", "=ds=#s7#", "50 #champseal#"};
+				{ 25, 45582, "", "=q1=Darkspear Tabard", "=ds=#s7#", "50 #champseal#"};
 				{ 26, 45585, "", "=q1=Silvermoon City Tabard", "=ds=#s7#", "50 #champseal#"};
 				{ 27, 46818, "", "=q1=Sunreaver Tabard", "=ds=#s7#", "50 #champseal#"};
 				{ 28, 0, "INV_Jewelry_Talisman_08", "=q6="..BabbleFaction["Argent Crusade"], "" };
@@ -103,7 +102,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 12, 45154, "", "=q3=Necklace of Valiant Blood", "=ds=#s2#", "10 #champseal#" };
 				{ 13, 45152, "", "=q3=Pendant of Azure Dreams", "=ds=#s2#", "10 #champseal#" };
 				{ 14, 45131, "", "=q3=Jouster's Fury", "=ds=#s14#", "10 #champseal#" };
-				{ 15, 44990, "", "=q2=Champion's Seal", "=ds=#m17#"};
+				{ 15, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
 				{ 16, 0, "INV_BannerPVP_01", "=q6=#m6#", ""};
 				{ 17, 45209, "", "=q3=Sash of Trumpeted Pride", "=ds=#s10#, #a1#", "10 #champseal#" };
 				{ 18, 45211, "", "=q3=Waistguard of Equine Fury", "=ds=#s10#, #a2#", "10 #champseal#" };
@@ -129,7 +128,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 7, 45075, "", "=q4=Ironforge Smasher", "=ds=#h1#, #w6#", "25 #champseal#" };
 				{ 8, 45128, "", "=q4=Silvery Sylvan Stave", "=ds=#w9#", "25 #champseal#" };
 				{ 9, 45130, "", "=q4=Blunderbuss of Khaz Modan", "=ds=#w5#", "25 #champseal#" };
-				{ 15, 44990, "", "=q2=Champion's Seal", "=ds=#m17#"};
+				{ 15, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
 				{ 16, 0, "INV_BannerPVP_01", "=q6=#m6#", ""};
 				{ 17, 45214, "", "=q4=Scalpel of the Royal Apothecary", "=ds=#h3#, #w4#", "25 #champseal#" };
 				{ 18, 45222, "", "=q4=Spinal Destroyer", "=ds=#h1#, #w4#", "25 #champseal#" };
@@ -151,7 +150,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 9, 46820, "", "=q3=Shimmering Wyrmling", "=ds=#e13#", "40 #champseal#"};
 				{ 11, 0, "INV_Jewelry_Talisman_08", "=q6="..BabbleFaction["Argent Crusade"], "" };
 				{ 12, 47541, "", "=q3=Argent Pony Bridle", "=ds=", "150 #champseal#"};
-				{ 15, 44990, "", "=q2=Champion's Seal", "=ds=#m17#"};
+				{ 15, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
 				{ 16, 0, "INV_BannerPVP_01", "=q6=#m6#", ""};
 				{ 17, 45022, "", "=q3=Argent Gruntling", "=ds=#m4#"};
 				{ 19, 44980, "", "=q3=Mulgore Hatchling", "=ds=#e13#", "40 #champseal#"};
@@ -173,7 +172,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 10, 46744, "", "=q4=Swift Moonsaber", "=ds=#e26#", "500 #gold# 5 #champseal#"};
 				{ 11, 46748, "", "=q4=Swift Violet Ram", "=ds=#e26#", "500 #gold# 5 #champseal#"};
 				{ 12, 46747, "", "=q4=Turbostrider", "=ds=#e26#", "500 #gold# 5 #champseal#"};
-				{ 15, 44990, "", "=q2=Champion's Seal", "=ds=#m17#"};
+				{ 15, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
 				{ 16, 0, "INV_BannerPVP_01", "=q6=#m6#", ""};
 				{ 17, 45593, "", "=q4=Darkspear Raptor", "=ds=#e26#", "100 #champseal#"};
 				{ 18, 45597, "", "=q4=Forsaken Warhorse", "=ds=#e26#", "100 #champseal#"};
@@ -194,7 +193,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 6, 47179, "", "=q4=Argent Charger", "=ds=#e26#", "100 #champseal#"};
 				{ 7, 47180, "", "=q4=Argent Warhorse", "=ds=#e26#", "100 #champseal#"};
 				{ 8, 45725, "", "=q4=Argent Hippogryph", "=ds=#e27#", "150 #champseal#"};
-				{ 15, 44990, "", "=q2=Champion's Seal", "=ds=#m17#"};
+				{ 15, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
 				{ 16, 0, "inv_misc_tabardpvp_02", "=q6="..BabbleFaction["The Sunreavers"], "=ec1=#m6#"};
 				{ 17, 46816, "", "=q4=Sunreaver Hawkstrider", "=ds=#e26#", "100 #champseal#"};
 				{ 18, 46814, "", "=q4=Sunreaver Dragonhawk", "=ds=#e27#", "150 #champseal#"};
@@ -208,7 +207,7 @@ local moduleName = "AtlasLoot_WorldEvents"
 				{ 6, 42949, "", "=q7=Polished Spaulders of Valor", "=ds=#s3#, #a4#", "60 #champseal#"};
 				{ 8, 42992, "", "=q7=Discerning Eye of the Beast", "=ds=#s14#", "75 #champseal#"};
 				{ 9, 42991, "", "=q7=Swift Hand of Justice", "=ds=#s14#", "75 #champseal#"};
-				{ 11, 44990, "", "=q2=Champion's Seal", "=ds=#m17#"};
+				{ 11, 44990, "", "=q1=Champion's Seal", "=ds=#m17#"};
 				{ 16, 48691, "", "=q7=Tattered Dreadmist Robe", "=ds=#s5#, #a1#", "60 #champseal#"};
 				{ 17, 48687, "", "=q7=Preened Ironfeather Breastplate", "=ds=#s5#, #a2#", "60 #champseal#"};
 				{ 18, 48689, "", "=q7=Stained Shadowcraft Tunic", "=ds=#s5#, #a2#", "60 #champseal#"};
@@ -1403,43 +1402,6 @@ local moduleName = "AtlasLoot_WorldEvents"
 		info = {
 			name = AL["Bash'ir Landing Stasis Chambers"],
 			module = moduleName, menu = "ETHEREUMMENU"
-		};
-	};
-
-		----------------
-		--- Shartuul ---
-		----------------
-
-	AtlasLoot_Data["Shartuul"] = {
-		["Normal"] = {
-			{
-				{ 1, 32941, "", "=q4=Corruptor's Signet", "=ds=#s13#", "", "6.0%"};
-				{ 3, 32676, "", "=q4=Depleted Cloth Bracers", "=ds=#m20#", "", "5.0%"};
-				{ 4, 32675, "", "=q4=Depleted Mail Gauntlets", "=ds=#m20#", "", "7.0%"};
-				{ 5, 32677, "", "=q3=Depleted Cloak", "=ds=#m20#", "", "9.0%"};
-				{ 6, 32678, "", "=q3=Depleted Ring", "=ds=#m20#", "", "9.0%"};
-				{ 7, 32672, "", "=q3=Depleted Badge", "=ds=#m20#", "", "13.0%"};
-				{ 8, 32673, "", "=q3=Depleted Dagger", "=ds=#m20#", "", "6.0%"};
-				{ 9, 32674, "", "=q3=Depleted Sword", "=ds=#m20#", "", "14.0%"};
-				{ 10, 32670, "", "=q3=Depleted Two-Handed Axe", "=ds=#m20#", "", "0.02%"};
-				{ 11, 32671, "", "=q3=Depleted Mace", "=ds=#m20#", "", "11.0%"};
-				{ 12, 32679, "", "=q3=Depleted Staff", "=ds=#m20#", "", "6.0%"};
-				{ 16, 32942, "", "=q4=Ring of the Overseer", "=ds=#s13#", "", "1.4%"};
-				{ 18, 32655, "", "=q4=Crystalweave Bracers", "=ds=#s8#, #a1#"};
-				{ 19, 32656, "", "=q4=Crystalhide Handwraps", "=ds=#s9#, #a3#"};
-				{ 20, 32665, "", "=q3=Crystalweave Cape", "=ds=#s4#"};
-				{ 21, 32664, "", "=q3=Dreamcrystal Band", "=ds=#s13#"};
-				{ 22, 32658, "", "=q3=Badge of Tenacity", "=ds=#s14#"};
-				{ 23, 32659, "", "=q3=Crystal-Infused Shiv", "=ds=#h1#, #w4#"};
-				{ 24, 32660, "", "=q3=Crystalforged Sword", "=ds=#h3#, #w10#"};
-				{ 25, 32663, "", "=q3=Apexis Cleaver", "=ds=#h2#, #w1#"};
-				{ 26, 32661, "", "=q3=Apexis Crystal Mace", "=ds=#h1#, #w6#"};
-				{ 27, 32662, "", "=q3=Flaming Quartz Staff", "=ds=#w9#"};
-			};
-		};
-		info = {
-			name = AL["Shartuul"],
-			module = moduleName, menu = "WORLDEVENTMENU"
 		};
 	};
 

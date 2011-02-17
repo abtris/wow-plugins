@@ -183,9 +183,31 @@ do
 	local questIcon = "Interface\\MINIMAP\\TRACKING\\TrivialQuests"
 	local achievementIcon = "Interface\\ACHIEVEMENTFRAME\\UI-Achievement-TinyShield"
 	
+	local function GetAchievementOrQuestText(text)
+		local tempText, isQuest, isAchievement = nil, nil, nil
+		if text and string.find(text, "#QUESTID:%d+#") then
+			_,_,isQuest = string.find(text, "#QUESTID:(%d+)#")
+			tempText = AtlasLoot:GetQuestName(isQuest)
+			tempText = "|cffFFFFFF"..tempText
+			tempText = gsub(text, "#QUESTID:%d+#", tempText)
+		elseif text and string.find(text, "#ACHIEVEMENTID:%d+#") then
+			_,_,isAchievement = string.find(text, "#ACHIEVEMENTID:(%d+)#")
+			if GetAchievementLink(isAchievement) then
+				tempText = select(2,GetAchievementInfo(isAchievement))
+			else
+				tempText = "ID:"..isAchievement.." not found"
+			end
+			tempText = "|cff1eff00"..tempText
+			tempText = gsub(text, "#ACHIEVEMENTID:%d+#", tempText)
+		end
+		
+		return tempText, isQuest, isAchievement
+	end
+	
 	-- Create and returns the editet extra Text
 	local function GetItemExtraText(itemID, extraText, price, itemName)
 		local tempText, isQuest, isAchievement = nil, nil, nil
+		--[[
 		if extraText and string.find(extraText, "#QUESTID:%d+#") then
 			_,_,isQuest = string.find(extraText, "#QUESTID:(%d+)#")
 			tempText = AtlasLoot:GetQuestName(isQuest)
@@ -201,7 +223,9 @@ do
 			tempText = "|cff1eff00"..tempText
 			tempText = gsub(extraText, "#ACHIEVEMENTID:%d+#", tempText)
 		end
-
+		]]
+		tempText, isQuest, isAchievement = GetAchievementOrQuestText(extraText)
+		local tempPrice = GetAchievementOrQuestText(price)
 		if not tempText and extraText and price and price ~= "" then
 			-- lengh < 70  = standart
 			-- this adds the ItemPrice to the Extratext if its not to long
@@ -232,13 +256,20 @@ do
 				end
 
 				if AtlasLoot.db.profile.ShowLootTablePrice then
-					tempText = price
+					if tempPrice then
+						tempText, isQuest, isAchievement = GetAchievementOrQuestText(price)
+					else
+						tempText = price
+					end
 				else
 					tempText = extraText
 				end
 			end
 		elseif not tempText and price and price ~= "" then
-			tempText = price
+			--if tempPrice then
+			--	price, isQuest, isAchievement = GetAchievementOrQuestText(extraText)
+			--end
+			--tempText = price
 		elseif not tempText and extraText then
 			tempText = extraText
 		elseif not tempText and not extraText and itemName then

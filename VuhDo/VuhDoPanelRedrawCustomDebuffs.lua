@@ -64,29 +64,40 @@ end
 
 
 --
-local tIcon,  tCounter, tName;
+local tFrame;
+local tIcon, tCounter, tName;
 local tCnt;
 local tIconIdx;
 local tIconName;
+local tButton;
 function VUHDO_initCustomDebuffs()
 	for tCnt = 0, sMaxNum - 1 do
 		tIconIdx = 40 + tCnt;
 
-		tIcon = VUHDO_getBarIcon(sButton, tIconIdx);
-
-		tIcon:ClearAllPoints();
-		tIcon:SetPoint(sPoint, sHealthBar:GetName(), sPoint,
+		tFrame = VUHDO_getBarIconFrame(sButton, tIconIdx);
+		tFrame:ClearAllPoints();
+		tFrame:SetPoint(sPoint, sHealthBar:GetName(), sPoint,
 			 sXOffset + (tCnt * sStep), sYOffset); -- center
-		tIcon:SetWidth(sHeight);
-		tIcon:SetHeight(sHeight);
+		tFrame:SetWidth(sHeight);
+		tFrame:SetHeight(sHeight);
+		tFrame:SetAlpha(0);
+		tFrame:SetScale(VUHDO_CONFIG["CUSTOM_DEBUFF"]["scale"] * 0.7);
+		tFrame:Show();
 
+		tButton = VUHDO_getBarIconButton(sButton, tIconIdx);
+		tButton:SetPoint("CENTER", tFrame:GetName(), "CENTER", 0, 0);
+		tButton:SetWidth(sHeight);
+		tButton:SetHeight(sHeight);
+
+		tIcon = VUHDO_getBarIcon(sButton, tIconIdx);
+		tIcon:SetAllPoints();
 		tIconName = tIcon:GetName();
 
 		tTimer = VUHDO_getBarIconTimer(sButton, tIconIdx);
 		tTimer:SetPoint("BOTTOMRIGHT", tIconName, "BOTTOMRIGHT", 3, -3);
 		tTimer:SetFont(VUHDO_FONT_HOTS, 18, sOutlineText);
 		tTimer:SetShadowColor(0, 0, 0, sShadowAlpha);
-		tTimer:SetShadowOffset(1, -0.5);
+		tTimer:SetShadowOffset(1, -1);
 		tTimer:SetText("");
 		tTimer:Show();
 
@@ -110,8 +121,8 @@ function VUHDO_initCustomDebuffs()
 	end
 
 	for tCnt = sMaxNum + 40, 44 do
-		tIcon = VUHDO_getBarIcon(sButton, tCnt);
-		tIcon:ClearAllPoints();
-		tIcon:Hide();
+		tFrame = VUHDO_getBarIconFrame(sButton, tCnt);
+		tFrame:ClearAllPoints();
+		tFrame:Hide();
 	end
 end

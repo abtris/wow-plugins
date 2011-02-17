@@ -1,4 +1,4 @@
--- $Id: constants.kr.lua 3150 2010-12-21 13:19:14Z arith $
+﻿-- $Id: constants.kr.lua 3245 2011-01-22 11:41:05Z dynaletik $
 --[[
 constants.en.lua
 This file defines an AceLocale table for all the various text strings needed
@@ -944,7 +944,6 @@ if AL then
 	AL["Matron Li-sahar"] = true;
 	AL["Solus the Eternal"] = true;
 	AL["Smokywood Pastures Vendor"] = true;
-	AL["Shartuul"] = true;
 	AL["Darkscreecher Akkarai"] = true;
 	AL["Karrog"] = true;
 	AL["Gezzarak the Huntress"] = true;
@@ -971,11 +970,9 @@ if AL then
 	AL["Thomas Yance"] = true;
 	AL["Knot Thimblejack"] = true;
 	AL["Shen'dralar Provisioner"] = true;
-	AL["Namdo Bizzfizzle"] = true;
 	AL["The Nameles Prophet"] = true;
 	AL["Rajaxx's Captains"] = true;
 	AL["Razorfen Spearhide"] = true;
-	AL["Kalldan Felmoon"] = true;
 	AL["Magregan Deepshadow"] = true;
 	AL["Don Carlos"] = true;
 	AL["Thomas Yance"] = true;
@@ -1017,17 +1014,11 @@ if AL then
 	AL["The Vault"] = "검은 금고";
 	AL["Ogre Tannin Basket"] = "오우거 타닌 바구니";
 	AL["Fengus's Chest"] = "펜쿠스의 궤짝";
-	AL["The Prince's Chest"] = "오래된 궤짝";
-	AL["Doan's Strongbox"] = "도안의 금고";
-	AL["Frostwhisper's Embalming Fluid"] = "프로스트위스퍼의 불변의 영액";
-	AL["Unforged Rune Covered Breastplate"] = "버려지지 않은 룬문자 흉갑";
-	AL["Malor's Strongbox"] = "말로의 금고";
 	AL["Unfinished Painting"] = "완성되지 않은 그림";
 	AL["Felvine Shard"] = "악령덩쿨 조각";
 	AL["Baelog's Chest"] = "밸로그의 궤짝";
 	AL["Lorgalis Manuscript"] = "로르갈리스 초본";
 	AL["Fathom Core"] = "심연의 핵";
-	AL["Conspicuous Urn"] = true;
 	AL["Gift of Adoration"] = true;
 	AL["Box of Chocolates"] = true;
 	AL["Treat Bag"] = true;

@@ -92,7 +92,7 @@
 				<Scripts>
 					<OnLoad>
 						VUHDO_setComboModel(self, "VUHDO_BOUQUETS.SELECTED", VUHDO_BOUQET_COMBO_MODEL);
-						VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_464);
+						VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K464);
 						self:SetAttribute("custom_function_post", VUHDO_notifyBouquetSelect);
 					</OnLoad>
 				</Scripts>

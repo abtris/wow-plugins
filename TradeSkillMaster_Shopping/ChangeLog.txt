@@ -1,0 +1,30 @@
+v0.1.7
+*Fixed a bug with Dealfinding occasionally giving an error.
+*Localization files should now be loaded correctly.
+*Fixed inferno ink ratios.
+*Removed the enchanting icon as it's not yet implemented.
+*Many fixes for the "no auctions found..." issue.
+*Many other minor bug fixes and improvements.
+
+v0.1.6
+*Dealfinding list is now stored globally instead of by profile.
+*Fixed milling coefficients.
+*Many other minor bug fixes and improvements.
+
+v0.1.5
+*Fixed a major bug that was preventing some gems from being purchased through the automatic mode.
+
+v0.1.4
+*Multiple bug fixes with buying items in all different modes.
+
+v0.1.3
+*Fixed another bug caused by setting a max price in the destroying section of Shopping.
+
+v0.1.2
+*Few minor bug fixes.
+
+v0.1.1
+*Fixed a bug that caused the addon to not upload properly.
+
+v0.1
+*First version!

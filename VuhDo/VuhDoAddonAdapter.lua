@@ -57,7 +57,7 @@ end
 function VUHDO_initFuBar()
 	-- libDataBroker
 	if (VUHDO_LibDataBroker ~= nil) then
-		VuhDoLauncher = VUHDO_LibDataBroker:NewDataObject("VuhDo", {
+		VUHDO_LibDataBroker:NewDataObject("VuhDo", {
 			type = "launcher",
 			icon = "Interface\\AddOns\\VuhDo\\Images\\VuhDo",
 			OnClick = function(aClickedFrame, aButton)
@@ -118,27 +118,23 @@ function VUHDO_initSharedMedia()
 	local tIndex, tValue;
 
 	-- fonts
-	local tFonts = VUHDO_LibSharedMedia:List('font');
-	for tIndex, tValue in ipairs(tFonts) do
+	for tIndex, tValue in ipairs(VUHDO_LibSharedMedia:List('font')) do
 		VUHDO_FONTS[tIndex] = { VUHDO_LibSharedMedia:Fetch('font', tValue), tValue };
 	end
 
 	-- status bars
-	local tBars = VUHDO_LibSharedMedia:List('statusbar');
-	for tIndex, tValue in ipairs(tBars) do
+	for tIndex, tValue in ipairs(VUHDO_LibSharedMedia:List('statusbar')) do
 		VUHDO_STATUS_BARS[tIndex] = { tValue, tValue };
 	end
 
 	-- sounds
-	local tSounds = VUHDO_LibSharedMedia:List('sound');
-	for tIndex, tValue in ipairs(tSounds) do
+	for tIndex, tValue in ipairs(VUHDO_LibSharedMedia:List('sound')) do
 		VUHDO_SOUNDS[tIndex] = { VUHDO_LibSharedMedia:Fetch('sound', tValue), tValue };
 	end
 	tinsert(VUHDO_SOUNDS, 1, { nil, "-- " .. VUHDO_I18N_OFF .. " --" } );
 
 	-- borders
-	local tBorders = VUHDO_LibSharedMedia:List('border');
-	for tIndex, tValue in ipairs(tBorders) do
+	for tIndex, tValue in ipairs(VUHDO_LibSharedMedia:List('border')) do
 		VUHDO_BORDERS[tIndex] = { VUHDO_LibSharedMedia:Fetch('border', tValue), tValue };
 	end
 end
@@ -146,21 +142,30 @@ end
 
 
 --
-local tPanelNum, tButtonNum;
-local tEmptyButton = { };
 function VUHDO_initCliqueSupport()
 	if (not VUHDO_CONFIG["IS_CLIQUE_COMPAT_MODE"]) then
 		return;
 	end
 
+	if (not IsAddOnLoaded("Clique")) then
+		VUHDO_Msg("WARNING: Clique compatibility mode is enabled but clique doesn't seem to be loaded!", 1, 0.4, 0.4);
+	end
+
 	ClickCastFrames = ClickCastFrames or {};
+
+	local tPanelNum, tButtonNum, tIconNum;
+	local tBtnName;
 
 	for tPanelNum = 1, 10 do -- VUHDO_MAX_PANELS
 		for tButtonNum = 1, 51 do -- VUHDO_MAX_BUTTONS_PANEL
-			if (VUHDO_GLOBAL["VdAc" .. tPanelNum .. "HlU" .. tButtonNum] ~= nil) then
-				ClickCastFrames[VUHDO_GLOBAL["VdAc" .. tPanelNum .. "HlU" .. tButtonNum]] = true;
-				ClickCastFrames[VUHDO_GLOBAL["VdAc" .. tPanelNum .. "HlU" .. tButtonNum .. "Tg"]] = true;
-				ClickCastFrames[VUHDO_GLOBAL["VdAc" .. tPanelNum .. "HlU" .. tButtonNum .. "Tot"]] = true;
+			tBtnName = format("VdAc%dHlU%d", tPanelNum, tButtonNum);
+			if (VUHDO_GLOBAL[tBtnName] ~= nil) then
+				ClickCastFrames[VUHDO_GLOBAL[tBtnName]] = true;
+				ClickCastFrames[VUHDO_GLOBAL[tBtnName .. "Tg"]] = true;
+				ClickCastFrames[VUHDO_GLOBAL[tBtnName .. "Tot"]] = true;
+				for tIconNum = 40, 44 do
+					ClickCastFrames[VUHDO_GLOBAL[format("%sBgBarIcBarHlBarIc%d", tBtnName, tIconNum)]] = true;
+				end
 			end
 		end
 	end
@@ -170,7 +175,6 @@ end
 
 --
 function VuhDo:VUHDO_buttonFacadeCallback(aSkinId, aGloss, aBackdrop, aGroup, aButton, aColors)
-	--VUHDO_xMsg(aSkinId, aGloss, aBackdrop, aGroup, aButton, aColors);
 	if (VUHDO_I18N_BUFF_WATCH == aGroup) then
 		VUHDO_BUFF_SETTINGS["CONFIG"]["BUTTON_FACADE"] = aSkinId;
 	end
@@ -179,9 +183,9 @@ function VuhDo:VUHDO_buttonFacadeCallback(aSkinId, aGloss, aBackdrop, aGroup, aB
 		VUHDO_PANEL_SETUP["HOTS"]["BUTTON_FACADE"] = aSkinId;
 	end
 
-	if (VUHDO_I18N_DEBUFFS == aGroup) then
+	--[[if (VUHDO_I18N_DEBUFFS == aGroup) then
 		VUHDO_CONFIG["CUSTOM_DEBUFF"]["BUTTON_FACADE"] = aSkinId;
-	end
+	end]] -- geht nicht, weil icon kein button sein darf (onenter/onleave)
 end
 
 
@@ -198,6 +202,6 @@ function VUHDO_initButtonFacade(anInstance)
 		VUHDO_LibButtonFacade:RegisterSkinCallback("VuhDo", VuhDo["VUHDO_buttonFacadeCallback"], anInstance);
 		VUHDO_LibButtonFacade:Group("VuhDo", VUHDO_I18N_BUFF_WATCH);
 		VUHDO_LibButtonFacade:Group("VuhDo", VUHDO_I18N_HOTS);
-		VUHDO_LibButtonFacade:Group("VuhDo", VUHDO_I18N_DEBUFFS);
+		--VUHDO_LibButtonFacade:Group("VuhDo", VUHDO_I18N_DEBUFFS);
 	end
 end

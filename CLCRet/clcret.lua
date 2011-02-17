@@ -66,7 +66,7 @@ local strataLevels = {
 -- ---------------------------------------------------------------------------------------------------------------------
 local defaults = {
 	profile = {
-		version = 5,
+		version = 6,
 		
 		-- layout settings for the main frame (the black box you toggle on and off)\
 		zoomIcons = true,
@@ -105,18 +105,18 @@ local defaults = {
 		
 		-- rotation
 		rotation = {
-			useInq = true,
-			preInq = 5,
-			tolerance = 0.1,
-			jClash = 0.5,
-			hw = true,
-			hwClash = 0.5,
-			cons = false,
-			consClash = 1,
-			consMana = 20000,
-			hpDelay = 0.5,
+			prio = "inqa inqrhp tvhp cs inqrdp tvdp exoud how exo j hw cons",
+			inqRefresh = 5,
+			inqApplyMin = 3,
+			inqRefreshMin = 3,
+			jClash = 0,
+			hwClash = 0,
+			consClash = 0,
+			consMana = 30000,
+			hpDelay = 0.9,
 			undead = "Undead",
 			demon = "Demon",
+			predictCS = false,
 		},
 		
 		-- behavior
@@ -236,6 +236,10 @@ local function ShowOptions()
 	if not clcret.optionsLoaded then LoadAddOn("CLCRet_Options") end
 	InterfaceOptionsFrame_OpenToCategory("CLCRet")
 end
+local function CmdLinePrio(args)
+	clcret.db.profile.rotation.prio = args
+	clcret.RR_UpdateQueue()
+end
 function clcret:OnInitialize()
 	-- SAVEDVARS
 	self.db = LibStub("AceDB-3.0"):New("clcretDB", defaults)
@@ -250,18 +254,6 @@ end
 function clcret:QUEST_LOG_UPDATE()
 	self:UnregisterEvent("QUEST_LOG_UPDATE")
 	-- test if it's a paladin or not
-	
-	-- version check
-	if not db.versionCheck4031 then
-		-- static popup dialog
-		StaticPopupDialogs["CLCRET"] = {
-			text = "CLCRet:\nA lot of stuff has changed. Rotation is mostly fixed now, according to EJ info. Check the options.\nIt's very likely you will get errors at lower levels.",
-			button1 = OKAY,
-			timeout = 0,
-		}
-		StaticPopup_Show("CLCRET")
-		db.versionCheck4031 = true
-	end
 	
 	-- get player name for sov tracking 
 	playerName = UnitName("player")
@@ -287,6 +279,7 @@ function clcret:QUEST_LOG_UPDATE()
 	InterfaceOptions_AddCategory(optionFrame)
 	-- chat command that points to our category
 	self:RegisterChatCommand("clcret", ShowOptions)
+	self:RegisterChatCommand("clcretlp", CmdLinePrio)
 	
 	self:UpdateEnabledAuraButtons()
 	
@@ -294,6 +287,7 @@ function clcret:QUEST_LOG_UPDATE()
 	self.CreatePPB()
 	self:UpdatePPB()
 
+	self:RR_UpdateQueue()
 	self:InitUI()
 	self:UpdateAuraButtonsCooldown()
 	self:PLAYER_TALENT_UPDATE()

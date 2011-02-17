@@ -22,10 +22,6 @@ if not L then return end
 	L["WOW_SKILL_HEADER_SECONDARY"] = "Дополнительные профессии"
 	
 	
---	wow skill names - must match exactly what is in game
-	L["WOW_SKILL_RIDING"] = "Верховая езда"
-	
-	
 --	wow tooltip text - must match exactly what is in game
 	L["WOW_ITEM_TOOLTIP_FOOD"] = "Действие эффекта прерывается, если персонаж встает с места"
 	L["WOW_ITEM_TOOLTIP_DRINK"] = "Действие эффекта прерывается, если персонаж встает с места"

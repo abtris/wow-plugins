@@ -18,6 +18,7 @@ local VUHDO_buildAssistMacroText;
 local VUHDO_getDebuffAbilities;
 local VUHDO_replaceMacroTemplates;
 local VUHDO_isActionValid;
+local VUHDO_getBarIconFrame;
 
 local string = string;
 local GetMacroIndexByName = GetMacroIndexByName;
@@ -50,6 +51,7 @@ function VUHDO_keySetupInitBurst()
 	VUHDO_getDebuffAbilities = VUHDO_GLOBAL["VUHDO_getDebuffAbilities"];
 	VUHDO_replaceMacroTemplates = VUHDO_GLOBAL["VUHDO_replaceMacroTemplates"];
 	VUHDO_isActionValid = VUHDO_GLOBAL["VUHDO_isActionValid"];
+	VUHDO_getBarIconFrame = VUHDO_GLOBAL["VUHDO_getBarIconFrame"];
 	sIsCliqueCompat = VUHDO_CONFIG["IS_CLIQUE_COMPAT_MODE"];
 end
 ----------------------------------------------------
@@ -57,11 +59,11 @@ end
 
 
 local VUHDO_REZ_SPELLS_NAMES = {
-	[VUHDO_SPELL_ID_REDEMPTION] = true,
-	[VUHDO_SPELL_ID_ANCESTRAL_SPIRIT] = true,
-	[VUHDO_SPELL_ID_REVIVE] = true,
-	[VUHDO_SPELL_ID_REBIRTH] = true,
-	[VUHDO_SPELL_ID_RESURRECTION] = true,
+	[VUHDO_SPELL_ID.REDEMPTION] = true,
+	[VUHDO_SPELL_ID.ANCESTRAL_SPIRIT] = true,
+	[VUHDO_SPELL_ID.REVIVE] = true,
+	[VUHDO_SPELL_ID.REBIRTH] = true,
+	[VUHDO_SPELL_ID.RESURRECTION] = true,
 };
 
 
@@ -83,19 +85,19 @@ local function _VUHDO_setupHealButtonAttributes(aModiKey, aButtonId, anAction, a
 
 	if ("assist" == tActionLow) then
 		aButton:SetAttribute(aModiKey .. "type" .. aButtonId, "macro");
-		aButton:SetAttribute(aModiKey .. "macrotext" .. aButtonId,
-			VUHDO_buildAssistMacroText(tUnit));
+		aButton:SetAttribute(aModiKey .. "macrotext" .. aButtonId, VUHDO_buildAssistMacroText(tUnit));
+
 	elseif ("focus" == tActionLow) then
 		aButton:SetAttribute(aModiKey .. "type" .. aButtonId, "macro");
-		aButton:SetAttribute(aModiKey .. "macrotext" .. aButtonId,
-			VUHDO_buildFocusMacroText(tUnit));
+		aButton:SetAttribute(aModiKey .. "macrotext" .. aButtonId, VUHDO_buildFocusMacroText(tUnit));
 
 	elseif ("target" == tActionLow) then
 		aButton:SetAttribute(aModiKey .. "type" .. aButtonId, "macro");
-		aButton:SetAttribute(aModiKey .. "macrotext" .. aButtonId,
-			VUHDO_buildTargetMacroText(tUnit));
+		aButton:SetAttribute(aModiKey .. "macrotext" .. aButtonId, VUHDO_buildTargetMacroText(tUnit));
+
 	elseif ("menu" == tActionLow or "tell" == tActionLow) then
 		aButton:SetAttribute(aModiKey .. "type" .. aButtonId, nil);
+
 	elseif ("dropdown" == tActionLow) then
 		aButton:SetAttribute(aModiKey .."type" .. aButtonId, "VUHDO_contextMenu");
 
@@ -177,7 +179,7 @@ local function VUHDO_setupHealButtonAttributes(aModiKey, aButtonId, anAction, aB
 
 	tUnit = aButton["raidid"];
 
-	if (anIsTgButton or tUnit == "focus" or (tUnit == "target" and "dropdown" ~= strlower(anAction or ""))) then
+	if (anIsTgButton or tUnit == "focus" or (tUnit == "target" and "dropdown" ~= (anAction or ""))) then
 		if (anIndex == nil) then
 			tHostSpell = VUHDO_HOSTILE_SPELL_ASSIGNMENTS[gsub(aModiKey, "-", "") .. aButtonId][3];
 		else
@@ -237,26 +239,23 @@ local tIsWheel;
 local tHostSpell;
 local tWheelDefString;
 local tEntries;
-function VUHDO_setupAllHealButtonAttributes(aButton, aUnit, anIsDisable, aForceTarget, anIsTgButton)
+local tCnt;
+local tFrame;
+function VUHDO_setupAllHealButtonAttributes(aButton, aUnit, anIsDisable, aForceTarget, anIsTgButton, anIsIcButton)
 
 	if (aUnit ~= nil) then
 		aButton:SetAttribute("unit", aUnit);
 		aButton["raidid"] = aUnit;
 	end
 
-	if (aButton:GetAttribute("vd_tt_hook") == nil and not anIsTgButton and VUHDO_BUTTON_CACHE[aButton] ~= nil) then
-		aButton:HookScript("OnEnter",
-			function(self)
-				VuhDoActionOnEnter(self);
-			end
-		);
-
-		aButton:HookScript("OnLeave",
-			function(self)
-				VuhDoActionOnLeave(self);
-			end
-		);
-
+	if (aButton:GetAttribute("vd_tt_hook") == nil and not anIsTgButton) then
+		if (anIsIcButton) then
+			aButton:HookScript("OnEnter", function(self) VUHDO_showDebuffTooltip(self); VuhDoActionOnEnter(self:GetParent():GetParent():GetParent():GetParent()) end);
+			aButton:HookScript("OnLeave", function(self) VUHDO_hideDebuffTooltip(); VuhDoActionOnLeave(self:GetParent():GetParent():GetParent():GetParent()) end);
+		else
+			aButton:HookScript("OnEnter",	function(self) VuhDoActionOnEnter(self); end);
+			aButton:HookScript("OnLeave",	function(self) VuhDoActionOnLeave(self); end);
+		end
 		aButton:SetAttribute("vd_tt_hook", true);
 	end
 
@@ -277,6 +276,7 @@ function VUHDO_setupAllHealButtonAttributes(aButton, aUnit, anIsDisable, aForceT
 		for _, tSpellDescr in pairs(VUHDO_SPELL_ASSIGNMENTS) do
 			VUHDO_setupHealButtonAttributes(tSpellDescr[1], tSpellDescr[2], tPreAction, aButton, anIsTgButton);
 		end
+
 	else
 		for _, tSpellDescr in pairs(VUHDO_SPELL_ASSIGNMENTS) do
 			VUHDO_setupHealButtonAttributes(tSpellDescr[1], tSpellDescr[2], tSpellDescr[3], aButton, anIsTgButton);
@@ -302,11 +302,8 @@ function VUHDO_setupAllHealButtonAttributes(aButton, aUnit, anIsDisable, aForceT
 		end
 	end
 
---	aButton:SetAttribute("type-w99", "macro");
---	aButton:SetAttribute("macrotext-w99", "/use Aderlass");
-
 	-- Tooltips and stuff for raid members only (not: target buttons)
-	if (VUHDO_BUTTON_CACHE[aButton] ~= nil) then
+	if (VUHDO_BUTTON_CACHE[aButton] or VUHDO_BUTTON_CACHE[aButton:GetParent():GetParent():GetParent():GetParent()] ~= nil) then
 		tWheelDefString = "self:ClearBindings();";
 		if (tIsWheel) then
 			tWheelDefString = tWheelDefString .. VUHDO_getWheelDefString();
@@ -315,18 +312,9 @@ function VUHDO_setupAllHealButtonAttributes(aButton, aUnit, anIsDisable, aForceT
 		tWheelDefString = tWheelDefString .. VUHDO_getInternalKeyString();
 
 		aButton:SetAttribute("_onenter", tWheelDefString);
-
-		aButton:SetAttribute("_onleave", [=[
-			self:ClearBindings();
-		]=]);
-
-		aButton:SetAttribute("_onshow", [=[
-			self:ClearBindings();
-		]=]);
-
-		aButton:SetAttribute("_onhide", [=[
-			self:ClearBindings();
-		]=]);
+		aButton:SetAttribute("_onleave", "self:ClearBindings();");
+		aButton:SetAttribute("_onshow", "self:ClearBindings();");
+		aButton:SetAttribute("_onhide", "self:ClearBindings();");
 	end
 end
 local VUHDO_setupAllHealButtonAttributes = VUHDO_setupAllHealButtonAttributes;
@@ -336,6 +324,7 @@ local VUHDO_setupAllHealButtonAttributes = VUHDO_setupAllHealButtonAttributes;
 --
 local tSpellDescr;
 local tAction;
+local tCnt;
 local function VUHDO_setupAllButtonsTo(aButton, aSpellName)
 	for _, tSpellDescr in pairs(VUHDO_SPELL_ASSIGNMENTS) do
 		tAction = tSpellDescr[3];
@@ -365,8 +354,10 @@ end
 
 
 --
+local tCnt;
 function VUHDO_disableActions(aButton)
 	VUHDO_setupAllHealButtonAttributes(aButton, nil, true, false, false);
+
 	aButton:Hide(); -- For clearing mouse-wheel click bindings
 	aButton:Show();
 end
@@ -376,7 +367,7 @@ end
 --
 local tIsShadowFrom;
 local function VUHDO_isShadowForm()
-	_, _, tIsShadowFrom = UnitBuff("player", VUHDO_SPELL_ID_SHADOWFORM);
+	_, _, tIsShadowFrom = UnitBuff("player", VUHDO_SPELL_ID.SHADOWFORM);
 	return tIsShadowFrom;
 end
 
@@ -412,10 +403,9 @@ function VUHDO_setupSmartCast(aButton)
 
 	-- Resurrect?
 	if (VUHDO_CONFIG["SMARTCAST_RESURRECT"] and tInfo["dead"]) then
-		local tMainRes, _ = VUHDO_getResurrectionSpells();
+		local tMainRes = VUHDO_getResurrectionSpells();
 		if (tMainRes ~= nil) then
 			if (not UnitIsGhost(tUnit)) then
-
 				VUHDO_setupAllButtonsTo(aButton, tMainRes);
 				return true;
 			else

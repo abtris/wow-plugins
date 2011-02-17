@@ -134,7 +134,7 @@ VUHDO_I18N_BUFFC_SKIN = "01Шкура";
 -- Mage
 VUHDO_I18N_BUFFC_ARMOR_MAGE = "03Доспех";
 -- Death Knight
-VUHDO_SPELL_ID_BUFFC_PRESENCE    = "03Власть";
+VUHDO_BUFFC_PRESENCE    = "03Власть";
 -- Warrior
 VUHDO_I18N_BUFFC_SHOUT = "01Крик";
 -- Hunter
@@ -386,25 +386,35 @@ VUHDO_I18N_DC_SHIELD_NO_MACROS = "Нет свободных слотов для 
 VUHDO_I18N_BROKER_TOOLTIP_1 = "|cffffff00ЛКМ|r Окно настроек";
 VUHDO_I18N_BROKER_TOOLTIP_2 = "|cffffff00ПКМ|r Всплывающее меню";
 -- 2.54
-VUHDO_I18N_HOURS = "hours";
-VUHDO_I18N_MINS = "mins";
-VUHDO_I18N_SECS = "secs";
+VUHDO_I18N_HOURS = "ч.";
+VUHDO_I18N_MINS = "мин.";
+VUHDO_I18N_SECS = "сек.";
 -- 2.65
-VUHDO_I18N_BOUQUET_CUSTOM_DEBUFF = "Icon: Custom Debuff";
+VUHDO_I18N_BOUQUET_CUSTOM_DEBUFF = "Иконка: Свой дебафф";
 -- 2.66
-VUHDO_I18N_OFF = "off";
-VUHDO_I18N_GHOST = "ghost";
-VUHDO_I18N_RIP = "rip";
+VUHDO_I18N_OFF = "выкл";
+VUHDO_I18N_GHOST = "призрак";
+VUHDO_I18N_RIP = "мертв";
 VUHDO_I18N_DC = "d/c";
-VUHDO_I18N_FOC = "foc";
-VUHDO_I18N_TAR = "tar";
+VUHDO_I18N_FOC = "фок";
+VUHDO_I18N_TAR = "цель";
 VUHDO_I18N_VEHICLE = "O-O";
 -- 2.67
 VUHDO_I18N_BUFF_WATCH = "BuffWatch";
 VUHDO_I18N_HOTS = "HoT'ы";
 VUHDO_I18N_DEBUFFS = "Дебафф";
-VUHDO_I18N_BOUQUET_PLAYER_FOCUS = "Flag: Player Focus";
+VUHDO_I18N_BOUQUET_PLAYER_FOCUS = "Флаг: Фокус игрока";
 -- 2.69
-VUHDO_I18N_SIDE_BAR_LEFT = "Side Left";
-VUHDO_I18N_SIDE_BAR_RIGHT = "Side Right";
-VUHDO_I18N_OWN_PET = "Own Pet";
+VUHDO_I18N_SIDE_BAR_LEFT = "Левая сторона";
+VUHDO_I18N_SIDE_BAR_RIGHT = "Правая сторона";
+VUHDO_I18N_OWN_PET = "Ваш питомец";
+-- 2.72
+VUHDO_I18N_SPELL = "Spell";
+VUHDO_I18N_COMMAND = "Command";
+VUHDO_I18N_MACRO = "Macro";
+VUHDO_I18N_ITEM = "Item";
+-- 2.75
+VUHDO_I18N_ERR_NO_BOUQUET = "\"%s\" tries to hook to bouquet \"%s\" which doesn't exist!";
+
+VUHDO_I18N_BOUQUET_HEALTH_BELOW_ABS = "Flag: Health < k";
+VUHDO_I18N_BOUQUET_HEALTH_ABOVE_ABS = "Flag: Health > k";

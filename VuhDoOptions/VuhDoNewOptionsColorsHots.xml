@@ -116,7 +116,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOT1");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_SQUARE_1, VUHDO_I18N_SQUARE_1);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_249);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K249);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "TitleString");
@@ -138,7 +138,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOT2");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_SQUARE_2, VUHDO_I18N_SQUARE_2);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_250);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K250);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "TitleString");
@@ -160,7 +160,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOT3");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_SQUARE_3, VUHDO_I18N_SQUARE_3);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_251);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K251);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "TitleString");
@@ -182,7 +182,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOT4");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_SQUARE_4, VUHDO_I18N_SQUARE_4);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_252);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K252);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "TitleString");
@@ -204,7 +204,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOT5");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_SQUARE_5, VUHDO_I18N_SQUARE_5);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_253);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K253);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "TitleString");
@@ -226,7 +226,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOT9");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_SQUARE_6, VUHDO_I18N_SQUARE_6);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_389);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K389);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "TitleString");
@@ -248,7 +248,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOT10");
 								VUHDO_lnfInitColorSwatch(self, "Square 7", "Square 7");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_510);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K510);
 							</OnLoad>
 							<OnShow>
 								VUHDO_lnfPatchFont(self, "TitleString");
@@ -270,7 +270,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOTS.WARNING");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_WARNING, VUHDO_I18N_WARNING);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_254);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K254);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -290,7 +290,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOTS.WARNING.lowSecs")
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_WARN_PREC_AT, 0, 10, " " .. VUHDO_I18N_SECS, 0.5);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_255);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K255);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -307,7 +307,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOTS.TEXT.outline");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_256);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K256);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -323,7 +323,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOTS.TEXT.shadow");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_257);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K257);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -339,7 +339,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOTS.WARNING.enabled");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_258);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K258);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -355,7 +355,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOTS.isFadeOut");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_260);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K260);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -371,7 +371,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.BAR_COLORS.HOTS.isFlashWhenLow");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_513);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K513);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>

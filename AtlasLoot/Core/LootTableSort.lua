@@ -301,23 +301,27 @@ local function SortTableItems(t, f)
 		return a2[a[i]], t[a2[a[i]]]
 	end
 end
-
+---------------------------------------
 local function GetItemPriceFromTable(itemTable, itemID)
 	if not itemTable or not itemID then return end
 	if type(itemTable) == "string" then
 		local dataID, instancePage = AtlasLoot:FormatDataID(itemTable)
 		local lootTableType = AtlasLoot:GetLootTableType(itemTable)
-		itemTable = AtlasLoot_Data[dataID][lootTableType][instancePage]
-	end
-	
-	local price
-	for k,v in ipairs(itemTable) do
-		if v[2] == itemID or v[3] == itemID then
-			price = v[6]
-			break
+		if AtlasLoot_Data[dataID] and AtlasLoot_Data[dataID][lootTableType] and AtlasLoot_Data[dataID][lootTableType][instancePage] then
+			itemTable = AtlasLoot_Data[dataID][lootTableType][instancePage]
 		end
 	end
-	return price 
+	
+	if itemTable and type(itemTable) == "table" then
+		local price
+		for k,v in ipairs(itemTable) do
+			if v[2] == itemID or v[3] == itemID then
+				price = v[6]
+				break
+			end
+		end
+	end
+	return price or ""
 end
 
 function LootTableSort:ShowSortedTable(name, tab, itemType)

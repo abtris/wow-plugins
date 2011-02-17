@@ -8,6 +8,7 @@ local InCombatLockdown = InCombatLockdown;
 local strlower = strlower;
 local strfind = strfind;
 local pairs = pairs;
+local GameTooltip = GameTooltip;
 
 local VUHDO_CURRENT_MOUSEOVER = nil;
 
@@ -22,6 +23,9 @@ local VUHDO_removeAllClusterHighlights;
 local VUHDO_getHealthBar;
 local VUHDO_setupSmartCast;
 local VUHDO_updateDirectionFrame;
+local VUHDO_isPanelVisible;
+local VUHDO_getPanelButtons;
+
 
 
 local VUHDO_SPELL_CONFIG;
@@ -47,6 +51,8 @@ function VUHDO_actionEventHandlerInitBurst()
 	VUHDO_CONFIG = VUHDO_GLOBAL["VUHDO_CONFIG"];
 	VUHDO_INTERNAL_TOGGLES = VUHDO_GLOBAL["VUHDO_INTERNAL_TOGGLES"];
 	VUHDO_RAID = VUHDO_GLOBAL["VUHDO_RAID"];
+	VUHDO_isPanelVisible = VUHDO_GLOBAL["VUHDO_isPanelVisible"];
+	VUHDO_getPanelButtons = VUHDO_GLOBAL["VUHDO_getPanelButtons"];
 end
 
 
@@ -230,7 +236,7 @@ local tButton;
 local tInfo;
 local tOldMouseover;
 
-function VuhDoActionOnEnter(aButton)
+function VuhDoActionOnEnter(aButton, anIsDebuffIcon)
 	VUHDO_showTooltip(aButton);
 
 	tOldMouseover = VUHDO_CURRENT_MOUSEOVER;
@@ -277,7 +283,9 @@ end
 --
 local tOldMouseover;
 function VuhDoActionOnLeave(aButton)
-	VUHDO_hideTooltip();
+	if (not anIsDebuffIcon) then
+		VUHDO_hideTooltip();
+	end
 
 	VuhDoDirectionFrame["shown"] = false;
 	VuhDoDirectionFrame:Hide();
@@ -357,7 +365,6 @@ function VuhDoActionPreClick(aButton, aMouseButton, aDown)
 	if (VUHDO_CONFIG["IS_CLIQUE_COMPAT_MODE"]) then
 		return;
 	end
-
 	tModi = "";
 	if (IsAltKeyDown()) then
 		tModi = tModi .. "alt";
@@ -467,4 +474,44 @@ function VUHDO_savePanelCoords(aPanel)
 	tPosition["orientation"], _, tPosition["relativePoint"], tPosition["x"], tPosition["y"] = aPanel:GetPoint(0);
 	tPosition["width"] = aPanel:GetWidth();
 	tPosition["height"] = aPanel:GetHeight();
+end
+
+
+
+--
+local tButton;
+local sDebuffIcon = nil;
+function VUHDO_showDebuffTooltip(aDebuffIcon)
+	if (not VUHDO_CONFIG["DEBUFF_TOOLTIP"]) then
+		return;
+	end
+
+	tButton = aDebuffIcon:GetParent():GetParent():GetParent():GetParent();
+	GameTooltip:SetOwner(aDebuffIcon, "ANCHOR_RIGHT", 0, 0);
+
+	if (aDebuffIcon["debuffInfo"] ~= nil) then
+		if (aDebuffIcon["isBuff"]) then
+			GameTooltip:SetUnitBuff(tButton["raidid"], aDebuffIcon["debuffInfo"]);
+		else
+			GameTooltip:SetUnitDebuff(tButton["raidid"], aDebuffIcon["debuffInfo"]);
+		end
+	end
+	sDebuffIcon = aDebuffIcon;
+end
+
+
+
+--
+function VUHDO_hideDebuffTooltip()
+	sDebuffIcon = nil;
+	GameTooltip:Hide();
+end
+
+
+
+--
+function VUHDO_updateCustomDebuffTooltip()
+	if (sDebuffIcon ~= nil) then
+		VUHDO_showDebuffTooltip(sDebuffIcon);
+	end
 end

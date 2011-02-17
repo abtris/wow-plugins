@@ -48,7 +48,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.isIcon");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_266);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K266);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -64,7 +64,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.isColor");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_267);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K267);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -80,7 +80,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.isName");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_491);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K491);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -96,7 +96,7 @@
 						<Scripts>
 							<OnClick>VUHDO_applyToAllCustomDebuffOnClick();</OnClick>
 							<OnLoad>
-								 VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_412);
+								 VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K412);
 							</OnLoad>
 						</Scripts>
 					</Button>
@@ -112,7 +112,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.animate");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_268);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K268);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -128,7 +128,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.timer");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_269);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K269);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -144,7 +144,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.isStacks");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_350);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K350);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -164,7 +164,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.max_num");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_MAX_NO_DE_BUFFS, 1, 5, "", 1);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_271);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K271);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -202,7 +202,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_setComboModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.SOUND", VUHDO_SOUNDS);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_272);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K272);
 								self:SetAttribute("custom_function", VUHDO_notifySoundSelect);
 							</OnLoad>
 						</Scripts>
@@ -259,7 +259,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.scale");
 								VUHDO_lnfSliderOnLoad(self, VUHDO_I18N_ICON_SCALE, 0.2, 1.5, "x", 0.05);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_270);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K270);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -305,7 +305,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.point", "TOPLEFT");
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_351);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K351);
 									</OnLoad>
 								</Scripts>
 							</CheckButton>
@@ -321,7 +321,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.point", "TOPRIGHT");
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_352);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K352);
 									</OnLoad>
 								</Scripts>
 							</CheckButton>
@@ -337,7 +337,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.point", "BOTTOMLEFT");
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_353);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K353);
 									</OnLoad>
 								</Scripts>
 							</CheckButton>
@@ -353,7 +353,7 @@
 								<Scripts>
 									<OnLoad>
 										VUHDO_lnfSetRadioModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.point", "BOTTOMRIGHT");
-										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_354);
+										VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K354);
 									</OnLoad>
 								</Scripts>
 							</CheckButton>
@@ -380,7 +380,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.yAdjust");
 								VUHDO_lnfSliderOnLoad(self, "Y", -100, 100, "%", 2);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_355);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K355);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -400,7 +400,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.xAdjust");
 								VUHDO_lnfSliderOnLoad(self, "X", -100, 100, "%", 2);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_356);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K356);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -431,7 +431,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_273);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K273);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -446,7 +446,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_274);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K274);
 							</OnLoad>
 							<OnClick>
 								VUHDO_lnfCheckButtonUpdateModel(self);
@@ -466,7 +466,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_413);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K413);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -481,7 +481,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_275);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K275);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -496,7 +496,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_276);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K276);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -511,7 +511,7 @@
 						</Anchors>
 						<Scripts>
 							<OnLoad>
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_350);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K350);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -549,7 +549,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_setComboModel(self, "VUHDO_CONFIG.CUSTOM_DEBUFF.SOUND", VUHDO_SOUNDS);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_272);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K272);
 								self:SetAttribute("custom_function", VUHDO_notifySoundSelect);
 							</OnLoad>
 						</Scripts>

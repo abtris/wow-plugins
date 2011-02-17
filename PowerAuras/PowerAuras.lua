@@ -21,9 +21,18 @@ PowaMisc =
 		UseGTFO = nil,
 		UserSetMaxTextures = PowaAuras.TextureCount,
 		OverrideMaxTextures = false,
+		Locked = false,
+		SoundChannel = "Master",
+	};
+
+	PowaGlobalMisc = 
+	{
+		PathToSounds = "Interface\\AddOns\\PowerAuras\\Sounds\\",
+		PathToAuras = "Interface\\Addons\\PowerAuras\\Custom\\",
 	};
 
 PowaAuras.PowaMiscDefault = PowaAuras:CopyTable(PowaMisc);
+PowaAuras.PowaGlobalMiscDefault = PowaAuras:CopyTable(PowaGlobalMisc);
 
 PowaSet = {};
 PowaTimer = {};
@@ -96,6 +105,9 @@ function PowaAuras:ReregisterEvents(frame)
 end
 
 function PowaAuras:RegisterEvents(frame)
+	if (self.playerclass=="DRUID") then
+		self.Events.UPDATE_SHAPESHIFT_FORM = true;
+	end
 	for event in pairs(self.Events) do
 		if (self[event]) then
 			frame:RegisterEvent(event);
@@ -130,7 +142,7 @@ function PowaAuras:LoadAuras()
 		end
 	end
 	
-	if (self.DebugAura) then
+	if (self.DebugAura and self.Auras[self.DebugAura]) then
 		self.Auras[self.DebugAura].Debug = true;
 	end
 	
@@ -362,7 +374,7 @@ function PowaAuras:CustomTexPath(customname)
 	--self:ShowText("CustomTexPath ", customname);
 	local texpath;
 	if string.find(customname,".", 1, true) then
-		texpath = "Interface\\Addons\\PowerAuras\\Custom\\"..customname;
+		texpath = PowaGlobalMisc.PathToAuras .. customname;
 	else
 		local spellId = select(3, string.find(customname, "%[?(%d+)%]?"));
 		if (spellId) then		
@@ -632,7 +644,7 @@ function PowaAuras:OnUpdate(elapsed)
 		--self:UnitTestInfo("ChecksTimer", self.ChecksTimer, self.NextCheck);
 		if ((self.ChecksTimer > (self.NextCheck + PowaMisc.OnUpdateLimit))) then
 			self.ChecksTimer = 0;
-			local isMountedNow = (IsMounted()~=nil);
+			local isMountedNow = (IsMounted()~=nil or self:IsDruidTravelForm());
 			if (isMountedNow ~= self.WeAreMounted) then
 				self.DoCheck.All = true;
 				self.WeAreMounted = isMountedNow;
@@ -728,6 +740,12 @@ function PowaAuras:OnUpdate(elapsed)
 	
 	self.ResetTargetTimers = false;
 
+end
+
+function PowaAuras:IsDruidTravelForm()
+	if (self.playerclass~="DRUID") then return false; end
+	--local nStance = GetShapeshiftForm();
+	return false; -- TODO
 end
 
 function PowaAuras:NewCheckBuffs()
@@ -908,6 +926,136 @@ function PowaAuras:SetAuraHideRequest(aura, secondaryAura)
 	end
 end
 
+-- Drag and Drop functions
+
+local function stopFrameMoving(frame)
+	if (not frame.isMoving) then return; end
+	frame.isMoving = false;
+	--PowaAuras:ShowText("stopMove id=", frame.aura.id);
+	frame:StopMovingOrSizing();
+	frame.aura.x = math.floor(frame:GetLeft() + (frame:GetWidth()  - UIParent:GetWidth())  / 2 + 0.5);
+	frame.aura.y = math.floor(frame:GetTop()  - (frame:GetHeight() + UIParent:GetHeight()) / 2 + 0.5);
+	if (PowaAuras.CurrentAuraId == frame.aura.id) then
+		PowaAuras:InitPage(frame.aura);
+	end
+end
+
+local function stopMove(frame, button)
+	--PowaAuras:ShowText("stopMove button=", button);
+	--PowaAuras:ShowText("isMoving=",frame.isMoving);
+	if (button ~= "LeftButton") then return end;
+	stopFrameMoving(frame);
+end
+
+
+local function startFrameMoving(frame)
+	if (frame.isMoving) then return; end
+	if (PowaAuras.CurrentAuraId ~= frame.aura.id) then
+		--PowaAuras:ShowText("Switching from id=", PowaAuras.CurrentAuraId);
+		stopFrameMoving(PowaAuras.Frames[PowaAuras.CurrentAuraId]);
+		local i = frame.aura.id - (PowaAuras.CurrentAuraPage-1)*24;
+		local icon;
+		if (i>0 and i<25) then
+			icon = getglobal("PowaIcone"..i);
+		end
+		PowaAuras:SetCurrent(icon, frame.aura.id);
+		--PowaAuras:InitPage(frame.aura); -- This seems to mess things up?
+	end
+	frame.isMoving = true;
+	--PowaAuras:ShowText("startMove id=", frame.aura.id);
+	frame:StartMoving();
+	local secondaryAura = PowaAuras.SecondaryAuras[frame.aura.id];
+	if (secondaryAura~=nil) then
+		secondaryAura.HideRequest = true;
+	end
+end
+
+local function startMove(frame, button)
+	--PowaAuras:ShowText("startMove button=", button, " isMoving=",frame.isMoving);
+	if (button ~= "LeftButton") then return end;
+	startFrameMoving(frame);
+end
+
+local function keyUp(frame, key)
+	--PowaAuras:ShowText("keyUp key=", key, " aura=",frame.aura.id);
+	if ((key~="UP" and key~="DOWN" and key~="LEFT" and key~="RIGHT") or not frame.mouseIsOver) then return; end
+	if (key=="UP") then
+		frame.aura.y = frame.aura.y + 1;
+	elseif (key=="DOWN") then
+		frame.aura.y = frame.aura.y - 1;
+	elseif (key=="LEFT") then
+		frame.aura.x = frame.aura.x - 1;
+	elseif (key=="RIGHT") then
+		frame.aura.x = frame.aura.x + 1;
+	end
+	local secondaryAura = PowaAuras.SecondaryAuras[frame.aura.id];
+	if (secondaryAura~=nil) then
+		secondaryAura.HideRequest = true;
+	end
+	if (PowaAuras.CurrentAuraId == frame.aura.id) then
+		PowaAuras:InitPage(frame.aura);
+	end
+	PowaAuras:RedisplayAura(frame.aura.id);
+end
+
+local function enterAura(frame)
+	--PowaAuras:ShowText("enterAura aura=",frame.aura.id);
+	frame.mouseIsOver = true;
+	frame:EnableKeyboard(true);
+	frame:SetScript("OnKeyUp", keyUp);
+	frame:SetScript("OnDragStart", frame.StartMoving);
+	frame:SetScript("OnDragStop", frame.StopMovingOrSizing);
+	frame:SetScript("OnMouseDown", startMove);
+	frame:SetScript("OnMouseUp", stopMove);
+end
+
+local function leaveAura(frame)
+	--PowaAuras:ShowText("leaveAura aura=",frame.aura.id);
+	frame.mouseIsOver = nil;
+	stopFrameMoving(frame);
+	frame:EnableKeyboard(false);
+	frame:SetScript("OnKeyUp", nil);
+	frame:SetScript("OnDragStart", nil);
+	frame:SetScript("OnDragStop", nil);
+	frame:SetScript("OnMouseDown", nil);
+	frame:SetScript("OnMouseUp", nil);
+	frame:SetScript("OnKeyUp", nil);
+end
+
+function PowaAuras:SetForDragging(aura, frame)
+	if (frame==nil or aura==nil or frame.SetForDragging) then return; end
+	--self:ShowText("Set Dragging ", aura.id);
+	frame:SetMovable(true);
+	frame:EnableMouse(true);
+	frame:SetClampedToScreen(false);
+	frame:RegisterForDrag("LeftButton");
+	frame:SetBackdrop( self.Backdrop);
+	frame:SetBackdropColor(0, 0.6, 0, 1);
+	--frame:SetScript("OnHide", stopMove);
+	frame:SetScript("OnEnter", enterAura);
+	frame:SetScript("OnLeave", leaveAura);
+	frame.SetForDragging = true;
+end
+
+function PowaAuras:ResetDragging(aura, frame)
+	if (frame==nil or aura==nil or not frame.SetForDragging) then return; end
+	--self:ShowText("Reset Dragging ", aura.id);
+	frame:SetMovable(false);
+	frame:EnableMouse(false);
+	frame:EnableKeyboard(false);
+	frame:RegisterForDrag();
+	frame:SetBackdrop(nil);
+	frame:SetScript("OnDragStart", nil);
+	frame:SetScript("OnDragStop", nil);
+	frame:SetScript("OnMouseDown", nil);
+	frame:SetScript("OnMouseUp", nil);
+	frame:SetScript("OnKeyUp", nil);
+	frame:SetScript("OnHide", nil);
+	frame:SetScript("OnEnter", nil);
+	frame:SetScript("OnLeave", nil);
+	frame.SetForDragging = nil;
+end
+
 -->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 function PowaAuras:ShowAuraForFirstTime(aura)
 	--self:UnitTestInfo("ShowAuraForFirstTime", aura.id);
@@ -925,31 +1073,38 @@ function PowaAuras:ShowAuraForFirstTime(aura)
 
 	aura.EndSoundPlayed = nil;
 	
-	if (self.ModTest == false) then
+	if (not self.ModTest) then
 		if (aura.customsound ~= "") then
 			local pathToSound;
 			if (string.find(aura.customsound, "\\")) then
 				pathToSound = aura.customsound;
 			else 
-				pathToSound = "Interface\\AddOns\\PowerAuras\\Sounds\\"..aura.customsound;
+				pathToSound = PowaGlobalMisc.PathToSounds .. aura.customsound;
 			end
 			--self:ShowText("Playing custom sound ",pathToSound);		
 			PlaySoundFile(pathToSound);
 		elseif (aura.sound > 0) then
 			if (PowaAuras.Sound[aura.sound]~=nil and string.len(PowaAuras.Sound[aura.sound])>0) then
 				if (string.find(PowaAuras.Sound[aura.sound], "%.")) then
-					--self:ShowText("Playing sound Interface\\AddOns\\PowerAuras\\Sounds\\",PowaAuras.Sound[aura.sound]);		
-					PlaySoundFile("Interface\\AddOns\\PowerAuras\\Sounds\\"..PowaAuras.Sound[aura.sound]);
+					--self:ShowText("Playing sound ",PowaGlobalMisc.PathToSounds,PowaAuras.Sound[aura.sound]);		
+					PlaySoundFile(PowaGlobalMisc.PathToSounds .. PowaAuras.Sound[aura.sound], PowaMisc.SoundChannel);
 				else
 					--self:ShowText("Playing WoW sound ",PowaAuras.Sound[aura.sound]);		
-					PlaySound(PowaAuras.Sound[aura.sound]);
+					PlaySound(PowaAuras.Sound[aura.sound], PowaMisc.SoundChannel);
 				end
 			end
 		end	
 	end
 	
 	local frame, texture = aura:CreateFrames();
+	frame.aura = aura;
 
+	if (self.ModTest and not PowaMisc.Locked) then
+		self:SetForDragging(aura, frame);
+	else
+		self:ResetDragging(aura, frame);
+	end
+	
 	if (aura.owntex == true) then
 		if (aura.icon=="") then
 			texture:SetTexture("Interface\\Icons\\Inv_Misc_QuestionMark");
@@ -1287,7 +1442,7 @@ function PowaAuras:UpdateAura(aura, elapsed)
 					if (string.find(aura.customsoundend, "\\")) then
 						pathToSound = aura.customsoundend;
 					else 
-						pathToSound = "Interface\\AddOns\\PowerAuras\\Sounds\\"..aura.customsoundend;
+						pathToSound = PowaGlobalMisc.PathToSounds..aura.customsoundend;
 					end
 					--self:ShowText("Playing sound "..pathToSound);		
 					PlaySoundFile(pathToSound);
@@ -1297,7 +1452,7 @@ function PowaAuras:UpdateAura(aura, elapsed)
 							self:Message("Playing end sound ", PowaAuras.Sound[aura.soundend]);
 						end
 						if (string.find(PowaAuras.Sound[aura.soundend], "%.")) then
-							PlaySoundFile("Interface\\AddOns\\PowerAuras\\Sounds\\"..PowaAuras.Sound[aura.soundend]);
+							PlaySoundFile(PowaGlobalMisc.PathToSounds..PowaAuras.Sound[aura.soundend]);
 						else
 							PlaySound(PowaAuras.Sound[aura.soundend]);
 						end
@@ -1380,7 +1535,8 @@ function PowaAuras:UpdateTimer(aura, timerElapsed, skipTimerUpdate)
 		self:DisplayText("aura.Active=",aura.Active);
 	end
 	local timerHide;
-	if (aura.Timer.ShowOnAuraHide and not self.ModTest and (not aura.ForceTimeInvert and not aura.InvertTimeHides)) then
+	--if (aura.Timer.ShowOnAuraHide and not self.ModTest and ((not aura.ForceTimeInvert and not aura.InvertTimeHides) or (aura.ForceTimeInvert and not aura.inverse)) ) then
+	if (aura.Timer.ShowOnAuraHide and not self.ModTest and (not aura.ForceTimeInvert and not aura.InvertTimeHides) ) then
 		timerHide = aura.Active;
 	else
 		timerHide = not aura.Active;

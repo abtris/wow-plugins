@@ -11,6 +11,7 @@ local tonumber = tonumber;
 local pairs = pairs;
 local GetNumMacros = GetNumMacros;
 local _ = _;
+local format = format;
 
 local VUHDO_RAID;
 function VUHDO_dcShieldInitBurst()
@@ -94,12 +95,14 @@ local function VUHDO_buildSnippetArray()
 			if (tInfo["isPet"]) then
 				tMacroIndex = tMacroIndex + 41; -- VUHDO_MAX_MACRO_UNITS
 			end
-			VUHDO_GROUP_SNIPPETS[tMacroIndex] =
-				(tInfo["group"] % 10)
-				.. (VUHDO_CLASS_TO_MACRO[tInfo["classId"]] or "_")
-				.. (VUHDO_ROLE_TO_MACRO[tInfo["role"]] or "_");
 
-			VUHDO_NAME_SNIPPETS[tMacroIndex] = strsub((tInfo["name"] or "") .. "   ", 1, 3);
+			VUHDO_GROUP_SNIPPETS[tMacroIndex] = format("%01d%s%s",
+				tInfo["group"] % 10,
+				VUHDO_CLASS_TO_MACRO[tInfo["classId"]] or "_",
+				VUHDO_ROLE_TO_MACRO[tInfo["role"]] or "_"
+			);
+
+			VUHDO_NAME_SNIPPETS[tMacroIndex] = format("%-3.3s", tInfo["name"] or "");
 		end
 	end
 end
@@ -232,7 +235,6 @@ function VUHDO_buildRaidFromMacro()
 	local tSnippet;
 	local tPrefix;
 	local tUnit;
-	local tRaidIdx;
 	local tName;
 
 	tIndexGroups = GetMacroIndexByName(VUHDO_MACRO_NAME_GROUPS);
@@ -253,23 +255,21 @@ function VUHDO_buildRaidFromMacro()
 		tPrefix = "party";
 	end
 
-	for tCnt = 0, 81 do -- VUHDO_MAX_MACRO_UNITS * 2 - 1
-	  tStrIdx = tCnt * 3 + 2;
+	for tCnt = 1, 82 do -- VUHDO_MAX_MACRO_UNITS * 2
+	  tStrIdx = tCnt * 3 - 1;
 		tSnippet = strsub(tMacroGroups, tStrIdx, tStrIdx + 2);
-		tName = strsub(tMacroNames, tStrIdx, tStrIdx + 2)
 		if ((tSnippet or VUHDO_EMPTY_SNIPPET) ~= VUHDO_EMPTY_SNIPPET) then
-			tRaidIdx = tCnt + 1;
-
-			if (tRaidIdx == 41) then -- VUHDO_MAX_MACRO_UNITS
+			if (tCnt == 41) then -- VUHDO_MAX_MACRO_UNITS
 				tUnit = "player";
-			elseif (tRaidIdx == 82) then -- VUHDO_MAX_MACRO_UNITS * 2
+			elseif (tCnt == 82) then -- VUHDO_MAX_MACRO_UNITS * 2
 				tUnit = "pet";
-			elseif (tRaidIdx > 41) then -- VUHDO_MAX_MACRO_UNITS
-				tUnit = tPrefix .. "pet" .. tRaidIdx;
+			elseif (tCnt > 41) then -- VUHDO_MAX_MACRO_UNITS
+				tUnit = format("%spet%d", tPrefix, tCnt - 41);
 			else
-				tUnit = tPrefix .. tRaidIdx;
+				tUnit = format("%s%d", tPrefix, tCnt);
 			end
 
+			tName = strsub(tMacroNames, tStrIdx, tStrIdx + 2);
 			VUHDO_buildInfoFromSnippet(tUnit, tSnippet, tName);
 		end
 	end

@@ -644,8 +644,8 @@ local function VUHDO_updateHots(aUnit, anInfo)
 			end
 
 			if (VUHDO_KNOWS_SWIFTMEND and not sIsSwiftmend) then
-				if (VUHDO_SPELL_ID_REGROWTH == tBuffName or VUHDO_SPELL_ID_REJUVENATION == tBuffName) then
-					tStart, tSmDuration, tEnabled = GetSpellCooldown(VUHDO_SPELLS[VUHDO_SPELL_ID_SWIFTMEND]["id"], BOOKTYPE_SPELL);
+				if (VUHDO_SPELL_ID.REGROWTH == tBuffName or VUHDO_SPELL_ID.REJUVENATION == tBuffName) then
+					tStart, tSmDuration, tEnabled = GetSpellCooldown(VUHDO_SPELLS[VUHDO_SPELL_ID.SWIFTMEND]["id"], BOOKTYPE_SPELL);
 					if (tEnabled ~= 0 and (tStart == nil or tSmDuration == nil or tStart <= 0 or tSmDuration <= 1.6)) then
 						sIsSwiftmend = true;
 					end

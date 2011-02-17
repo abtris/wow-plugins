@@ -6,6 +6,7 @@ local function VUHDO_hideAllPanel()
 	VuhDoNewOptionsColorsHotCharges:Hide();
 	VuhDoNewOptionsColorsClasses:Hide();
 	VuhDoNewOptionsColorsRaidIcons:Hide();
+	collectgarbage('collect');
 end
 
 

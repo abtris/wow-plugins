@@ -45,7 +45,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.SWATCH_COLOR_BUFF_OKAY");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_BUFF_OKAY, VUHDO_I18N_BUFF_OKAY);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_012);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K012);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -62,7 +62,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.SWATCH_COLOR_BUFF_LOW");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_BUFF_LOW, VUHDO_I18N_BUFF_LOW);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_013);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K013);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -79,7 +79,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.SWATCH_COLOR_BUFF_OUT");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_BUFF_MISSING, VUHDO_I18N_BUFF_MISSING);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_014);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K014);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -96,7 +96,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.SWATCH_COLOR_OUT_RANGE");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_OUT_OF_RANGE, VUHDO_I18N_OUT_OF_RANGE);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_015);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K015);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -113,7 +113,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.SWATCH_COLOR_BUFF_COOLDOWN");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_COOLDOWN, VUHDO_I18N_COOLDOWN);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_016);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K016);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -130,7 +130,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.SWATCH_EMPTY_GROUP");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_EMPTY_GROUP, VUHDO_I18N_EMPTY_GROUP);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_017);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K017);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -181,7 +181,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.PANEL_BG_COLOR");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_PANEL_BACKGROUND, VUHDO_I18N_PANEL_BACKGROUND);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_018);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K018);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -198,7 +198,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.SWATCH_BORDER_COLOR");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_SWATCH_BORDER, VUHDO_I18N_SWATCH_BORDER);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_019);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K019);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -215,7 +215,7 @@
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.PANEL_BORDER_COLOR");
 								VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_PANEL_BORDER, VUHDO_I18N_PANEL_BORDER);
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_020);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K020);
 							</OnLoad>
 						</Scripts>
 					</Frame>
@@ -265,7 +265,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.BAR_COLORS_IN_FIGHT");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_221);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K221);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -281,7 +281,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.BAR_COLORS_TEXT");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_222);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K222);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>
@@ -297,7 +297,7 @@
 						<Scripts>
 							<OnLoad>
 								VUHDO_lnfSetModel(self, "VUHDO_BUFF_SETTINGS.CONFIG.BAR_COLORS_BACKGROUND");
-								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_223);
+								VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT.K223);
 							</OnLoad>
 						</Scripts>
 					</CheckButton>

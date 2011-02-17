@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.2 by Xus 18-01-2011 for 4.0.3
+-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
 
 local FW = FW;
 local FWL = FW.L;
@@ -4339,6 +4339,7 @@ function FW:LocalizedData()
 			FW:RegisterOption(FW.INF,2,FW.NON,	FWL.GENERAL_TIPS5);
 			FW:RegisterOption(FW.INF,2,FW.NON,	FWL.GENERAL_TIPS4);
 			FW:RegisterOption(FW.INF,2,FW.NON,	FWL.GENERAL_TIPS6);
+			FW:RegisterOption(FW.INF,2,FW.NON,	FWL.GENERAL_TIPS7);
 			
 		FW:SetSubCategory(FWL.GENERAL_MO,FW.ICON.DEFAULT,2);
 			FW:RegisterOption(FW.CHK,1,FW.NON,FWL.GENERAL_MO1,	FWL.GENERAL_MO1_TT,	"RightClickOptions");

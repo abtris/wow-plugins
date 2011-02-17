@@ -1,4 +1,4 @@
-﻿-- $Id: constants.fr.lua 3151 2010-12-21 13:43:26Z trasher $
+﻿-- $Id: constants.fr.lua 3273 2011-01-29 14:18:27Z trasher $
 --[[
 constants.fr.lua --- Traduction frFR par Trasher. Merci à KKram pour les premières traductions & Pettigrow pour ses quelques traductions.
 This file defines an AceLocale table for all the various text strings needed
@@ -24,7 +24,7 @@ if AL then
 	-- UI things
 	-- #########
 	-- AtlasLootFu 
-	AL["AtlasLootFu is no longer in use.\nDelete it from your AddOns folder"] = "AtlasLootFu n'est plus utilisé. Veuillez le supprimer de votre dossier AddOns.";
+	AL["AtlasLootFu is no longer in use.\nDelete it from your AddOns folder"] = "AtlasLootFu n'est plus utilisé.\nVeuillez le supprimer de votre dossier AddOns.";
 
 	-- Options
 	--AL["Options"] = true;
@@ -54,7 +54,7 @@ if AL then
 	--AL["Only change alpha on leave frame"] = true; -- à traduire
 
 	-- Bindings
-	--AL["Toggle AtlasLoot"] = true; -- à traduire
+	AL["Toggle AtlasLoot"] = "Afficher / Masquer AtlasLoot";
 
 	-- Help
 	AL["Help"] = "Aide";
@@ -83,7 +83,7 @@ if AL then
 	AL["Drop Rate: "] = "Chance de tomber : ";
 	--AL["DKP"] = true;
 	AL["Priority:"] = "Priorité :";
-	AL["Show price and slot if possible"] = "Voir le prix si possible"; -- à traduire
+	AL["Show price and slot if possible"] = "Voir le prix et le slot si possible";
 	--AL["Use GameTooltip"] = true; -- à traduire
 	--AL["Use the standard GameTooltip instead of the custom AtlasLoot tooltip"] = true; -- à traduire
 	-- Unsafe Item
@@ -141,7 +141,7 @@ if AL then
 
 	-- Panel
 	AL["Hide Panel"] = "Masquer le panneau";
-	--AL["Toggle AL Panel"] = true; -- à traduire
+	AL["Toggle AL Panel"] = "Afficher / Masquer le panneau d'AtlasLoot";
 	AL["Buttons"] = "Boutons";
 
 	-- Buttons
@@ -164,8 +164,8 @@ if AL then
 	-- Single options
 	AL["unused"] = "inutilisé";
 	AL["QuickLook name:"] = "Nom du QuickLook :";
-	--AL["Use Boss name"] = true;
-	--AL["Use Instance name"] = true;
+	AL["Use Boss name"] = "Utiliser le nom du boss";
+	AL["Use Instance name"] = "Utiliser le nom de l'instance";
 	AL["Delete"] = "Supprimer";
 	AL["Lock"] = "Bloquer";
 	AL["Enable"] = "Activer";
@@ -313,6 +313,7 @@ if AL then
 	AL["PvP Misc"] = "Objets divers JcJ";
 	AL["PVP Gems/Enchants/Jewelcrafting Designs"] = "Gemmes / Enchantements / Dessins de Joaillerie JcJ";
 	AL["PvP Class Items"] = "Objets JcJ de classe";
+	AL["PvP Trinkets"] = "Bijoux JcJ";
 	AL["NOT AVAILABLE ANYMORE"] = "N'EST PLUS DISPONIBLE";
 
 	-- World Events
@@ -335,6 +336,7 @@ if AL then
 	AL["Pilgrim's Bounty"] = "Bienfaits du pèlerin";
 	--AL["Skettis"] = true,
 	AL["Stranglethorn Fishing Extravaganza"] = "Concours de pêche de Strangleronce";
+	AL["Kalu'ak Fishing Derby"] = "Tournoi de pêche kalu'ak";
 	AL["Elemental Unrest"] = "L'invasion des élementaires";
 
 	-- Minimap Button
@@ -394,13 +396,20 @@ if AL then
 
 	-- Alchemy
 	AL["Battle Elixirs"] = "Elixirs de bataille";
+	AL["Cauldron"] = "Chaudron";
+	AL["Cauldrons"] = "Chaudrons";
 	AL["Guardian Elixirs"] = "Elixirs du Gardien";
+	AL["Oils"] = "Huiles";
+	AL["Other Elixirs"] = "Autres élixirs";
 	--AL["Potions"] = true;
 	AL["Transmutes"] = "Transmutations";
 	AL["Flasks"] = "Flacons";
+	AL["Guild"] = "Guilde";
 
 	-- Blacksmithing
-	--AL["Cataclysm Vendor Sold Plans"] = true; --  traduire
+	AL["Cataclysm Vendor Sold Plans"] = "Vendeur de plans à Catalysm"
+	AL["Armor Enhancements"] = "Améliorations d'armure";
+	AL["Weapon Enhancements"] = "Améliorations d'arme";
 
 	-- Enchanting
 	AL["Enchant Boots"] = "Enchantement Bottes";
@@ -412,13 +421,23 @@ if AL then
 	AL["Enchant Shield"] = "Enchantement Bouclier";
 	AL["Enchant 2H Weapon"] = "Enchantement Arme à deux mains";
 	AL["Enchant Weapon"] = "Enchantement Arme";
-	--AL["Cataclysm Vendor Sold Formulas"] = true; -- à traduire
+	AL["Cataclysm Vendor Sold Formulas"] = "Vendeur de formules à Catalysm";
+
+	-- Engineering
+	--AL["Tinker"] = true; -- à traduire
 
 	-- Inscription
+	AL["Glyph"] = "Glyphe";
+	AL["Prime Glyph"] = "Glyphe primordial";
 	AL["Major Glyph"] = "Glyphe majeur";
 	AL["Minor Glyph"] = "Glyphe mineur";
+	AL["Runescrolls"] = "Parchemins";
+	AL["Recall"] = "Rappel";
 	AL["Scrolls"] = "Parchemins";
 	AL["Off-Hand Items"] = "Objets Tenu(e) en main gauche";
+	AL["Relics/Shoulder Enchants"] = "Reliques / Enchantements d'épaule";
+	AL["Relics"] = "Reliques";
+	AL["Shoulder Enchants"] = "Enchantements d'épaule";
 	AL["Reagents"] = "Réactifs";
 	AL["Book of Glyph Mastery"] = "Livre de la maîtrise des glyphes";
 
@@ -433,6 +452,7 @@ if AL then
 	AL["Cloth Armor"] = "Armure en tissu";
 	AL["Shirts"] = "Chemises";
 	AL["Bags"] = "Sacs";
+	AL["Cataclysm Vendor Sold Patterns"] = "Vendeur de patrons à Cataclysm";
 
 	-- Labels for loot descriptions
 	AL["Classes:"] = "Classes :";
@@ -460,7 +480,7 @@ if AL then
 	AL["Random Heroic Reward"] = "Récompense héroique aléatoire";
 	--AL["Fishing Daily Reward"] = true; -- à traduire
 	--AL["Collector's Edition"] = true; -- à traduire
-	--AL["Blizzcon"] = true; -- à traduire
+	--AL["Blizzcon"] = true;
 	--AL["WoW Anniversary Celebration"] = true; -- à traduire
 	--AL["Daily Reward"] = true; -- à traduire
 
@@ -540,38 +560,59 @@ if AL then
 	AL["Random"] = "Aléatoire";
 	AL["Brew of the Month Club"] = "Le club de la Bière du mois";
 
-	-- Cooking descriptions -- à traduire
+	-- Profession descriptions -- à traduire
 	--AL["Buff"] = true;
-	--AL["Agility"] = true;
-	--AL["Intellect"] = true;
-	--AL["Strength"] = true;
-	--AL["Agility, Intellect, Strength"] = true;
-	--AL["Spell Power"] = true;
-	--AL["Attack Power"] = true;
-	--AL["Spell/Attack Power"] = true;
-	--AL["Hit Rating"] = true;
-	--AL["Crit Rating"] = true;
-	--AL["Crit/Hit Rating"] = true;
-	--AL["Haste Rating"] = true;
-	--AL["Dodge Rating"] = true;
-	--AL["Expertise Rating"] = true;
-	--AL["Mastery Rating"] = true;
-	--AL["Parry Rating"] = true;
-	--AL["Other Ratings"] = true;
-	--AL["Resistance"] = true;
-	--AL["Health / Second"] = true;
-	--AL["Mana / Second"] = true;
-	--AL["Tracking"] = true;
-	--AL["Emotions"] = true;
-	--AL["Alcohol"] = true;
-	--AL["Health"] = true;
+	AL["Agility"] = "Agilité";
+	AL["Intellect"] = "Intelligence";
+	AL["Strength"] = "Force";
+	AL["Spirit"] = "Esprit";
+	AL["Stamina"] = "Endurance";
+	AL["Agility, Intellect, Strength"] = "Agilité, intelligence, force";
+	AL["Spell Power"] = "Puissance des sorts";
+	AL["Attack Power"] = "Puissance d'attaque";
+	AL["Spell/Attack Power"] = "Puissance des sorts / d'attaque";
+	AL["Hit Rating"] = "Score de toucher";
+	AL["Crit Rating"] = "Score de critique";
+	AL["Crit/Hit Rating"] = "Score de critique / toucher";
+	AL["Haste Rating"] = "Score de hâte";
+	AL["Dodge Rating"] = "Score d'esquive";
+	AL["Expertise Rating"] = "Score d'expertise";
+	AL["Mastery Rating"] = "Score de maîtrise";
+	AL["Parry Rating"] = "Score de parade";
+	AL["Other Ratings"] = "Autres scores";
+	AL["Ratings"] = "Scores";
+	AL["Resistance"] = "Résistance";
+	AL["Specific Resistance"] = "Résistance spécifique";
+	AL["Damage Absorption"] = "Absorption des dégâts";
+	AL["Health / Second"] = "Vie / seconde"
+	AL["Mana / Second"] = "Mana / seconde";
+	AL["Tracking"] = "Pistage";
+	AL["Emotions"] = "Emotion";
+	AL["Alcohol"] = "Alcool";
+	AL["Health"] = "Vie";
 	--AL["Mana"] = true;
-	--AL["Health and Mana"] = true;
-	--AL["Other Buffs"] = true;
-	--AL["Standard Buffs"] = true;
-	--AL["Food without Buffs"] = true;
-	--AL["Special"] = true;
-	--AL["Feasts"] = true;
+	AL["Health and Mana"] = "Vie et mana";
+	AL["Other Buffs"] = "Autres buffs";
+	AL["Other"] = "Autre";
+	AL["Standard Buffs"] = "Buffs standards";
+	AL["Food without Buffs"] = "Nourritures sans buff";
+	AL["Special"] = "Spécial";
+	AL["Feasts"] = "Festins";
+	AL["Speed"] = "Vitesse";
+	--AL["Rod"] = true;
+	AL["Oil"] = "Huile";
+	AL["Dwarf"] = "Nain";
+	AL["Draenei"] = "Draeneï";
+	AL["Night Elf"] = "Elfe de la nuit";
+	AL["Fossil"] = "Fossile";
+	AL["Nerubian"] = "Nérubien";
+	--AL["Vrykul"] = true;
+	--AL["Troll"] = true;
+	--AL["Tol'vir"] = true;
+	--AL["Orc"] = true;
+	--AL["Stats"] = true;
+	AL["Resilience"] = "Résilience";
+	--AL["Professions"] = true;
 
 	-- Extra Text in Boss lists
 	AL["Set: Embrace of the Viper"] = "Set: Etreinte de la vipère";
@@ -645,7 +686,7 @@ if AL then
 	AL["Card Game Tabards"] = true;
 	AL["Horde Tabards"] = true;
 	AL["Neutral Faction Tabards"] = true;
-	AL["PvP Tabards"] = true;
+	AL["PvP Tabards"] = "Tabards JcJ";
 	AL["Unobtainable Tabards"] = true;
 
 	-- Darkmoon Faire
@@ -735,6 +776,9 @@ if AL then
 
 	-- Thirtheenth set -- à traduire
 	--AL["Worldbreaker"] = true;
+	--AL["Mottled Drake"] = true;
+	--AL["Grim Campfire"] = true;
+	--AL["Landro's Lil' XT"] = true;
 
 	-- Battleground Brackets
 	AL["Old PvP Rewards"] = "Anciennes récompenses JcJ";
@@ -945,7 +989,6 @@ if AL then
 	AL["Matron Li-sahar"] = "Matrone Li-sahar";
 	AL["Solus the Eternal"] = "Solus l'Éternel";
 	AL["Smokywood Pastures Vendor"] = "Vendeurs de Gourmandises Fumebois";
-	--AL["Shartuul"] = true,
 	AL["Darkscreecher Akkarai"] = "Akkarai le Hurle-sombre";
 	--AL["Karrog"] = true,
 	AL["Gezzarak the Huntress"] = "Gezzarak la Chasseresse";
@@ -972,11 +1015,9 @@ if AL then
 	--AL["Thomas Yance"] = true,
 	AL["Knot Thimblejack"] = "Noué Dédodevie";
 	AL["Shen'dralar Provisioner"] = "Approvisionneur Shen'dralar";
-	AL["Namdo Bizzfizzle"] = "Namdo Ventaperte";
 	AL["The Nameles Prophet"] = "Le Prophète sans nom";
 	AL["Rajaxx's Captains"] = "Les Capitaines de Rajaxx";
 	AL["Razorfen Spearhide"] = "Lanceur de Tranchebauge";
-	AL["Kalldan Felmoon"] = "Kalldan Gangrelune";
 	AL["Magregan Deepshadow"] = "Magregan Fondombre";
 	--AL["Don Carlos"] = true,
 	--AL["Thomas Yance"] = true;
@@ -991,6 +1032,9 @@ if AL then
 	--AL["Aeonaxx"] = true; -- à traduire
 	--AL["Prince Sarsarun"] = true;
 	-- AL["Highlord Kruul"] = true; -- added until decided if the set gets removed -- à traduire
+	AL["Dormus the Camel-Hoarder"] = "Dormus le Collectionneur de dromadaires";
+	AL["The Behemoth"] = "Le Béhémoth";
+	AL["Master Elemental Shaper Krixix"] = "Maître élémentaire Krixix le Sculpteur";
 
 	-- Zones
 	--AL["World Drop"] = true,
@@ -1017,17 +1061,11 @@ if AL then
 	AL["The Vault"] = "La Chambre forte";
 	AL["Ogre Tannin Basket"] = "Panier Ogre de tannin";
 	AL["Fengus's Chest"] = "Coffre de Fengus";
-	AL["The Prince's Chest"] = "Coffre du Prince";
-	AL["Doan's Strongbox"] = "Coffre de Doan";
-	AL["Frostwhisper's Embalming Fluid"] = "Liquide d'embaumement de Murmegivre";
-	AL["Unforged Rune Covered Breastplate"] = "Plastron couvert de runes inachevé";
-	AL["Malor's Strongbox"] = "Coffre de Foi";
 	AL["Unfinished Painting"] = "Toile inachevée";
 	AL["Felvine Shard"] = "Fragment de la Gangrevigne";
 	AL["Baelog's Chest"] = "Coffre de Baelog";
 	AL["Lorgalis Manuscript"] = "Manuscrit de Lorgalis";
 	AL["Fathom Core"] = "Noyau de la Brasse";
-	AL["Conspicuous Urn"] = "Urne ostentatoire";
 	AL["Gift of Adoration"] = "Cadeau d'adoration";
 	AL["Box of Chocolates"] = "Boîte de chocolats";
 	AL["Treat Bag"] = "Sac de friandises";

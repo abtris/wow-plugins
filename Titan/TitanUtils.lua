@@ -13,6 +13,40 @@ local _G = getfenv(0);
 local L = LibStub("AceLocale-3.0"):GetLocale("Titan", true)
 local media = LibStub("LibSharedMedia-3.0")
 
+-- Declare the Ace routines once
+TitanPanelAce = LibStub("AceAddon-3.0"):NewAddon("TitanPanel", "AceHook-3.0", "AceTimer-3.0")
+-- Using AceTimer as: 
+--local AceTimer = LibStub("AceTimer-3.0")
+-- forces the call to give a fake addon id which is not proper usage
+-- i.e. AceTimer.ScheduleTimer("LDBToTitanSetText", TitanLDBRefreshButton, 2);
+--
+--------------------------------------------------------------
+-- The routines in this section are useable by addon developers
+--
+--
+-- Titan routines for Addon developers
+--
+function TitanUtils_GetBarAnchors() -- Used by addons
+	-- Get the anchor of the bottom most top bar
+	-- and the anchor of the top most bottom bar.
+	-- This is intended for addons that modify the UI so they
+	-- can adjust for Titan.
+	
+	return TitanPanelTopAnchor, TitanPanelBottomAnchor
+end
+
+function TitanUtils_GetMinimapAdjust() -- Used by addons
+	-- This routine the current setting of
+	-- the Titan minimap adjust.
+	return not TitanPanelGetVar("MinimapAdjust")
+end
+function TitanUtils_SetMinimapAdjust(bool) -- Used by addons
+	-- This routine allows an addon to turn on or off
+	-- the Titan minimap adjust.
+	TitanPanelSetVar("MinimapAdjust", not bool)
+end
+--------------------------------------------------------------
+
 -- The routines are useable by plugin developers
 -- until the sections listed as Titan ONLY.
 --
@@ -65,19 +99,50 @@ function TitanUtils_GetParentButtonID(name)
 end
 
 function TitanUtils_GetButtonIDFromMenu(self)
+	local ret = nil
 	if self and self:GetParent() then
 		local name = self:GetParent():GetName()
 		local s, e, id = string.find(name, TITAN_PANEL_DISPLAY_PREFIX);
+		local temp = ""
+
 		if not s == nil then
-			return "Bar";
-		elseif self:GetParent():GetParent():GetName() then  
-			-- TitanPanelChildButton     			
-			return TitanUtils_GetButtonID(self:GetParent():GetParent():GetName());		
+			-- The click was on the Titan bar itself
+			ret = "Bar";
+		elseif self:GetParent():GetParent():GetName() then 
+			local pname = self:GetParent():GetParent():GetName()
+			-- TitanPanelChildButton
+			-- expecting this to be a TitanPanelChildButtonTemplate
+			temp = TitanUtils_GetButtonID(pname)
+			if temp then
+				-- should be ok
+				ret = temp
+			else
+				-- the frame container is expected to be not named
+				TitanDebug("Could not determine parent for '"
+				..(pname or "?").."'. "
+				.." It should be a TitanPanelChildButtonTemplate. "
+				.."If '"
+				..(pname or "?").."' "
+				.." is not a TitanPanelChildButtonTemplate then ensure the frame "
+				.."containing the Titan button is not named. "
+				,"error")
+			end
 		else		
 			-- TitanPanelButton
-			return TitanUtils_GetButtonID(self:GetParent():GetName());		
-		end	
+			temp = TitanUtils_GetButtonID(self:GetParent():GetName())
+			if temp then
+				-- should be ok
+				ret = temp
+			else
+				-- the frame container is expected to be not named
+				TitanDebug("Could not determine Titan ID for '"
+				..(self:GetParent():GetParent() or "?").."'. "
+				,"error")
+			end
+		end
 	end
+
+	return ret
 end
 
 function TitanUtils_GetPlugin(id)
@@ -97,6 +162,19 @@ function TitanUtils_GetWhichBar(id)
 	else
 		return TitanPanelSettings.Location[i];
 	end
+end
+
+function TitanUtils_PickBar()
+	-- Pick the 'first' bar shown.
+	-- This is used for defaulting where plugins are put
+	-- if using the Titan options screen.
+	for idx,v in pairs (TitanBarOrder) do
+		if TitanPanelGetVar(v.."_Show") then
+			return v
+		end
+	end
+	-- fail safe - return something
+	return nil
 end
 
 function TitanUtils_ToRight(id)
@@ -778,7 +856,7 @@ local function TitanUtils_RegisterPluginProtected(plugin)
 				id = self.registry.id
 				if TitanUtils_IsPluginRegistered(id) then
 					-- We have already registered this plugin!
-					issue =  "Plugin already loaded."
+					issue =  "Plugin already loaded. Please see if another plugin (Titan or LDB enabled) is also loading."
 				else
 					-- A sanity check just in case it was already in the list
 					if (not TitanUtils_TableContainsValue(TitanPluginsIndex, id)) then
@@ -927,7 +1005,7 @@ function TitanUtils_RegisterPluginList()
 	local id
 	if TitanPluginToBeRegisteredNum > 0 then
 		if not Titan__InitializedPEW then
-			TitanDebug(L["TITAN_PANEL_REGISTER_START"])
+			TitanDebug(L["TITAN_PANEL_REGISTER_START"], "normal")
 		end
 		for index, value in ipairs(TitanPluginToBeRegistered) do
 			if TitanPluginToBeRegistered[index] then
@@ -935,7 +1013,7 @@ function TitanUtils_RegisterPluginList()
 			end
 		end
 		if not Titan__InitializedPEW then
-			TitanDebug(L["TITAN_PANEL_REGISTER_END"])
+			TitanDebug(L["TITAN_PANEL_REGISTER_END"], "normal")
 		end
 	end
 end
@@ -997,6 +1075,11 @@ local function TitanRightClickMenu_OnLoad(self)
 		if prepareFunction and type(prepareFunction) == "function" then
 		 	UIDropDownMenu_Initialize(self, prepareFunction, "MENU");
 		end
+	else
+		TitanDebug("Could not display tooltip. "
+		.."Could not determine Titan ID for "
+		.."'"..(self:GetName() or "?").."'. "
+		,"error")
 	end
 end
 -- for the display bars
@@ -1136,11 +1219,27 @@ function TitanPanelRightClickMenu_Close()
 end
 
 -- Various debug routines
-function TitanDebug(debug_message)
+function TitanDebug(debug_message, debug_type)
+	local dtype = ""
+	local time_stamp = ""
+	if debug_type == "error" then
+		dtype = TitanUtils_GetRedText("Error: ")
+	elseif debug_type == "warning" then
+		dtype = TitanUtils_GetHighlightText("Warning: ")
+	end
+	if debug_type == "normal" then
+		time_stamp = ""
+	else
+		time_stamp = TitanUtils_GetGoldText(date("%H:%M:%S")..": ")
+	end
+	
 	_G["DEFAULT_CHAT_FRAME"]:AddMessage(
-		TitanUtils_GetGoldText(L["TITAN_DEBUG"]) .. " " 
-		.. TitanUtils_GetGreenText(debug_message)
+		TitanUtils_GetGoldText(L["TITAN_DEBUG"].." ")
+		..time_stamp
+		..dtype
+		..TitanUtils_GetGreenText(debug_message)
 	);
+	--date("%m/%d/%y %H:%M:%S")
 end
 
 function TitanDumpPluginList()

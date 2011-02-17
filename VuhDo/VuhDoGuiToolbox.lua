@@ -637,3 +637,21 @@ function VUHDO_setLlcStatusBarTexture(aStatusBar, aTextureName)
 	end
 end
 
+
+
+--
+function VUHDO_fixFrameLevels(aFrame, aBaseLevel, ...)
+	local tCnt = 1;
+	local tChild = select(tCnt, ...);
+	aFrame:SetFrameLevel(aBaseLevel);
+	while (tChild ~= nil) do -- Layer components seem to have no name, important for HoT icons.
+		if (tChild:GetName() ~= nil) then
+			tChild:SetFrameStrata(aFrame:GetFrameStrata());
+			tChild:SetFrameLevel(aBaseLevel + 1 + (tChild["addLevel"] or 0));
+			VUHDO_fixFrameLevels(tChild, aBaseLevel + 1 + (tChild["addLevel"] or 0), tChild:GetChildren());
+		end
+		tCnt = tCnt + 1;
+		tChild = select(tCnt, ...);
+	end
+end
+

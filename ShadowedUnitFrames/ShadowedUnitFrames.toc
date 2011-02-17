@@ -2,10 +2,10 @@
 ## Title: Shadowed Unit Frames
 ## Notes: An apple a day keeps the raptor away, or so they say.
 ## Author: Shadowed
-## Version: v3.3.2
+## Version: v3.3.3
 ## SavedVariables: ShadowedUFDB
 ## OptionalDeps: Ace3, LibSharedMedia-3.0, AceGUI-3.0-SharedMediaWidgets, Clique
-## X-Curse-Packaged-Version: v3.3.2
+## X-Curse-Packaged-Version: v3.3.3
 ## X-Curse-Project-Name: Shadowed Unit Frames
 ## X-Curse-Project-ID: shadowed-unit-frames
 ## X-Curse-Repository-ID: wow/shadowed-unit-frames/mainline
@@ -53,3 +53,4 @@ modules\druid.lua
 modules\eclipse.lua
 modules\soulshards.lua
 modules\holypower.lua
+modules\altpower.lua

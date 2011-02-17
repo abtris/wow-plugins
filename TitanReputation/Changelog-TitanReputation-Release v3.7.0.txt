@@ -1,0 +1,20 @@
+------------------------------------------------------------------------
+r28 | papsol | 2011-02-09 17:34:05 +0000 (Wed, 09 Feb 2011) | 1 line
+Changed paths:
+   A /tags/Release v3.7.0 (from /trunk:27)
+
+Tagging as Release v3.7.0
+------------------------------------------------------------------------
+r27 | papsol | 2011-02-09 17:28:25 +0000 (Wed, 09 Feb 2011) | 6 lines
+Changed paths:
+   M /trunk/TitanReputation.lua
+   M /trunk/TitanReputation.toc
+   M /trunk/TitanReputation.xml
+
+v3.7.0
+
+Glamour is now optional and can be disable without impeding the usage of Titan Reputation.
+Added a toggle for using MikScrollingBattleText notification frame when MikSBT is detected.
+
+Other minor code tweaks.
+------------------------------------------------------------------------
