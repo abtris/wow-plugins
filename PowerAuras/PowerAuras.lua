@@ -29,6 +29,7 @@ PowaMisc =
 	{
 		PathToSounds = "Interface\\AddOns\\PowerAuras\\Sounds\\",
 		PathToAuras = "Interface\\Addons\\PowerAuras\\Custom\\",
+		BlockIncomingAuras = false,
 	};
 
 PowaAuras.PowaMiscDefault = PowaAuras:CopyTable(PowaMisc);
@@ -929,7 +930,7 @@ end
 -- Drag and Drop functions
 
 local function stopFrameMoving(frame)
-	if (not frame.isMoving) then return; end
+	if (frame==nil or not frame.isMoving) then return; end
 	frame.isMoving = false;
 	--PowaAuras:ShowText("stopMove id=", frame.aura.id);
 	frame:StopMovingOrSizing();
@@ -1082,7 +1083,7 @@ function PowaAuras:ShowAuraForFirstTime(aura)
 				pathToSound = PowaGlobalMisc.PathToSounds .. aura.customsound;
 			end
 			--self:ShowText("Playing custom sound ",pathToSound);		
-			PlaySoundFile(pathToSound);
+			PlaySoundFile(pathToSound, PowaMisc.SoundChannel);
 		elseif (aura.sound > 0) then
 			if (PowaAuras.Sound[aura.sound]~=nil and string.len(PowaAuras.Sound[aura.sound])>0) then
 				if (string.find(PowaAuras.Sound[aura.sound], "%.")) then
@@ -1445,16 +1446,16 @@ function PowaAuras:UpdateAura(aura, elapsed)
 						pathToSound = PowaGlobalMisc.PathToSounds..aura.customsoundend;
 					end
 					--self:ShowText("Playing sound "..pathToSound);		
-					PlaySoundFile(pathToSound);
+					PlaySoundFile(pathToSound, PowaMisc.SoundChannel);
 				elseif (aura.soundend > 0) then
 					if (PowaAuras.Sound[aura.soundend]~=nil and string.len(PowaAuras.Sound[aura.soundend])>0) then
 						if (aura.Debug) then
 							self:Message("Playing end sound ", PowaAuras.Sound[aura.soundend]);
 						end
 						if (string.find(PowaAuras.Sound[aura.soundend], "%.")) then
-							PlaySoundFile(PowaGlobalMisc.PathToSounds..PowaAuras.Sound[aura.soundend]);
+							PlaySoundFile(PowaGlobalMisc.PathToSounds..PowaAuras.Sound[aura.soundend], PowaMisc.SoundChannel);
 						else
-							PlaySound(PowaAuras.Sound[aura.soundend]);
+							PlaySound(PowaAuras.Sound[aura.soundend], PowaMisc.SoundChannel);
 						end
 					end
 				end
@@ -1628,36 +1629,7 @@ function PowaAuras:SetupStaticPopups()
 		exclusive = 1,
 		whileDead = 1,
 		hideOnEscape = 1
-	};	
-	
-	StaticPopupDialogs["POWERAURAS_EXPORT_AURA"] = {
-		text = self.Text.aideExport,
-		button1 = DONE,
-		hasEditBox = 1,
-		maxLetters = self.ExportMaxSize,
-		--hasWideEditBox = 1,
-		editBoxWidth = self.ExportWidth,
-		OnShow = function(self)
-			self.editBox:SetText(PowaAuras.Auras[PowaAuras.CurrentAuraId]:CreateAuraString());
-			self.editBox:SetFocus();
-			self.editBox:HighlightText();
-		end,
-		OnHide = function(self)
-			ChatEdit_FocusActiveWindow(); 
-			self.editBox:SetText("");
-		end,
-		EditBoxOnEnterPressed = function(self)
-			self:GetParent():Hide();
-		end,
-		EditBoxOnEscapePressed = function(self)
-			self:GetParent():Hide();
-		end,
-		timeout = 0,
-		exclusive = 1,
-		whileDead = 1,
-		hideOnEscape = 1
 	};
-
 	
 	StaticPopupDialogs["POWERAURAS_IMPORT_AURA_SET"] = {
 		text = self.Text.aideImportSet,
@@ -1684,34 +1656,6 @@ function PowaAuras:SetupStaticPopups()
 			local parent = self:GetParent();
 			PowaAuras:CreateNewAuraSetFromImport(parent.editBox:GetText());
 			parent:Hide();
-		end,
-		EditBoxOnEscapePressed = function(self)
-			self:GetParent():Hide();
-		end,
-		timeout = 0,
-		exclusive = 1,
-		whileDead = 1,
-		hideOnEscape = 1
-	};	
-	
-	StaticPopupDialogs["POWERAURAS_EXPORT_AURA_SET"] = {
-		text = self.Text.aideExportSet,
-		button1 = DONE,
-		hasEditBox = 1,
-		maxLetters = self.ExportMaxSize * 24,
-		--hasWideEditBox = 1,
-		editBoxWidth = self.ExportWidth,
-		OnShow = function(self)
-			self.editBox:SetText(PowaAuras:CreateAuraSetString());
-			self.editBox:SetFocus();
-			self.editBox:HighlightText();
-		end,
-		OnHide = function(self)
-			ChatEdit_FocusActiveWindow(); 
-			self.editBox:SetText("");
-		end,
-		EditBoxOnEnterPressed = function(self)
-			self:GetParent():Hide();
 		end,
 		EditBoxOnEscapePressed = function(self)
 			self:GetParent():Hide();

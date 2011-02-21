@@ -75,7 +75,7 @@
 					  relativePoint="BOTTOMLEFT">
 				<Offset>
 				  <AbsDimension x="0"
-								y="-5" />
+								y="5" />
 				</Offset>
 			  </Anchor>
 			</Anchors>				
@@ -100,7 +100,7 @@
 					  relativePoint="BOTTOMLEFT">
 				<Offset>
 				  <AbsDimension x="0"
-								y="-5" />
+								y="5" />
 				</Offset>
 			  </Anchor>
 			</Anchors>				
@@ -115,6 +115,34 @@
 				</Scripts>
 			</CheckButton>
 			
+
+			<CheckButton name="PowaBlockIncomingAurasButton" inherits="PowaCheckTemplate">
+				<Size>
+					<AbsDimension x="25" y="25"/>
+				</Size>
+				<Anchors>
+			  <Anchor point="TOPLEFT"
+					  relativeTo="PowaTimerRoundingButton"
+					  relativePoint="BOTTOMLEFT">
+				<Offset>
+				  <AbsDimension x="0"
+								y="5" />
+				</Offset>
+			  </Anchor>
+			</Anchors>				
+				<Scripts>
+					<OnLoad>
+						self.tooltipText = PowaAuras.Text.aideBlockIncomingAuras;
+						getglobal(self:GetName().."Text"):SetText(PowaAuras.Text.nomBlockIncomingAuras);
+					</OnLoad>
+					<OnClick>
+						PowaAuras:GlobalMiscChecked(self, "BlockIncomingAuras");
+					</OnClick>
+				</Scripts>
+			</CheckButton>
+			
+			
+			
 			<!-- Frequency auras are checked for updates -->
 			<Slider name="PowaOptionsUpdateSlider2"
 				  inherits="PowaBarSliderTemplate">
@@ -124,7 +152,7 @@
 				</Size>
 				<Anchors>
 				  <Anchor point="TOPLEFT"
-						  relativeTo="PowaTimerRoundingButton"
+						  relativeTo="PowaBlockIncomingAurasButton"
 						  relativePoint="BOTTOMLEFT">
 					<Offset>
 					  <AbsDimension x="0"
@@ -212,7 +240,7 @@
 					  relativePoint="BOTTOMLEFT">
 				<Offset>
 				  <AbsDimension x="0"
-								y="-30" />
+								y="-20" />
 				</Offset>
 			  </Anchor>
 			</Anchors>

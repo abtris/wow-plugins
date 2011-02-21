@@ -1,0 +1,12 @@
+tag 4.4.17
+4dcbf1a934faba886e0916ef86535e4ac8dab4b0
+Hendrik Leppkes <h.leppkes@gmail.com>
+2011-02-20 14:38:26 +0100
+
+Tag as 4.4.17
+
+
+--------------------
+
+Hendrik Leppkes:
+	- Adjust the logic for restoring the micro menu buttons after the vehicle bar moved them.

@@ -123,6 +123,8 @@ function Post:ProcessItem(itemID)
 		return TSMAuc:Print(format(L["Did not post %s because your threshold (%s) is invalid. Check your settings."], itemLink or name or itemID, threshold))
 	elseif isInvalid(fallbackValue) then
 		return TSMAuc:Print(format(L["Did not post %s because your fallback (%s) is invalid. Check your settings."], itemLink or name or itemID, fallbackValue))
+	elseif fallbackValue < threshold then
+		return TSMAuc:Print(format(L["Did not post %s because your fallback (%s) is lower than your threshold (%s). Check your settings."], itemLink or name or itemID, fallbackValue, threshold))
 	end
 	
 	TSMAuc.Log:AddMessage(string.format(L["Scanning %s"], itemLink), name)
@@ -477,6 +479,7 @@ function Post:SkipItem()
 	for _, index in ipairs(toSkip) do
 		tremove(postQueue, index)
 		count = count + 1
+		totalPosted = totalPosted + 1
 	end
 	Post:UpdateItem()
 end

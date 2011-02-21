@@ -1,3 +1,11 @@
+v0.1.10
+*Fixed some bugs with items with bids on them getting canceled incorrectly.
+*Changed the tab order for group / category settings.
+*Skipping an item should no longer cause the post frame to bug out.
+*Put in warnings for invalid threshold / fallback settings.
+*Collapsed categories should now remain collapsed between sessions.
+*Many other minor bug fixes and improvements.
+
 v0.1.9
 *Fixed the localization tags.
 *Reverted the posting code back to when it was working. It will post correctly now but may leave some uneven stacks in the player's bags.

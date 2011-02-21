@@ -34,6 +34,7 @@ function TSMAuc:CopySettings(otherDB)
 		cancelWithBid = false,
 		hideHelp = false,
 		hideGray = false,
+		blockAuc = true,
 	}
 	local factionrealmSettings = {
 		player = {},
@@ -109,6 +110,7 @@ function TSMAuc:OnInitialize()
 			hideGray = false,
 			hideAdvanced = nil,
 			addItemsAsIcons = 3,
+			treeGroupStatus = {treewidth = 200, groups={[2]=true}},
 		},
 		factionrealm = {
 			player = {},
@@ -158,6 +160,22 @@ function TSMAuc:OnInitialize()
 		TSMAuc.db.profile.autoFallback = nil
 	end
 	
+	for _, items in pairs(TSMAuc.db.profile.groups) do
+		local fix = {}
+		for itemString in pairs(items) do
+			if #{(":"):split(itemString)} > 8 then
+				tinsert(fix, itemString)
+			end
+		end
+		for _, itemString in ipairs(fix) do
+			items[itemString] = nil
+			local newItemString = TSMAuc:GetItemString(itemString)
+			if newItemString then
+				items[newItemString] = true
+			end
+		end
+	end
+	
 	-- Wait for auction house to be loaded
 	TSMAuc:RegisterEvent("ADDON_LOADED", function(event, addon)
 		if addon == "Blizzard_AuctionUI" then
@@ -181,14 +199,18 @@ function TSMAuc:OnInitialize()
 	TSMAPI:RegisterData("auctioningGroupItems", TSMAuc.GetGroupItems)
 end
 
+function TSMAuc:OnDisable()
+	TSMAuc.db.global.treeGroupStatus = TSM.Config.treeGroup.frame.obj.status.groups
+end
+
 function TSMAuc:ShowInfoPanel()
 	local messages = {
 		L["Welcome to TradeSkillMaster_Auctioning!\n\nPlease click on the OK button below to enable APM and then reload your UI so your settings can be transferred!"],
 		L["Welcome to TradeSkillMaster_Auctioning!\n\nPlease click on the OK button below to transfer your settings, disable APM, and reload your UI!"],
-		L["TradeSkillMaster_Auctioning has detected that you have %s running.\n\nPlease disable APM by clicking on the OK button below."]
+		L["TradeSkillMaster_Auctioning has detected that you have APM/ZA/QA3 running.\n\nPlease disable APM/ZA/QA3 by clicking on the OK button below."]
 	}
 	
-	if not select(2, GetAddOnInfo("AuctionProfitMaster")) or TSMAuc.db.global.infoID == 1 and not select(4, GetAddOnInfo("AuctionProfitMaster")) then
+	if not select(2, GetAddOnInfo("AuctionProfitMaster")) or TSMAuc.db.global.infoID == 1 and not select(4, GetAddOnInfo("AuctionProfitMaster")) or TSMAuc.db.global.infoID == 2 then
 		return
 	end
 	
@@ -271,11 +293,15 @@ function TSMAuc:ShowInfoPanel()
 	
 	frame.hide = CreateFrame("Button", nil, frame, "UIPanelButtonTemplate")
 	frame.hide:SetText("Cancel")
+	if needToDisable then frame.hide:SetText("Hide Forever") end
 	frame.hide:SetHeight(20)
 	frame.hide:SetWidth(100)
 	frame.hide:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 156, 8)
 	frame.hide:SetScript("OnClick", function(self)
 		self:GetParent():Hide()
+		if needToDisable then
+			TSMAuc.db.global.infoID = 2
+		end
 	end)
 	
 	TSMAuc.InfoFrame = frame

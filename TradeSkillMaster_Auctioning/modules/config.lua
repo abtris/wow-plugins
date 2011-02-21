@@ -134,13 +134,12 @@ function Config:LoadOptions(parent)
 		end
 	end
 
-	local treeGroupStatus = {treewidth = 200, groups={}}
-	treeGroupStatus.groups[2] = true
+	local treeGroupStatus = {treewidth = 200, groups={[2]=true}}
 
 	local treeGroup = AceGUI:Create("TSMTreeGroup")
 	treeGroup:SetLayout("Fill")
 	treeGroup:SetCallback("OnGroupSelected", function(...) Config:SelectTree(...) end)
-	treeGroup:SetStatusTable(treeGroupStatus)
+	treeGroup:SetStatusTable(TSMAuc.db.global.treeGroupStatus)
 	parent:AddChild(treeGroup)
 	
 	Config.treeGroup = treeGroup
@@ -151,7 +150,6 @@ end
 function Config:UpdateTree()
 	if not Config.treeGroup then return end
 	TSMAuc:UpdateGroupReverseLookup()
-	local treeGroupStatus = {treewidth = 200, groups={[2]=true, ["2\001~"]=true}}
 
 	local categoryTreeIndex = {}
 	local treeGroups = {{value=1, text="Options"}, {value=2, text=L["Categories / Groups"], children={{value="~", text="|cffaaff11"..L["<Uncategorized Groups>"].."|r", disabled=true, children={}}}}}
@@ -159,7 +157,6 @@ function Config:UpdateTree()
 	for categoryName in pairs(TSMAuc.db.profile.categories) do
 		tinsert(treeGroups[2].children, {value=categoryName, text="|cff99ff99"..categoryName.."|r"})
 		categoryTreeIndex[categoryName] = #(treeGroups[2].children)
-		treeGroupStatus.groups["2\001"..categoryName] = true
 	end
 	for name in pairs(TSMAuc.db.profile.groups) do
 		if TSMAuc.groupReverseLookup[name] then
@@ -177,7 +174,6 @@ function Config:UpdateTree()
 		end
 	end
 	Config.treeGroup:SetTree(treeGroups)
-	Config.treeGroup:SetStatusTable(treeGroupStatus)
 end
 
 function Config:SelectTree(treeFrame, _, selection)
@@ -252,14 +248,14 @@ function Config:SelectTree(treeFrame, _, selection)
 		local isCategory = TSMAuc.db.profile.categories[selectedChild]
 		
 		local groupTabs = {
+			{value=3, text=L["Add/Remove Items"]},
 			{value=1, text=L["Group Overrides"]},
 			{value=2, text=L["Management"]},
-			{value=3, text=L["Add/Remove Items"]},
 		}
 		local categoryTabs = {
+			{value=3, text=L["Add/Remove Groups"]},
 			{value=1, text=L["Category Overrides"]},
 			{value=2, text=L["Management"]},
-			{value=3, text=L["Add/Remove Groups"]},
 		}
 		
 		local tg = AceGUI:Create("TSMTabGroup")
@@ -298,7 +294,7 @@ function Config:SelectTree(treeFrame, _, selection)
 			previousTab = value
 		end)
 		content:AddChild(tg)
-		tg:SelectTab(1)
+		tg:SelectTab(3)
 	end
 end
 
@@ -338,6 +334,14 @@ function Config:DrawGeneralOptions(container)
 							relativeWidth = 0.5,
 							callback = function(_,_,value) TSMAuc.db.global.hideGray = value end,
 							tooltip = L["Hides all poor (gray) quality items from the 'Add items' pages."],
+						},
+						{
+							type = "CheckBox",
+							value = TSMAuc.db.global.blockAuc,
+							label = L["Block Auctioneer while scanning"],
+							relativeWidth = 0.5,
+							callback = function(_,_,value) TSMAuc.db.global.blockAuc = value end,
+							tooltip = L["Prevents Auctioneer from scanning while Auctioning is doing a scan."],
 						},
 					}
 				},
@@ -467,6 +471,10 @@ function Config:DrawGeneralOptions(container)
 			},
 		}
 	}
+	
+	if not AucAdvanced then
+		tremove(page[1].children[1].children, 4)
+	end
 	
 	TSMAPI:BuildPage(container, page)
 end

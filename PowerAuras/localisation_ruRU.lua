@@ -73,10 +73,10 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	
 	Role =
 	{
-		RoleTank     = "Tank",
-		RoleHealer   = "Healer",
-		RoleMeleDps  = "Melee DPS",
-		RoleRangeDps = "Ranged DPS",
+		RoleTank     = "Танк",
+		RoleHealer   = "Лекарь",
+		RoleMeleDps  = "Ближний бой",
+		RoleRangeDps = "Дальний бой",
 	},
 	
 	nomReasonRole =
@@ -115,21 +115,21 @@ PowaAuras:MergeTables(PowaAuras.Text,
 		[PowaAuras.BuffTypes.StealableSpell] = "Крадущее заклинание", 
 		[PowaAuras.BuffTypes.PurgeableSpell] = "Очищающее заклинание", 
 		[PowaAuras.BuffTypes.Static] = "Статик аура",
-		[PowaAuras.BuffTypes.Totems] = "Totems",
-		[PowaAuras.BuffTypes.Pet] = "Pet",
-		[PowaAuras.BuffTypes.Runes] = "Runes",
-		[PowaAuras.BuffTypes.Slots] = "Equipment Slots",
+		[PowaAuras.BuffTypes.Totems] = "Тотемы",
+		[PowaAuras.BuffTypes.Pet] = "Питомец",
+		[PowaAuras.BuffTypes.Runes] = "Руны",
+		[PowaAuras.BuffTypes.Slots] = "Слот экипировки",
 		[PowaAuras.BuffTypes.Items] = "Named Items",
-		[PowaAuras.BuffTypes.Tracking] = "Tracking",
+		[PowaAuras.BuffTypes.Tracking] = "Выслеживание",
 		[PowaAuras.BuffTypes.GTFO] = "Предупреждение GTFO",
 	},
 	
 	PowerType =
 	{
 		[-1] = "Default",
-		[SPELL_POWER_RAGE] = "Rage",
-		[SPELL_POWER_FOCUS] = "Focus",
-		[SPELL_POWER_ENERGY] = "Energy",
+		[SPELL_POWER_RAGE] = "Ярость",
+		[SPELL_POWER_FOCUS] = "Фокус",
+		[SPELL_POWER_ENERGY] = "Энергия",
 		[SPELL_POWER_HAPPINESS] = "Happiness",
 		[SPELL_POWER_RUNIC_POWER] = "Runic Power",
 		[SPELL_POWER_SOUL_SHARDS] = "Soul Shards",
@@ -154,34 +154,37 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	Slots =
 	{
 		Ammo = "Ammo",
-		Back = "Back",
-		Chest = "Chest",
-		Feet = "Feet",
-		Finger0 = "Finger1",
-		Finger1 = "Finger2",
-		Hands = "Hands",
-		Head = "Head",
-		Legs = "Legs",
-		MainHand = "MainHand",
-		Neck = "Neck",
-		Ranged = "Ranged",
-		SecondaryHand = "OffHand",
-		Shirt = "Shirt",
-		Shoulder = "Shoulder",
+		Back = "Спина",
+		Chest = "Грудь",
+		Feet = "Ноги",
+		Finger0 = "Палец1",
+		Finger1 = "Палец2",
+		Hands = "Руки",
+		Head = "Голова",
+		Legs = "Ноги",
+		MainHand = "Правая рука",
+		Neck = "Ожерелье",
+		Ranged = "Дальний бой",
+		SecondaryHand = "Левая рука",
+		Shirt = "Рубашка",
+		Shoulder = "Плечи",
 		Tabard = "Tabard",
-		Trinket0 = "Trinket1",
-		Trinket1 = "Trinket2",
-		Waist = "Waist",
-		Wrist = "Wrist",	
+		Trinket0 = "Аксессуар1",
+		Trinket1 = "Аксессуар2",
+		Waist = "Пояс",
+		Wrist = "Запястье",	
 	},
 
 	-- Main
 	nomEnable = "Активировать Power Auras",
 	aideEnable = "Включить все эффекты Power Auras",
 
-
 	nomDebug = "Активировать сообщения отладки",
 	aideDebug = "Включить сообщения отладки",
+    nomTextureCount = "Max Textures",
+	aideTextureCount = "Change this if you add your own textures",
+
+
 	ListePlayer = "Страница",
 	ListeGlobal = "Глобальное",
 	aideMove = "Переместить эффект сюда.",
@@ -199,6 +202,8 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	nomExport = "Экспорт",
 	nomImportSet = "Имп. набора", 
 	nomExportSet = "Эксп. набора", 
+	nomUnlock = "Разблокировать",
+	nomLock = "Блокировать",
 
 	aideImport = "Нажмите Ctrl-V чтобы вставить строку-ауры и нажмите \'Принять\'.",
 	aideExport = "Нажмите Ctrl-C чтобы скопировать строку-ауры.",
@@ -371,15 +376,15 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	nomDuration = "Длина анимации:",
 	aideDuration = "После истечения этого времени, данный эффект исчезнет (0 - дезактивировать)",
 
-	nomOldAnimations = "Old Animations";
-	aideOldAnimations = "Use Old Animations";
+	nomOldAnimations = "Старая анимация";
+	aideOldAnimations = "Использовать старую анимацию";
 
 	nomCentiemes = "Показывать сотую часть",
 	nomDual = "Показывать 2 таймера",
 	nomHideLeadingZeros = "Убрать нули",
 	nomTransparent = "Прозрачные текстуры",
 	nomActivationTime = "Показать время после активации",
-	nomUseOwnColor = "Use own color:",
+	nomUseOwnColor = "ТИспользовать свой цвет:",
 	nomUpdatePing = "Animate on refresh", --- untranslated
 	nomRelative = "Relative to Main Aura",
 	nomClose = "Закрыть",
@@ -424,11 +429,11 @@ PowaAuras:MergeTables(PowaAuras.Text,
 		isAlive= "Живой",
 		PvP= "С меткой PvP",
 		Instance5Man= "5-чел",
-		Instance5ManHeroic= "5-чел ГР",
+		Instance5ManHeroic= "5-чел Гер",
 		Instance10Man= "10-чел",
-		Instance10ManHeroic= "10-чел ГР",
+		Instance10ManHeroic= "10-чел Гер",
 		Instance25Man= "25-чел",
-		Instance25ManHeroic= "25-чел ГР",
+		Instance25ManHeroic= "25-чел Гер",
 		InstanceBg= "Поле боя",
 		InstanceArena= "Арена",
 	},
@@ -529,7 +534,7 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	nomReasonMulti = "Все многочисленные совпадения $1", --$1=Multiple match ID list
 	
 	nomReasonDisabled = "Power Auras отключен",
-	nomReasonGlobalCooldown = "Игнорировать общее восстановление",
+	nomReasonGlobalCooldown = "Игнорировать общее восстановление (ГКД)",
 	
 	nomReasonBuffPresent = "$1 имеет $2 $3", --$1=Target $2=BuffType, $3=BuffName (e.g. "Unit4 has Debuff Misery")
 	nomReasonBuffMissing = "$1 не имеет $2 $3", --$1=Target $2=BuffType, $3=BuffName (e.g. "Unit4 doesn't have Debuff Misery")
@@ -567,7 +572,7 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	nomReasonInRaid = "В рейде",
 	nomReasonNotInParty = "Не в группе",
 	nomReasonNotInRaid = "Не в рейде",
-	nomReasonNotInGroup = "Not in Party/Raid",
+	nomReasonNotInGroup = "Не в группе/рейде",
 	nomReasonNoFocus = "Нет фокуса",	
 	nomReasonNoCustomUnit = "Can't find custom unit not in party, raid or with pet unit=$1",
 	nomReasonPvPFlagNotSet = "Режим PvP не включен",
@@ -676,8 +681,8 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	nomReasonStance = "Текущая стойка $1, совпадает с $2", -- $1=Current Stance, $2=Match Stance
 	nomReasonNoStance = "Текущая стойка $1, не совпадает с $2", -- $1=Current Stance, $2=Match Stance
 	
-	nomReasonRunesNotReady = "Runes not Ready",
-	nomReasonRunesReady = "Runes Ready",
+	nomReasonRunesNotReady = "Руны не готовы",
+	nomReasonRunesReady = "Руны готовы",
 	
 	nomReasonPetExists= "Player has Pet",
 	nomReasonPetMissing = "Player Pet Missing",
@@ -685,13 +690,15 @@ PowaAuras:MergeTables(PowaAuras.Text,
 	nomReasonTrackingMissing = "Tracking not set to $1",
 	nomTrackingSet = "Tracking set to $1",
 
-	nomReasonStatic = "Статик аура",
+	nomNotInInstance = "Not in correct instance",
 
 	nomReasonStatic = "Static Aura",
 	
 	nomReasonUnknownName = "Unit name unknown",
 	nomReasonRoleUnknown = "Role unknown",
 	nomReasonRoleNoMatch = "No matching Role",
+
+	nomUnknownSpellId = "PowerAuras: Aura $1 references an unknown spellId: ", -- $1=SpellID
 
 	nomReasonGTFOAlerts = "GTFO alerts are never always on.",
 

@@ -6,6 +6,7 @@ local auctionData = {}
 local status = {}
 local BASE_DELAY = 0.1
 
+local QueryAuctionItems = QueryAuctionItems
 
 function Scan:OnInitialize()
 	Scan:RegisterEvent("AUCTION_HOUSE_CLOSED", "AuctionHouseClosed")
@@ -39,6 +40,10 @@ function Scan:StartItemScan(filterList)
 	status.subClassIndex = nil
 	
 	wipe(auctionData)
+	local ok, func = pcall(function() return AucAdvanced.Scan.Private.Hook.QueryAuctionItems end)
+	if ok and TSMAuc.db.global.blockAuc then
+		QueryAuctionItems = func
+	end
 
 	Scan:SendMessage("TSMAuc_START_SCAN", "item", #(status.filterList))
 	Scan:SendQuery()

@@ -652,7 +652,7 @@ function PowaAuras:CreateNewAuraFromImport(auraId, importString, updateLink)
 
 	if (auraId > 120) then
 		PowaGlobalSet[auraId] = self.Auras[auraId];
-	end				
+	end
 end
 
 function PowaAuras:CreateNewAuraSetFromImport(importString)
@@ -733,12 +733,6 @@ function PowaAuras:OptionImportEffect()
 			
 end
 
-function PowaAuras:OptionExportEffect()
-	if self.Auras[self.CurrentAuraId] then
-		StaticPopup_Show("POWERAURAS_EXPORT_AURA");
-	end
-end
-
 function PowaAuras:CreateAuraSetString()
 	local setString = "Set=";
 	if (self.CurrentAuraPage > 5) then
@@ -761,12 +755,305 @@ function PowaAuras:CreateAuraSetString()
 end
 
 function PowaAuras:OptionImportSet()
-	StaticPopup_Show("POWERAURAS_IMPORT_AURA_SET");		
+	StaticPopup_Show("POWERAURAS_IMPORT_AURA_SET");
+end
+
+--[[
+------------------------------------------------------------------------------------------------------------------------
+EXPORT DIALOG
+------------------------------------------------------------------------------------------------------------------------
+--]]
+
+function PowaAuras:OptionExportEffect()
+	if self.Auras[self.CurrentAuraId] then
+		-- Manually set text.
+		PowaAuraExportDialogCopyBox:SetText(PowaAuras.Auras[PowaAuras.CurrentAuraId]:CreateAuraString());
+		PowaAuraExportDialog.sendType = 1;
+		-- Use a special popup, which allows us to make our own frame.
+		StaticPopupSpecial_Show(PowaAuraExportDialog);
+	end
 end
 
 function PowaAuras:OptionExportSet()
-	StaticPopup_Show("POWERAURAS_EXPORT_AURA_SET");
+	-- Manually set text.
+	PowaAuraExportDialogCopyBox:SetText(PowaAuras:CreateAuraSetString());
+	PowaAuraExportDialog.sendType = 2;
+	-- Use a special popup, which allows us to make our own frame.
+	StaticPopupSpecial_Show(PowaAuraExportDialog);
 end
+
+function PowaAuras:ExportDialogSetStatus(status)
+	-- Change it.
+	PowaAuraExportDialog.status = status or PowaAuraExportDialog.status or 1;
+	-- Hide buttons, update labels and change values depending on status.
+	if(PowaAuraExportDialog.status == 1) then
+		-- Status 1 - not yet sent.
+		PowaAuraExportDialogSendTitle:SetText(PowaAuras.Text.ExportDialogSendTitle1);
+		PowaAuraExportDialogSendButton:SetText(PowaAuras.Text.ExportDialogSendButton1);
+		PowaAuraExportDialogCancelButton:Enable();
+		PowaAuraExportDialogSendBox:Show();
+		PowaAuras:DialogSetTimeout(PowaAuraExportDialog, 0);
+	elseif(PowaAuraExportDialog.status >= 2) then
+		-- Beats repeating code.
+		PowaAuraExportDialogSendButton:SetText(PowaAuras.Text.ExportDialogSendButton2);
+		PowaAuraExportDialogSendBox:Hide();
+		PowaAuraExportDialogSendButton:Disable();
+		PowaAuraExportDialogCancelButton:Disable();
+		if(PowaAuraExportDialog.status == 2) then
+			-- Status 2 - waiting for receiver.
+			PowaAuraExportDialogSendTitle:SetText(
+				format(PowaAuras.Text.ExportDialogSendTitle2, PowaAuraExportDialog.sendDisplay)
+			);
+			PowaAuras:DialogSetTimeout(PowaAuraExportDialog, 30);
+		elseif(PowaAuraExportDialog.status == 3) then
+			-- Status 3 - error (this can occur at any stage!).
+			PowaAuraExportDialogSendTitle:SetText(
+				format(PowaAuras.Text.ExportDialogSendTitle3, PowaAuraExportDialog.sendDisplay)
+			);
+			PowaAuraExportDialogSendButton:Enable();
+			PowaAuraExportDialogCancelButton:Enable();
+			PowaAuras:DialogSetTimeout(PowaAuraExportDialog, 0);
+		elseif(PowaAuraExportDialog.status == 4) then
+			-- Status 4 - send in progress.
+			PowaAuraExportDialogSendTitle:SetText(PowaAuras.Text.ExportDialogSendTitle4);
+			PowaAuras:DialogSetTimeout(PowaAuraExportDialog, 10);
+		elseif(PowaAuraExportDialog.status == 5) then
+			-- Status 5 - send complete.
+			PowaAuraExportDialogSendTitle:SetText(PowaAuras.Text.ExportDialogSendTitle5);
+			PowaAuras:DialogSetTimeout(PowaAuraExportDialog, 0);
+			PowaAuraExportDialogSendButton:Enable();
+			PowaAuraExportDialogCancelButton:Enable();
+		end
+	end
+end
+
+function PowaAuras:DialogSetTimeout(dialog, timeout)
+	-- If no response is received after a specific time, we'll cancel what we're doing.
+	-- Don't reset if the timeout period is the same.
+	if(dialog.statusTimeout == timeout) then return; end
+	dialog.statusTimeout = timeout;
+	dialog.statusTimeoutProgress = 0;
+	if(dialog.statusTimeout > 0) then
+		-- Add onupdate handler if needed.
+		dialog:SetScript("OnUpdate", function(dialog, elapsed)
+			-- Increment counter.
+			dialog.statusTimeoutProgress = dialog.statusTimeoutProgress + elapsed;
+			-- Set status to 3 and remove update loop if timeout exceeded.
+			if(dialog.statusTimeoutProgress > dialog.statusTimeout) then
+				-- Hardcoded dialog functions...
+				if(dialog == PowaAuraExportDialog) then
+					PowaAuras:ExportDialogSetStatus(3);
+				elseif(dialog == PowaAuraPlayerImportDialog) then
+					PowaAuras:PlayerImportDialogSetStatus(3);				
+				end
+			end
+		end);
+	else
+		-- Remove if not needed.
+		dialog:SetScript("OnUpdate", nil);
+	end
+end
+
+function PowaAuras:ExportDialogBeginSend()
+	-- Store the player name.
+	PowaAuraExportDialog.sendTo = PowaAuraExportDialogSendBox:GetText();
+	-- We clear sendTo when requests fail, but we can't use format with nils. Check for name to print here.
+	PowaAuraExportDialog.sendDisplay = PowaAuraExportDialog.sendTo;
+	-- Change status to 2 or 1.
+	if(PowaAuraExportDialog.status == 1) then
+		PowaAuras:ExportDialogSetStatus(2);
+		-- Send message to the person.
+		PowaComms:SendAddonMessage("EXPORT_REQUEST", PowaAuraExportDialog.sendType, PowaAuraExportDialog.sendTo);
+	else
+		PowaAuras:ExportDialogSetStatus(1);						
+	end
+end
+
+function PowaAuras:ExportDialogOnShow(self)
+	-- Update status.
+	PowaAuras:ExportDialogSetStatus();
+	-- Store the aura string we want to transfer.
+	PowaAuraExportDialog.sendString = PowaAuraExportDialogCopyBox:GetText();
+	-- Usability.
+	PowaAuraExportDialogCopyBox:HighlightText();
+	PowaAuraExportDialogCopyBox:SetFocus();
+end
+
+-- Handles rejection well.
+PowaComms:AddHandler("EXPORT_REJECT", function(_, _, from)
+	-- Were we sending to this person?
+	if(PowaAuraExportDialog.sendTo == from) then
+		if(PowaMisc.debug) then PowaAuras:ShowText("Comms: EXPORT_REJECT from " .. from); end
+		PowaAuras:ExportDialogSetStatus(3);
+		PowaAuraExportDialog.sendTo = nil;
+	end
+end);
+
+-- Is optimistic about this connection.
+PowaComms:AddHandler("EXPORT_ACCEPT", function(_, _, from)
+	-- Were we sending to this person?
+	if(PowaAuraExportDialog.sendTo == from) then
+		if(PowaMisc.debug) then PowaAuras:ShowText("Comms: EXPORT_ACCEPT from " .. from); end
+		PowaAuras:ExportDialogSetStatus(4);
+		-- Let's get busy!
+		PowaComms:SendAddonMessage("EXPORT_DATA", PowaAuraExportDialog.sendString, from);
+		-- And we're done.
+		PowaAuras:ExportDialogSetStatus(5);
+	end
+end);
+
+
+--[[
+------------------------------------------------------------------------------------------------------------------------
+CROSS-CLIENT IMPORT DIALOG
+------------------------------------------------------------------------------------------------------------------------
+--]]
+
+function PowaAuras:PlayerImportDialogSetStatus(status)
+	-- Change it.
+	PowaAuraPlayerImportDialog.status = status or PowaAuraPlayerImportDialog.status or 1;
+	-- Hide buttons, update labels and change values depending on status.
+	if(PowaAuraPlayerImportDialog.status == 1) then
+		-- Status 1 - not yet accepted.
+		PowaAuraPlayerImportDialogAcceptButton:Enable();
+		PowaAuraPlayerImportDialogCancelButton:Enable();
+		PowaAuraPlayerImportDialogCancelButton:SetText(PowaAuras.Text.PlayerImportDialogCancelButton1);
+		PowaAuraPlayerImportDialogAcceptButton:SetText(PowaAuras.Text.PlayerImportDialogAcceptButton1);
+		PowaAuraPlayerImportDialogDescTitle:SetText(
+			format(PowaAuras.Text.PlayerImportDialogDescTitle1, PowaAuraPlayerImportDialog.receiveDisplay)
+		);
+		PowaAuras:DialogSetTimeout(PowaAuraPlayerImportDialog, 30);
+		PowaAuraPlayerImportDialogWarningTitle:Hide();
+	elseif(PowaAuraPlayerImportDialog.status >= 2) then
+		-- Disable buttons unless told otherwise.
+		PowaAuraPlayerImportDialogAcceptButton:Disable();
+		PowaAuraPlayerImportDialogCancelButton:Disable();
+		PowaAuraPlayerImportDialogCancelButton:SetText(PowaAuras.Text.ExportDialogCancelButton);
+		PowaAuraPlayerImportDialogWarningTitle:Hide();
+		if(PowaAuraPlayerImportDialog.status == 2) then
+			-- Status 2 - receiving.
+			PowaAuraPlayerImportDialogDescTitle:SetText(PowaAuras.Text.PlayerImportDialogDescTitle2);
+			PowaAuras:DialogSetTimeout(PowaAuraPlayerImportDialog, 10);
+		elseif(PowaAuraPlayerImportDialog.status == 3) then
+			-- Status 3 - error (timeout likely).
+			PowaAuraPlayerImportDialogDescTitle:SetText(PowaAuras.Text.PlayerImportDialogDescTitle3);
+			PowaAuraPlayerImportDialogCancelButton:Enable();
+			PowaAuras:DialogSetTimeout(PowaAuraPlayerImportDialog, 0);
+		elseif(PowaAuraPlayerImportDialog.status == 4) then
+			-- Status 4 - waiting for save.
+			PowaAuraPlayerImportDialogDescTitle:SetText(PowaAuras.Text.PlayerImportDialogDescTitle4);
+			-- Warning message for aura sets.
+			if(PowaAuraPlayerImportDialog.receiveType == 2) then
+				PowaAuraPlayerImportDialogWarningTitle:Show();		
+			end
+			PowaAuraPlayerImportDialogAcceptButton:SetText(PowaAuras.Text.PlayerImportDialogAcceptButton2);
+			PowaAuras:DialogSetTimeout(PowaAuraPlayerImportDialog, 0);
+			PowaAuraPlayerImportDialogAcceptButton:Enable();
+			PowaAuraPlayerImportDialogCancelButton:Enable();
+			-- Show options frame.
+			PowaOptionsFrame:Show();
+		elseif(PowaAuraPlayerImportDialog.status == 5) then
+			-- Status 5 - send complete.
+			PowaAuraPlayerImportDialogDescTitle:SetText(PowaAuras.Text.PlayerImportDialogDescTitle5);
+			PowaAuraPlayerImportDialogAcceptButton:SetText(PowaAuras.Text.PlayerImportDialogAcceptButton2);
+			PowaAuras:DialogSetTimeout(PowaAuraPlayerImportDialog, 0);
+			PowaAuraPlayerImportDialogAcceptButton:Disable();
+			PowaAuraPlayerImportDialogCancelButton:Enable();
+		elseif(PowaAuraPlayerImportDialog.status == 6) then
+			-- Status 6 - no aura slots.
+			PowaAuraPlayerImportDialogDescTitle:SetText(PowaAuras.Text.PlayerImportDialogDescTitle6);
+			PowaAuraPlayerImportDialogAcceptButton:SetText(PowaAuras.Text.PlayerImportDialogAcceptButton2);
+			PowaAuras:DialogSetTimeout(PowaAuraPlayerImportDialog, 0);
+			PowaAuraPlayerImportDialogAcceptButton:Disable();
+			PowaAuraPlayerImportDialogCancelButton:Enable();
+		end
+	end
+end
+
+function PowaAuras:PlayerImportDialogOnShow(self)
+	-- Update status.
+	PowaAuras:PlayerImportDialogSetStatus();	
+end
+
+function PowaAuras:PlayerImportDialogOnHide(self)
+	-- Reject only if we're at status 1.
+	if(PowaAuraPlayerImportDialog.status == 1 and PowaAuraPlayerImportDialog.receiveFrom) then
+		PowaComms:SendAddonMessage("EXPORT_REJECT", "", PowaAuraPlayerImportDialog.receiveFrom);
+	end
+	-- Clear our receiveFrom/etc. vars here.
+	PowaAuraPlayerImportDialog.receiveFrom = nil;
+	PowaAuraPlayerImportDialog.receiveDisplay = "";
+	PowaAuraPlayerImportDialog.receiveString = nil;
+end
+
+function PowaAuras:PlayerImportDialogAccept()
+	-- Accept only if we're at status 1.
+	if(PowaAuraPlayerImportDialog.status == 1 and PowaAuraPlayerImportDialog.receiveFrom) then
+		PowaComms:SendAddonMessage("EXPORT_ACCEPT", "", PowaAuraPlayerImportDialog.receiveFrom);
+		-- Update status.
+		PowaAuras:PlayerImportDialogSetStatus(2);	
+	elseif(PowaAuraPlayerImportDialog.status == 4 and PowaAuraPlayerImportDialog.receiveFrom) then
+		-- Save my auras!
+		if(PowaAuraPlayerImportDialog.receiveType == 1) then
+			-- Single aura. Determine a slot to put it in...
+			local i = self:GetNextFreeSlot();
+			if (not i) then
+				PowaAuras:PlayerImportDialogSetStatus(6);	
+				return;
+			end
+			-- Save it.
+			PowaAuras:CreateNewAuraFromImport(i, PowaAuraPlayerImportDialog.receiveString);
+			-- Update isn't called automatically on single auras.
+			PowaAuras:UpdateMainOption();
+		elseif(PowaAuraPlayerImportDialog.receiveType == 2) then
+			-- Aura set.
+			PowaAuras:CreateNewAuraSetFromImport(PowaAuraPlayerImportDialog.receiveString);
+		end
+		-- Update status.
+		PowaAuras:PlayerImportDialogSetStatus(5);	
+	end
+end
+
+function PowaAuras:PlayerImportDialogCancel()
+	-- Hide.
+	StaticPopupSpecial_Hide(PowaAuraPlayerImportDialog);
+end
+
+-- This bit mostly consists of handlers.
+
+PowaComms:AddHandler("EXPORT_REQUEST", function(_, data, from)
+	-- If we're busy, reject. If we're in combat, reject.
+	if(PowaAuraPlayerImportDialog.receiveFrom or InCombatLockdown() or PowaGlobalMisc.BlockIncomingAuras == true) then
+		if(PowaMisc.debug) then PowaAuras:ShowText("Comms: Autorejected EXPORT_REQUEST."); end
+		PowaComms:SendAddonMessage("EXPORT_REJECT", "", from);
+		return;
+	end
+	PowaAuraPlayerImportDialog:SetPoint("CENTER");
+	-- Set status to 1, store name.
+	PowaAuras:PlayerImportDialogSetStatus(1);
+	PowaAuraPlayerImportDialog.receiveFrom = from;
+	PowaAuraPlayerImportDialog.receiveDisplay = from;
+	PowaAuraPlayerImportDialog.receiveType = tonumber(data, 10);
+	-- Show.
+	StaticPopupSpecial_Show(PowaAuraPlayerImportDialog);
+end);
+
+PowaComms:AddHandler("EXPORT_DATA", function(_, data, from)
+	-- Were we receiving from this person?
+	if(PowaAuraPlayerImportDialog.receiveFrom == from) then
+		if(PowaMisc.debug) then PowaAuras:ShowText("Comms: Receiving EXPORT_DATA"); end
+		-- Status code 4 - we are pro.
+		PowaAuras:PlayerImportDialogSetStatus(4);
+		-- Store the data.
+		PowaAuraPlayerImportDialog.receiveString = data;
+	end
+end);
+
+--[[
+------------------------------------------------------------------------------------------------------------------------
+END OF CROSS-CLIENT IMPORT DIALOG
+------------------------------------------------------------------------------------------------------------------------
+--]]
 
 function PowaAuras:DisableMoveMode()
 	PowaOptionsMove:UnlockHighlight();
@@ -2857,6 +3144,14 @@ function PowaAuras:MiscChecked(control, setting)
 	end
 end
 
+function PowaAuras:GlobalMiscChecked(control, setting)
+	if (control:GetChecked()) then
+		PowaGlobalMisc[setting] = true;
+	else
+		PowaGlobalMisc[setting] = false;
+	end
+end
+
 local function OptionsOK()
 	--PowaAuras:DisplayText("OptionsOK");
 	PowaMisc.OnUpdateLimit = (100 - PowaOptionsUpdateSlider2:GetValue()) / 200;
@@ -2877,6 +3172,7 @@ local function OptionsOK()
 	PowaAuras:EnableChecked();
 	PowaAuras:MiscChecked(PowaDebugButton, "debug");
 	PowaAuras:MiscChecked(PowaTimerRoundingButton, "TimerRoundUp");
+	PowaAuras:GlobalMiscChecked(PowaBlockIncomingAurasButton, "BlockIncomingAuras");
 
 	local newDefaultTimerTexture = UIDropDownMenu_GetSelectedValue(PowaDropDownDefaultTimerTexture);
 	if (newDefaultTimerTexture~=PowaMisc.DefaultTimerTexture) then
@@ -2939,6 +3235,7 @@ local function OptionsRefresh()
 	PowaDebugButton:SetChecked(PowaMisc.debug);
 	PowaTimerRoundingButton:SetChecked(PowaMisc.TimerRoundUp);
 	PowaAllowInspectionsButton:SetChecked(PowaMisc.AllowInspections);
+	PowaBlockIncomingAurasButton:SetChecked(PowaGlobalMisc.BlockIncomingAuras);
 	UIDropDownMenu_SetSelectedValue(PowaDropDownDefaultTimerTexture, PowaMisc.DefaultTimerTexture);
 	UIDropDownMenu_SetSelectedValue(PowaDropDownDefaultStacksTexture, PowaMisc.DefaultStacksTexture);
 	PowaCustomSoundPath:SetText(PowaGlobalMisc.PathToSounds);

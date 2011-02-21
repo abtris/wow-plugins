@@ -2,23 +2,13 @@
 ## Title: |cff00ff00TradeSkillMaster_Auctioning|r
 ## Notes: Manages your auctions!
 ## Author: Sapu, Mischanix
-## Version: v0.1.9Beta
+## Version: v0.1.10Beta
 ## Dependency: TradeSkillMaster
 ## SavedVariables: TradeSkillMaster_AuctioningDB
-## X-Curse-Packaged-Version: v0.1.9Beta
+## X-Curse-Packaged-Version: v0.1.10Beta
 ## X-Curse-Project-Name: TradeSkillMaster_Auctioning
 ## X-Curse-Project-ID: tradeskillmaster_auctioning
 ## X-Curse-Repository-ID: wow/tradeskillmaster_auctioning/mainline
-
-libs\LibStub\LibStub.lua
-libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
-libs\AceAddon-3.0\AceAddon-3.0.xml
-libs\AceEvent-3.0\AceEvent-3.0.xml
-libs\AceDB-3.0\AceDB-3.0.xml
-libs\AceGUI-3.0\AceGUI-3.0.xml
-libs\AceConfig-3.0\AceConfig-3.0.xml
-libs\AceDBOptions-3.0\AceDBOptions-3.0.xml
-libs\AceLocale-3.0\AceLocale-3.0.xml
 
 Locale\enUS.lua
 Locale\deDE.lua

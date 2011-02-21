@@ -1,7 +1,7 @@
 ﻿## Interface: 40000
 ## Title: Power Auras Classic
 ## Author: Smacker 'lolcat',Driizt 'classic',Garstiger 'continued',Sinsthar 'base'
-## Version: 4.12
+## Version: 4.13
 ## Notes: Cool Effects around the player for ingame events.                                 Authors: |cff7f7fff-Sinsthar-, -Garstiger-, -Driizt-, and -Smacker-|r
 ## Notes-frFR: Affiche des effets visuels autour du personnage.
 ## Notes-zhCN: 强大的条件触发式事件提示插件                                                 |cff00ff00基尔罗格[|r末日彩虹|cff00ff00]汉化|r
@@ -29,6 +29,7 @@ PowerAurasAnimations.lua
 PowerAurasAnimationsOld.lua
 PowerAuras.lua
 PowerAurasEvents.lua
+PowerComms.lua
 PowerOptions.lua
 PowerAuras.xml
 PowerOptions.xml

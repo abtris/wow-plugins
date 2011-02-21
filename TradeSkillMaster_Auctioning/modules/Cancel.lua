@@ -57,16 +57,16 @@ function Cancel:CancelMatch(match)
 	Cancel:StartCancelScanning()
 end
 
-function Cancel:CancelAll(filter, ...)
+function Cancel:CancelAll(filter)
 	local parsedArg = string.trim(string.lower(filter or ""))
-	local group, duration, price = filter, ...
+	local group, duration, price
 	if tonumber(parsedArg) then
 		parsedArg = tonumber(parsedArg)
 		if parsedArg ~= 12 and parsedArg ~= 2 then
 			TSMAuc:Print(string.format(L["Invalid time entered, should either be 12 or 2 you entered \"%s\""], parsedArg))
 			return Cancel:StopCanceling()
 		end
-		duration = parsedArg == 12 and 3 or 2 --1 = <30 minutes, 2 = <2 hours, 3 = <12 hours, 4 = <13 hours
+		duration = parsedArg == 12 and 3 or 2 --3 = <12 hours, 2 = <2 hours
 	elseif string.find(parsedArg, "([0-9]+)g") or string.find(parsedArg, "([0-9]+)s") or string.find(parsedArg, "([0-9]+)c") then
 		local gold = tonumber(string.match(parsedArg, "([0-9]+)g"))
 		local silver = tonumber(string.match(parsedArg, "([0-9]+)s"))
@@ -386,9 +386,9 @@ function Cancel:CancelItem()
 	
 	-- figure out which index the item goes to
 	for i=GetNumAuctionItems("owner"), 1, -1 do
-		local _, _, quantity, _, _, _, bid, _, buyout = GetAuctionItemInfo("owner", i)
+		local _, _, quantity, _, _, _, bid, _, buyout, activeBid = GetAuctionItemInfo("owner", i)
 		local itemID = TSMAuc:GetItemString(GetAuctionItemLink("owner", i))
-		if itemID == currentItem.itemID and buyout == currentItem.buyout and bid == currentItem.bid then
+		if itemID == currentItem.itemID and buyout == currentItem.buyout and bid == currentItem.bid and (not TSMAuc.db.global.cancelWithBid and activeBid == 0 or TSMAuc.db.global.cancelWithBid) then
 			if not tempIndexList[itemID..buyout..bid..i] then
 				tempIndexList[itemID..buyout..bid..i] = true
 				index = i

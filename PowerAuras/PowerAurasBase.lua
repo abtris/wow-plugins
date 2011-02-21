@@ -130,6 +130,7 @@ PowaAuras = {
 		UNIT_FACTION = true,
 		UNIT_SPELLCAST_SUCCEEDED = true,
 		ZONE_CHANGED_NEW_AREA = true,
+		CHAT_MSG_ADDON = true,
 	};
 
 	RelativeToParent = 

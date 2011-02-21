@@ -725,6 +725,34 @@ PowaAuras:MergeTables(PowaAuras.Text,
 		PvP        = {MatchReason="$1 PvP flag set",        NoMatchReason="$1 PvP flag not set"},
 		SpellAlert = {MatchReason="$1 casting $2",        	NoMatchReason="$1 not casting $2"},
 	},
+	
+	-- Export dialog
+	ExportDialogTopTitle      = "Export Auras",
+	ExportDialogCopyTitle     = "Press Ctrl-C to copy the below aura string.",
+	ExportDialogMidTitle      = "Send to Player",
+	ExportDialogSendTitle1    = "Enter a player name below and click 'Send'.",
+	ExportDialogSendTitle2    = "Contacting %s...",      -- The 1/2/3/4 suffix denotes the internal status of the frame.
+	ExportDialogSendTitle3    = "%s has declined the offer.",
+	ExportDialogSendTitle4    = "Sending auras...",
+	ExportDialogSendTitle5    = "Send successful!",
+	ExportDialogSendButton1   = "Send",
+	ExportDialogSendButton2   = "Back",
+	ExportDialogCancelButton  = "Close",
+	-- Cross-client import dialog
+	PlayerImportDialogTopTitle       = "You Have Auras!",
+	PlayerImportDialogDescTitle1     = "%s would like to send you some auras.",
+	PlayerImportDialogDescTitle2     = "Receiving auras...",
+	PlayerImportDialogDescTitle3     = "The offer has expired.",
+	PlayerImportDialogDescTitle4     = "Select a page to save the auras to.",
+	PlayerImportDialogWarningTitle   = "|cFFFF0000Note: |rYou are being sent an aura set, this will overwrite any existing auras on the selected page.",
+	PlayerImportDialogDescTitle5     = "Auras saved!",
+	PlayerImportDialogDescTitle6     = "No aura slots are available.",
+	PlayerImportDialogAcceptButton1  = "Accept",
+	PlayerImportDialogAcceptButton2  = "Save",
+	PlayerImportDialogCancelButton1  = "Reject",
+
+	aideBlockIncomingAuras = "Prevent anybody sending you auras",
+	nomBlockIncomingAuras = "Block Incoming Auras",
 
 });
 
