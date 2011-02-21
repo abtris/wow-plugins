@@ -43,6 +43,20 @@ end
 
 function crra_OnUpdate(crracurtime)
 
+if racrtimerbossrecheck and crracurtime>racrtimerbossrecheck then
+racrtimerbossrecheck=nil
+	if UnitGUID("boss1") and UnitName("boss1")~="" then
+		local id2=UnitGUID("boss1")
+		local id=tonumber(string.sub(id2,-12,-9),16)
+		if id==43296 then
+			racrcheckdeadth43296=0
+		end
+		if id==41442 then
+			racrzvukcheck=1
+		end
+	end
+end
+
 if rcradelayzonech and crracurtime>rcradelayzonech then
 rcradelayzonech=nil
 SetMapToCurrentZone()
@@ -72,14 +86,17 @@ else
 
 racrcheckdeadth43296=nil
 racrzvukcheck=nil
-	if UnitGUID("boss1") then
-		local id=tonumber(string.sub(UnitGUID("boss1"),-12,-9),16)
+	if UnitGUID("boss1") and UnitName("boss1")~="" then
+		local id2=UnitGUID("boss1")
+		local id=tonumber(string.sub(id2,-12,-9),16)
 		if id==43296 then
 			racrcheckdeadth43296=0
 		end
 		if id==41442 then
 			racrzvukcheck=1
 		end
+	else
+		racrtimerbossrecheck=GetTime()+3
 	end
 end
 
@@ -104,17 +121,19 @@ end
 
 
 if event == "UNIT_POWER" then
-if UnitName("boss1") then
+if UnitName("boss1") and UnitName("boss1")~="" then
 if racrzvukcheck then
 SetMapToCurrentZone()
 if GetCurrentMapAreaID()==754 then
 if arg2=="ALTERNATE" and arg1 then
 	local power = UnitPower(arg1, 10)
 	if power>50 then
-		raunitisplayer(UnitGUID(arg1),UnitName(arg1))
+		local aa1=UnitName(arg1)
+		local gugu=UnitGUID(arg1)
+		raunitisplayer(gugu,aa1)
 		if raunitplayertrue then
 			if crraspisokon[3]==1 and raachdone1 then
-				crrafailnoreason(3,UnitName(arg1)..", "..power.."%")
+				crrafailnoreason(3,aa1..", "..power.."%")
 			end
 		end
 	end
@@ -172,7 +191,7 @@ if rallatrontemp1 and (arg2=="SPELL_DAMAGE" or arg2=="SPELL_MISSED") and (arg9==
 end
 
 --4
-if arg2=="UNIT_DIED" and racrcheckdeadth43296 and UnitGUID("boss1") then
+if arg2=="UNIT_DIED" and racrcheckdeadth43296 and UnitGUID("boss1") and UnitName("boss1")~="" then
 	if crraspisokon[4]==1 and raachdone1 then
 		raunitisplayer(arg6,arg7)
 		if raunitplayertrue and UnitIsFeignDeath(arg7)==nil and UnitIsDeadOrGhost(arg7) then

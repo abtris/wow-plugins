@@ -6,7 +6,7 @@ psealocale()
 end
 
 
-	raversion=1.065
+	raversion=1.066
 	raversshow="ver-"..raversion.." (release)"
 	if(thisaddonworkea==nil) then thisaddonworkea=true end
 	if pseashowfailreas==nil then pseashowfailreas=true end
@@ -71,7 +71,7 @@ local racurrenttime = GetTime()
 
 if racheckbossincombat and racurrenttime>racheckbossincombat+1 then
 racheckbossincombat=racurrenttime
-if UnitName("boss1") then
+if UnitName("boss1") and UnitName("boss1")~="" then
 else
 racheckbossincombat=nil
 end
@@ -352,6 +352,15 @@ if arg1=="RaidAchievement" then
 if PSFeamain2_Text then
 PSFeamain2_Text:SetFont(GameFontNormal:GetFont(), 14)
 end
+
+local srcstxt = PSFeamain2:CreateFontString()
+srcstxt:SetWidth(180)
+srcstxt:SetHeight(25)
+srcstxt:SetFont(GameFontNormal:GetFont(), 15)
+srcstxt:SetPoint("TOP",0,-195)
+srcstxt:SetJustifyH("CENTER")
+srcstxt:SetJustifyV("TOP")
+srcstxt:SetText(ramaintrackingtitle..":")
 
 racheckdatay=GetTime()+10
 
@@ -1001,7 +1010,7 @@ if pseashowfailreas==true then
 
 	if prichina2==nil and qquant==nil then
 if (wherereportraidach=="sebe") then
-DEFAULT_CHAT_FRAME:AddMessage("- "..achlinnk.." |cffff0000"..pseatreb4.."|r"..ratemp)
+out("- "..achlinnk.." |cffff0000"..pseatreb4.."|r"..ratemp)
 else
 if IsRaidOfficer()==nil and wherereportraidach=="raid_warning" then
 razapuskanonsa("raid", "RA: {rt8} "..achlinnk.." "..pseatreb4..ratemp)
@@ -1011,7 +1020,7 @@ end
 end
 	elseif qquant==nil then
 if (wherereportraidach=="sebe") then
-DEFAULT_CHAT_FRAME:AddMessage("- "..achlinnk.." |cffff0000"..pseatreb4.."|r ("..prichina2..")."..ratemp)
+out("- "..achlinnk.." |cffff0000"..pseatreb4.."|r ("..prichina2..")."..ratemp)
 else
 if IsRaidOfficer()==nil and wherereportraidach=="raid_warning" then
 razapuskanonsa("raid", "RA: {rt8} "..achlinnk.." "..pseatreb4.." ("..prichina2..")."..ratemp)
@@ -1021,7 +1030,7 @@ end
 end
 	else
 if (wherereportraidach=="sebe") then
-DEFAULT_CHAT_FRAME:AddMessage("- "..achlinnk.." |cffff0000"..pseatreb4.."|r ("..prichina2.." - "..qquant..")."..ratemp)
+out("- "..achlinnk.." |cffff0000"..pseatreb4.."|r ("..prichina2.." - "..qquant..")."..ratemp)
 else
 if IsRaidOfficer()==nil and wherereportraidach=="raid_warning" then
 razapuskanonsa("raid", "RA: {rt8} "..achlinnk.." "..pseatreb4.." ("..prichina2.." - "..qquant..")."..ratemp)
@@ -1034,7 +1043,7 @@ end
 else
 
 if (wherereportraidach=="sebe") then
-DEFAULT_CHAT_FRAME:AddMessage("- "..achlinnk.." |cffff0000"..pseatreb4.."|r"..ratemp)
+out("- "..achlinnk.." |cffff0000"..pseatreb4.."|r"..ratemp)
 else
 if IsRaidOfficer()==nil and wherereportraidach=="raid_warning" then
 razapuskanonsa("raid", "RA: {rt8} "..achlinnk.." "..pseatreb4..ratemp)
@@ -1050,7 +1059,7 @@ end
 
 function pseareportallok()
 if (wherereportraidach=="sebe") then
-DEFAULT_CHAT_FRAME:AddMessage("- "..achlinnk.." "..pseatreb2)
+out("- "..achlinnk.." "..pseatreb2)
 else
 if IsRaidOfficer()==nil and wherereportraidach=="raid_warning" then
 razapuskanonsa("raid", "RA: {rt1} "..achlinnk.." "..pseatreb2)
@@ -1063,6 +1072,10 @@ end
 
 function razapuskanonsa(kudarep, chtorep)
 if kudarep and chtorep then
+
+if kudarep=="sebe" then
+out("- "..chtorep)
+else
 
 local bililine=0
 for i,cc in ipairs(rabigmenuchatlisten) do 
@@ -1094,6 +1107,7 @@ end
 table.insert (raannouncewait, chtorep)
 
 	end
+end
 end
 end
 

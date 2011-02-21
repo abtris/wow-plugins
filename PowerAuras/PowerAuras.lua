@@ -764,7 +764,7 @@ function PowaAuras:NewCheckBuffs()
 			--end
 			for k, v in pairs(self.AurasByType[auraType]) do
 				--self:ShowText(k," TestThisEffect ",v);
-				if (self.Auras[v].Debug) then
+				if (self.Auras[v] and self.Auras[v].Debug) then
 					self:DisplayText("TestThisEffect ",v);
 				end
 				--if (self.AuraTypeCount[auraType] == nil) then self.AuraTypeCount[auraType] = 0; end

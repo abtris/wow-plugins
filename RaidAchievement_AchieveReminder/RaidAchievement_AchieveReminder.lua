@@ -201,8 +201,8 @@ ralllocationnamesdef=nil
 
 	--перенос тактик
 ralltacticsdef=
-{{ralldefaulttactic40,ralldefaulttactic41,ralldefaulttactic42,0,ralldefaulttactic43,ralldefaulttactic44,ralldefaulttactic45,ralldefaulttactic46,0,format(ralldefaulttactic47,3),ralldefaulttactic48,ralldefaulttactic49,ralldefaulttactic50,0,0,0,0,0,0,0,0,0,0,0,0},--icc10
-{ralldefaulttactic40,ralldefaulttactic41,ralldefaulttactic42,0,ralldefaulttactic43a,ralldefaulttactic44,ralldefaulttactic45,ralldefaulttactic46,0,format(ralldefaulttactic47,8),ralldefaulttactic48,ralldefaulttactic49,ralldefaulttactic50,0,0,0,0,0,0,0,0,0,0,0,0},--icc25
+{{ralldefaulttactic40,ralldefaulttactic41,ralldefaulttactic42,0,ralldefaulttactic43,ralldefaulttactic44,ralldefaulttactic45,ralldefaulttactic46,ralldefaulttactic94,format(ralldefaulttactic47,3),ralldefaulttactic48,ralldefaulttactic49,ralldefaulttactic50,0,0,0,0,0,0,0,0,0,0,0,0},--icc10
+{ralldefaulttactic40,ralldefaulttactic41,ralldefaulttactic42,0,ralldefaulttactic43,ralldefaulttactic44,ralldefaulttactic45,ralldefaulttactic46,ralldefaulttactic94,format(ralldefaulttactic47,8),ralldefaulttactic48,ralldefaulttactic49,ralldefaulttactic50,0,0,0,0,0,0,0,0,0,0,0,0},--icc25
 {format(ralldefaulttactic33,2),0,0,0,0,ralldefaulttactic34,0,0}, --toc10
 {format(ralldefaulttactic33,4),0,0,0,ralldefaulttactic34,0,0}, --toc25
 {ralldefaulttactic51,0,0,ralldefaulttactic52,ralldefaulttactic53,0,0,0,0,ralldefaulttactic54,ralldefaulttactic55,0,ralldefaulttactic56,ralldefaulttactic57,ralldefaulttactic58,ralldefaulttactic59,ralldefaulttactic60,0,0,0,0,0,0,0,ralldefaulttactic61,ralldefaulttactic62,ralldefaulttactic63,format(ralldefaulttactic64,rallachievekologarnhp1),0,0,ralldefaulttactic65,0,ralldefaulttactic66,ralldefaulttactic67,ralldefaulttactic68,ralldefaulttactic69,ralldefaulttactic70,ralldefaulttactic71,ralldefaulttactic72,ralldefaulttactic73,0,0,0,0,0,ralldefaulttactic74,0,0,0,ralldefaulttactic75,ralldefaulttactic76,0,0,0,ralldefaulttactic77,0,ralldefaulttactic78,ralldefaulttactic79,ralldefaulttactic80,0,0,0,0,0,0,0,ralldefaulttactic81,0},
@@ -253,10 +253,10 @@ ralltacticsdef=
 
 
 --версия игры
-ralltacticsverdef={{403,404,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403},--icc10
-{403,404,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403},--icc25
-{403,403,403,403,403,403,403,403}, --toc10
-{403,403,403,403,403,403,403}, --toc25
+ralltacticsverdef={{406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406},--icc10
+{406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406,406},--icc25
+{406,403,403,403,403,406,406,406}, --toc10
+{406,403,403,403,406,406,406}, --toc25
 {403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403},
 {403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403},
 {403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403,403},--naxx10

@@ -24,6 +24,7 @@ pseatreb4				= "failed!"
 ranewversfound				= "|cff00ff00Attention!|r New version of |cff00ff00'RaidAchievement'|r addon was found in your party/guild, it's recommended to update it from curse.com or wowinterface.com"
 rallbuttonmaint				= "List for zone"
 pseapartfailedloc			= "part is failed!"
+ramaintrackingtitle			= "Tracking"
 
 
 psealeftmenu1				= "AddOn"

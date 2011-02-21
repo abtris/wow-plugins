@@ -569,7 +569,7 @@ function PowaAuras:PLAYER_TOTEM_UPDATE(...)
 		if (self.DebugEvents) then
 			self:DisplayText("PLAYER_TOTEM_UPDATE slot=", slot, " class=", self.playerclass);
 		end
-		if (self.playerclass=="SHAMAN") then
+		if (self.playerclass=="SHAMAN" or self.playerclass=="DRUID") then
 			self.DoCheck.Totems = true;
 		elseif (self.playerclass=="DEATHKNIGHT" and not self.MasterOfGhouls) then
 			if (self.DebugEvents) then

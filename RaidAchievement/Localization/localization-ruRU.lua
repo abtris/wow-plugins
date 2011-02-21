@@ -24,6 +24,7 @@ pseatreb4				= "провалено!"
 ranewversfound				= "|cff00ff00ВНИМАНИЕ!|r В Вашей группе/гильдии обнаружена более новая версия аддона |cff00ff00'RaidAchievement'|r, рекомендуется скачать обновление с curse.com или wowinterface.com"
 rallbuttonmaint				= "Список по локации"
 pseapartfailedloc			= "часть провалена!"
+ramaintrackingtitle			= "Отслеживание"
 
 
 psealeftmenu1				= "Аддон"

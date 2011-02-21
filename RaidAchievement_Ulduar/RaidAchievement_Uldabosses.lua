@@ -187,7 +187,7 @@ ratemp=" #"..raquantrepdone
 end
 
 if (wherereportraidach=="sebe") then
-DEFAULT_CHAT_FRAME:AddMessage("- "..pseaotdamag.." "..achlinnk.." "..pseamimifailloc5.." ("..ktofail2..")."..ratemp)
+out("- "..pseaotdamag.." "..achlinnk.." "..pseamimifailloc5.." ("..ktofail2..")."..ratemp)
 else
 	if pseashowfailreas==true then
 if IsRaidOfficer()==nil and wherereportraidach=="raid_warning" then

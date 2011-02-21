@@ -2,7 +2,7 @@
 ## Title: Raid|cff7fff7fAchievement|r   Main
 ## Title-ruRU: Raid|cff7fff7fAchievement|r   Основной
 ## Author: Shurshik
-## Version: 1.065
+## Version: 1.066
 ## Notes: Group achievements tracker
 ## Notes-ruRU: Слежение за групповыми достижениями
 ## URL: http://blacklotus.ru/

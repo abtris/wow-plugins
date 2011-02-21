@@ -61,13 +61,13 @@ end
 
 	if prichina2==nil then
 if(wherereportpartyach=="sebe" or (GetNumPartyMembers()==0 and wherereportpartyach=="party"))then
-DEFAULT_CHAT_FRAME:AddMessage("- "..achlinnk.." |cffff0000"..pseatreb4.."|r"..ratemp)
+out("- "..achlinnk.." |cffff0000"..pseatreb4.."|r"..ratemp)
 else
 razapuskanonsa(wherereportpartyach, "RA: {rt8} "..achlinnk.." "..pseatreb4..ratemp)
 end
 	else
 if(wherereportpartyach=="sebe" or (GetNumPartyMembers()==0 and wherereportpartyach=="party"))then
-DEFAULT_CHAT_FRAME:AddMessage("- "..achlinnk.." |cffff0000"..pseatreb4.."|r ("..prichina2..")."..ratemp)
+out("- "..achlinnk.." |cffff0000"..pseatreb4.."|r ("..prichina2..")."..ratemp)
 else
 	if pseashowfailreas==true then
 razapuskanonsa(wherereportpartyach, "RA: {rt8} "..achlinnk.." "..pseatreb4.." ("..prichina2..")."..ratemp)
@@ -81,7 +81,7 @@ end
 
 function whrareportallok()
 if(wherereportpartyach=="sebe" or (GetNumPartyMembers()==0 and wherereportpartyach=="party"))then
-DEFAULT_CHAT_FRAME:AddMessage("- "..achlinnk.." "..pseatreb2)
+out("- "..achlinnk.." "..pseatreb2)
 else
 razapuskanonsa(wherereportpartyach, "RA: {rt1} "..achlinnk.." "..pseatreb2)
 end

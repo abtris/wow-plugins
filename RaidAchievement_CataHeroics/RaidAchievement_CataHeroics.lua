@@ -30,14 +30,14 @@ chraspisokach5={
 5292,
 5366,
 5368,
-5369,
+--5369,
 5370,
 5371,
 
 5503,
 5504,
 
-5285,--9
+5505,--9
 --проп
 
 5281,
@@ -78,12 +78,23 @@ end
 
 function chraonupdate()
 
+if rachtimerbossrecheck and GetTime()>rachtimerbossrecheck then
+rachtimerbossrecheck=nil
+if UnitGUID("boss1") and UnitName("boss1")~="" then
+	local id=tonumber(string.sub(UnitGUID("boss1"),-12,-9),16)
+
+	if id==49541 or id==49429 then
+		rachtimervanessa=nil
+	end
+end
+end
+
 if rachtimerhoo and GetTime()>rachtimerhoo then
 rachtimerhoo=nil
 SetMapToCurrentZone()
 if GetCurrentMapAreaID()==759 then
-if chraspisokon[17]==1 and chraachdone1 then
-chrafailnoreason(17)
+if chraspisokon[16]==1 and chraachdone1 then
+chrafailnoreason(16)
 end
 end
 end
@@ -91,8 +102,8 @@ end
 if rachtimervanessa and GetTime()>rachtimervanessa then
 rachtimervanessa=nil
 if GetCurrentMapAreaID()==756 then
-if chraspisokon[6]==1 and chraachdone1 then
-chrafailnoreason(6)
+if chraspisokon[5]==1 and chraachdone1 then
+chrafailnoreason(5)
 end
 end
 end
@@ -100,7 +111,7 @@ end
 if chratimerstart and GetTime()>chratimerstart+15 then
 chratimerstart=nil
 if GetCurrentMapAreaID()==759 then
-chrafailnoreason(16) --ыытест проверить ИД совпадает ли в конце
+chrafailnoreason(15) --ыытест проверить ИД совпадает ли в конце
 end
 end
 
@@ -147,12 +158,15 @@ chraachdone1=true
 chracounter1=0
 chratableid=nil
 
-if UnitGUID("boss1") then
-	local id=tonumber(string.sub(UnitGUID("boss1"),-12,-9),16)
+if UnitGUID("boss1") and UnitName("boss1")~="" then
+	local id2=UnitGUID("boss1")
+	local id=tonumber(string.sub(id2,-12,-9),16)
 
 	if id==49541 or id==49429 then
 		rachtimervanessa=nil
 	end
+else
+rachtimerbossrecheck=GetTime()+3
 end
 
 elseif chraenglishclass=="HUNTER" then else
@@ -163,8 +177,9 @@ chraachdone1=true
 chracounter1=0
 chratableid=nil
 
-if UnitGUID("boss1") then
-	local id=tonumber(string.sub(UnitGUID("boss1"),-12,-9),16)
+if UnitGUID("boss1") and UnitName("boss1")~="" then
+	local id2=UnitGUID("boss1")
+	local id=tonumber(string.sub(id2,-12,-9),16)
 
 	if id==49541 then
 		rachtimervanessa=nil
@@ -212,7 +227,7 @@ end
 if event == "CHAT_MSG_MONSTER_YELL" or event=="CHAT_MSG_MONSTER_SAY" then
 
 if arg1==chhrbrannyell and GetCurrentMapAreaID()==759 then
-if chraspisokon[17]==1 and chraachdone1 then
+if chraspisokon[16]==1 and chraachdone1 then
 rachtimerhoo=GetTime()+298
 end
 end
@@ -267,8 +282,9 @@ if chraspisokon[3]==1 and chraachdone1 then
 	if (arg2=="SPELL_MISSED" or arg2=="SPELL_DAMAGE" or arg2=="SPELL_PERIODIC_DAMAGE" or arg2=="SWING_DAMAGE") and arg6 then
 		local id=tonumber(string.sub(arg6,-12,-9),16)
 		local id2=1
-if UnitGUID("boss1") then
-		id2=tonumber(string.sub(UnitGUID("boss1"),-12,-9),16)
+if UnitGUID("boss1") and UnitName("boss1")~="" then
+		local id3=UnitGUID("boss1")
+		id2=tonumber(string.sub(id3,-12,-9),16)
 end
 
 		if id==49208 and UnitGUID("boss1") and id2==43778 then
@@ -299,33 +315,33 @@ end
 	end
 end
 
-if chraspisokon[4]==1 and chraachdone1 then
-	if (arg2=="SPELL_CAST_SUCCESS" or arg2=="SPELL_CAST_START") and arg9==92042 then
-		if chratableid==nil then
-			chratableid={}
-			table.insert(chratableid,arg3)
-		else
-			local bil=0
-			for i=1,#chratableid do
-				if chratableid[i]==arg3 then
-					bil=1
-				end
-			end
-			if bil==0 then
-				table.insert(chratableid,arg3)
-			end
-			if #chratableid==3 then
-				chraachcompl(4)
-			end
-		end
-	end
-end
+--if chraspisokon[4]==1 and chraachdone1 then
+--	if (arg2=="SPELL_CAST_SUCCESS" or arg2=="SPELL_CAST_START") and arg9==92042 then
+--		if chratableid==nil then
+--			chratableid={}
+--			table.insert(chratableid,arg3)
+--		else
+--			local bil=0
+--			for i=1,#chratableid do
+--				if chratableid[i]==arg3 then
+--					bil=1
+--				end
+--			end
+--			if bil==0 then
+--				table.insert(chratableid,arg3)
+--			end
+--			if #chratableid==3 then
+--				chraachcompl(4)
+--			end
+--		end
+--	end
+--end
 
 if arg2=="SPELL_AURA_APPLIED_DOSE" and arg7==UnitName("player") and arg9==92066 and arg13 and arg13>1 then
-	if chraspisokon[5]==1 and chraachdone1 then
-local _, _, _, whramyach = GetAchievementInfo(chraspisokach5[5])
+	if chraspisokon[4]==1 and chraachdone1 then
+local _, _, _, whramyach = GetAchievementInfo(chraspisokach5[4])
 if (whramyach) then else
-		chramyfail(5)
+		chramyfail(4)
 end
 	end
 end
@@ -333,7 +349,7 @@ end
 
 
 if arg2=="SPELL_CAST_SUCCESS" and arg9==92100 then
-	if chraspisokon[6]==1 and chraachdone1 then
+	if chraspisokon[5]==1 and chraachdone1 then
 		rachtimervanessa=GetTime()+300
 	end
 end
@@ -350,19 +366,45 @@ ralldelaycombatrezet=GetTime()+15
 end
 
 if arg2=="SPELL_HEAL" and arg9==93706 then
-	if chraspisokon[7]==1 and chraachdone1 then
+	if chraspisokon[6]==1 and chraachdone1 then
 		local id=tonumber(string.sub(arg6,-12,-9),16)
 		if id==46962 then
-			chrafailnoreason(7)
+			chrafailnoreason(6)
 		end
 	end
 end
 
 if arg2=="SPELL_HEAL" and arg9==93844 then
-	if chraspisokon[8]==1 and chraachdone1 then
+	if chraspisokon[7]==1 and chraachdone1 then
 		local id=tonumber(string.sub(arg6,-12,-9),16)
 		if id==4278 then
-			chrafailnoreason(8)
+			chrafailnoreason(7)
+		end
+	end
+end
+
+
+if arg2=="SPELL_DAMAGE" and arg9==93784 and arg13 and arg13>0 then
+	if chraspisokon[8]==1 and chraachdone1 then
+		local id=tonumber(string.sub(arg6,-12,-9),16)
+		if id==50561 then
+			chracounter1=chracounter1+1
+			if chracounter1==5 then
+				raplaysound(0,5505)
+				razapuskanonsa(wherereportpartyach, achlinnk..": "..chracounter1.." / 12")
+			end
+			if chracounter1==8 then
+				raplaysound(0,5505)
+				razapuskanonsa(wherereportpartyach, achlinnk..": "..chracounter1.." / 12")
+			end
+			if chracounter1==10 then
+				raplaysound(0,5505)
+				razapuskanonsa(wherereportpartyach, achlinnk..": "..chracounter1.." / 12")
+			end
+
+			if chracounter1==12 then
+				chraachcompl(8)
+			end
 		end
 	end
 end
@@ -373,57 +415,48 @@ end
 --
 
 
-if arg2=="SPELL_DAMAGE" and arg9==91469 and arg13 and arg13>0 then
-	if chraspisokon[9]==1 and chraachdone1 then
-		local id=tonumber(string.sub(arg6,-12,-9),16)
-		if id==40633 or id==44404 then
-			chraachcompl(9)
-		end
-	end
-end
-
 
 --blackrock
 if GetCurrentMapAreaID()==753 then
 
 if arg2=="SPELL_DAMAGE" and arg9==93454 then
-	if chraspisokon[10]==1 and chraachdone1 then
+	if chraspisokon[9]==1 and chraachdone1 then
 		local id=tonumber(string.sub(arg6,-12,-9),16)
 		if id==50376 then
 			chracounter1=chracounter1+1
 			if chracounter1==10 then
-				chraachcompl(10)
+				chraachcompl(9)
 			end
 		end
 	end
 end
 
 if arg2=="UNIT_DIED" then
-	if chraspisokon[11]==1 and chraachdone1 then
+	if chraspisokon[10]==1 and chraachdone1 then
 		local id=tonumber(string.sub(arg6,-12,-9),16)
 		if id==50284 then
 			chracounter1=chracounter1+1
 			if chracounter1==3 then
-				chraachcompl(11)
+				chraachcompl(10)
 			end
 		end
 	end
 end
 
 if arg2=="SPELL_AURA_APPLIED_DOSE" and arg9==93567 and arg13 and arg13>14 then
-	if chraspisokon[12]==1 and chraachdone1 then
+	if chraspisokon[11]==1 and chraachdone1 then
 		--local id=tonumber(string.sub(arg6,-12,-9),16)
 		--if id==39698 then
-			chraachcompl(12)
+			chraachcompl(11)
 		--end
 	end
 end
 
 if arg2=="SPELL_AURA_APPLIED_DOSE" and arg9==76189 and arg13 and arg13>3 then
-if chraspisokon[13]==1 and chraachdone1 then
+if chraspisokon[12]==1 and chraachdone1 then
 --raunitisplayer(arg6,arg7)
 --if raunitplayertrue then
-chrafailnoreason(13, arg7)
+chrafailnoreason(12, arg7)
 --end
 end
 end
@@ -435,10 +468,10 @@ end
 
 
 if arg2=="SPELL_AURA_APPLIED" and arg9==87618 and arg7==UnitName("player") then
-	if chraspisokon[14]==1 and chraachdone1 then
-local _, _, _, whramyach = GetAchievementInfo(chraspisokach5[14])
+	if chraspisokon[13]==1 and chraachdone1 then
+local _, _, _, whramyach = GetAchievementInfo(chraspisokach5[13])
 if (whramyach) then else
-		chramyfail(14)
+		chramyfail(13)
 end
 	end
 end
@@ -448,10 +481,10 @@ end
 if GetCurrentMapAreaID()==757 then
 
 if arg2=="SPELL_AURA_APPLIED" and arg9==90170 then
-	if chraspisokon[15]==1 and chraachdone1 then
+	if chraspisokon[14]==1 and chraachdone1 then
 		local id=tonumber(string.sub(arg6,-12,-9),16)
 		if id==39625 then
-			chramyfailgood(15,2)
+			chramyfailgood(14,2)
 		end
 	end
 end
@@ -459,11 +492,11 @@ end
 --there is something strange in combatlog!
 --ыытест
 --if arg2=="SPELL_CAST_SUCCESS" or arg2=="SPELL_CAST_START" and arg9==91049 then
---	if chraspisokon[16]==1 and chraachdone1 then
+--	if chraspisokon[15]==1 and chraachdone1 then
 --		if UnitGUID("boss1") then
 --			local a2=tonumber(string.sub(UnitGUID("boss1"),-12,-9),16)
 --			if a2==40484 then
---				chrafailnoreason(16)
+--				chrafailnoreason(15)
 --			end
 --		end
 --	end
@@ -476,7 +509,7 @@ end
 --halls of orig
 if GetCurrentMapAreaID()==759 then
 if arg2=="SPELL_AURA_APPLIED" and arg9==75322 then                 --ЫЫТЕСТ меняя тут ИД менять также и в онапдейт функции!
-	if chraspisokon[16]==1 and chraachdone1 then
+	if chraspisokon[15]==1 and chraachdone1 then
 		chratimerstart=GetTime()
 	end
 end
@@ -491,10 +524,10 @@ end
 
 
 if arg2=="SPELL_PERIODIC_ENERGIZE" and arg9==89879 then
-	if chraspisokon[18]==1 and chraachdone1 then
+	if chraspisokon[17]==1 and chraachdone1 then
 		chracounter1=chracounter1+1
 		if chracounter1>19 then            --ыытестили больше 18???
-			chrafailnoreason(18)
+			chrafailnoreason(17)
 		end
 	end
 end
@@ -507,11 +540,11 @@ if GetCurrentMapAreaID()==747 then
 --if arg2=="UNIT_DIED" then
 --	local id=tonumber(string.sub(arg6,-12,-9),16)
 --	if id==43934 then
---		if chraspisokon[19]==1 and chraachdone1 then
+--		if chraspisokon[18]==1 and chraachdone1 then
 --			chracounter1=chracounter1+1
 --			if chracounter1==3 then
 --				if UnitGUID("boss1") then
---					chraachcompl(19)
+--					chraachcompl(18)
 --				end
 --			end
 --		end
