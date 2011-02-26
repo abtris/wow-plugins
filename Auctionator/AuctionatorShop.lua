@@ -350,17 +350,19 @@ function Atr_SEntryOnClick (self)
 
 	local itemName = gCurrentSList.items[entryIndex];
 	
-	Atr_Search_Box:SetText (itemName);
+	if (itemName) then
+		Atr_Search_Box:SetText (itemName);
 
-	if (IsAltKeyDown()) then
-		Atr_GetCurrentPane():ClearSearch();
-		Atr_RemFromSListOnClick();
-	else
-		Atr_Search_Onclick ();
+		if (IsAltKeyDown()) then
+			Atr_GetCurrentPane():ClearSearch();
+			Atr_RemFromSListOnClick();
+		else
+			Atr_Search_Onclick ();
+		end
+		
+		Atr_Shop_UpdateUI();
 	end
 	
-	Atr_Shop_UpdateUI();
-
 --	gCurrentSList:DisplayX();		-- for the highlight
 end
 
@@ -727,6 +729,12 @@ function Atr_Adv_Search_Do()
 	end
 	
 	if (text ~= "")			then	searchText = searchText.."/"..text;					end
+
+	-- handle category only search
+	
+	if (not zc.StringContains (searchText, "/")) then
+		searchText = searchText.."/"
+	end
 	
 	Atr_Search_Box:SetText(searchText);
 

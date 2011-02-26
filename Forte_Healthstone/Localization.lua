@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+﻿-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 
 --[[
 "frFR": French
@@ -50,6 +50,11 @@ if GetLocale() == "frFR" then
 	FWL.ONLY_TOTAL = "Only show total";
 	FWL.ONLY_TOTAL_TT = "Only show the bar with the total number of Healthstones.";
 
+	FWL.NO_INFO = "No info";
+	FWL.UNKNOWN_ = "Unknown: %s";
+	FWL.LITTLE_UNKNOWN = "Little unknown";
+	FWL.MANY_UNKNOWN = "Many unknown";
+
 -- Russian
 elseif GetLocale() == "ruRU" then
 
@@ -81,6 +86,11 @@ elseif GetLocale() == "ruRU" then
 	--[[>>]]FWL.ONLY_TOTAL = "Only show total";
 	--[[>>]]FWL.ONLY_TOTAL_TT = "Only show the bar with the total number of Healthstones.";
 
+--[[>>]]FWL.NO_INFO = "No info";
+--[[>>]]FWL.UNKNOWN_ = "Unknown: %s";
+--[[>>]]FWL.LITTLE_UNKNOWN = "Little unknown";
+--[[>>]]FWL.MANY_UNKNOWN = "Many unknown";
+
 elseif GetLocale() == "zhCN" then
 	FWL.GET_HS_UPDATE = "扫描糖果数据.只有装了FW的同志拥有团队权限才能实现所有功能";
 	FWL.UPDATE_AND_RITUAL = "扫描糖果 / 灵魂仪式";
@@ -110,6 +120,11 @@ elseif GetLocale() == "zhCN" then
 
 	--[[>>]]FWL.ONLY_TOTAL = "Only show total";
 	--[[>>]]FWL.ONLY_TOTAL_TT = "Only show the bar with the total number of Healthstones.";
+
+--[[>>]]FWL.NO_INFO = "No info";
+--[[>>]]FWL.UNKNOWN_ = "Unknown: %s";
+--[[>>]]FWL.LITTLE_UNKNOWN = "Little unknown";
+--[[>>]]FWL.MANY_UNKNOWN = "Many unknown";
 
 elseif GetLocale() == "zhTW" then
 
@@ -141,6 +156,11 @@ elseif GetLocale() == "zhTW" then
 	--[[>>]]FWL.ONLY_TOTAL = "Only show total";
 	--[[>>]]FWL.ONLY_TOTAL_TT = "Only show the bar with the total number of Healthstones.";
 
+--[[>>]]FWL.NO_INFO = "No info";
+--[[>>]]FWL.UNKNOWN_ = "Unknown: %s";
+--[[>>]]FWL.LITTLE_UNKNOWN = "Little unknown";
+--[[>>]]FWL.MANY_UNKNOWN = "Many unknown";
+
 -- DE by DeaTHCorE (found a error? have a better translation? send me a email at dhaft@gmx.de)
 elseif GetLocale() == "deDE" then
 	FWL.GET_HS_UPDATE = "Aktualisiert den Status der Gesundheitssteine. Die volle Funktionalität ist nur gegeben wenn ein Spieler in der Gruppe mit diesem Addon die Leitung oder Assistentsrechte hat! Rechtsklick um einen Seelenbrunnen zu beschwören.";
@@ -171,7 +191,12 @@ elseif GetLocale() == "deDE" then
 
 	FWL.ONLY_TOTAL = "Zeige nur Gesamt";
 	FWL.ONLY_TOTAL_TT = "Zeige nur die Leiste mit der Gesamtanzahl der Gesundheitssteine.";
-	
+
+--[[>>]]FWL.NO_INFO = "No info";
+--[[>>]]FWL.UNKNOWN_ = "Unknown: %s";
+--[[>>]]FWL.LITTLE_UNKNOWN = "Little unknown";
+--[[>>]]FWL.MANY_UNKNOWN = "Many unknown";
+
 -- KOREAN
 elseif GetLocale() == "koKR" then
 	FWL.GET_HS_UPDATE = "현재 생명석의 소지 상태를 점검합니다. 이 애드온을 가지고 있고 파티장이나 레이드 관리 권리를 가지고 있을때만 제대로 동작합니다. 오른클릭을 하면 자판기를 소환합니다.";
@@ -202,6 +227,11 @@ elseif GetLocale() == "koKR" then
 
 --[[>>]]FWL.ONLY_TOTAL = "Only show total";
 --[[>>]]FWL.ONLY_TOTAL_TT = "Only show the bar with the total number of Healthstones.";
+
+--[[>>]]FWL.NO_INFO = "No info";
+--[[>>]]FWL.UNKNOWN_ = "Unknown: %s";
+--[[>>]]FWL.LITTLE_UNKNOWN = "Little unknown";
+--[[>>]]FWL.MANY_UNKNOWN = "Many unknown";
 	
 -- ENGLISH
 else
@@ -233,8 +263,10 @@ else
 
 	FWL.ONLY_TOTAL = "Only show total";
 	FWL.ONLY_TOTAL_TT = "Only show the bar with the total number of Healthstones.";
+	
+	FWL.NO_INFO = "No info";
+	FWL.UNKNOWN_ = "Unknown: %s";
+	FWL.LITTLE_UNKNOWN = "Little unknown";
+	FWL.MANY_UNKNOWN = "Many unknown";
+
 end
-FWL.NO_INFO = "No info";
-FWL.UNKNOWN_ = "Unknown: %s";
-FWL.LITTLE_UNKNOWN = "Little unknown";
-FWL.MANY_UNKNOWN = "Many unknown";

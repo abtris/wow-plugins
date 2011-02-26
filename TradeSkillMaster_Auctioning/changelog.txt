@@ -1,3 +1,9 @@
+v0.1.11
+*Added an option for playing a sound when a scan is complete.
+*You can now disable groups to prevent them from posting / canceling.
+*Added a "Smart Scanning" option which won't scan for things that are set to not post / cancel.
+*Many other minor bug fixes and improvements.
+
 v0.1.10
 *Fixed some bugs with items with bids on them getting canceled incorrectly.
 *Changed the tab order for group / category settings.

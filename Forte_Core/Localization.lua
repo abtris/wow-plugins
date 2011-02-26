@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+﻿-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 
 --[[
 "frFR": French
@@ -462,6 +462,14 @@ if GetLocale() == "frFR" then
 	FWL.BREAK_FADE = "Break/Fade";
 	FWL.BREAK_FADE_HINT1 = "The time you set in the fade string defines when it is displayed.";
 	
+	FWL.GENERAL_TIPS7 = "Click the ' + new' tab at the top of this frame to create a new profile.";
+
+	FWL.CONFIRM_DELETE_PROFILE = "Are you sure you want to delete the profile '%s'?";
+	FWL.CONFIRM_DELETE_CLONE = "Are you sure you want to delete the clone '%s'?";
+
+	FWL.BASIC_LAYOUT = "Basic layout";
+	FWL.ICON_FONT = "Icon Font";
+	
 -- Russian
 elseif GetLocale() == "ruRU" then
 
@@ -731,9 +739,17 @@ elseif GetLocale() == "ruRU" then
 --[[>>]]FWL.RAID_DEBUFFS = "Raid Debuffs (my target only)";
 --[[>>]]FWL.ALL_OTHER_COOLDOWNS = "All other Cooldowns";
 
-	FWL.BREAK_FADE = "Прервано/Рассеивается";
-	FWL.BREAK_FADE_HINT1 = "Время отображение строки рассеивания.";
+--[[>>]]FWL.BREAK_FADE = "Прервано/Рассеивается";
+--[[>>]]FWL.BREAK_FADE_HINT1 = "Время отображение строки рассеивания.";
+	
+--[[>>]]FWL.GENERAL_TIPS7 = "Click the ' + new' tab at the top of this frame to create a new profile.";
 
+--[[>>]]FWL.CONFIRM_DELETE_PROFILE = "Are you sure you want to delete the profile '%s'?";
+--[[>>]]FWL.CONFIRM_DELETE_CLONE = "Are you sure you want to delete the clone '%s'?";
+
+--[[>>]]FWL.BASIC_LAYOUT = "Basic layout";
+	FWL.ICON_FONT = "Шрифт значка";
+	
 	FW:SetDefaultFont("Fonts\\ARIALN.TTF",11);
 
 elseif GetLocale() == "zhCN" then
@@ -1001,7 +1017,15 @@ elseif GetLocale() == "zhCN" then
 
 	FWL.BREAK_FADE = "打断/失效";
 	FWL.BREAK_FADE_HINT1 = "失效信息持续时间.";
-		
+	
+--[[>>]]FWL.GENERAL_TIPS7 = "Click the ' + new' tab at the top of this frame to create a new profile.";
+
+--[[>>]]FWL.CONFIRM_DELETE_PROFILE = "Are you sure you want to delete the profile '%s'?";
+--[[>>]]FWL.CONFIRM_DELETE_CLONE = "Are you sure you want to delete the clone '%s'?";
+
+--[[>>]]FWL.BASIC_LAYOUT = "Basic layout";
+	FWL.ICON_FONT = "冷却字体";
+	
 	-- register extra fonts
 	FW:RegisterFont("Fonts\\ZYHei.TTF","中易黑");
 	FW:RegisterFont("Fonts\\ZYKai_T.TTF","中易楷");
@@ -1272,7 +1296,15 @@ elseif GetLocale() == "zhTW" then
 --[[>>]]FWL.ALL_OTHER_COOLDOWNS = "All other Cooldowns";
 	FWL.BREAK_FADE = "打斷/失效";
 	FWL.BREAK_FADE_HINT1 = "失效資訊持續時間.";
-		
+	
+--[[>>]]FWL.GENERAL_TIPS7 = "Click the ' + new' tab at the top of this frame to create a new profile.";
+
+--[[>>]]FWL.CONFIRM_DELETE_PROFILE = "Are you sure you want to delete the profile '%s'?";
+--[[>>]]FWL.CONFIRM_DELETE_CLONE = "Are you sure you want to delete the clone '%s'?";
+
+--[[>>]]FWL.BASIC_LAYOUT = "Basic layout";	
+	FWL.ICON_FONT = "冷卻字體";
+
 	-- register extra fonts
 	FW:RegisterFont("Fonts\\bLEI00D.TTF","聊天字體");
 	FW:RegisterFont("Fonts\\bHEI01B.TTF","戰鬥字體");
@@ -1543,19 +1575,27 @@ elseif GetLocale() == "deDE" then
 --[[>>]]FWL.RAID_DEBUFFS = "Raid Debuffs (my target only)";
 --[[>>]]FWL.ALL_OTHER_COOLDOWNS = "All other Cooldowns";
 
-		FWL.BREAK_FADE = "Unterbrochen/Endet";
---[[>>]]FWL.BREAK_FADE_HINT1 = "Die Zeit die du in der Textzeile einsetzt bestimmt wann sie angezeigt wird. (Korrekte übersetzung? Originaltext: The time you set in the fade string defines when it is displayed.)";
+	FWL.BREAK_FADE = "Unterbrochen/Endet";
+	FWL.BREAK_FADE_HINT1 = "Die Zeit die du in der Textzeile einsetzt bestimmt wann sie angezeigt wird. (Korrekte übersetzung? Originaltext: The time you set in the fade string defines when it is displayed.)";
+	
+--[[>>]]FWL.GENERAL_TIPS7 = "Click the ' + new' tab at the top of this frame to create a new profile.";
+
+--[[>>]]FWL.CONFIRM_DELETE_PROFILE = "Are you sure you want to delete the profile '%s'?";
+--[[>>]]FWL.CONFIRM_DELETE_CLONE = "Are you sure you want to delete the clone '%s'?";
+
+--[[>>]]FWL.BASIC_LAYOUT = "Basic layout";
+	FWL.ICON_FONT = "Icon Schriftart";
 
 elseif GetLocale() == "koKR" then
 
---[[>>]]FWL.MODULE_NONE = "|cffff0000None|r";
+	FWL.MODULE_NONE = "|cffff0000None|r";
 
---[[>>]]FWL.UPDATE_NOW = "지금 업데이트";
---[[>>]]FWL.LAST_CHECK = "\n\n마지막 점검: %d 초전";
---[[>>]]FWL.SCROLL_TO_ = "여기로 스크롤 ";
+	FWL.UPDATE_NOW = "지금 업데이트";
+	FWL.LAST_CHECK = "\n\n마지막 점검: %d 초전";
+	FWL.SCROLL_TO_ = "여기로 스크롤 ";
 
 	FWL.POTION = "물약";
---[[>>]]FWL.POWERUP = "일시적 강화/발동효과";
+	FWL.POWERUP = "강화효과";
 	FWL.ITEM = "아이템";
 	FWL.PET = "소환수";
 	FWL.SPELL = "주문";
@@ -1566,7 +1606,7 @@ elseif GetLocale() == "koKR" then
 	FWL.USE_ = "사용 %s";
 	FWL.CREATE_ = "창조 %s";
 	FWL.LEFT_CLICK_TO_CREATE_ = "좌클릭으로 생성 %s.";
-	FWL.RIGHT_CLICK_TO_USE_ = "우클릭으로 사용 %s.";
+	FWL.RIGHT_CLICK_TO_USE_ = "오른클릭으로 사용 %s.";
 
 	FWL.MASTER = "일급";
 	FWL.MAJOR = "최상급";
@@ -1582,23 +1622,23 @@ elseif GetLocale() == "koKR" then
 	FWL.NONE = "없음";
 
 	FWL.ENABLE  = "활성화";
-	FWL.LOCK = "잠금 (옵션사용할수 없음)";
-	FWL.EXPAND_UP = "위로성장";
---[[>>]]FWL.EXPAND_UP_TT = "바가 위로 확장할지 아래로 확장할지 설정합니다.";
+	FWL.LOCK = "잠금 (설정창을 이동할 수 없음)";
+	FWL.EXPAND_UP = "위로 성장";
+	FWL.EXPAND_UP_TT = "바가 위로 확장할지 아래로 확장할지 설정합니다.";
 	FWL.BAR_SPACING = "바 간격";
---[[>>]]FWL.COMBAT_HINT = "일부 크기 변경설정은 전투 상태에선 불가능합니다.";
---[[>>]]FWL.ORA_HINT = "ForteWarlock 은 사용하지만 oRA 애드온이 없는 경우 해당 사용자는 레이드 내에 권한이 필요합니다.";
+	FWL.COMBAT_HINT = "일부 크기 변경설정은 전투 상태에선 불가능합니다.";
+	FWL.ORA_HINT = "ForteWarlock 애드온은 없지만 oRA 애드온을 사용하는 사용자는 레이드 내에 권한이 필요합니다.";
 
 	FWL.DEAD = "죽음";
 	FWL.OFFLINE = "오프라인";
 	FWL.CASTING = "시전";
---[[>>]]FWL.CUSTOMIZE = "주문 세부화설정";
+	FWL.CUSTOMIZE = "대상 주문, 기술 혹은 아이템";
 	FWL.GENERAL = "일반설정";
-	FWL.ADVANCED = "기타설정";
-	FWL.BASIC = "기본";
-	FWL.SPECIFIC = "특수설정";
+	FWL.ADVANCED = "고급 모듈설정";
+	FWL.BASIC = "기초";
+	FWL.SPECIFIC = "세부";
 	FWL.CORE = "핵심설정";
---[[>>]]FWL.COLORING_FILTERING = "주문 색지정 및 필터링";
+	FWL.COLORING_FILTERING = "세부설정 - 표시여부 및 임의 색지정";
 	FWL.APPEARANCE = "표현설정";
 	FWL.SIZING = "프레임 크기";
 	FWL.SCALE = "스케일";
@@ -1607,109 +1647,109 @@ elseif GetLocale() == "koKR" then
 	FWL.BAR = "바";
 	FWL.FRAME_BACKGROUND = "프레임 배경";
 	FWL.BAR_TEXT = "바 글자";
-	FWL.BAR_FONT = "바 폰트";
-	FWL.BAR_TEXTURE = "바 무늬";
+	FWL.BAR_FONT = "바 글씨체";
+	FWL.BAR_TEXTURE = "바 텍스쳐 무늬";
 	FWL.BAR_COLORING = "바 색상";
-	FWL.AUTO_HIDE = "파티/레이드 이외에 자동 숨김";
-	FWL.AUTO_HIDE_TT = "파티/레이드 이외에 자동으로 숨김 설정";
-	FWL.AUTO_MINIMIZE = "파티/레이드 이외에 자동 최소화";
-	FWL.AUTO_MINIMIZE_TT = "파티/레이드 이외에 자동으로 최소화 설정";
+	FWL.AUTO_HIDE = "파티/레이드 중이 아니면 자동 숨김";
+	FWL.AUTO_HIDE_TT = "파티/레이드에 속하지 않았다면 자동으로 숨깁니다.";
+	FWL.AUTO_MINIMIZE = "파티/레이드 중이 아니면 자동 최소화";
+	FWL.AUTO_MINIMIZE_TT = "파티/레이드 이외에 자동으로 최소화되어 있습니다.";
 	FWL.SHOW_BARS = "바 표시";
 	FWL.SHOW_BARS_TT = "헤더를 통해서 바를 표시하거나 숨길 수 있습니다.";
-	FWL.MAX_SHOWN = "최대 바 개수";
+	FWL.MAX_SHOWN = "최대 표시 개수";
 
 	FWL.SELF_MESSAGES = "본인만 볼 수 있는 알림";
-	FWL.SELF_MESSAGES_HINT1 = "항상 본인은 볼 수 있는 알림을 활성화하빈다. 기본 채팅 프레임에 표시하지 않습니다.";
+	FWL.SELF_MESSAGES_HINT1 = "항상 본인은 볼 수 있는 알림을 활성화합니다. 기본 채팅 프레임에 출력됩니다.";
 	FWL.RAID_MESSAGES = "파티/레이드 알림";
---[[>>]]FWL.RAID_MESSAGES_HINT1 = "본인이 시전하는 주문에 관한 정보를 다른 플레이어에게 알립니다.";
---[[>>]]FWL.RAID_MESSAGES_HINT2 = "파티나 레이드에게 전달되는 모든 알림을 끌수 있고 혹은 둘 중 한 곳으로만 전송할 수 있습니다.";
-	FWL.SHOW_IN_RAID = "파티/레이드 채널로 알림(첫번째 체크박스를 선택)";
---[[>>]]FWL.SHOW_IN_RAID_TT = "파티나 레이드에 알림을 전달할 경우 체크합니다.";
-	FWL.SHOW_IN_CHANNEL = "특정 사설 채널로 알림 (두번째 체크박스를 선택)";
---[[>>]]FWL.SHOW_IN_CHANNEL_TT = "임의의 채널 이름이나 번호를 지정하면 해당 채널로 알림이 전달됩니다. /say 로 지정하여 일반 메세지로도 알림이 가능합니다.";
+	FWL.RAID_MESSAGES_HINT1 = "본인이 시전하는 주문이나 기술에 관한 정보를 다른 플레이어에게 알립니다.";
+	FWL.RAID_MESSAGES_HINT2 = "파티나 레이드에게 전달되는 알림을 켜고 끌 수 있습니다. 둘 중 한 곳으로만 전송할 수 있습니다.";
+	FWL.SHOW_IN_RAID = "파티/레이드에게 알림";
+	FWL.SHOW_IN_RAID_TT = "파티나 레이드에 알림을 전달할 경우 체크합니다.";
+	FWL.SHOW_IN_CHANNEL = "임의 채널로 알림";
+	FWL.SHOW_IN_CHANNEL_TT = "임의의 채널 이름이나 번호를 지정하면 해당 채널로 알림이 전달됩니다. say 로 지정하여 대화창으로도 출력이 가능합니다.";
 
 	-- standard usage tips to append
---[[>>]]FWL.USE_FILTER = "설정을 하고싶은 아이템이나 주문을 쓰면 자동 완성됩니다. 정상적으로 보길 원하면 [정상출력]을 선택하고 숨기고 싶다면 [무시]를 혹은 색상을 변경하고 싶다면 [임의색상출력] 을 선택합니다. 색상을 바꾸려면 우측에 위치한 사각형을 클릭하여 원하는 것을 고르면 됩니다.";
---[[>>]]FWL.USE_COLOR_PICKER = "색깔이 들어있는 사각형을 클릭하여 색상선택창을 엽니다. 만약 생상선택창 우측에 조절기가 있다면 이 것을 통해서 투명도도 바꿀 수 있습니다. 혹은 수정창을 사용하여 RED/GREEN/BLUE/ALPHA 값을 입력하여 특정 색상을 지정할 수 있습니다.";
---[[>>]]FWL.USE_COLOR_PICKER2 = "완전히 지우려면 체크를 지우십시오.색깔이 들어있는 사각형을 클릭하여 색상선택창을 엽니다. 만약 생상선택창 우측에 조절기가 있다면 이 것을 통해서 투명도도 바꿀 수 있습니다. 혹은 수정 입력창을 사용하여 RED/GREEN/BLUE/ALPHA 값을 입력하여 특정 색상을 지정할 수 있습니다.";
+	FWL.USE_FILTER = "설정을 하고싶은 아이템이나 주문을 쓰면 자동 완성됩니다. 정상적으로 보길 원하면 [정상출력]을 선택하고 숨기고 싶다면 [무시]를 혹은 색상을 변경하고 싶다면 [임의색상출력] 을 선택합니다. 색상을 바꾸려면 우측에 위치한 사각형을 클릭하여 원하는 것을 고르면 됩니다.";
+	FWL.USE_COLOR_PICKER = "색깔이 들어있는 사각형을 클릭하여 색상선택창을 엽니다. 만약 생상선택창 우측에 조절기가 있다면 이 것을 통해서 투명도도 바꿀 수 있습니다. 혹은 수정창을 사용하여 RED/GREEN/BLUE/ALPHA 값을 입력하여 특정 색상을 지정할 수 있습니다.";
+	FWL.USE_COLOR_PICKER2 = "완전히 지우려면 체크를 지우십시오.색깔이 들어있는 사각형을 클릭하여 색상선택창을 엽니다. 만약 생상선택창 우측에 조절기가 있다면 이 것을 통해서 투명도도 바꿀 수 있습니다. 혹은 수정 입력창을 사용하여 RED/GREEN/BLUE/ALPHA 값을 입력하여 특정 색상을 지정할 수 있습니다.";
 
---[[>>]]FWL.USE_TEXTURE = "좌측에 텍스쳐가 입힌 바에 마우스를 올리면 드롭다운 메뉴를 통해서 선호하는 텍스쳐를 고를 수 있습니다. 혹은 특정 경로를 지정하여 별도의 준비된 텍스쳐를 사용할 수도 있습니다.";
---[[>>]]FWL.USE_FONT = "좌측에 글씨체가 표기되어 있는 곳에 마우스를 올리면 드롭다운 메뉴를 통해서 선호하는 글씨체를 고를 수 있습니다. 혹은 특정 경로를 지정하여 별도의 준비된 텍스쳐를 사용할 수도 있습니다.";
---[[>>]]FWL.USE_EDITBOX = "수정입력창에 무엇인가를 입력했다면 반드시 엔터키를 마지막에 눌러주어야 수정이 완료가 됩니다!";
---[[>>]]FWL.USE_MSG2 = "첫째 칸의 박스는 파티나 레이드 채널로 알림을 전달합니다. 두번째 칸은 설정한 임의의 채널로 알림을 전달합니다.";
+	FWL.USE_TEXTURE = "좌측에 텍스쳐가 입힌 바에 마우스를 올리면 드롭다운 메뉴를 통해서 선호하는 텍스쳐를 고를 수 있습니다. 혹은 특정 경로를 지정하여 별도의 준비된 텍스쳐를 사용할 수도 있습니다.";
+	FWL.USE_FONT = "좌측에 글씨체가 표기되어 있는 곳에 마우스를 올리면 드롭다운 메뉴를 통해서 선호하는 글씨체를 고를 수 있습니다. 혹은 특정 경로를 지정하여 별도로 준비된 텍스쳐를 사용할 수도 있습니다.";
+	FWL.USE_EDITBOX = "수정입력창에 무엇인가를 입력했다면 반드시 엔터키를 마지막에 눌러주어야 수정이 완료가 됩니다!";
+	FWL.USE_MSG2 = "첫째 칸의 박스는 파티나 레이드 채널로 알림을 전달합니다. 두번째 칸은 설정한 임의의 채널로 알림을 전달합니다.";
 
 	FWL.DEFAULT = "[기본값 복원]";
 	FWL.POSITION = "[위치 초기화]";
 	
---[[>>]]FWL._EDITBOX_TRANSPARENCY = " Use the editbox to set the transparency.";
+	FWL._EDITBOX_TRANSPARENCY = " 입력칸을 활용하여 투명도를 설정합니다.";
 	
 	-- all the other text and tips belonging to core itself
---[[>>]]FWL.ADVANCED_HINT1 = "평상시에는 손을 보지 않아도 되는 설정입니다. 문제가 발생할 때만 사용하기를 권장합니다.";
---[[>>]]FWL.ADVANCED_HINT2 = "[업데이트 간격] 설정이 적용이 되려면 재시작이나 다시읽기(/reload) 명령어를 입력해주어야 합니다.";
+	FWL.ADVANCED_HINT1 = "평상시에는 손을 대지 되는 설정입니다. 문제가 발생할 때만 사용하기를 권장합니다.";
+	FWL.ADVANCED_HINT2 = "[업데이트 간격] 설정이 적용이 되려면 재시작이나 다시읽기(/reload) 명령어를 입력해 주어야 합니다.";
 
-	FWL.GENERAL_TIPS = "일반적인 팁";
-	FWL.GENERAL_TIPS1 = "수정 입력 : 엔터키 기존설정 복구 : ESC키";
-	FWL.GENERAL_TIPS2 = "[초기 설정] 단추를 누르면 모든 설정이 초기상태로 복구됩니다.";
+	FWL.GENERAL_TIPS = "일반 팁";
+	FWL.GENERAL_TIPS1 = "입력칸에서 수정한 내용을 입력하려면 엔터키를 누르고, 기존설정으로 복구하려면 ESC키를 누릅니다.";
+	FWL.GENERAL_TIPS2 = "[기본값 복원] 단추를 누르면 모든 설정이 초기상태로 복구됩니다.";
 	FWL.GENERAL_TIPS3 = "헤더를 클릭하면 관련 설정창이 열리고 마우스로 끌면 이동할 수 있습니다.";
 	FWL.GENERAL_TIPS4 = "색상 변경 설정에서 투명도도 바꿀 수 있습니다.";
 
 	FWL.GENERAL_MO = "일반 모듈 설정";
 	FWL.GENERAL_MO1 = "오른클릭으로 설정활성";
---[[>>]]FWL.GENERAL_MO1_TT = "모듈 프레임의 헤더를 오른 클릭하면 관련 설정을 할 수 있습니다. 프레임이 잠겨있는 상태에선 불러올 수 없습니다.";
-	FWL.GENERAL_MO2 = "시간표시 형식변경";
-	FWL.GENERAL_MO2_TT = "30분을 29:59로 표현합니다.";
-	FWL.GENERAL_MO3 = "프레임 간 자동정렬 활성화";
---[[>>]]FWL.GENERAL_MO3_TT = "모듈 프레임이 이동시 서로 간에 일정 간격 이상 가까워졌을때 자동적으로 정렬이 됩니다.";
-	FWL.GENERAL_MO4 = "프레임 자동정렬 거리";
---[[>>]]FWL.GENERAL_MO4_TT = "프레임 이 자동 정렬이 되는 거리에 대한 설정입니다.";
+	FWL.GENERAL_MO1_TT = "모듈 프레임의 헤더를 오른 클릭하면 관련 설정을 할 수 있습니다. 프레임이 잠겨있는 상태에선 불러올 수 없습니다.";
+	FWL.GENERAL_MO2 = "시간표시 세부형식 변경";
+	FWL.GENERAL_MO2_TT = "30분을 29:59로 세 부저긍로 표현합니다.";
+	FWL.GENERAL_MO3 = "프레임 간 스냅기능 활성화";
+	FWL.GENERAL_MO3_TT = "모듈 프레임이 이동시 서로 간에 일정 간격 이상 가까워졌을때 자동적으로 들러붙게 됩니다.";
+	FWL.GENERAL_MO4 = "프레임 스냅기능 거리";
+	FWL.GENERAL_MO4_TT = "프레임 간 들러붙는 최소 거리에 대한 설정입니다.";
 	FWL.GENERAL_MO5 = "프레임 간격";
---[[>>]]FWL.GENERAL_MO5_TT = "프레임 간 자동 정렬이 될 때 최소한의 유지되는 거리입니다.";
+	FWL.GENERAL_MO5_TT = "프레임 간 자동 정렬이 유지되는 거리입니다.";
 
-	FWL.GENERAL_MA = "일반 외형설정(모든 모듈프레임에 적용)";
---[[>>]]FWL.GENERAL_MA1_TT = "모든 모듈 프레임에 적용되는 글씨체를 변경합니다.";
---[[>>]]FWL.GENERAL_MA2_TT = "모든 모듈 프레임에 적용되는 텍스쳐를 변경합니다.";
+	FWL.GENERAL_MA = "일반 모듈 외형 변경";
+	FWL.GENERAL_MA1_TT = "모든 모듈 프레임에 적용되는 글씨체를 변경합니다.";
+	FWL.GENERAL_MA2_TT = "모든 모듈 프레임에 적용되는 텍스쳐를 변경합니다.";
 
-	FWL.GENERAL_OA = "표시설정";
+	FWL.GENERAL_OA = "설정창 외형 변경";
 	FWL.GENERAL_OA1 = "헤더 색상";
---[[>>]]FWL.GENERAL_OA1_TT = "설정 프레임의 헤더 색상을 변경합니다.";
+	FWL.GENERAL_OA1_TT = "설정 프레임의 헤더 색상을 변경합니다.";
 	FWL.GENERAL_OA2 = "배경 색상";
---[[>>]]FWL.GENERAL_OA2_TT = "설정 프레임의 배경 색상을 변경합니다.";
+	FWL.GENERAL_OA2_TT = "설정 프레임의 배경 색상을 변경합니다.";
 	FWL.GENERAL_OA3 = "헤더";
---[[>>]]FWL.GENERAL_OA3_TT = "헤더의 글씨체를 변경합니다.";
+	FWL.GENERAL_OA3_TT = "헤더의 글씨체를 변경합니다.";
 	FWL.GENERAL_OA4 = "설정창 글씨체";
---[[>>]]FWL.GENERAL_OA4_TT = "설정창에 쓰여진 글씨체를 변경합니다.";
+	FWL.GENERAL_OA4_TT = "설정창에 쓰여진 글씨체를 변경합니다.";
 
-	FWL.PROFILES = "프로파일";
---[[>>]]FWL.PROFILES_CURRENT = "현재 프로파일";
---[[>>]]FWL.PROFILES_CURRENT_TT = "사용하고 싶은 프로파일을 선택합니다.[현재 프로필 삭제] 현재 사용하고 있는 프로파일을 삭제합니다. [새 프로파일 작성] 현재 사용하고 있는 설정값을 그대로 복사한 새 프로파일을 만듭니다. 이름표를 클릭하여 이름을 수정할 수 있습니다.";
+	FWL.PROFILES = "프로필";
+	FWL.PROFILES_CURRENT = "현재 프로필";
+	FWL.PROFILES_CURRENT_TT = "사용하고 싶은 프로필을 선택합니다.[현재 프로필 삭제] 현재 사용하고 있는 프로파일을 삭제합니다. [새 프로필 작성] 현재 사용하고 있는 설정값을 그대로 복사한 새 프로필을 만듭니다. 이름표를 클릭하여 이름을 수정할 수 있습니다.";
 
---[[>>]]FWL.LOADING_DELAY = "읽기 간격";
---[[>>]]FWL.UPDATE_INTERVAL_CORE = "간격 주요 업데이트";
---[[>>]]FWL.UPDATE_INTERVAL_ANIMATIONS = "간격 애니메이션 업데이트";
---[[>>]]FWL.CHILL_SPEED = "진정 속도";
---[[>>]]FWL.ANIMATE_SCROLL = "부드러운 스크롤 효과";
---[[>>]]FWL.ANIMATE_SCROLL_TT = "설정창을 이동할때 부드러운 스크롤 효과를 줍니다. 추후에 위치를 파악할 때 도움이 됩니다.";
+	FWL.LOADING_DELAY = "읽기 지연";
+	FWL.UPDATE_INTERVAL_CORE = "업데이트 주기 핵심";
+	FWL.UPDATE_INTERVAL_ANIMATIONS = "업데이트 간격 애니메이션";
+	FWL.CHILL_SPEED = "진정 속도";
+	FWL.ANIMATE_SCROLL = "부드러운 스크롤 효과";
+	FWL.ANIMATE_SCROLL_TT = "설정창을 이동할때 부드러운 스크롤 효과를 줍니다. 추후에 위치를 파악할 때 도움이 됩니다.";
 	
-	FWL.OPTIONS_SCALE = "설정창 스케일(크기)";
-	FWL.OPTIONS_SCALE_TT = "설정창 스케일 조절";
+	FWL.OPTIONS_SCALE = "애드온 설정 창 스케일";
+	FWL.OPTIONS_SCALE_TT = "설정 창의 스케일 조절";
 	FWL.TOGGLE_OPTIONS = "토글 설정";
 	FWL.OPTIONS_COLUMNS = "설정창 단 길이";
 	FWL.OPTIONS_COLUMNS_TT = "설정창 넓이 조절";
 	FWL.OPTIONS_HEIGHT = "설정창 높이";
 	FWL.OPTIONS_HEIGHT_TT = "설정창 높이 조절";
 
---[[>>]]FWL.BLOCK_SHARDS = "조각 개수표시 제거";
---[[>>]]FWL.BLOCK_SHARDS_TT = "액션 바에 표시된 조각 개수를 제거합니다. 게임을 재시작을 하거나 애드온을 다시읽기(/reload)해야 합니다. 현재 Bartender4 와 기본UI 에서만 지원합니다.";
+	FWL.BLOCK_SHARDS = "조각 개수표시 제거";
+	FWL.BLOCK_SHARDS_TT = "액션 바에 표시된 조각 개수를 제거합니다. 게임을 재시작을 하거나 애드온을 다시읽기(/reload)해야 합니다. 현재 Bartender4 와 기본UI 에서만 지원합니다.";
 
-	FWL.GLOBAL_LOCK = "모든 프레임 잠그기";
---[[>>]]FWL.GLOBAL_LOCK_TT = "애드온에 관련 모든 프레임을 잠급니다. 일부 프레임의 경우 각 잠그기 설정에 따라 풀려있을 수도 있습니다.";
+	FWL.GLOBAL_LOCK = "광역 프레임 잠금";
+	FWL.GLOBAL_LOCK_TT = "이 애드온과 관련 모든 프레임을 잠급니다. 일부 프레임의 경우 각 잠그기 설정에 따라 풀려있을 수도 있습니다.";
 	
 	FWL.SOUND = "소리 효과";
---[[>>]]FWL.SOUND_HINT1 = "트럼펫 아이콘을 클릭하면 설정한 소리 효과를 들을 수 있습니다. 두번째 수정칸은 볼륨입니다.";
+	FWL.SOUND_HINT1 = "트럼펫 아이콘을 클릭하면 설정한 소리 효과를 들을 수 있습니다. 두번째 수정칸은 볼륨입니다.";
 	FWL.RANGE_MAX = "최대 범위: %s 에서 %s";
 	FWL.RANGE_MIN = "최소 범위: %s 보다 크게";
-	FWL.CREATE_PROFILE = "[새 프로파일 작성]";
-	FWL.DELETE_PROFILE = "[현재 프로파일 삭제]";
+	FWL.CREATE_PROFILE = "[새 프로필 작성]";
+	FWL.DELETE_PROFILE = "[현재 프로필 삭제]";
 	FWL.CLICK_TO_EDIT = "[선택 수정]";
 	FWL.CLICK_TO_EDIT_TT = "엔터를 치면 수정한 내용을 입력합니다. ESC를 치면 이전 값으로 되돌아갑니다.";
 	FWL.CLICK_TO_COPY = "[선택, Ctrl+C 복사]";
@@ -1717,101 +1757,109 @@ elseif GetLocale() == "koKR" then
 	FWL.DEMONIC = "악마";
 	FWL.FEL = "지옥";
 
-	FWL.SPARK_MATCH = "스파크효과 색상 동기화";
+	FWL.SPARK_MATCH = "스파크 효과 색상 동기화";
 	FWL.SPARK_MATCH_TT = "스파크 효과의 색상을 바의 색상과 일치시킵니다.";
-	FWL.SPARK_COLOR = "스파크효과 색";
+	FWL.SPARK_COLOR = "스파크 효과 색 및 투명도 지정";
 	FWL.SPARK_COLOR_TT = "스파크 효과의 색을 변경하거나 투명도를 조절할 수 있습니다.";
 
-	FWL.FADING = "사라짐";
---[[>>]]FWL.TIME_LEFT_HINT = "타이머 아이콘을 클릭하여 주문의 사라짐 효과를 알릴 수 있습니다.";
---[[>>]]FWL.TIME_LEFT_NOTARGET = "사라지는 시간 알림 (대상 없음)";
+	FWL.FADING = "주문의 소멸 알림";
+	FWL.TIME_LEFT_HINT = "타이머 아이콘을 클릭하면 주문의 사라지는 시간을 알릴 수 있습니다.";
+	FWL.TIME_LEFT_NOTARGET = "사라지는 시간 알림 (대상 없음)";
 	
---[[>>]]FWL.PROFILES_HINT1 = "애드온은 해당 캐릭터를 통해 마지막으로 사용한 프로파일을 저장합니다.";
---[[>>]]FWL.PROFILES_HINT2 = "이 방법을 통해서 서로 다른 캐릭터들 간에 프로파일 공유를 좀 더 쉽게 할 수 있도록 만듭니다.";
+	FWL.PROFILES_HINT1 = "애드온은 해당 캐릭터를 통해 마지막으로 사용한 프로필을 저장합니다.";
+	FWL.PROFILES_HINT2 = "이 방법을 통해서 서로 다른 캐릭터들 간에 프로필 공유를 좀 더 쉽게 할 수 있도록 만듭니다.";
 
 	FWL.GENERAL_MO6 = "오른 클릭으로 세부설정";
---[[>>]]FWL.GENERAL_MO6_TT = "일부 모듈에서 아이콘을 오른 클릭하면 세부적인 설정을 할 수 있습니다.";
+	FWL.GENERAL_MO6_TT = "일부 모듈에서 아이콘을 오른 클릭하면 세부적인 설정을 할 수 있습니다.";
 
-	FWL.FILTER_NONE = "보통";
+	FWL.FILTER_NONE = "일반출력";
 	FWL.FILTER_IGNORE = "|cffff0000숨김|r";
-	FWL.FILTER_COLOR = "|cff00ffff색상지정|r";
-	FWL.FILTER_NORMAL = "|cff00ff00표시|r";
+	FWL.FILTER_COLOR = "|cff00ffff임의색상|r";
+	FWL.FILTER_NORMAL = "|cff00ff00출력|r";
 	FWL.FILTER_ALWAYS = "|cffff8000항상표시|r";
 	
---[[>>]]FWL.UNLOCK = "잠금풀기 (이동 가능)";
+	FWL.UNLOCK = "잠금해제 (이동 가능)";
 	
---[[>>]]FWL.UNLOCK_TT = "이 모듈의 프레임은 잠겼습니다. 클릭을 하여 잠금을 풀면 이동이 가능하게 됩니다.";
---[[>>]]FWL.LOCK_TT = "이 모듈의 프레임은 잠금이 풀려있는 상태입니다. 클릭을 하여 잠그면 이둥이 불가능하게 됩니다.";
+	FWL.UNLOCK_TT = "이 모듈의 프레임은 잠겼습니다. 클릭을 하여 잠금을 풀면 이동이 가능하게 됩니다.";
+	FWL.LOCK_TT = "이 모듈의 프레임은 잠금이 풀려있는 상태입니다. 클릭을 하여 잠그면 이둥이 불가능하게 됩니다.";
 
---[[>>]]FWL.DEFAULT_ALL = "[관련 모든설정 초기화]";
---[[>>]]FWL.DEFAULT_ALL_TT = "이 카테고리 안의 모든 설정을 초기상태로 되돌립니다.";
---[[>>]]FWL.DEFAULT_TT = "해당 설정을 초기화 하려면 클릭하십시오.";
+	FWL.DEFAULT_ALL = "[관련 모든설정 초기화]";
+	FWL.DEFAULT_ALL_TT = "이 카테고리 안의 모든 설정을 초기상태로 되돌립니다.";
+	FWL.DEFAULT_TT = "해당 설정을 초기화 하려면 클릭하십시오.";
 
---[[>>]]FWL.DEFAULT_FRAME = "[프레임 설정 초기화]";
---[[>>]]FWL.DEFAULT_FRAME_TT = "이 모듈의 프레임에 관련된 설정을 초기화하려면 클릭하십시오.";
+	FWL.DEFAULT_FRAME = "[프레임 설정 초기화]";
+	FWL.DEFAULT_FRAME_TT = "이 모듈의 프레임에 관련된 설정을 초기화하려면 클릭하십시오.";
 
---[[>>]]FWL.POSITION_TT = "이 모듈의 프레임의 위치를 초기화 하려면 클릭하십시오.";
+	FWL.POSITION_TT = "이 모듈의 프레임의 위치를 초기화 하려면 클릭하십시오.";
 
---[[>>]]FWL.MODULE_COLORS = "모듈 색상을 사용";
---[[>>]]FWL.MODULE_COLORS_TT = "모든 설정 프레임에 임의의 색상을 지정하여 구분하기 편리하게끔 만듭니다.";
+	FWL.MODULE_COLORS = "모듈 색상을 사용";
+	FWL.MODULE_COLORS_TT = "모든 설정 프레임에 임의의 색상을 지정하여 구분하기 편리하게끔 만듭니다.";
 
 	FWL.GLOBAL_ALPHA = "프레임 투명도";
---[[>>]]FWL.GLOBAL_ALPHA_TT = "애드온에 관련도니 모든 프레임의 투명도를 설정합니다.";
---[[>>]]FWL.ALPHA = "[투명도 초기화]";
---[[>>]]FWL.ALPHA_TT = "해당 프레임의 투명도를 초기상태로 되돌립니다.";
+	FWL.GLOBAL_ALPHA_TT = "애드온에 관련도니 모든 프레임의 투명도를 설정합니다.";
+	FWL.ALPHA = "[투명도 초기화]";
+	FWL.ALPHA_TT = "해당 프레임의 투명도를 초기상태로 되돌립니다.";
 
---[[>>]]FWL.RESTORE_SCALE = "[스케일(크기) 초기화]";
---[[>>]]FWL.RESTORE_SCALE_TT = "해당 프레임의 스케일을 초기 상태로 되돌립니다.";
+	FWL.RESTORE_SCALE = "[스케일(크기) 초기화]";
+	FWL.RESTORE_SCALE_TT = "해당 프레임의 스케일을 초기 상태로 되돌립니다.";
 
---[[>>]]FWL.TIPS = "모듈 프레임의 툴팁을 표시";
---[[>>]]FWL.TIPS_TT = "설정창에 들어간 것을 제외한 모든 모듈의 툴팁을 표시합니다. (예:타이머 아이콘)";
+	FWL.TIPS = "모듈 프레임의 툴팁을 표시";
+	FWL.TIPS_TT = "설정창에 들어간 것을 제외한 모든 모듈의 툴팁을 표시합니다. (예:타이머 아이콘)";
 
-	FWL.FILTER_ALL = "모두";
+	FWL.FILTER_ALL = "모두 표시";
 	FWL.FILTER_OTHERS = "|cFF00BFFF버프|r |cFF005BFF디버프|r";
-	FWL.FILTER_MINE = "|cFF00FF00내가건것만|r";
+	FWL.FILTER_MINE = "|cFF00FF00본인이 건 것만|r";
 	FWL.FILTER_BUFF = "|cFF00BBFF버프";
 	FWL.FILTER_BUFF_DEBUFF = "|cFFAACCFF버프|r |cFFFF0000디버프|r";
 	FWL.FILTER_DEBUFF = "|cFFFF0000디버프";
 	FWL.FILTER_OTHER = "|cFFFFCC00모두 기타|r";
 	FWL.FILTER_COOLDOWNS = "|cFFFF6359쿨다운|r";
---[[>>]]FWL.FILTER_SHOW_COLOR = FWL.FILTER_COLOR.." "..FWL.FILTER_NORMAL;
+	FWL.FILTER_SHOW_COLOR = FWL.FILTER_COLOR.."&"..FWL.FILTER_NORMAL;
 
---[[>>]]FWL.TOGGLE_FILTER_LIST = "필터 리스트를 열기";
---[[>>]]FWL.BACKDROP = "백드롭";
+	FWL.TOGGLE_FILTER_LIST = "필터 리스트를 열기";
+	FWL.BACKDROP = "백드롭";
 
---[[>>]]FWL.FILTER_DEBUFFS_ON_ME = "|cffff4400on me|r";
---[[>>]]FWL.FRAME_LEVEL = "Frame level (strata)";
---[[>>]]FWL.FRAME_LEVEL_TT = "Frame level of this module. Valid are, from lowest to highest level:\n|cff00ff00BACKGROUND\nLOW\nMEDIUM\nHIGH\nDIALOG\nFULLSCREEN\nFULLSCREEN_DIALOG\nTOOLTIP|r";
---[[>>]]FWL.CLONE = "Clone";
---[[>>]]FWL.CREATE_CLONE = "[click to create clone/profile]";
---[[>>]]FWL.SELECT_CLONE = "[click to select clone/profile]";
---[[>>]]FWL.RENAME_CLONE = "[click to rename clone/profile]";
---[[>>]]FWL.DELETE_CLONE = "[click to delete clone/profile]";
---[[>>]]FWL.RENAMING_CLONE = "Renaming Clone/Profile";
---[[>>]]FWL.BACK_GROUND = "Back-ground";
---[[>>]]FWL.SUB_HEADERS = "Sub-Headers";
---[[>>]]FWL.GLOBAL_FRAME_NAMES = "Enable global frame names";
---[[>>]]FWL.GLOBAL_FRAME_NAMES_TT = "Enable global frame names for module frames for other addons to use. You have to reload your interface to apply.";
+	FWL.FILTER_DEBUFFS_ON_ME = "|cffff4400본인에게 걸린 디버프만|r";
+	FWL.FRAME_LEVEL = "프레임 위치 (층간)";
+	FWL.FRAME_LEVEL_TT = "화면에서 해당 모듈이 표시되는 우선순위을 설정합니다. 가장 낮은 것부터 높은 순서대로 설정이 가능합니다:\n|cff00ff00BACKGROUND\nLOW\nMEDIUM\nHIGH\nDIALOG\nFULLSCREEN\nFULLSCREEN_DIALOG\nTOOLTIP|r";
+	FWL.CLONE = "복사";
+	FWL.CREATE_CLONE = "[프로필을 새로 생성하거나 기존의 것을 복사하려면 클릭]";
+	FWL.SELECT_CLONE = "[프로필을 선택하거나 복사본을 선택하려면 클릭]";
+	FWL.RENAME_CLONE = "[프로필이나 복사본의 이름을 변경하려면 클릭]";
+	FWL.DELETE_CLONE = "[플로필이나 복사본을 삭제하려면 클릭]";
+	FWL.RENAMING_CLONE = "프로필이나 복사본의 이름을 변경합니다.";
+	FWL.BACK_GROUND = "백-그라운드";
+	FWL.SUB_HEADERS = "보조-헤더";
+	FWL.GLOBAL_FRAME_NAMES = "광역 프레임 이름 활성화";
+	FWL.GLOBAL_FRAME_NAMES_TT = "이 애드온의 광역 프레임 이름을 부여하여 다른 애드온에서 사용할 수 있도록 합니다. 이 설정을 적용하기 위해선 애드온을 재시작하여야 합니다.";
 
---[[>>]]FWL.GENERAL_TIPS5 = "Right-click frame headers or spell icons to quickly open their options.";
---[[>>]]FWL.GENERAL_TIPS6 = "Make sure to read the tooltip of an option if you're unsure of what is does.";
+	FWL.GENERAL_TIPS5 = "프레임 헤더나 주문 아이콘을 오른 클릭하면 관련된 설정 메뉴를 빠르게 열 수 있습니다.";
+	FWL.GENERAL_TIPS6 = "해당 설정에 대해 잘 모르겠다면 툴팁을 반드시 참고하시기 바랍니다.";
 
---[[>>]]FWL.SHOW_SPARK = "Show Sparks";
---[[>>]]FWL.SHOW_SPARK_TT = "Show bar Sparks on most module bars.";
---[[>>]]FWL.ABOUT = "About";
---[[>>]]FWL.SPARKS_AND_GLOW = "Sparks and Glow";
+	FWL.SHOW_SPARK = "스파크 효과 표시";
+	FWL.SHOW_SPARK_TT = "대다수의 모듈 바에 스파크 효과를 표시 합니다.";
+	FWL.ABOUT = "관하여";
+	FWL.SPARKS_AND_GLOW = "스파크 효과와 발광 효과";
 
---[[>>]]FWL.MY_COOLDOWNS = "My Cooldowns";
---[[>>]]FWL.BUFFS_DEBUFFS_ON_ME = "Buffs/Debuffs (on me only)";
+	FWL.MY_COOLDOWNS = "본인의 쿨다운";
+	FWL.BUFFS_DEBUFFS_ON_ME = "버프/디버프 (본인에게 걸린것만)";
 
---[[>>]]FWL.ALL_OTHER_BUFFS = "All other Buffs";
---[[>>]]FWL.ALL_OTHER_DEBUFFS = "All other Debuffs";
---[[>>]]FWL.MY_SPELLS = "My Spells";
---[[>>]]FWL.RAID_DEBUFFS = "Raid Debuffs (my target only)";
---[[>>]]FWL.ALL_OTHER_COOLDOWNS = "All other Cooldowns";
-	FWL.BREAK_FADE = "풀림/사라짐";
+	FWL.ALL_OTHER_BUFFS = "모든 기타 버프";
+	FWL.ALL_OTHER_DEBUFFS = "모든 기타 디버프";
+	FWL.MY_SPELLS = "본인 주문";
+	FWL.RAID_DEBUFFS = "레이드 디버프(본인 대상만)";
+	FWL.ALL_OTHER_COOLDOWNS = "모든 기타 쿨다운";
+	FWL.BREAK_FADE = "풀림/소멸";
 	FWL.BREAK_FADE_HINT1 = "사라짐 영역에 설정한 시간이 언제 표시될지를 결정합니다.";
-		
+	
+	FWL.GENERAL_TIPS7 = "이 프레임의 가장 위쪽에 위치한 + 버튼을 누르면 새로운 프로필을 생성합니다.";
+
+	FWL.CONFIRM_DELETE_PROFILE = "정말로 %s 프로필을 삭제 하시겠습니까?";
+	FWL.CONFIRM_DELETE_CLONE = "정말로 %s 의 복사본을 삭제 하시겠습니까?";
+
+	FWL.BASIC_LAYOUT = "Basic layout";
+	FWL.ICON_FONT = "아이콘 폰트";
+	
 	-- register extra fonts
 	FW:RegisterFont("Fonts\\K_Damage","MD으뜸M");
 	FW:SetDefaultFont("Fonts\\K_Damage",12);
@@ -2081,10 +2129,14 @@ else
 	
 	FWL.BREAK_FADE = "Break/Fade";
 	FWL.BREAK_FADE_HINT1 = "The time you set in the fade string defines when it is displayed.";
-end
-FWL.GENERAL_TIPS7 = "Click the ' + new' tab at the top of this frame to create a new profile.";
+	
+	FWL.GENERAL_TIPS7 = "Click the ' + new' tab at the top of this frame to create a new profile.";
 
-FWL.CONFIRM_DELETE_PROFILE = "Are you sure you want to delete the profile '%s'?";
-FWL.CONFIRM_DELETE_CLONE = "Are you sure you want to delete the clone '%s'?";
+	FWL.CONFIRM_DELETE_PROFILE = "Are you sure you want to delete the profile '%s'?";
+	FWL.CONFIRM_DELETE_CLONE = "Are you sure you want to delete the clone '%s'?";
+
+	FWL.BASIC_LAYOUT = "Basic layout";
+	FWL.ICON_FONT = "Icon Font";
+end
 
 FW:LocalizedData();

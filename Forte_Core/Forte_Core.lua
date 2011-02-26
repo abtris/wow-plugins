@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 
 FW = {}; -- core table
 FC_Saved = {}; -- save table
@@ -47,7 +47,7 @@ local type = type;
 local _G = _G;
 
 FW.TITLE = "ForteXorcist";
-local VERSION = "v1.974.5";
+local VERSION = "v1.974.7";
 local ENABLE = false;
 FW.GROUPED = false;
 FW.RAID = false;
@@ -1008,6 +1008,17 @@ local function fixTimerSettings19743(settings)
 	end
 end
 
+local function fixCooldownSettings19746(settings)
+	if settings then
+		if settings["IconTextColor"] ~= nil then
+			if settings["IconTextColor"][4] == 0.00 and settings["IconTextEnable"] == true then
+				settings["IconText"] = false;
+				settings["IconTextColor"][4] = 1.00;
+			end
+		end
+	end
+end
+
 local function fixTimerSettings(settings)
 	if settings then
 		-- fix downgrade-upgrade bug...
@@ -1210,6 +1221,13 @@ local function FW_Variables()
 								fixTimerSettings19743(FC_Saved.Profiles[p][ data[1] ]);
 							end
 						end
+					end
+				end
+			end
+			if FC_Saved.VERSION < "v1.974.6" then
+				if FC_Saved.Profiles then
+					for p,d in pairs( FC_Saved.Profiles ) do
+						fixCooldownSettings19746(FC_Saved.Profiles[p]["Cooldown"]);
 					end
 				end
 			end

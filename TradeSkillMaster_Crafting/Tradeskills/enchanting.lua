@@ -347,6 +347,9 @@ Enchanting.itemID = {
 	[74234] = 52767,
 	[74195] = 52747,
 	[74238] = 52771,
+	[96264] = 68784,
+	[96261] = 68785,
+	[96262] = 68786,
 }
 
 -- used to lookup the slot number of the enchant used by TradeSkillMaster_Crafting
@@ -512,6 +515,9 @@ Enchanting.slot = {
 	[38771]=3, -- Bracers
 	[38768]=3, -- Bracers
 	[38679]=3, -- Bracers
+	[68784]=3, -- Bracers
+	[68785]=3, -- Bracers
+	[68786]=3, -- Bracers
 	[38989]=4, -- Chest
 	[39005]=4, -- Chest
 	[38975]=4, -- Chest

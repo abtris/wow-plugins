@@ -382,7 +382,7 @@ function Atr_OnChatMsgAddon (...)
 	if (prefix == "ATR") then
 	
 		local s = string.format ("%s %s |cff88ffff %s |cffffffaa %s|r", prefix, distribution, sender, msg);
-		zc.md (s);
+		-- zz (s);
 
 		if (zc.StringStartsWith (msg, "VREQ_")) then
 			SendAddonMessage ("ATR", "V_"..AuctionatorVersion, "WHISPER", sender);
@@ -832,7 +832,9 @@ function Atr_OnLoad()
 
 	------------------
 
-	Atr_InitDETable();
+	Atr_CheckClassMappings()
+
+	Atr_InitDETable()
 
 	EnableDisableDElogging (false, 15)
 
@@ -1092,6 +1094,8 @@ function Atr_Init()
 		Atr_ResetSavedVars()
 	end
 
+	--Bump_MaxButton_Hack();
+
 
 	if (AUCTIONATOR_SHOPPING_LISTS == nil) then
 		AUCTIONATOR_SHOPPING_LISTS = {};
@@ -1320,7 +1324,7 @@ function Atr_AuctionFrameTab_OnClick (self, index, down)
 			Atr_Search_Button:Show();
 			Atr_Adv_Search_Button:Show();
 			AuctionFrameMoneyFrame:Show();
-			Atr_BuildGlobalHistoryList(true);
+--			Atr_BuildGlobalHistoryList(true);
 			Atr_AddToSListButton:Show();
 			Atr_RemFromSListButton:Show();
 			Atr_NewSListButton:Show();
@@ -2502,6 +2506,19 @@ function Atr_HideRecTooltip ()
 
 end
 
+-----------------------------------------
+
+function Atr_ClickRecItemTexture ()
+	
+	if ( IsModifiedClick() and gCurrentPane and gCurrentPane.activeScan and gCurrentPane.activeScan.itemLink) then
+		if (IsModifiedClick ("CHATLINK")) then
+			if (auctionator_orig_ChatEdit_InsertLink) then
+				auctionator_orig_ChatEdit_InsertLink (gCurrentPane.activeScan.itemLink)
+			end
+		end
+	end
+end
+
 
 -----------------------------------------
 
@@ -2632,8 +2649,6 @@ local verCheckMsgState = 0;
 -----------------------------------------
 
 function Atr_Idle(self, elapsed)
-
-	Bump_MaxButton_Hack();
 
 	if (gCurrentPane and gCurrentPane.tooltipvisible) then
 		Atr_ShowRecTooltip();
@@ -3018,9 +3033,10 @@ function Atr_DisplayHlist ()
 		return;
 	end
 
-	local doFull = (UIDropDownMenu_GetSelectedValue(Atr_DropDown1) == MODE_LIST_ALL);
+--	local doFull = (UIDropDownMenu_GetSelectedValue(Atr_DropDown1) == MODE_LIST_ALL);
+--	Atr_BuildGlobalHistoryList (doFull);
 
-	Atr_BuildGlobalHistoryList (doFull);
+	Atr_BuildGlobalHistoryList ();
 	
 	local numrows = #gHistoryItemList;
 
@@ -3115,7 +3131,8 @@ function Atr_HEntryOnClick(self)
 		Atr_Cancel_Undercuts_OnClick (itemName)
 		return;
 	end
-	
+
+--[[	This was only used when the "All Item" list was supported
 	if (itemLink == nil and AUCTIONATOR_PRICING_HISTORY[itemName]) then
 		local itemId, suffixId, uniqueId = strsplit(":", AUCTIONATOR_PRICING_HISTORY[itemName]["is"])
 
@@ -3140,6 +3157,7 @@ function Atr_HEntryOnClick(self)
 			return;
 		end
 	end
+]]--
 	
 	gCurrentPane.UINeedsUpdate = true;
 	
@@ -4382,27 +4400,18 @@ end
 
 -----------------------------------------
 
-function Atr_BuildGlobalHistoryList(full)
+function Atr_BuildGlobalHistoryList()
 
 	gHistoryItemList	= {};
 	
---	local n = 1;
+	if (zc.tableIsEmpty (gActiveAuctions)) then
+		Atr_BuildActiveAuctions()
+	end
 
-	if (full) then
---		for name,hist in pairs (AUCTIONATOR_PRICING_HISTORY) do
---			gHistoryItemList[n] = name;
---			n = n + 1;
---		end
-	else
-		if (zc.tableIsEmpty (gActiveAuctions)) then
-			Atr_BuildActiveAuctions()
-		end
-
-		local info, IDstring
-		for IDstring, info in pairs (gActiveAuctions) do
-			if (info.link and info.count ~= 0) then
-				table.insert (gHistoryItemList, info)
-			end
+	local info, IDstring
+	for IDstring, info in pairs (gActiveAuctions) do
+		if (info.link and info.count ~= 0) then
+			table.insert (gHistoryItemList, info)
 		end
 	end
 	

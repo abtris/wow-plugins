@@ -48,6 +48,19 @@ function Config:ValidateName(value)
 	return true
 end
 
+function Config:ShouldScan(itemID, isCancel)
+	if TSMAuc.db.global.smartScanning then
+		if TSMAuc.Config:GetBoolConfigValue(itemID, "disabled") then
+			return false
+		end
+		if isCancel and TSMAuc.Config:GetBoolConfigValue(itemID, "noCancel") then
+			return false
+		end
+	end
+		
+	return true
+end
+
 function Config:GetConfigValue(itemID, key)
 	local groupValue
 	if key ~= "threshold" and key ~= "fallback" then
@@ -337,6 +350,22 @@ function Config:DrawGeneralOptions(container)
 						},
 						{
 							type = "CheckBox",
+							value = TSMAuc.db.global.smartScanning,
+							label = L["Smart scanning"],
+							relativeWidth = 0.5,
+							callback = function(_,_,value) TSMAuc.db.global.smartScanning = value end,
+							tooltip = L["Prevents the scanning of items in groups that are disabled (for post and cancel scans) or set to not auto cancel (for cancel scans only)."],
+						},
+						{
+							type = "CheckBox",
+							value = TSMAuc.db.global.enableSounds,
+							label = L["Enable sounds"],
+							relativeWidth = 0.5,
+							callback = function(_,_,value) TSMAuc.db.global.enableSounds = value end,
+							tooltip = L["Plays the ready check sound when a post / cancel scan is complete and items are ready to be posting / canceled (the gray bar is all the way across)."],
+						},
+						{
+							type = "CheckBox",
 							value = TSMAuc.db.global.blockAuc,
 							label = L["Block Auctioneer while scanning"],
 							relativeWidth = 0.5,
@@ -473,7 +502,12 @@ function Config:DrawGeneralOptions(container)
 	}
 	
 	if not AucAdvanced then
-		tremove(page[1].children[1].children, 4)
+		for i, v in ipairs(page[1].children[1].children) do
+			if v.label == L["Block Auctioneer while scanning"] then
+				tremove(page[1].children[1].children, i)
+				break
+			end
+		end
 	end
 	
 	TSMAPI:BuildPage(container, page)
@@ -502,9 +536,12 @@ function Config:DrawGroupGeneral(container, group)
 			local stacksUnder = color..GetValue("ignoreStacksUnder").."|r"
 			local maxPriceGap = color..(GetValue("priceThreshold")*100).."%%|r"
 			local noCancel = GetValue("noCancel")
+			local disabled = GetValue("disabled")
 			
-			if noCancel then
-				return format(L["When posting and canceling, ignore auctions with more than %s items or less than %s items in them. Ingoring the lowest auction if the price difference between the lowest two auctions is more than %s. Items in this group will not be canceled automatically."], stacksOver, stacksUnder, maxPriceGap)
+			if disabled then
+				return format(L["Items in this group will not be posted or canceled automatically."])
+			elseif noCancel then
+				return format(L["When posting, ignore auctions with more than %s items or less than %s items in them. Ingoring the lowest auction if the price difference between the lowest two auctions is more than %s. Items in this group will not be canceled automatically."], stacksOver, stacksUnder, maxPriceGap)
 			else
 				return format(L["When posting and canceling, ignore auctions with more than %s items or less than %s items in them. Ingoring the lowest auction if the price difference between the lowest two auctions is more than %s."], stacksOver, stacksUnder, maxPriceGap)
 			end
@@ -761,6 +798,18 @@ function Config:DrawGroupGeneral(container, group)
 							callback = function(_,_,value) TSMAuc.db.profile.noCancel[group] = value container:SelectTab(1) end,
 							onRightClick = function(self, value) SetGroupOverride("noCancel", value, self) end,
 							tooltip = L["Disable automatically cancelling of items in this group if undercut."]..unoverrideTooltip,
+							hidden = isDefaultPage,
+						},
+						{
+							type = "CheckBox",
+							value = TSMAuc.db.profile.disabled[group] or TSMAuc.db.profile.disabled.default,
+							label = L["Disable posting and canceling"],
+							relativeWidth = 0.48,
+							disabled = TSMAuc.db.profile.disabled[group] == nil,
+							disabledTooltip = overrideTooltip,
+							callback = function(_,_,value) TSMAuc.db.profile.disabled[group] = value container:SelectTab(1) end,
+							onRightClick = function(self, value) SetGroupOverride("disabled", value, self) end,
+							tooltip = L["Completely disables this group. This group will not be scanned for and will be effectively invisible to Auctioning."]..unoverrideTooltip,
 							hidden = isDefaultPage,
 						},
 					},

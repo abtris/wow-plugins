@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 -- Paladin module for ForteXorcist started by Arono of Skywall
 
 if FW.CLASS == "PALADIN" then
@@ -147,5 +147,76 @@ if FW.CLASS == "PALADIN" then
 		CD:RegisterCasterPowerupCooldowns();
 		CD:RegisterMeleePowerupCooldowns();
 	end
+	
+	if CA then -- added by 'fakeh'
+	
+		local am = FW:SpellName(31821);
+		local salv = FW:SpellName(1038);
+		local sac = FW:SpellName(6940);
+		local free = FW:SpellName(1044);
+		local bop = FW:SpellName(1022);
+		local dp = FW:SpellName(498);
+		local gotak = FW:SpellName(86150);
+		local dg = FW:SpellName(70940);
+		local ad = FW:SpellName(31850);
+
+		CA:RegisterOnSelfCastSuccess(
+			function(s, t)
+				if s == am then CA:CastShow('AMStart');
+				elseif s == salv then CA:CastShow('SalvStart', t);
+				elseif s == sac then CA:CastShow('SacStart', t);
+				elseif s == free then CA:CastShow('FreeStart', t);
+				elseif s == bop then CA:CastShow('BOPStart', t);
+				elseif s == dp then CA:CastShow('DPStart');
+				elseif s == gotak and GetPrimaryTalentTree() == 2 then CA:CastShow('GOTAKStart');
+				elseif s == dg then CA:CastShow('DGStart');
+				elseif s == ad then CA:CastShow('ADStart'); end
+			end
+		);
+		
+		FW:SetMainCategory(FWL.RAID_MESSAGES,FW.ICON.MESSAGE,10,"RAIDMESSAGES");
+			FW:SetSubCategory(FW.NIL,FW.NIL,1);
+				FW:RegisterOption(FW.INF,2,FW.NON,FWL.RAID_MESSAGES_HINT1);
+				FW:RegisterOption(FW.INF,2,FW.NON,FWL.RAID_MESSAGES_HINT2);
+				FW:RegisterOption(FW.CHK,2,FW.NON,FWL.SHOW_IN_RAID,		FWL.SHOW_IN_RAID_TT,    "OutputRaid");
+				FW:RegisterOption(FW.MSG,2,FW.NON,FWL.SHOW_IN_CHANNEL,	FWL.SHOW_IN_CHANNEL_TT,	"Output");
+
+			FW:SetSubCategory("Raid Damage Reduction",FW.ICON.SPECIFIC,2);
+				FW:RegisterOption(FW.MS2,2,FW.NON,am,	 "",	"AMStart"); 
+				FW.Default.AMStart = 1;	 FW.Default.AMStartMsg = "+++ Aura Mastery (6sec) +++";
+
+				FW:RegisterOption(FW.MS2,2,FW.NON,dg,	"",	"DGStart"); 
+				FW.Default.DGStart = 1;	 FW.Default.DGStartMsg = "+++ Divine Guardian (6sec) +++";
+
+			FW:SetSubCategory("Hands",FW.ICON.SPECIFIC,3);
+
+				FW:RegisterOption(FW.MS2,2,FW.NON,salv,	 "",	"SalvStart"); 
+				FW.Default.SalvStart = 1;	FW.Default.SalvStartMsg = "+++ Salvation on %s (10sec) +++";
+
+				FW:RegisterOption(FW.MS2,2,FW.NON,sac,	 "",	"SacStart"); 
+				FW.Default.SacStart = 1;	FW.Default.SacStartMsg = "+++ Sacrifice on %s (12sec) +++";
+
+				FW:RegisterOption(FW.MS2,2,FW.NON,free,	 "",	"FreeStart"); 
+				FW.Default.FreeStart = 1;	FW.Default.FreeStartMsg = "+++ Freedom on %s (6sec) +++";
+
+				FW:RegisterOption(FW.MS2,2,FW.NON,bop,	 "",	"BOPStart"); 
+				FW.Default.BOPStart = 1;	FW.Default.BOPStartMsg = "+++ Hand of Protection on %s (12sec) +++";
+
+			FW:SetSubCategory("Self Damage Reduction",FW.ICON.SPECIFIC,4);
+
+				FW:RegisterOption(FW.MS2,2,FW.NON,dp,	 "",	"DPStart"); 
+				FW.Default.DPStart = 1;	 FW.Default.DPStartMsg = "+++ Divine Protection (10sec) +++";
+
+				FW:RegisterOption(FW.MS2,2,FW.NON,gotak,	"",	"GOTAKStart"); 
+				FW.Default.GOTAKStart = 1;	FW.Default.GOTAKStartMsg = "+++ Guardian of Ancient Kings (12sec) +++";
+
+				FW:RegisterOption(FW.MS2,2,FW.NON,ad,	"",	"ADStart"); 
+				FW.Default.ADStart = 1;	FW.Default.ADStartMsg = "+++ Ardent Defender (10sec) +++";
+	
+
+	end
+	FW.Default.OutputRaid = true;
+	FW.Default.Output = true;
+	FW.Default.OutputMsg = "MyProPaladinChannel";
 end
 

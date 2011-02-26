@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+﻿-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 
 --[[
 "frFR": French
@@ -304,8 +304,8 @@ elseif GetLocale() == "koKR" then
 	
 	FWL.USE_SOULSTONE = "영혼석 사용";	
 	
---[[>>]]FWL.EXPIRED = "Expired";
---[[>>]]FWL.READY = "Ready";
+	FWL.EXPIRED = "종료";
+	FWL.READY = "준비됨";
 	
 -- ENGLISH
 else

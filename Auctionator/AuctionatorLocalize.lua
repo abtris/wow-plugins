@@ -1,7 +1,7 @@
 
 local addonName, addonTable = ...; 
 local zc = addonTable.zc;
-
+local zz = zc.md
 
 -----------------------------------------
 
@@ -138,26 +138,40 @@ end
 local kUncutGems = {
 	36924, 		-- sky sapphire
 	36925, 		-- majestic zircon
-
+	52178,		-- zephyrite
+	52191,		-- ocean sapphire
+	
 	36918, 		-- scarlet ruby
 	36919, 		-- cardinal ruby
-
+	52177,		-- carnelian
+	52190,		-- inferno ruby
+	
 	36933, 		-- forest emerald
 	36934, 		-- eye of zul
-
+	52182,		-- jasper
+	52192,		-- dream emerald
+	
 	36930, 		-- monarch topaz
 	36931, 		-- ametrine
-
+	52181,		-- hessonite
+	52193,		-- ember topaz
+	
 	36927, 		-- twilight opal
 	36928, 		-- dreadstone
-
+	52180,		-- nightstone
+	52194,		-- demonseye
+	
 	36921, 		-- autumns glow
 	36922, 		-- kings amber
-
+	52179,		-- alicite
+	52195,		-- amberjewel
+	
 	41334, 		-- earthsiege diamond
 	41266, 		-- skyflare diamond
-
-	42225 		-- dragon's eye
+	52303,		-- shadowspirit diamond
+	
+	42225, 		-- dragon's eye
+	52196		-- chimera's eye
 	}
 
 -----------------------------------------
@@ -181,16 +195,53 @@ end
 
 -----------------------------------------
 
+local function Atr_Check1ClassMapping (class, subclass, name)
+
+	local foundname = "????"
+
+	local itemClassArray = Atr_GetAuctionClasses()
+
+	if (itemClassArray) then
+		if (subclass) then
+			itemSubclassArray = Atr_GetAuctionSubclasses(class)
+			if (itemSubclassArray) then
+				foundname = itemSubclassArray[subclass]
+			end
+		else
+			foundname = itemClassArray[class]
+		end
+	end
+	
+	if (foundname ~= name) then
+		zz ("|cffff0000class mapping mismatch:", class, subclass, "expected:", name, "   found:", foundname)
+	end
+
+end
+
+-----------------------------------------
+
+function Atr_CheckClassMappings ()
+
+	Atr_Check1ClassMapping (1, nil,		"Weapon")
+	Atr_Check1ClassMapping (2, nil,		"Armor")
+	Atr_Check1ClassMapping (5, nil,		"Glyph")
+	Atr_Check1ClassMapping (8, nil,		"Gem")
+	Atr_Check1ClassMapping (4, 6,		"Item Enhancement")
+	Atr_Check1ClassMapping (4, 2,		"Potion")
+	Atr_Check1ClassMapping (4, 3,		"Elixir")
+	Atr_Check1ClassMapping (4, 4,		"Flask")
+	Atr_Check1ClassMapping (6, 6,		"Herb")
+end
+
+-----------------------------------------
 
 function Atr_IsGlyph				(itemLink)		return (Atr_IsClass (itemLink, 5));		end
-function Atr_IsGem					(itemLink)		return (Atr_IsClass (itemLink, 10));	end
+function Atr_IsGem					(itemLink)		return (Atr_IsClass (itemLink, 8));		end
 function Atr_IsItemEnhancement		(itemLink)		return (Atr_IsClass (itemLink, 4, 6));	end
 function Atr_IsPotion				(itemLink)		return (Atr_IsClass (itemLink, 4, 2));	end
 function Atr_IsElixir				(itemLink)		return (Atr_IsClass (itemLink, 4, 3));	end
 function Atr_IsFlask				(itemLink)		return (Atr_IsClass (itemLink, 4, 4));	end
 function Atr_IsHerb					(itemLink)		return (Atr_IsClass (itemLink, 6, 6));	end
-
------------------------------------------
 
 -----------------------------------------
 -- if Blizz introduces new auction classes this might need to change
@@ -238,6 +289,8 @@ function Atr_GetAuctionClasses()
 
 	if (gItemClasses == nil) then
 		gItemClasses = { GetAuctionItemClasses() };
+		
+		local x, itemClass
 	end
 	
 	return gItemClasses;
@@ -253,6 +306,13 @@ function Atr_GetAuctionSubclasses (auctionClass)
 	
 	if (gItemSubClasses[auctionClass] == nil) then
 		gItemSubClasses[auctionClass] = { GetAuctionItemSubClasses(auctionClass) };
+
+--		zz ("-----");
+--		for x, itemSubClass in pairs(gItemSubClasses[auctionClass]) do
+--			zz (x, itemSubClass)
+--		end
+
+
 	end
 	
 	return gItemSubClasses[auctionClass];

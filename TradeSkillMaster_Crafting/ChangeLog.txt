@@ -1,3 +1,11 @@
+v0.2.3
+*Added 4.0.6 enchants.
+*Added an option for using Auctioning fallback as market value when none of an item are on the AH.
+*You can now use Auctionator as a source of mat / crafted item prices.
+*Added options to control sorting of crafts in main TSM window.
+*Added total cost / profit text to the Craft Management Window.
+*Many other minor bug fixes and improvements.
+
 v0.2.2
 *Updated with new recipes from 4.0.6.
 *Fixed an issue with leather not showing under leatherworking.

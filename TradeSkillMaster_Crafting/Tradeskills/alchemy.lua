@@ -32,7 +32,7 @@ function Alchemy:GetSlot(itemID)
 	return Alchemy.slot[itemID]
 end
 
-Alchemy.slotList = {L["Elixir"], L["Potion"], L["Flask"], L["Other Consumable"], L["Transmutes"]}
+Alchemy.slotList = {L["Elixir"], L["Potion"], L["Flask"], L["Other Consumable"], L["Transmutes"], L["Misc Items"]}
 
 Alchemy.slot = {
 	[58084]=1, -- Elixir
@@ -283,4 +283,13 @@ Alchemy.slot = {
 	[12808]=5, -- Transmutes
 	[6037]=5, -- Transmutes
 	[3577]=5, -- Transmutes
+	[6370]=6, -- Misc Items
+	[56850]=6, -- Misc Items
+	[44958]=6, -- Misc Items
+	[6371]=6, -- Misc Items
+	[3829]=6, -- Misc Items
+	[8956]=6, -- Misc Items
+	[40195]=6, -- Misc Items
+	[3824]=6, -- Misc Items
+	[13423]=6, -- Misc Items
 }

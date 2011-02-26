@@ -124,6 +124,7 @@ function Scan:SendQuery(forceQueue)
 		
 		-- Query the auction house (then waits for AUCTION_ITEM_LIST_UPDATE to fire)
 		local filter = (type(status.filter) == "table" and status.filter.name) or (type(status.filter) == "string" and status.filter)
+		debug("query", filter)
 		Scan:RegisterEvent("AUCTION_ITEM_LIST_UPDATE")
 		QueryAuctionItems(filter, nil, nil, 0, 0, 0, status.page, 0, 0)
 	else
@@ -134,16 +135,15 @@ end
 
 -- gets called whenever the AH window is updated (something is shown in the results section)
 function Scan:AUCTION_ITEM_LIST_UPDATE()
+	Scan:UnregisterEvent("AUCTION_ITEM_LIST_UPDATE")
 	if status.isScanning then
 		status.timeDelay = 0
 
 		frame2:Hide()
 		
 		-- now that our query was successful we can get our data
-		Scan:UnregisterEvent("AUCTION_ITEM_LIST_UPDATE")
+		debug("scan2", status.filter.name)
 		Scan:ScanAuctions()
-	else
-		Scan:UnregisterEvent("AUCTION_ITEM_LIST_UPDATE")
 	end
 end
 
@@ -207,6 +207,8 @@ function Scan:ScanAuctions()
 			Scan:AddAuctionRecord(itemID, quantity[i], buyout[i], status.page)
 		elseif type(status.filter) == "string" and strlower(GetItemInfo(itemID) or ""):match(strlower(status.filter)) then
 			Scan:AddAuctionRecord(itemID, quantity[i], buyout[i], status.page)
+		else
+			debug("bad filter", status.filter.name, status.filter.itemID, itemID)
 		end
 	end
 
@@ -348,6 +350,8 @@ end
 
 local queryDelay = CreateFrame("Frame")
 queryDelay:Hide()
+queryDelay:RegisterEvent("AUCTION_HOUSE_CLOSED")
+queryDelay:SetScript("OnEvent", function(self) self:Hide() end)
 queryDelay:SetScript("OnUpdate", function(self)
 		if CanSendAuctionQuery() then
 			debug("Can't Send Query")

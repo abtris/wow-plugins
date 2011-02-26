@@ -104,7 +104,7 @@ function Data:CalcPrices(craft, forCrafting)
 		TSM.Data[mode].mats[tonumber(id)].cost = Data[mode].mats[tonumber(id)].cost or 1
 		cost = cost + matQuantity*TSM.db.profile[mode].mats[tonumber(id)].cost
 	end
-	cost = math.floor(cost/(craft.numMade or 1) + 0.5) --rounds to nearest gold
+	cost = floor(cost/(craft.numMade or 1) + 0.5) --rounds to nearest gold
 	
 	-- next, we get the buyout from the auction scan data table and calculate the profit
 	local buyout, profit
@@ -113,7 +113,7 @@ function Data:CalcPrices(craft, forCrafting)
 		-- grab the buyout price and calculate the profit if the buyout price exists and is a valid number
 		buyout = sell
 		profit = buyout - buyout*TSM.db.profile.profitPercent - cost
-		profit = math.floor(profit + 0.5) -- rounds to the nearest gold
+		profit = floor(profit + 0.5) -- rounds to the nearest gold
 	end
 	
 	-- return the results
@@ -170,10 +170,10 @@ function Data:CalculateCosts(mode)
 				if itemID == 61981 then -- inferno ink
 					inkMats = TSM.Inscription:GetInkMats(61978)
 					for _,herb in ipairs(inkMats.herbs) do
-						tinsert(groupedMats, {id = herb.itemID, weight = 0.1*inkMats.pigmentPerInk/(herb.pigmentPerMill/5)})
+						tinsert(groupedMats, {id = herb.itemID, weight = 10*inkMats.pigmentPerInk/(herb.pigmentPerMill/5)})
 					end
-					tinsert(groupedMats, {id = inkMats.pigment, weight = 0.1*inkMats.pigmentPerInk})
-					tinsert(groupedMats, {id = 61978, weight = 0.1})
+					tinsert(groupedMats, {id = inkMats.pigment, weight = 10*inkMats.pigmentPerInk})
+					tinsert(groupedMats, {id = 61978, weight = 10})
 				else
 					inkMats = TSM.Inscription:GetInkMats(61978)
 					for _,herb in ipairs(inkMats.herbs) do
@@ -204,7 +204,7 @@ function Data:CalculateCosts(mode)
 	end
 end
 	
--- Gets the market price of an item based on the profile
+-- Gets the market price of an item based on the set source
 function Data:GetMarketPrice(itemID, itemType)
 	if type(itemID) ~= "number" then itemID = tonumber(itemID) end
 	if not itemID then return end
@@ -229,10 +229,12 @@ function Data:GetMarketPrice(itemID, itemType)
 		cost = select(6, AucAdvanced.Modules.Util.SimpleAuction.Private.GetItems(itemLink))
 	elseif source == "AucMarket" and AucAdvanced and select(4, GetAddOnInfo("Auc-Advanced")) == 1 then
 		cost = AucAdvanced.API.GetMarketValue(itemLink)
+	elseif source == "AtrValue" and Atr_GetAuctionBuyout and select(4, GetAddOnInfo("Auctionator")) == 1 then
+		cost = Atr_GetAuctionBuyout(itemLink or itemID)
 	end
 	
 	if cost then
-		return tonumber(string.format("%.2f", cost/COPPER_PER_GOLD))
+		return tonumber(format("%.2f", cost/COPPER_PER_GOLD))
 	elseif Data[TSM:GetMode()].mats[itemID] then
 		return Data[TSM:GetMode()].mats[itemID].cost
 	end
@@ -349,7 +351,7 @@ function Data:GetShoppingData(forModule)
 		local numNeed = quantity
 		if TSM.Enchanting.greaterEssence[itemID] then -- we are on lesser _ essence
 			if numHave > numNeed then
-				extra[TSM.Enchanting.greaterEssence[itemID]] = math.floor((numHave - numNeed) / 3)
+				extra[TSM.Enchanting.greaterEssence[itemID]] = floor((numHave - numNeed) / 3)
 			end
 		elseif TSM.Enchanting.lesserEssence[itemID] then -- we are on greater _ essence
 			if numHave > numNeed then
@@ -381,52 +383,68 @@ function Data:BuildCraftQueue(queueType)
 	local mode = TSM:GetMode()
 	Data:CalculateCosts()
 	if queueType == "restock" then
-		for itemID, data in pairs(TSM.Data[mode].crafts) do
+		for itemID, data in pairs(Data[mode].crafts) do
 			if data.enabled then
-				local minRestock = TSM:GetDBValue("minRestockQuantity", mode, data.group, itemID)
-				local maxRestock = TSM:GetDBValue("maxRestockQuantity", mode, data.group, itemID)
+				local minRestock = TSM:GetDBValue("minRestockQuantity", mode, itemID)
+				local maxRestock = TSM:GetDBValue("maxRestockQuantity", mode, itemID)
 				local bags, bank, auctions = Data:GetPlayerNum(itemID)
 				local numHave = Data:GetAltNum(itemID) + bags + bank + auctions
 				local numCanQueue = maxRestock - numHave
 				local link = select(2, GetItemInfo(itemID))
-				local seenCount
-				if AucAdvanced and TSM.db.profile.seenCountSource == "Auctioneer" then
-					seenCount = select(2, AucAdvanced.API.GetMarketValue(link))
-				elseif TSM.db.profile.seenCountSource == "AuctionDB" then
-					seenCount = TSMAPI:GetData("seenCount", itemID)
-				end
+				local seenCount = Data:GetSeenCount(itemID)
 				
 				if TSM.db.profile.dontQueue[itemID] or (seenCount and not TSM.db.profile.ignoreSeenCountFilter[itemID] and seenCount < TSM.db.profile.seenCountFilter) then
 					numCanQueue = 0
 				end
 				
-				local pMethod = TSM:GetDBValue("queueProfitMethod", mode, data.group, itemID)
+				local pMethod = TSM:GetDBValue("queueProfitMethod", mode, itemID)
 				if pMethod == "none" or TSM.db.profile.alwaysQueue[itemID] then
 					data.queued = numCanQueue
 				elseif pMethod == "percent" then
-					local cost, _, profit = TSM.Data:CalcPrices(data, true)
-					local minProfit = TSM:GetDBValue("queueMinProfitPercent", mode, data.group, itemID)
+					local cost, buyout, profit = Data:CalcPrices(data, true)
+					local minProfit = TSM:GetDBValue("queueMinProfitPercent", mode, itemID)
 					minProfit = cost*minProfit
 					if profit and profit >= minProfit then
 						data.queued = numCanQueue
+					elseif cost and not buyout and TSM:GetDBValue("unknownProfitMethod") == "fallback" and TSMAPI:GetData("auctioningFallback", itemID) then
+						profit = TSMAPI:GetData("auctioningFallback", itemID)/COPPER_PER_GOLD - cost
+						if profit and profit >= minProfit then
+							data.queued = numCanQueue
+						else
+							data.queued = 0
+						end
 					else
 						data.queued = 0
 					end
 				elseif pMethod == "gold" then
-					local _, _, profit = TSM.Data:CalcPrices(data, true)
-					local minProfit = TSM:GetDBValue("queueMinProfitGold", mode, data.group, itemID)
+					local cost, buyout, profit = Data:CalcPrices(data, true)
+					local minProfit = TSM:GetDBValue("queueMinProfitGold", mode, itemID)
 					if profit and profit >= minProfit then
 						data.queued = numCanQueue
+					elseif cost and not buyout and TSM:GetDBValue("unknownProfitMethod") == "fallback" and TSMAPI:GetData("auctioningFallback", itemID) then
+						profit = TSMAPI:GetData("auctioningFallback", itemID)/COPPER_PER_GOLD - cost
+						if profit and profit >= minProfit then
+							data.queued = numCanQueue
+						else
+							data.queued = 0
+						end
 					else
 						data.queued = 0
 					end
 				elseif pMethod == "both" then
-					local cost, _, profit = TSM.Data:CalcPrices(data, true)
-					local minProfit = TSM:GetDBValue("queueMinProfitGold", mode, data.group, itemID)
-					local percent = TSM:GetDBValue("queueMinProfitPercent", mode, data.group, itemID)
+					local cost, buyout, profit = Data:CalcPrices(data, true)
+					local minProfit = TSM:GetDBValue("queueMinProfitGold", mode, itemID)
+					local percent = TSM:GetDBValue("queueMinProfitPercent", mode, itemID)
 					minProfit = minProfit + cost*percent
 					if profit and profit >= minProfit then
 						data.queued = numCanQueue
+					elseif cost and not buyout and TSM:GetDBValue("unknownProfitMethod") == "fallback" and TSMAPI:GetData("auctioningFallback", itemID) then
+						profit = TSMAPI:GetData("auctioningFallback", itemID)/COPPER_PER_GOLD - cost
+						if profit and profit >= minProfit then
+							data.queued = numCanQueue
+						else
+							data.queued = 0
+						end
 					else
 						data.queued = 0
 					end
@@ -444,10 +462,10 @@ function Data:BuildCraftQueue(queueType)
 			end
 		end
 	else
-		local sortedData = Data:GetSortedData(TSM.Data[mode].crafts, function(a, b)
+		local sortedData = Data:GetSortedData(Data[mode].crafts, function(a, b)
 				local defaultValue = 1/0
-				local acost, _, aprofit = TSM.Data:CalcPrices(a, true)
-				local bcost, _, bprofit = TSM.Data:CalcPrices(b, true)
+				local acost, _, aprofit = Data:CalcPrices(a, true)
+				local bcost, _, bprofit = Data:CalcPrices(b, true)
 				aprofit = aprofit or defaultValue
 				bprofit = bprofit or defaultValue
 				return aprofit > bprofit
@@ -456,21 +474,15 @@ function Data:BuildCraftQueue(queueType)
 		local usedMats = {}
 		for _, sData in pairs(sortedData) do
 			local itemID = sData.originalIndex
-			local data = TSM.Data[mode].crafts[itemID]
+			local data = Data[mode].crafts[itemID]
 			local quantity = 0
 			
 			if data.enabled then
-				local maxRestock = (TSM.db.profile.maxRestockQuantity[itemID] or TSM.db.profile.maxRestockQuantity.default)
+				local maxRestock = TSM:GetDBValue("maxRestockQuantity", mode, itemID)
 				local bags, bank, auctions = Data:GetPlayerNum(itemID)
 				local numHave = Data:GetAltNum(itemID) + bags + bank + auctions
 				local numCanQueue = maxRestock - numHave
-				local seenCount
-				if AucAdvanced and TSM.db.profile.seenCountSource == "Auctioneer" then
-					local link = select(2, GetItemInfo(itemID))
-					seenCount = select(2, AucAdvanced.API.GetMarketValue(link))
-				elseif TSM.db.profile.seenCountSource == "AuctionDB" then
-					seenCount = TSMAPI:GetData("seenCount", itemID)
-				end
+				local seenCount = Data:GetSeenCount(itemID)
 				
 				if TSM.db.profile.dontQueue[itemID] or (seenCount and not TSM.db.profile.ignoreSeenCountFilter[itemID] and seenCount < TSM.db.profile.seenCountFilter) then
 					numCanQueue = 0
@@ -498,6 +510,15 @@ function Data:BuildCraftQueue(queueType)
 		end
 	end
 	TSM.GUI:UpdateQueue(true)
+end
+
+function Data:GetSeenCount(itemID)
+	if AucAdvanced and TSM.db.profile.seenCountSource == "Auctioneer" then
+		local link = select(2, GetItemInfo(itemID)) or itemID
+		return select(2, AucAdvanced.API.GetMarketValue(link))
+	elseif TSM.db.profile.seenCountSource == "AuctionDB" then
+		return TSMAPI:GetData("seenCount", itemID)
+	end
 end
 
 function Data:GetAltNum(itemID)

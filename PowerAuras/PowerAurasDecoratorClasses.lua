@@ -61,94 +61,70 @@ end
 function cPowaStacks:ShowValue(aura, newvalue)
 	--PowaAuras:ShowText("Stacks Showvalue id=", self.id, " newvalue=", newvalue);
 	if (PowaAuras.ModTest) then
-		newvalue = random(0,999);
-	end
-	
+		newvalue = random(0,25000);
+	end	
 	
 	local frame = PowaAuras.StacksFrames[self.id];
 	if (frame==nil or newvalue==nil) then
 		return;
 	end
-	
-	-- Hack for supporting > 99 stacks. We have three textures for hundredths, one for tenths, one for whatever else.
-	-- This allows us to prevent textures from stretching, and to not keep needing to add to the textures.
-	if(not frame.centiTexture) then
-		-- Make a texture, offset it so that this one is on the left...
-		frame.centiTexture = frame:CreateTexture(nil,"BACKGROUND");
-		frame.centiTexture:SetBlendMode("ADD");
-		frame.centiTexture:SetAllPoints(frame);
-		frame.centiTexture:SetPoint("TOPLEFT", frame, "TOPLEFT", -4, 0);
-		frame.centiTexture:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -14, 0);
-		frame.centiTexture:SetTexture(self:GetTexture());
-		-- One for tenths...Position dead in the centre.
-		frame.deciTexture = frame:CreateTexture(nil,"BACKGROUND");
-		frame.deciTexture:SetBlendMode("ADD");
-		frame.deciTexture:SetAllPoints(frame);
-		frame.deciTexture:SetPoint("TOPLEFT", frame, "TOPLEFT", 5, 0);
-		frame.deciTexture:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -5, 0);
-		frame.deciTexture:SetTexture(self:GetTexture());
-		-- And reposition the existing texture to the right...
-		frame.texture:ClearAllPoints();
-		frame.texture:SetPoint("TOPLEFT", frame, "TOPLEFT", 14, 0);
-		frame.texture:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 4, 0);
+	if(not frame.textures) then
+		frame.textures = {
+			[1] = frame.texture;		
+		};
 	end
 	
-	if (aura.texmode == 1) then
-		frame.texture:SetBlendMode("ADD");
-		frame.deciTexture:SetBlendMode("ADD");
-		frame.centiTexture:SetBlendMode("ADD");
-	else
-		frame.texture:SetBlendMode("DISABLE");
-		frame.deciTexture:SetBlendMode("DISABLE");
-		frame.centiTexture:SetBlendMode("DISABLE");
-	end
-	if (self.UseOwnColor) then
-		frame.texture:SetVertexColor(self.r,self.g,self.b);
-		frame.deciTexture:SetVertexColor(self.r,self.g,self.b);
-		frame.centiTexture:SetVertexColor(self.r,self.g,self.b);
-	else
-		local auraTexture = PowaAuras.Textures[self.id];
-		if (auraTexture) then
-			if auraTexture:GetObjectType() == "Texture" then
-				frame.texture:SetVertexColor(auraTexture:GetVertexColor());
-				frame.deciTexture:SetVertexColor(auraTexture:GetVertexColor());
-				frame.centiTexture:SetVertexColor(auraTexture:GetVertexColor());
-			elseif auraTexture:GetObjectType() == "FontString" then
-				frame.texture:SetVertexColor(auraTexture:GetTextColor());
-				frame.deciTexture:SetVertexColor(auraTexture:GetTextColor());
-				frame.centiTexture:SetVertexColor(auraTexture:GetTextColor());
-			end
-		else
-			frame.texture:SetVertexColor(aura.r,aura.g,aura.b);
-			frame.deciTexture:SetVertexColor(aura.r,aura.g,aura.b);
-			frame.centiTexture:SetVertexColor(aura.r,aura.g,aura.b);
-		end
-	end
-
-	--PowaAuras:ShowText("newvalue=", newvalue);
-	-- If newvalue = 731, centi = 7, deci = 3, uni = 1.
-	local centi  = math.floor(newvalue / 100);
-	local deci   = math.floor((newvalue - (centi*100)) / 10); -- /10 to trim the trailing digit off.
-	local uni    = math.floor(newvalue - (centi*100) - (deci * 10));
-	--PowaAuras:ShowText("Show stacks: ", centi, " ",deci, " ", uni, " (", newvalue, ")", self.HideLeadingZeroes);
+	-- Create textures dynamically to support > 9 stacks.
+	local texcount = #(frame.textures);
+	local unitcount = (newvalue == 0 and 1 or (floor(math.log10(newvalue))+1));
 	local tStep = PowaAuras.Tstep;
-	-- Set coords for each.
-	frame.texture:SetTexCoord(tStep , tStep * 1.5, tStep * uni, tStep * (uni+1));
-	if(deci > 0 or (deci == 0 and centi > 0) or self.HideLeadingZeroes == false) then
-		frame.deciTexture:SetTexCoord(tStep , tStep * 1.5, tStep * deci, tStep * (deci+1));
-		if(not frame.deciTexture:IsShown()) then
-			frame.deciTexture:Show();
+	
+	for i=1, (texcount > unitcount and texcount or unitcount) do
+		-- Make textures if needed.
+		if(not frame.textures[i]) then
+			-- PowaAuras:ShowText("StacksTexture=", i, ", texcount=", texcount, ", unitcount=", unitcount);
+			tinsert(frame.textures, i, frame:CreateTexture(nil, "BACKGROUND"));
+			frame.textures[i]:SetTexture(self:GetTexture());
+			-- Increment texcount to be more accurate.
+			texcount = texcount+1;
 		end
-	elseif(frame.deciTexture:IsShown()) then
-		frame.deciTexture:Hide();
-	end
-	if(centi > 0 or self.HideLeadingZeroes == false) then
-		frame.centiTexture:SetTexCoord(tStep , tStep * 1.5, tStep * centi, tStep * (centi+1));
-		if(not frame.centiTexture:IsShown()) then
-			frame.centiTexture:Show();
+		-- Update blending modes.
+		if (aura.texmode == 1) then
+			frame.textures[i]:SetBlendMode("ADD");
+		else
+			frame.textures[i]:SetBlendMode("DISABLE");
 		end
-	elseif(frame.centiTexture:IsShown()) then
-		frame.centiTexture:Hide();
+		if (self.UseOwnColor) then
+			frame.textures[i]:SetVertexColor(self.r,self.g,self.b);
+		else
+			local auraTexture = PowaAuras.Textures[self.id];
+			if (auraTexture) then
+				if auraTexture:GetObjectType() == "Texture" then
+					frame.textures[i]:SetVertexColor(auraTexture:GetVertexColor());
+				elseif auraTexture:GetObjectType() == "FontString" then
+					frame.textures[i]:SetVertexColor(auraTexture:GetTextColor());
+				end
+			else
+				frame.textures[i]:SetVertexColor(aura.r,aura.g,aura.b);
+			end
+		end
+		-- Update positions.
+		if(i > unitcount) then
+			-- This one isn't being displayed.
+			frame.textures[i]:Hide();
+		else
+			-- Show and position it accordingly.
+			frame.textures[i]:Show();
+			frame.textures[i]:ClearAllPoints();
+			frame.textures[i]:SetPoint("RIGHT", frame, "RIGHT", -((i-1)*(10*self.h))+(((unitcount-2)*(10*self.h))/2), 0);
+			frame.textures[i]:SetWidth((10*self.h));
+			frame.textures[i]:SetHeight((20*self.h));
+			-- Set the texture coordinates.
+			frame.textures[i]:SetTexCoord(tStep , tStep * 1.5, tStep * (newvalue % 10), tStep * ((newvalue % 10)+1));
+			-- PowaAuras:ShowText("Show stacks: ", (newvalue % 10), " (", newvalue, ")");
+			-- Divide newvalue by 10 so it's correct for the next one.
+			newvalue = floor(newvalue/10);
+		end
 	end
 	
 	if (not frame:IsVisible()) then
@@ -192,7 +168,6 @@ function cPowaStacks:SetStackCount(count)
 		return;
 	end
 	
-	if (count>999) then count = 999; end;
 	if (self.lastShownValue==count and self.Showing) then
 		self.UpdateValueTo = nil;
 		if (aura.Debug) then

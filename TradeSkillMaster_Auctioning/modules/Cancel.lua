@@ -151,7 +151,7 @@ function Cancel:StartScan()
 	for i=GetNumAuctionItems("owner"), 1, -1 do
 		if select(13, GetAuctionItemInfo("owner", i)) == 0 then
 			local itemID = TSMAuc:GetItemString(GetAuctionItemLink("owner", i))
-			if TSMAuc.itemReverseLookup[itemID] and not tempList[itemID] then
+			if TSMAuc.itemReverseLookup[itemID] and not tempList[itemID] and TSMAuc.Config:ShouldScan(itemID, isCancel) then
 				local name = GetItemInfo(itemID)
 				tinsert(scanList, {name=name, itemID=itemID})
 				tempList[itemID] = true
@@ -208,6 +208,10 @@ function Cancel:MessageHandler(msg, ...)
 		if interrupted or totalToCancel == 0 then
 			cancelError = nil
 			Cancel:StopCanceling()
+		else
+			if TSMAuc.db.global.enableSounds then
+				PlaySound("ReadyCheck")
+			end
 		end
 	elseif msg == "TSMAuc_AH_CLOSED" then
 		cancelError = nil
@@ -234,7 +238,7 @@ function Cancel:QueueItemToCancel(itemID, noLog)
 		local msgTable = {scanType="Cancel", itemID=itemID, scanData={lowestBuyout=lowestBuyout, lowestBid=lowestBid, lowestBuyoutOwner=lowestOwner, lowestBuyoutOwners=lowestBuyouts, postedBid=bid, postedBuyout=buyout}}
 		if wasSold == 0 and lowestOwner then
 			-- The item is in a group that's not supposed to be cancelled
-			if TSMAuc.Config:GetBoolConfigValue(itemID, "noCancel") then
+			if TSMAuc.Config:GetBoolConfigValue(itemID, "noCancel") or TSMAuc.Config:GetBoolConfigValue(itemID, "disabled") then
 				if not noLog then
 					msgTable.scanData.action="Skip"
 					TSMAuc.Log:AddMessage(msgTable, name.."notcancel")

@@ -544,19 +544,19 @@ function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_table
 	DEtableInsert (t, {121, 151,	75, {1,3}, INFINITE_DUST,	22, {1,2}, LESSER_COSMIC,	3, 1, SMALL_DREAM});
 	DEtableInsert (t, {152, 200,	75, {4,7}, INFINITE_DUST,	22, {1,2}, GREATER_COSMIC,	3, 1, DREAM_SHARD});
 
-	DEtableInsert (t, {272,272        ,34,1,HYPN_DUST       ,45,2,HYPN_DUST       ,12,1,LESSER_CEL       ,9,2,LESSER_CEL  })
-	DEtableInsert (t, {278,278        ,29,1,HYPN_DUST       ,22,2,HYPN_DUST       ,22,3,HYPN_DUST       ,11,1,LESSER_CEL       ,9,2,LESSER_CEL       ,7,3,LESSER_CEL  })
-	DEtableInsert (t, {283,283        ,26,1,HYPN_DUST       ,21,2,HYPN_DUST       ,25,3,HYPN_DUST       ,10,1,LESSER_CEL       ,10,2,LESSER_CEL       ,8,3,LESSER_CEL  })
-	DEtableInsert (t, {285,285        ,29,1,HYPN_DUST       ,23,2,HYPN_DUST       ,20,3,HYPN_DUST       ,8,1,LESSER_CEL       ,10,2,LESSER_CEL       ,11,3,LESSER_CEL  })
-	DEtableInsert (t, {289,289        ,25,1,HYPN_DUST       ,23,2,HYPN_DUST       ,27,3,HYPN_DUST       ,8,1,LESSER_CEL       ,9,2,LESSER_CEL       ,8,3,LESSER_CEL  })
-	DEtableInsert (t, {295,295        ,19,1,HYPN_DUST       ,22,2,HYPN_DUST       ,21,3,HYPN_DUST       ,16,4,HYPN_DUST       ,7,2,LESSER_CEL       ,7,3,LESSER_CEL       ,7,4,LESSER_CEL  })
-	DEtableInsert (t, {300,300        ,17,1,HYPN_DUST       ,20,2,HYPN_DUST       ,20,3,HYPN_DUST       ,18,4,HYPN_DUST       ,8,2,LESSER_CEL       ,9,3,LESSER_CEL       ,7,4,LESSER_CEL  })
-	DEtableInsert (t, {305,305        ,15,1,HYPN_DUST       ,8,2,HYPN_DUST       ,25,3,HYPN_DUST       ,24,4,HYPN_DUST       ,7,2,LESSER_CEL       ,10,3,LESSER_CEL       ,10,4,LESSER_CEL  })
-	DEtableInsert (t, {306,306        ,27,2,HYPN_DUST       ,25,3,HYPN_DUST       ,27,4,HYPN_DUST       ,14,1,GREATER_CEL       ,8,2,GREATER_CEL  })
-	DEtableInsert (t, {312,312        ,30,2,HYPN_DUST       ,26,3,HYPN_DUST       ,22,4,HYPN_DUST       ,12,1,GREATER_CEL       ,11,2,GREATER_CEL  })
-	DEtableInsert (t, {316,316        ,17,2,HYPN_DUST       ,17,3,HYPN_DUST       ,23,4,HYPN_DUST       ,16,5,HYPN_DUST       ,15,2,GREATER_CEL       ,12,3,GREATER_CEL  })
-	DEtableInsert (t, {318,318        ,13,2,HYPN_DUST       ,21,3,HYPN_DUST       ,22,4,HYPN_DUST       ,17,5,HYPN_DUST       ,13,2,GREATER_CEL       ,14,3,GREATER_CEL  })
-	DEtableInsert (t, {325,325        ,20,4,HYPN_DUST       ,20,5,HYPN_DUST       ,60,2,GREATER_CEL  })
+	DEtableInsert (t, {272,272        ,34,1,HYPN_DUST       ,41,2,HYPN_DUST       ,13,1,LESSER_CEL       ,12,2,LESSER_CEL  })
+	DEtableInsert (t, {278,278        ,31,1,HYPN_DUST       ,20,2,HYPN_DUST       ,22,3,HYPN_DUST       ,9,1,LESSER_CEL       ,11,2,LESSER_CEL       ,6,3,LESSER_CEL  })
+	DEtableInsert (t, {283,283        ,28,1,HYPN_DUST       ,21,2,HYPN_DUST       ,24,3,HYPN_DUST       ,1,4,HYPN_DUST       ,8,1,LESSER_CEL       ,9,2,LESSER_CEL       ,9,3,LESSER_CEL  })
+	DEtableInsert (t, {285,285        ,28,1,HYPN_DUST       ,25,2,HYPN_DUST       ,20,3,HYPN_DUST       ,0,4,HYPN_DUST       ,7,1,LESSER_CEL       ,9,2,LESSER_CEL       ,10,3,LESSER_CEL       ,0,6,LESSER_CEL  })
+	DEtableInsert (t, {289,289        ,25,1,HYPN_DUST       ,25,2,HYPN_DUST       ,25,3,HYPN_DUST       ,0,4,HYPN_DUST       ,0,5,HYPN_DUST       ,7,1,LESSER_CEL       ,9,2,LESSER_CEL       ,8,3,LESSER_CEL       ,0,5,LESSER_CEL  })
+	DEtableInsert (t, {295,295        ,21,1,HYPN_DUST       ,19,2,HYPN_DUST       ,22,3,HYPN_DUST       ,17,4,HYPN_DUST       ,7,2,LESSER_CEL       ,8,3,LESSER_CEL       ,6,4,LESSER_CEL  })
+	DEtableInsert (t, {300,300        ,18,1,HYPN_DUST       ,20,2,HYPN_DUST       ,19,3,HYPN_DUST       ,19,4,HYPN_DUST       ,0,6,HYPN_DUST       ,8,2,LESSER_CEL       ,10,3,LESSER_CEL       ,7,4,LESSER_CEL  })
+	DEtableInsert (t, {305,305        ,15,1,HYPN_DUST       ,12,2,HYPN_DUST       ,26,3,HYPN_DUST       ,20,4,HYPN_DUST       ,9,2,LESSER_CEL       ,10,3,LESSER_CEL       ,9,4,LESSER_CEL  })
+	DEtableInsert (t, {306,306        ,24,2,HYPN_DUST       ,26,3,HYPN_DUST       ,26,4,HYPN_DUST       ,12,1,GREATER_CEL       ,12,2,GREATER_CEL  })
+	DEtableInsert (t, {312,312        ,29,2,HYPN_DUST       ,30,3,HYPN_DUST       ,20,4,HYPN_DUST       ,11,1,GREATER_CEL       ,11,2,GREATER_CEL  })
+	DEtableInsert (t, {316,316        ,18,2,HYPN_DUST       ,18,3,HYPN_DUST       ,22,4,HYPN_DUST       ,16,5,HYPN_DUST       ,14,2,GREATER_CEL       ,12,3,GREATER_CEL  })
+	DEtableInsert (t, {318,318        ,14,2,HYPN_DUST       ,21,3,HYPN_DUST       ,22,4,HYPN_DUST       ,18,5,HYPN_DUST       ,12,2,GREATER_CEL       ,13,3,GREATER_CEL  })
+	DEtableInsert (t, {325,325        ,17,3,HYPN_DUST       ,17,4,HYPN_DUST       ,17,5,HYPN_DUST       ,50,2,GREATER_CEL  })
 	DEtableInsert (t, {333,333        ,12,2,HYPN_DUST       ,24,3,HYPN_DUST       ,12,4,HYPN_DUST       ,29,5,HYPN_DUST       ,18,2,GREATER_CEL       ,6,3,GREATER_CEL  })
 
 	-- UNCOMMON (GREEN) WEAPONS
@@ -581,17 +581,17 @@ function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_table
 	DEtableInsert (t, {121, 151,	22, {1,3}, INFINITE_DUST,	75, {1,2}, LESSER_COSMIC,	3, 1, SMALL_DREAM});
 	DEtableInsert (t, {152, 200,	22, {4,7}, INFINITE_DUST,	75, {1,2}, GREATER_COSMIC,	3, 1, DREAM_SHARD});
 
-	DEtableInsert (t, {272,272        ,18,1,HYPN_DUST       ,16,2,HYPN_DUST       ,30,1,LESSER_CEL       ,36,2,LESSER_CEL  })
-	DEtableInsert (t, {278,278        ,17,1,HYPN_DUST       ,6,2,HYPN_DUST       ,6,3,HYPN_DUST       ,17,1,LESSER_CEL       ,28,2,LESSER_CEL       ,28,3,LESSER_CEL  })
-	DEtableInsert (t, {283,283        ,7,1,HYPN_DUST       ,7,2,HYPN_DUST       ,23,3,HYPN_DUST       ,27,1,LESSER_CEL       ,17,2,LESSER_CEL       ,20,3,LESSER_CEL  })
-	DEtableInsert (t, {289,289        ,9,1,HYPN_DUST       ,2,2,HYPN_DUST       ,29,1,LESSER_CEL       ,33,2,LESSER_CEL       ,27,3,LESSER_CEL  })
-	DEtableInsert (t, {295,295        ,2,1,HYPN_DUST       ,18,2,HYPN_DUST       ,4,3,HYPN_DUST       ,4,4,HYPN_DUST       ,18,2,LESSER_CEL       ,33,3,LESSER_CEL       ,22,4,LESSER_CEL  })
-	DEtableInsert (t, {300,300        ,3,1,HYPN_DUST       ,9,2,HYPN_DUST       ,11,3,HYPN_DUST       ,6,4,HYPN_DUST       ,29,2,LESSER_CEL       ,17,3,LESSER_CEL       ,25,4,LESSER_CEL  })
-	DEtableInsert (t, {305,305        ,33,2,HYPN_DUST       ,67,3,HYPN_DUST  })
-	DEtableInsert (t, {306,306        ,9,2,HYPN_DUST       ,12,3,HYPN_DUST       ,14,4,HYPN_DUST       ,28,1,GREATER_CEL       ,37,2,GREATER_CEL  })
-	DEtableInsert (t, {312,312        ,10,2,HYPN_DUST       ,7,3,HYPN_DUST       ,6,4,HYPN_DUST       ,45,1,GREATER_CEL       ,32,2,GREATER_CEL  })
-	DEtableInsert (t, {317,317        ,5,2,HYPN_DUST       ,8,3,HYPN_DUST       ,6,4,HYPN_DUST       ,8,5,HYPN_DUST       ,35,2,GREATER_CEL       ,38,3,GREATER_CEL       ,0,5,GREATER_CEL  })
-	DEtableInsert (t, {318,318        ,25,3,HYPN_DUST       ,8,5,HYPN_DUST       ,25,2,GREATER_CEL       ,42,3,GREATER_CEL  })
+	DEtableInsert (t, {272,272        ,12,1,HYPN_DUST       ,11,2,HYPN_DUST       ,33,1,LESSER_CEL       ,45,2,LESSER_CEL  })
+	DEtableInsert (t, {278,278        ,16,1,HYPN_DUST       ,8,2,HYPN_DUST       ,4,3,HYPN_DUST       ,16,1,LESSER_CEL       ,28,2,LESSER_CEL       ,28,3,LESSER_CEL  })
+	DEtableInsert (t, {283,283        ,7,1,HYPN_DUST       ,5,2,HYPN_DUST       ,17,3,HYPN_DUST       ,22,1,LESSER_CEL       ,22,2,LESSER_CEL       ,25,3,LESSER_CEL  })
+	DEtableInsert (t, {289,289        ,8,1,HYPN_DUST       ,8,2,HYPN_DUST       ,25,1,LESSER_CEL       ,33,2,LESSER_CEL       ,27,3,LESSER_CEL  })
+	DEtableInsert (t, {295,295        ,2,1,HYPN_DUST       ,16,2,HYPN_DUST       ,5,3,HYPN_DUST       ,3,4,HYPN_DUST       ,17,2,LESSER_CEL       ,30,3,LESSER_CEL       ,28,4,LESSER_CEL  })
+	DEtableInsert (t, {300,300        ,4,1,HYPN_DUST       ,10,2,HYPN_DUST       ,10,3,HYPN_DUST       ,8,4,HYPN_DUST       ,25,2,LESSER_CEL       ,16,3,LESSER_CEL       ,27,4,LESSER_CEL  })
+	DEtableInsert (t, {305,305        ,25,2,HYPN_DUST       ,25,3,HYPN_DUST       ,37,3,LESSER_CEL       ,12,4,LESSER_CEL  })
+	DEtableInsert (t, {306,306        ,11,2,HYPN_DUST       ,8,3,HYPN_DUST       ,11,4,HYPN_DUST       ,36,1,GREATER_CEL       ,35,2,GREATER_CEL  })
+	DEtableInsert (t, {312,312        ,11,2,HYPN_DUST       ,7,3,HYPN_DUST       ,8,4,HYPN_DUST       ,42,1,GREATER_CEL       ,31,2,GREATER_CEL  })
+	DEtableInsert (t, {317,317        ,6,2,HYPN_DUST       ,7,3,HYPN_DUST       ,7,4,HYPN_DUST       ,6,5,HYPN_DUST       ,37,2,GREATER_CEL       ,36,3,GREATER_CEL       ,1,5,GREATER_CEL  })
+	DEtableInsert (t, {318,318        ,21,3,HYPN_DUST       ,5,5,HYPN_DUST       ,42,2,GREATER_CEL       ,32,3,GREATER_CEL  })
 
 	
 	-- RARE (BLUE) ARMOR
@@ -615,14 +615,14 @@ function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_table
 
 	DEtableInsert (t, {288,288        ,100,1,SMALL_HEAVENLY  })
 	DEtableInsert (t, {292,292        ,100,1,SMALL_HEAVENLY  })
-	DEtableInsert (t, {300,300        ,93,1,SMALL_HEAVENLY       ,7,2,SMALL_HEAVENLY  })
+	DEtableInsert (t, {300,300        ,95,1,SMALL_HEAVENLY       ,5,2,SMALL_HEAVENLY  })
 	DEtableInsert (t, {308,308        ,100,1,SMALL_HEAVENLY  })
 	DEtableInsert (t, {316,316        ,100,1,SMALL_HEAVENLY  })
 	DEtableInsert (t, {318,318        ,100,1,HEAVENLY_SHARD  })
 	DEtableInsert (t, {325,325        ,100,1,HEAVENLY_SHARD  })
-	DEtableInsert (t, {333,333        ,100,1,HEAVENLY_SHARD  })
-	DEtableInsert (t, {339,339        ,97,1,HEAVENLY_SHARD       ,3,2,HEAVENLY_SHARD  })
-	DEtableInsert (t, {346,346        ,98,1,HEAVENLY_SHARD       ,2,2,HEAVENLY_SHARD  })
+	DEtableInsert (t, {333,333        ,97,1,HEAVENLY_SHARD       ,3,2,HEAVENLY_SHARD  })
+	DEtableInsert (t, {339,339        ,98,1,HEAVENLY_SHARD       ,2,2,HEAVENLY_SHARD  })
+	DEtableInsert (t, {346,346        ,99,1,HEAVENLY_SHARD       ,1,2,HEAVENLY_SHARD  })
 	DEtableInsert (t, {352,352        ,100,1,HEAVENLY_SHARD  })
 
 
@@ -645,10 +645,11 @@ function Atr_InitDETable()		-- based on table at wowwiki.com/Disenchanting_table
 	DEtableInsert (t, {121, 164,	99.5, 1, SMALL_DREAM,			0.5, 1, ABYSS_CRYSTAL});
 	DEtableInsert (t, {165, 280,	99.5, 1, DREAM_SHARD,			0.5, 1, ABYSS_CRYSTAL});
 
+	DEtableInsert (t, {308,308        ,100,1,SMALL_HEAVENLY  })
 	DEtableInsert (t, {316,316        ,100,1,SMALL_HEAVENLY  })
 	DEtableInsert (t, {318,318        ,100,1,HEAVENLY_SHARD  })
 	DEtableInsert (t, {333,333        ,100,1,HEAVENLY_SHARD  })
-	DEtableInsert (t, {346,346        ,87,1,HEAVENLY_SHARD       ,12,2,HEAVENLY_SHARD  })
+	DEtableInsert (t, {346,346        ,93,1,HEAVENLY_SHARD       ,7,2,HEAVENLY_SHARD  })
 
 	-- EPIC ITEMS
 	
@@ -775,27 +776,8 @@ local function ShowTipWithPricing (tip, link, num)
 		return;
 	end
 
---[[
-	if (num == "tradeskill") then
-	
-		local skill = link;
-	
-		local n;
-		for n = 1,GetTradeSkillNumReagents(skill) do
-			local rname, _, rnum = GetTradeSkillReagentInfo(skill, n);
-			local rlink = GetTradeSkillReagentItemLink (skill, n);
-			zc.md (skill, rlink, rnum);
-		end
-	
-		return;
-	end
-]]--
-
 	local itemName, itemLink, itemRarity, itemLevel, itemMinLevel, itemType, _, _, _, _, itemVendorPrice = GetItemInfo (link);
 
-	local itemID = zc.ItemIDfromLink (link);
-	itemID = tonumber(itemID);
-	
 	local vendorPrice	= 0;
 	local auctionPrice	= 0;
 	local dePrice		= nil;
@@ -833,6 +815,9 @@ local function ShowTipWithPricing (tip, link, num)
 
 	if (AUCTIONATOR_A_TIPS == 1) then
 		
+		local itemID = zc.ItemIDfromLink (link);
+		itemID = tonumber(itemID);
+	
 		local bonding = Atr_GetBonding(itemID);
 		local isBOP   = (bonding == 1);
 		local isQuest = (bonding == 4 or bonding == 5);

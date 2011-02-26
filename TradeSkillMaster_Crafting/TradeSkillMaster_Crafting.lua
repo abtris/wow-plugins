@@ -50,6 +50,9 @@ local savedDBDefaults = {
 		closeTSMWindow = true,
 		lastScan = {},
 		alwaysQueue = {},
+		craftSortMethod = {default = "name"},
+		craftSortOrder = {default = "ascending"},
+		unknownProfitMethod = {default = "unknown"}
 	},
 }
 
@@ -200,6 +203,21 @@ function TSM:GetVendorPrice(itemID)
 	return vendorMats[itemID]
 end
 
-function TSM:GetDBValue(key, profession, group, itemID)
-	return TSM.db.profile[key][itemID] or TSM.db.profile[key][group] or TSM.db.profile[key][profession] or TSM.db.profile[key].default
+function TSM:GetDBValue(key, profession, itemID)
+	return (itemID and TSM.db.profile[key][itemID]) or (profession and TSM.db.profile[key][profession]) or TSM.db.profile[key].default
+end
+
+function TSM:GoldToGoldSilverCopper(oGold, noCopper)
+	if not oGold then return end
+	local gold = floor(oGold)
+	local silver, copper
+	
+	if noCopper then
+		silver = floor(oGold*SILVER_PER_GOLD+0.5)%SILVER_PER_GOLD
+	else
+		silver = floor(oGold*SILVER_PER_GOLD)%SILVER_PER_GOLD
+		copper = floor(oGold*COPPER_PER_GOLD)%COPPER_PER_SILVER
+	end
+	
+	return gold, silver, copper
 end

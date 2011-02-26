@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 
 local FW = FW;
 local FWL = FW.L;
@@ -15,6 +15,7 @@ local strsub = strsub;
 local UnitBuff = FW.UnitBuff;
 local UnitDebuff = FW.UnitDebuff;
 local UnitName = FW.FullUnitName;
+local InCombatLockdown = InCombatLockdown;
 local erase = FW.ERASE;
 local pairs = pairs;
 local ipairs = ipairs;
@@ -1649,7 +1650,8 @@ local function NewBar(parent,n)
 	bar.ticks = {};
 	
 	-- clickable icon
-	bar.button = CreateFrame("Button",nil,bar);
+	bar.button = CreateFrame("Button",nil,bar);	
+	
 	bar.button.spark = bar.button:CreateTexture(nil,"OVERLAY");
 	bar.button.spark:SetPoint("CENTER",bar.button,"CENTER");
 	bar.button.spark:SetTexture("Interface\\AddOns\\Forte_Core\\Textures\\Spark2");
@@ -1658,11 +1660,18 @@ local function NewBar(parent,n)
 	bar.button.texture = bar.button:GetNormalTexture();
 	bar.button.texture:SetTexCoord(0.133,0.867,0.133,0.867);
 	
+	bar.tag = bar.button:CreateFontString(nil,"OVERLAY","GameFontHighlightSmall");
+	bar.tag:SetJustifyH("CENTER");	
+	bar.tag:SetPoint("BOTTOMRIGHT", bar.button, "BOTTOMRIGHT", 0, 0);	
+
 	-- texts
 	bar.name = bar:CreateFontString(nil,"OVERLAY","GameFontHighlightSmall");
 	bar.time = bar:CreateFontString(nil,"OVERLAY","GameFontHighlightSmall");
 	bar.time:SetJustifyH("LEFT");
-		
+	bar.timedummy = bar:CreateFontString(nil,"OVERLAY","GameFontHighlightSmall");
+	bar.timedummy:SetJustifyH("LEFT");
+	bar.timedummy:Hide();
+	
 	--sparks
 	bar.spark = bar:CreateTexture(nil,"OVERLAY");
 	bar.spark:SetTexture("Interface\\AddOns\\Forte_Core\\Textures\\Spark");
@@ -1787,6 +1796,7 @@ local function NewBar(parent,n)
 		
 		self.button:SetWidth(s.Height);
 		self.button.spark:SetWidth(s.Height*2.2);
+		self.tag:SetFont(s.StacksFont,s.StacksFontSize,"OUTLINE");
 
 		if s.SparkEnable then
 			self.spark:SetWidth(s.Height);
@@ -1808,6 +1818,7 @@ local function NewBar(parent,n)
 		
 		self.name:SetFont(s.Font,s.FontSize);
 		self.time:SetFont(s.Font,s.FontSize);
+		self.timedummy:SetFont(s.Font,s.FontSize);
 		self.time:SetTextColor(unpack(s.NormalColor));
 		
 		self.name:ClearAllPoints();
@@ -1838,17 +1849,17 @@ local function NewBar(parent,n)
 				self.time:SetPoint("TOPLEFT", self, "TOPLEFT", 2, 0);
 				self.time:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT", 2, 0);
 			end
-			if s.TimeSpaceEnable then
-				self.time:SetWidth(s.TimeSpace);
-			end
+			--if s.TimeSpaceEnable then
+			--	self.time:SetWidth(s.TimeSpace);
+			--end
 			self.time:Show();
 		else
 			self.time:Hide();
 		end
 		if s.Name then
-			if s.TimeSpaceEnable then
-				self.name:SetWidth(self:GetWidth()-2*s.TimeSpace-4); -- 4 margin (2 on both sizes)
-			end
+			--if s.TimeSpaceEnable then
+			--	self.name:SetWidth(self:GetWidth()-2*s.TimeSpace-4); -- 4 margin (2 on both sizes)
+			--end
 			self.name:SetHeight(self:GetHeight());
 			self.name:Show();
 		else
@@ -1868,6 +1879,9 @@ local function NewGroup(parent,n)
 	group = parent.groups[n];
 	group.bars = {};
 	group.parent = parent;
+	
+	group.usewidth = 0;
+	
 	group.background = CreateFrame("Frame",nil,group);
 	group.background:SetAllPoints(group);
 	group.background:SetFrameLevel(1);	
@@ -2010,9 +2024,24 @@ local function ST_NewTimerFrame(name,displayname)
 		end
 	end
 	frame.Draw = function(self)
+		local s = self.s;
+		if s.Enable and (not s.Hide or not s.lock or InCombatLockdown()) then -- auto-hide only
+			if self:GetAlpha()<s.alpha then
+				self:SetAlpha(self:GetAlpha()+0.1);
+			end
+			if not self:IsShown() then
+				self:Show();
+			end
+		else
+			if self:GetAlpha()>0.1 then
+				self:SetAlpha(self:GetAlpha()-0.1);
+			elseif self:IsShown() then
+				self:Hide();
+			end
+		end
+	
 		if not self:IsShown() then return; end
 		local smooth = FW.Settings.TimerSmooth;
-		local s = self.s;
 		local baroffset = s.Backdrop[6];
 		local index=1;
 		local lastid;
@@ -2351,62 +2380,78 @@ local function ST_NewTimerFrame(name,displayname)
 					bar.castarea:SetPoint("LEFT",bar,"LEFT",to*bar:GetWidth(),0);
 					bar.castarea:SetPoint("RIGHT",bar,"LEFT",from*bar:GetWidth(),0);
 				end
-			
-				if s.CustomTag then
-					local str = s.CustomTagMsg;
-					if t13 > 0 and t13 < maxi and t9 == 0 then -- add ID
-						str = gsub(str,"id","#"..t13);
-					else
-						str = gsub(str,"id","");
-					end
-					if  t16 ~= 0 then -- add stacks
-						str = gsub(str,"stacks","("..t16..")");
-					else
-						str = gsub(str,"stacks","");
-					end
-					if t4 ~= t8 then
-						str = gsub(str,"target",t4);
-					else
-						str = gsub(str,"target","");
-					end
-					str = gsub(str,"spell",t8);
-					bar.name:SetText(str);
+				
+				if s.IconStacks and t16 ~= 0 then
+					bar.tag:SetText(t16);
+					t16 = 0;
 				else
-					if s.Spell or t4 == "" then
-						t4 = t8;
-					end
-					if s.ShowID and t13 > 0 and t13 < maxi and t9 == 0 and not s.Spell then
-						bar.name:SetText("#"..t13.." "..t4);
-					elseif t16 ~= 0 then
-						bar.name:SetText(t4.." ("..t16..")");
+					bar.tag:SetText("");
+				end
+				if s.Time then
+					if t14 > REMOVE then
+						bar.time:SetText(FADE_SHOW[t14]);
+					elseif t3 == 0 then
+						bar.time:SetText("");
 					else
-						bar.name:SetText(t4);
+						bar.time:SetText(FW:SecToTimeD(t1));
 					end
+					bar.timedummy:SetText(bar.time:GetText());
+					if FW.Settings.TimerSmartSpaceEnable then
+						group.usewidth = max(group.usewidth, bar.timedummy:GetWidth());
+					else
+						group.usewidth = bar.timedummy:GetWidth();
+					end
+					bar.time:SetWidth(group.usewidth);
+				else
+					group.usewidth = 0;
+				end
+				if s.Name then
+					if s.CustomTag then
+						local str = s.CustomTagMsg;
+						if t13 > 0 and t13 < maxi and t9 == 0 then -- add ID
+							str = gsub(str,"id","#"..t13);
+						else
+							str = gsub(str,"id","");
+						end
+						if  t16 ~= 0 then -- add stacks
+							str = gsub(str,"stacks","("..t16..")");
+						else
+							str = gsub(str,"stacks","");
+						end
+						if t4 ~= t8 then
+							str = gsub(str,"target",t4);
+						else
+							str = gsub(str,"target","");
+						end
+						str = gsub(str,"spell",t8);
+						bar.name:SetText(str);
+					else
+						if s.Spell or t4 == "" then
+							t4 = t8;
+						end
+						if s.ShowID and t13 > 0 and t13 < maxi and t9 == 0 and not s.Spell then
+							bar.name:SetText("#"..t13.." "..t4);
+						elseif t16 ~= 0 then
+							bar.name:SetText(t4.." ("..t16..")");
+						else
+							bar.name:SetText(t4);
+						end
+					end
+					if s.TargetEnable and t11 == FW.target then
+						bar.name:SetTextColor(unpack(s.TargetColor));
+					elseif s.FocusEnable and t11 == FW.focus then
+						bar.name:SetTextColor(unpack(s.FocusColor));
+					else
+						bar.name:SetTextColor(unpack(s.NormalColor));
+					end		
+
+					bar.name:SetWidth(bar:GetWidth()-2*group.usewidth-4); -- 4 margin (2 on both sizes)
 				end
 				bar:SetHeight(t15*s.Height);
 				bar.button.spark:SetHeight(t15*s.Height*2.2);
-				
-				if s.TargetEnable and t11 == FW.target then
-					bar.name:SetTextColor(unpack(s.TargetColor));
-				elseif s.FocusEnable and t11 == FW.focus then
-					bar.name:SetTextColor(unpack(s.FocusColor));
-				else
-					bar.name:SetTextColor(unpack(s.NormalColor));
-				end
-				if t14 > REMOVE then
-					bar.time:SetText(FADE_SHOW[t14]);
-				elseif t3 == 0 then
-					bar.time:SetText("");
-				else
-					bar.time:SetText(FW:SecToTimeD(t1));
-				end
-				bar.button.texture:SetTexture(t7);
-				
 				spark:SetPoint("CENTER", bar, "LEFT",barval*bar:GetWidth(), 0);
-				if not s.TimeSpaceEnable and s.Time and s.Name then
-					local w = bar.time:GetWidth() + 2; -- add the 2 margin here too
-					bar.name:SetWidth(bar:GetWidth()-2*w-4); -- 4 margin (2 on both sizes)
-				end
+				
+				bar.button.texture:SetTexture(t7);
 				lastid = t13;
 			
 				bar:Show();
@@ -2442,6 +2487,11 @@ local function ST_NewTimerFrame(name,displayname)
 				end
 			end
 		end	
+	end
+	frame.ResetDurationTextSize = function(self)
+		for g, group in ipairs(self.groups) do
+			group.usewidth = 0;
+		end
 	end
 	
 	frame.Update = function(self)
@@ -2945,6 +2995,12 @@ do
 		FW:RegisterTimedEvent("AnimationInterval",	ST_DrawTimers);
 		FW:RegisterTimedEvent("UpdateInterval",		ST_RaidTargetScan);
 		
+		FW:RegisterTimedEvent("TimerSmartSpace",function()
+			for i=1,instances.rows,1 do
+				instances[i][2]:ResetDurationTextSize();
+			end
+		end);
+		
 		ST_CreateSortOrder();--init sorting direction (advanced settings)
 		ST_CalculateMaxDelay();		
 		
@@ -3000,16 +3056,19 @@ FW:SetMainCategory(FWL.SPELL_TIMER,FW.ICON.ST,3,"TIMER","Timer","Timer",tab_data
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.EXPAND_UP,			FWL.EXPAND_UP_TT,			"Expand",	ST_TimerShow);
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.TIMER_OUTWARDS,		FWL.TIMER_OUTWARDS_TT,		"Outwands");
 		--FW:RegisterOption(FW.CHK,1,FW.NON,"Flip bar direction",	"",	"Flip");
+		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.TIMER_HIDE,			FWL.TIMER_HIDE_TT,			"Hide");
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.TEST_BARS,			FWL.TEST_BARS_TT,			"Test",		Test);
 	
-	FW:SetSubCategory("Basic layout",FW.ICON.SPECIFIC,3)
-		FW:RegisterOption(FW.CHK,1,FW.NON,"Show Count down text",	"",	"Time",		ST_TimerShow);
-		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.COUNTDOWN_ON_RIGHT,	FWL.COUNTDOWN_ON_RIGHT_TT,	"TimeRight",		ST_TimerShow);
+	FW:SetSubCategory(FWL.BASIC_LAYOUT,FW.ICON.SPECIFIC,3)
+		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.TIMER_COUNTDOWN,		FWL.TIMER_COUNTDOWN_TT,		"Time",			ST_TimerShow);
+		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.COUNTDOWN_ON_RIGHT,	FWL.COUNTDOWN_ON_RIGHT_TT,	"TimeRight",	ST_TimerShow);
 
-		FW:RegisterOption(FW.CHK,1,FW.NON,"Show icons",	"",	"Icon",		ST_TimerShow);
-		FW:RegisterOption(FW.CHK,1,FW.NON,"Icon on right",	"",	"IconRight",		ST_TimerShow);
-		
-		FW:RegisterOption(FW.CHK,1,FW.NON,"Show unit/spell name text",	"",	"Name",		ST_TimerShow);
+		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.TIMER_ICONS,			FWL.TIMER_ICONS_TT,			"Icon",			ST_TimerShow);
+		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.TIMER_ICONS_RIGHT,	FWL.TIMER_ICONS_RIGHT_TT,	"IconRight",	ST_TimerShow);
+
+		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.TIMER_STACKS,			FWL.TIMER_STACKS_TT,		"IconStacks",	ST_TimerShow);
+		FW:RegisterOption(FW.FNT,2,FW.LAS,FWL.ICON_FONT,			"",							"StacksFont",	ST_TimerShow);
+		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.TIMER_BAR_LABELS,		FWL.TIMER_BAR_LABELS_TT,	"Name",			ST_TimerShow);
 					
 	FW:SetSubCategory(FWL.TIMER_FORMATS,FW.ICON.SPECIFIC,3)
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.DISPLAY_MODES7,	FWL.DISPLAY_MODES7_TT,	"GroupID");
@@ -3087,7 +3146,6 @@ FW:SetMainCategory(FWL.SPELL_TIMER,FW.ICON.ST,3,"TIMER","Timer","Timer",tab_data
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.BAR_SPACING,					"",					"Space",		ST_TimerShow,0);
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.UNIT_SPACING,			FWL.UNIT_SPACING_TT,		"SpacingHeight",nil,0);
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.UNIT_LABEL_HEIGHT,	FWL.UNIT_LABEL_HEIGHT_TT,	"LabelHeight",	nil,0);
-		FW:RegisterOption(FW.NU2,1,FW.NON,FWL.COUNTDOWN_WIDTH,		FWL.COUNTDOWN_WIDTH_TT,		"TimeSpace",	ST_TimerShow,nil,0);
 		--FW:RegisterOption(FW.CHK,1,FW.NON,FWL.MAXIMIZE_SPACE,		FWL.MAXIMIZE_SPACE_TT,		"MaximizeName",	ST_TimerShow);
 		FW:RegisterOption(FW.NU2,1,FW.NON,FWL.MAX_SHOWN,					"",					"Max",			nil,0);	
 
@@ -3134,7 +3192,8 @@ FW:SetMainCategory(FWL.SOUND,FW.ICON.SOUND,12,"SOUND");
 FW:SetMainCategory(FWL.ADVANCED,FW.ICON.DEFAULT,99,"DEFAULT");
 	FW:SetSubCategory(FWL.SPELL_TIMER,FW.ICON.DEFAULT,3);
 		FW:RegisterOption(FW.MS0,1,FW.NON,FWL.FRAME_LEVEL,FWL.FRAME_LEVEL_TT,	"TimerStrata", ST_TimerShow);
-		FW:RegisterOption(FW.NUM,1,FW.NON,"Duration update smoothing",	"1 means timers are changed to their new duration instantly, 20 means a very smooth transition.",		"TimerSmooth",nil,1,20);
+		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.TIMER_SMOOTHING,FWL.TIMER_SMOOTHING_TT,"TimerSmooth",nil,1,20);
+		FW:RegisterOption(FW.NU2,1,FW.NON,FWL.SMART_COUNTDOWN_WIDTH,FWL.SMART_COUNTDOWN_WIDTH_TT,"TimerSmartSpace",	nil,nil,1,10);
 		FW:RegisterOption(FW.MS0,2,FW.NON,FWL.TIMER_SORT_ORDER,	FWL.TIMER_SORT_ORDER_TT,	"TimerSortOrder",	ST_CreateSortOrder);
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.UPDATE_INTERVAL_SPELL_TIMER,	"",	"SpellTimerInterval",nil,0.1,1.0);
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.DELAY_DOT_TICKS,				"",	"DotTicksDelayNew",nil,0.5,3.0);
@@ -3175,6 +3234,9 @@ FW.Default.TimerImprove = false;
 FW.Default.TimerImproveRaidTarget = false;
 FW.Default.TimerSortOrder = "buff selfdebuff debuff cooldown notarget target";
 
+FW.Default.TimerSmartSpace = 10;
+FW.Default.TimerSmartSpaceEnable = true;
+
 --following settings are stored for each instance of a spell timer
 FW.Default.Timer = {};
 
@@ -3197,6 +3259,9 @@ FW.Default.Timer.Icon = true;
 FW.Default.Timer.IconRight = false;
 FW.Default.Timer.Name = true;
 
+FW.Default.Timer.IconStacks = true;
+FW.Default.Timer.Hide = false;
+
 FW.Default.Timer.Flip = false;
 FW.Default.Timer.Outwands = true;
 
@@ -3212,6 +3277,8 @@ FW.Default.Timer.LabelHeight = 18;
 FW.Default.Timer.SpacingHeight = 2; -- between groups
 FW.Default.Timer.LabelFont = FW.Default.Font;
 FW.Default.Timer.LabelFontSize = FW.Default.FontSize;
+FW.Default.Timer.StacksFont = FW.Default.Font;
+FW.Default.Timer.StacksFontSize = FW.Default.FontSize-1;
 FW.Default.Timer.RaidTargetsEnable = false;
 FW.Default.Timer.RaidTargets = 0.7;
 FW.Default.Timer.Target = true;
@@ -3235,7 +3302,7 @@ FW.Default.Timer.Space = 2; -- between units
 FW.Default.Timer.Width = 250;
 FW.Default.Timer.NormalAlpha = 0.50;
 FW.Default.Timer.BarBackgroundAlpha = 0.3;
-FW.Default.Timer.TimeSpace = 25;
+FW.Default.Timer.TimeSpace = 30;
 FW.Default.Timer.TimeSpaceEnable = true;
 
 FW.Default.Timer.Filter = {};

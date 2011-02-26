@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 
 local FW = FW;
 local FWL = FW.L;
@@ -542,14 +542,14 @@ end
 local function FW_RestoreDefaults(obj)
 	if obj.parent.index then
 		for i, d in ipairs(FW_Options[obj.parent.index][MAIN_DATA_TABLE][obj.index][SUB_DATA_TABLE]) do -- OPTION LEVEL
-			if d.option.default then
+			if d.option and d.option.default then
 				d.option.default:Click();
 			end
 		end
 	else
 		for sub_index, sub_data in ipairs(FW_Options[obj.index][MAIN_DATA_TABLE]) do -- SUB OPTION LEVEL
 			for i, d in ipairs(sub_data[SUB_DATA_TABLE]) do -- OPTION LEVEL
-				if d.option.default then
+				if d.option and d.option.default then
 					d.option.default:Click();
 				end
 			end

@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+﻿-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 
 --[[
 "frFR": French
@@ -72,7 +72,7 @@ if GetLocale() == "frFR" then
 	FWL.DISPLAY_MODES7_TT = "Groups timers belonging to the same units together.";
 	FWL.DISPLAY_MODES8 = "Show unit #";
 	FWL.DISPLAY_MODES8_TT = "Shows the 'id' number of each unit in front of its name. This way you can distinguish between units with the same name.";
---[[>>]]FWL.DISPLAY_MODES9 = "Show spell names";
+--[[>>]]FWL.DISPLAY_MODES9 = "Show spell names instead";
 --[[>>]]FWL.DISPLAY_MODES9_TT = "This will display the names of your spells on the timer bars, instead of the target name.";
 --[[>>]]FWL.DISPLAY_MODES10 = "Show name tags/headers";
 --[[>>]]FWL.DISPLAY_MODES10_TT = "With the '"..FWL.DISPLAY_MODES7.."' option on, unit name tags will appear for each bar group.";
@@ -225,6 +225,38 @@ if GetLocale() == "frFR" then
 	FWL.TIMER_SORT_ORDER_TT =  "Customize the order in which the different spell types appear on the Spell Timer. The most left tag will appear the closest to the header/anchor. This setting is only used when 'Group by unit' is enabled.\n|cff00ff00buff|r are your self (powerup) buffs.\n|cff00ff00selfdebuff|r are the debuffs on yourself.\n|cff00ff00debuff|r are the raid debuffs on your current target.\n|cff00ff00cooldown|r are your cooldowns.\n|cff00ff00notarget|r are spells that don't have a target (or still need to find/correct their target).\n|cff00ff00target|r are all the other spells that have been cast on units.";
 
 	FWL.TIMER_SPARK_TT = "Show sparks at the appropriate place in the bars.";
+	
+	FWL.SHARED_TYPE2 = "Shared Type (2)";
+	FWL.SHARED_TYPE2_TT = "Types of spells that allow only one spell of this kind up on one target (for example Banes).";
+
+	FWL.SHARED_TYPE3 = "Shared Type (3)";
+	FWL.SHARED_TYPE3_TT = "Types of spells that allow only one spell of this kind up on one target.";
+
+	FWL.TIMER_SHOW_UKNOWN = "Show unknown units";
+	FWL.TIMER_SHOW_YOU = "Show on you / cooldowns";
+	FWL.TIMER_RAID_DEBUFFS = "Show raid debuffs";
+
+	FWL.SMART_COUNTDOWN_WIDTH = "Use smart countdown text width";
+	FWL.SMART_COUNTDOWN_WIDTH_TT = "With this option enabled the width that the countdown text takes up, and therefore also the width of the name label, will remain the same for X seconds. This avoids erratic changes in long names and the position of the countdown texts when on the right side.";
+
+	FWL.TIMER_SMOOTHING = "Duration update smoothing";
+	FWL.TIMER_SMOOTHING_TT = "1 means timers are changed to their new duration instantly, 20 means a very smooth transition.";
+
+	FWL.TIMER_HIDE = "Hide when out of combat";
+	FWL.TIMER_HIDE_TT = "Hide the frame when you get out of combat.";
+	FWL.TIMER_COUNTDOWN = "Show Count down text";
+	FWL.TIMER_COUNTDOWN_TT = "Show the remaining time on the bars.";
+
+	FWL.TIMER_ICONS = "Show icons";
+	FWL.TIMER_ICONS_TT = "Show the spell icons on the bars.";
+	FWL.TIMER_ICONS_RIGHT = "Icons on right";
+	FWL.TIMER_ICONS_RIGHT_TT = "You can display the spell icons on the left or right of the bars.";
+
+	FWL.TIMER_STACKS = "Show stacks on icons";
+	FWL.TIMER_STACKS_TT = "Show the spell stacks on the icons instead of in the bar name label.";
+	FWL.TIMER_BAR_LABELS = "Show unit/spell name text";
+	FWL.TIMER_BAR_LABELS_TT = "Show the bar unit/spell name labels. This may be useful for really small bars.";
+
 -- Russian
 elseif GetLocale() == "ruRU" then
 
@@ -275,7 +307,7 @@ elseif GetLocale() == "ruRU" then
 	FWL.DISPLAY_MODES7_TT = "Группирует таймеры, относящиеся к одним и тем же элементам.";
 	FWL.DISPLAY_MODES8 = "Показывать номер элемента";
 	FWL.DISPLAY_MODES8_TT = "Показывает идентификатор каждого элемента перед его именем. Это позволит отделять элементы с одинаковыми именами.";
---[[>>]]FWL.DISPLAY_MODES9 = "Show spell names";
+--[[>>]]FWL.DISPLAY_MODES9 = "Show spell names instead";
 --[[>>]]FWL.DISPLAY_MODES9_TT = "This will display the names of your spells on the timer bars, instead of the target name.";
 --[[>>]]FWL.DISPLAY_MODES10 = "Show name tags/headers";
 --[[>>]]FWL.DISPLAY_MODES10_TT = "With the '"..FWL.DISPLAY_MODES7.."' option on, unit name tags will appear for each bar group.";
@@ -430,6 +462,37 @@ elseif GetLocale() == "ruRU" then
 --[[>>]]FWL.TIMER_SORT_ORDER_TT =  "Customize the order in which the different spell types appear on the Spell Timer. The most left tag will appear the closest to the header/anchor. This setting is only used when 'Group by unit' is enabled.\n|cff00ff00buff|r are your self (powerup) buffs.\n|cff00ff00selfdebuff|r are the debuffs on yourself.\n|cff00ff00debuff|r are the raid debuffs on your current target.\n|cff00ff00cooldown|r are your cooldowns.\n|cff00ff00notarget|r are spells that don't have a target (or still need to find/correct their target).\n|cff00ff00target|r are all the other spells that have been cast on units.";
 
 --[[>>]]FWL.TIMER_SPARK_TT = "Show sparks at the appropriate place in the bars.";
+	
+--[[>>]]FWL.SHARED_TYPE2 = "Shared Type (2)";
+--[[>>]]FWL.SHARED_TYPE2_TT = "Types of spells that allow only one spell of this kind up on one target (for example Banes).";
+
+--[[>>]]FWL.SHARED_TYPE3 = "Shared Type (3)";
+--[[>>]]FWL.SHARED_TYPE3_TT = "Types of spells that allow only one spell of this kind up on one target.";
+
+--[[>>]]FWL.TIMER_SHOW_UKNOWN = "Show unknown units";
+--[[>>]]FWL.TIMER_SHOW_YOU = "Show on you / cooldowns";
+--[[>>]]FWL.TIMER_RAID_DEBUFFS = "Show raid debuffs";
+
+--[[>>]]FWL.SMART_COUNTDOWN_WIDTH = "Use smart countdown text width";
+--[[>>]]FWL.SMART_COUNTDOWN_WIDTH_TT = "With this option enabled the width that the countdown text takes up, and therefore also the width of the name label, will remain the same for X seconds. This avoids erratic changes in long names and the position of the countdown texts when on the right side.";
+
+--[[>>]]FWL.TIMER_SMOOTHING = "Duration update smoothing";
+--[[>>]]FWL.TIMER_SMOOTHING_TT = "1 means timers are changed to their new duration instantly, 20 means a very smooth transition.";
+
+--[[>>]]FWL.TIMER_HIDE = "Hide when out of combat";
+--[[>>]]FWL.TIMER_HIDE_TT = "Hide the frame when you get out of combat.";
+--[[>>]]FWL.TIMER_COUNTDOWN = "Show Count down text";
+--[[>>]]FWL.TIMER_COUNTDOWN_TT = "Show the remaining time on the bars.";
+
+--[[>>]]FWL.TIMER_ICONS = "Show icons";
+--[[>>]]FWL.TIMER_ICONS_TT = "Show the spell icons on the bars.";
+--[[>>]]FWL.TIMER_ICONS_RIGHT = "Icons on right";
+--[[>>]]FWL.TIMER_ICONS_RIGHT_TT = "You can display the spell icons on the left or right of the bars.";
+
+--[[>>]]FWL.TIMER_STACKS = "Show stacks on icons";
+--[[>>]]FWL.TIMER_STACKS_TT = "Show the spell stacks on the icons instead of in the bar name label.";
+--[[>>]]FWL.TIMER_BAR_LABELS = "Show unit/spell name text";
+--[[>>]]FWL.TIMER_BAR_LABELS_TT = "Show the bar unit/spell name labels. This may be useful for really small bars.";
 
 -- simple chinese
 elseif GetLocale() == "zhCN" then
@@ -481,7 +544,7 @@ elseif GetLocale() == "zhCN" then
 	FWL.DISPLAY_MODES7_TT = "将一个对象的计时条排在一起显示.";
 	FWL.DISPLAY_MODES8 = "显示对象号";
 	FWL.DISPLAY_MODES8_TT = "在每个对象名字前显示其编号. 有助于分辨出同名对象.";
---[[>>]]FWL.DISPLAY_MODES9 = "Show spell names";
+--[[>>]]FWL.DISPLAY_MODES9 = "Show spell names instead";
 --[[>>]]FWL.DISPLAY_MODES9_TT = "This will display the names of your spells on the timer bars, instead of the target name.";
 --[[>>]]FWL.DISPLAY_MODES10 = "Show name tags/headers";
 --[[>>]]FWL.DISPLAY_MODES10_TT = "With the '"..FWL.DISPLAY_MODES7.."' option on, unit name tags will appear for each bar group.";
@@ -637,6 +700,37 @@ elseif GetLocale() == "zhCN" then
 --[[>>]]FWL.TIMER_SORT_ORDER_TT =  "Customize the order in which the different spell types appear on the Spell Timer. The most left tag will appear the closest to the header/anchor. This setting is only used when 'Group by unit' is enabled.\n|cff00ff00buff|r are your self (powerup) buffs.\n|cff00ff00selfdebuff|r are the debuffs on yourself.\n|cff00ff00debuff|r are the raid debuffs on your current target.\n|cff00ff00cooldown|r are your cooldowns.\n|cff00ff00notarget|r are spells that don't have a target (or still need to find/correct their target).\n|cff00ff00target|r are all the other spells that have been cast on units.";
 
 --[[>>]]FWL.TIMER_SPARK_TT = "Show sparks at the appropriate place in the bars.";
+	
+--[[>>]]FWL.SHARED_TYPE2 = "Shared Type (2)";
+--[[>>]]FWL.SHARED_TYPE2_TT = "Types of spells that allow only one spell of this kind up on one target (for example Banes).";
+
+--[[>>]]FWL.SHARED_TYPE3 = "Shared Type (3)";
+--[[>>]]FWL.SHARED_TYPE3_TT = "Types of spells that allow only one spell of this kind up on one target.";
+
+--[[>>]]FWL.TIMER_SHOW_UKNOWN = "Show unknown units";
+--[[>>]]FWL.TIMER_SHOW_YOU = "Show on you / cooldowns";
+--[[>>]]FWL.TIMER_RAID_DEBUFFS = "Show raid debuffs";
+
+--[[>>]]FWL.SMART_COUNTDOWN_WIDTH = "Use smart countdown text width";
+--[[>>]]FWL.SMART_COUNTDOWN_WIDTH_TT = "With this option enabled the width that the countdown text takes up, and therefore also the width of the name label, will remain the same for X seconds. This avoids erratic changes in long names and the position of the countdown texts when on the right side.";
+
+--[[>>]]FWL.TIMER_SMOOTHING = "Duration update smoothing";
+--[[>>]]FWL.TIMER_SMOOTHING_TT = "1 means timers are changed to their new duration instantly, 20 means a very smooth transition.";
+
+--[[>>]]FWL.TIMER_HIDE = "Hide when out of combat";
+--[[>>]]FWL.TIMER_HIDE_TT = "Hide the frame when you get out of combat.";
+--[[>>]]FWL.TIMER_COUNTDOWN = "Show Count down text";
+--[[>>]]FWL.TIMER_COUNTDOWN_TT = "Show the remaining time on the bars.";
+
+--[[>>]]FWL.TIMER_ICONS = "Show icons";
+--[[>>]]FWL.TIMER_ICONS_TT = "Show the spell icons on the bars.";
+--[[>>]]FWL.TIMER_ICONS_RIGHT = "Icons on right";
+--[[>>]]FWL.TIMER_ICONS_RIGHT_TT = "You can display the spell icons on the left or right of the bars.";
+
+--[[>>]]FWL.TIMER_STACKS = "Show stacks on icons";
+--[[>>]]FWL.TIMER_STACKS_TT = "Show the spell stacks on the icons instead of in the bar name label.";
+--[[>>]]FWL.TIMER_BAR_LABELS = "Show unit/spell name text";
+--[[>>]]FWL.TIMER_BAR_LABELS_TT = "Show the bar unit/spell name labels. This may be useful for really small bars.";
 
 -- tradition chinese
 elseif GetLocale() == "zhTW" then
@@ -688,7 +782,7 @@ elseif GetLocale() == "zhTW" then
 	FWL.DISPLAY_MODES7_TT = "將一個物件的計時條排在一起顯示.";
 	FWL.DISPLAY_MODES8 = "顯示物件號";
 	FWL.DISPLAY_MODES8_TT = "在每個物件名字前顯示其編號. 有助於分辨出同名物件.";
---[[>>]]FWL.DISPLAY_MODES9 = "Show spell names";
+--[[>>]]FWL.DISPLAY_MODES9 = "Show spell names instead";
 --[[>>]]FWL.DISPLAY_MODES9_TT = "This will display the names of your spells on the timer bars, instead of the target name.";
 --[[>>]]FWL.DISPLAY_MODES10 = "Show name tags/headers";
 --[[>>]]FWL.DISPLAY_MODES10_TT = "With the '"..FWL.DISPLAY_MODES7.."' option on, unit name tags will appear for each bar group.";
@@ -843,6 +937,37 @@ elseif GetLocale() == "zhTW" then
 --[[>>]]FWL.TIMER_SORT_ORDER_TT =  "Customize the order in which the different spell types appear on the Spell Timer. The most left tag will appear the closest to the header/anchor. This setting is only used when 'Group by unit' is enabled.\n|cff00ff00buff|r are your self (powerup) buffs.\n|cff00ff00selfdebuff|r are the debuffs on yourself.\n|cff00ff00debuff|r are the raid debuffs on your current target.\n|cff00ff00cooldown|r are your cooldowns.\n|cff00ff00notarget|r are spells that don't have a target (or still need to find/correct their target).\n|cff00ff00target|r are all the other spells that have been cast on units.";
 
 --[[>>]]FWL.TIMER_SPARK_TT = "Show sparks at the appropriate place in the bars.";
+	
+--[[>>]]FWL.SHARED_TYPE2 = "Shared Type (2)";
+--[[>>]]FWL.SHARED_TYPE2_TT = "Types of spells that allow only one spell of this kind up on one target (for example Banes).";
+
+--[[>>]]FWL.SHARED_TYPE3 = "Shared Type (3)";
+--[[>>]]FWL.SHARED_TYPE3_TT = "Types of spells that allow only one spell of this kind up on one target.";
+
+--[[>>]]FWL.TIMER_SHOW_UKNOWN = "Show unknown units";
+--[[>>]]FWL.TIMER_SHOW_YOU = "Show on you / cooldowns";
+--[[>>]]FWL.TIMER_RAID_DEBUFFS = "Show raid debuffs";
+
+--[[>>]]FWL.SMART_COUNTDOWN_WIDTH = "Use smart countdown text width";
+--[[>>]]FWL.SMART_COUNTDOWN_WIDTH_TT = "With this option enabled the width that the countdown text takes up, and therefore also the width of the name label, will remain the same for X seconds. This avoids erratic changes in long names and the position of the countdown texts when on the right side.";
+
+--[[>>]]FWL.TIMER_SMOOTHING = "Duration update smoothing";
+--[[>>]]FWL.TIMER_SMOOTHING_TT = "1 means timers are changed to their new duration instantly, 20 means a very smooth transition.";
+
+--[[>>]]FWL.TIMER_HIDE = "Hide when out of combat";
+--[[>>]]FWL.TIMER_HIDE_TT = "Hide the frame when you get out of combat.";
+--[[>>]]FWL.TIMER_COUNTDOWN = "Show Count down text";
+--[[>>]]FWL.TIMER_COUNTDOWN_TT = "Show the remaining time on the bars.";
+
+--[[>>]]FWL.TIMER_ICONS = "Show icons";
+--[[>>]]FWL.TIMER_ICONS_TT = "Show the spell icons on the bars.";
+--[[>>]]FWL.TIMER_ICONS_RIGHT = "Icons on right";
+--[[>>]]FWL.TIMER_ICONS_RIGHT_TT = "You can display the spell icons on the left or right of the bars.";
+
+--[[>>]]FWL.TIMER_STACKS = "Show stacks on icons";
+--[[>>]]FWL.TIMER_STACKS_TT = "Show the spell stacks on the icons instead of in the bar name label.";
+--[[>>]]FWL.TIMER_BAR_LABELS = "Show unit/spell name text";
+--[[>>]]FWL.TIMER_BAR_LABELS_TT = "Show the bar unit/spell name labels. This may be useful for really small bars.";
 
 -- DE by DeaTHCorE (found a error? have a better translation? send me a email at dhaft@gmx.de)
 elseif GetLocale() == "deDE" then
@@ -893,7 +1018,7 @@ elseif GetLocale() == "deDE" then
 	FWL.DISPLAY_MODES7_TT = "Gruppiert die Timer nach Einheiten der selben ID.";
 	FWL.DISPLAY_MODES8 = "Zeige Einheiten-ID";
 	FWL.DISPLAY_MODES8_TT = "Zeigt die ID einer Einheit vor dem Namen. Dies hilft dir, Einheiten mit dem selben Namen auseinander zu halten.";
---[[>>]]FWL.DISPLAY_MODES9 = "Show spell names";
+--[[>>]]FWL.DISPLAY_MODES9 = "Show spell names instead";
 --[[>>]]FWL.DISPLAY_MODES9_TT = "This will display the names of your spells on the timer bars, instead of the target name.";
 --[[>>]]FWL.DISPLAY_MODES10 = "Show name tags/headers";
 --[[>>]]FWL.DISPLAY_MODES10_TT = "With the '"..FWL.DISPLAY_MODES7.."' option on, unit name tags will appear for each bar group.";
@@ -1047,19 +1172,50 @@ elseif GetLocale() == "deDE" then
 --[[>>]]FWL.TIMER_SORT_ORDER_TT =  "Customize the order in which the different spell types appear on the Spell Timer. The most left tag will appear the closest to the header/anchor. This setting is only used when 'Group by unit' is enabled.\n|cff00ff00buff|r are your self (powerup) buffs.\n|cff00ff00selfdebuff|r are the debuffs on yourself.\n|cff00ff00debuff|r are the raid debuffs on your current target.\n|cff00ff00cooldown|r are your cooldowns.\n|cff00ff00notarget|r are spells that don't have a target (or still need to find/correct their target).\n|cff00ff00target|r are all the other spells that have been cast on units.";
 
 --[[>>]]FWL.TIMER_SPARK_TT = "Show sparks at the appropriate place in the bars.";
+	
+--[[>>]]FWL.SHARED_TYPE2 = "Shared Type (2)";
+--[[>>]]FWL.SHARED_TYPE2_TT = "Types of spells that allow only one spell of this kind up on one target (for example Banes).";
+
+--[[>>]]FWL.SHARED_TYPE3 = "Shared Type (3)";
+--[[>>]]FWL.SHARED_TYPE3_TT = "Types of spells that allow only one spell of this kind up on one target.";
+
+--[[>>]]FWL.TIMER_SHOW_UKNOWN = "Show unknown units";
+--[[>>]]FWL.TIMER_SHOW_YOU = "Show on you / cooldowns";
+--[[>>]]FWL.TIMER_RAID_DEBUFFS = "Show raid debuffs";
+
+--[[>>]]FWL.SMART_COUNTDOWN_WIDTH = "Use smart countdown text width";
+--[[>>]]FWL.SMART_COUNTDOWN_WIDTH_TT = "With this option enabled the width that the countdown text takes up, and therefore also the width of the name label, will remain the same for X seconds. This avoids erratic changes in long names and the position of the countdown texts when on the right side.";
+
+--[[>>]]FWL.TIMER_SMOOTHING = "Duration update smoothing";
+--[[>>]]FWL.TIMER_SMOOTHING_TT = "1 means timers are changed to their new duration instantly, 20 means a very smooth transition.";
+
+--[[>>]]FWL.TIMER_HIDE = "Hide when out of combat";
+--[[>>]]FWL.TIMER_HIDE_TT = "Hide the frame when you get out of combat.";
+--[[>>]]FWL.TIMER_COUNTDOWN = "Show Count down text";
+--[[>>]]FWL.TIMER_COUNTDOWN_TT = "Show the remaining time on the bars.";
+
+--[[>>]]FWL.TIMER_ICONS = "Show icons";
+--[[>>]]FWL.TIMER_ICONS_TT = "Show the spell icons on the bars.";
+--[[>>]]FWL.TIMER_ICONS_RIGHT = "Icons on right";
+--[[>>]]FWL.TIMER_ICONS_RIGHT_TT = "You can display the spell icons on the left or right of the bars.";
+
+--[[>>]]FWL.TIMER_STACKS = "Show stacks on icons";
+--[[>>]]FWL.TIMER_STACKS_TT = "Show the spell stacks on the icons instead of in the bar name label.";
+--[[>>]]FWL.TIMER_BAR_LABELS = "Show unit/spell name text";
+--[[>>]]FWL.TIMER_BAR_LABELS_TT = "Show the bar unit/spell name labels. This may be useful for really small bars.";
 
 -- korean
 elseif GetLocale() == "koKR" then
 
     FWL.SPELL_TIMER = "주문 타이머";
 	FWL.DISPLAY_MODES = "표시 모드";
-	FWL.EXTRA = "Extra";
+	FWL.EXTRA = "추가 설정";
 	FWL.SHOW_HEADER = "헤더 표시";
 	FWL.DISPLAY_TYPES = "표시 종류";
 	FWL.TIMER_HIDING = "숨기기";
 
 	FWL.ST_HINT1 = "설정을 모두 마치면 타이머를 잠그고 헤더를 숨길 수 있습니다.";
-	FWL.ST_HINT2 = "디버프 아이콘을 오른-클릭하면 임의 필터에 해당 주문을 올려 설정할 수 있습니다.";
+	FWL.ST_HINT2 = "디버프 아이콘을 오른클릭하면 세부설정을 할 수 있습니다.";
 	FWL.ST_HINT3 = "주문 타이머을 잠그면 타이머 뒤를 클릭할 수 있습니다.";
 
 	FWL.ST_BASIC1_TT = "주문 타이머를 표시합니다.";		
@@ -1082,32 +1238,32 @@ elseif GetLocale() == "koKR" then
 	FWL.UNIT_LABEL_HEIGHT_TT = "유닛의 이름표 높이를 설정합니다.";
 	FWL.COUNTDOWN_WIDTH = "카운트다운 글씨 넓이";
 	FWL.COUNTDOWN_WIDTH_TT = "카운트다운 글씨가 어떤 이유로 잘 맞지 않는 경우 타이머 바에서 차지하는 넓이를 늘릴 수 있습니다.";
-	FWL.MAXIMIZE_SPACE = "이름 간격 최대화(엉성해보이일수있음)";
+	FWL.MAXIMIZE_SPACE = "이름 간격 최대화(경고: 보기안좋음)";
 	FWL.MAXIMIZE_SPACE_TT = "유닛과 주문 글씨에 사용되는 공간을 최대화합니다. 결과적으로 글씨는 타이머 바의 정중앙에 배치되지 않을 것입니다. 타이머바가 짧다면 이 설정을 활용하세요.";
 	FWL.COUNTDOWN_ON_RIGHT = "카운트다운 글씨 우측 배치";
 	FWL.COUNTDOWN_ON_RIGHT_TT = "체크를 하면 카운트다운 글씨가 우측에 배치됩니다.";
 	
-	FWL.ONEMAX = "최대 바 기준으로 정렬";
-	FWL.ONEMAX_TT = "모든 주문 타이머 바의 길이를 지속 시간이나 쿨다운이 가장 긴 바를 기준으로 조절합니다.";
-	FWL.FORCEMAX = "최대 바 시간 고정";
-	FWL.FORCEMAX_TT = "모든 바가 표시할 수 있는 최대시간을 고정합니다. 실제 시간이 최대 시간보다 짧더라도 강제로 적용이 됩니다.";
-	FWL.MAXTIME = "한계 설정";
-	FWL.MAXTIME_TT = "타이머 바가 해당 설정시간 보다 더 긴 것은 표현하지 않습니다. 시간을 고정하는 것보다 좀 더 유용합니다.";	
+	FWL.ONEMAX = "시간이 가장 긴 바를 기준으로 정렬";
+	FWL.ONEMAX_TT = "시간이 가장 긴 바를 기준으로 모든 바가 정렬이 됩니다.";
+	FWL.FORCEMAX = "최대시간 고정";
+	FWL.FORCEMAX_TT = "모든 바에 설정한 시간이 최대 시간이었던 것처럼 표시합니다.";
+	FWL.MAXTIME = "최대시간";
+	FWL.MAXTIME_TT = "바 하나에 표시될 수 있는 최대 시간을 설정합니다. 이 옵션은 [최대 시간 고정]을 좀 더 유용하게 만들기 위해 제공됩니다.";	
 	
-	FWL.DISPLAY_MODES7 = "그룹 짓기";
+	FWL.DISPLAY_MODES7 = "같은 유닛(대상/주시/기타) 별로 그룹 형성";
 	FWL.DISPLAY_MODES7_TT = "같은 유닛에 포함된 타이머 바는 한 그룹으로 묶습니다.";
-	FWL.DISPLAY_MODES8 = "유닛ID로 표시";
-	FWL.DISPLAY_MODES8_TT = "각 유닛을 이름대신 ID로 구분합니다. 같은 이름을 가진 유닛들을 구별할때 도움이 될것입니다.";
---[[>>]]FWL.DISPLAY_MODES9 = "Show spell names";
---[[>>]]FWL.DISPLAY_MODES9_TT = "This will display the names of your spells on the timer bars, instead of the target name.";
---[[>>]]FWL.DISPLAY_MODES10 = "Show name tags/headers";
---[[>>]]FWL.DISPLAY_MODES10_TT = "With the '"..FWL.DISPLAY_MODES7.."' option on, unit name tags will appear for each bar group.";
+	FWL.DISPLAY_MODES8 = "유닛 ID 를 함께 표시";
+	FWL.DISPLAY_MODES8_TT = "각 유닛의 이름 앞에 ID 번호를 표시합니다. 같은 이름을 가진 유닛들을 구별할때 도움이 될것입니다.";
+	FWL.DISPLAY_MODES9 = "유닛 이름 대신 주문 이름을 대신 표시";
+	FWL.DISPLAY_MODES9_TT = "대상의 이름 대신 시전한 주문의 이름을 바에 표시합니다.";
+	FWL.DISPLAY_MODES10 = "이름 태그와 헤더를 표시(툴팁 참고)";
+	FWL.DISPLAY_MODES10_TT = "'"..FWL.DISPLAY_MODES7.."'옵션이 활성화되어 있으면 각 바 그룹에 이름 태그가 나타날 것입니다.";
 		
-	FWL.DISPLAY_TYPES1 = "일시적 강화효과 표시";
-	FWL.DISPLAY_TYPES1_TT = "장신구나 특성으로 인한 발동효과와 같은 일시적 강화효과를 주문 타이머로 표시합니다.";
-	FWL.DISPLAY_TYPES2 = "공유하는 약화효과 표시";
-	FWL.DISPLAY_TYPES2_TT = "어둠의 화살 연마 따위의 약화 디버프를 주문 타이머로 표시합니다.";
-	FWL.DISPLAY_TYPES3 = "특정시간 이전까지 숨김(초단위)";
+	FWL.DISPLAY_TYPES1 = "일시적인 강화효과 표시";
+	FWL.DISPLAY_TYPES1_TT = "타이머로 이익이 되는 일시적인 강화효과를 표시합니다. ";
+	FWL.DISPLAY_TYPES2 = "공유하는 디버프 효과 표시";
+	FWL.DISPLAY_TYPES2_TT = "흑마법사의 '어둠과 불길' 과 같은 본인의 대상에 걸린 약화 디버프를 주문 타이머에 표시합니다.";
+	FWL.DISPLAY_TYPES3 = "특정시간 이전까지 숨김";
 	FWL.DISPLAY_TYPES3_TT = "설정한 특정 시간이 되기전까진 타이머 주문 바를 숨깁니다. 정해진 시간보다 일찍 제거될 경우 표시가 됩니다.  또한 추적하고 있는 대상이 바뀌었다가 다시 돌아올경우 설정한 시간여부와 상관없이 표시가 됩니다.";
 	FWL.DISPLAY_TYPES4 = "미리 숨김";
 	FWL.DISPLAY_TYPES4_TT = "주문의 지속시간이 끝나기 전에 타이머 바를 숨깁니다.";
@@ -1115,57 +1271,57 @@ elseif GetLocale() == "koKR" then
 	FWL.DISPLAY_TYPES5_TT = "저항이나 면역으로 인해 주문이 실패할 경우 깜빡이는 바 형태로 알려줍니다.";
 	FWL.DISPLAY_TYPES6 = "실패한 주문 알림 지속시간";
 	FWL.DISPLAY_TYPES6_TT = "실패한 주문을 알려주는 타이머 바가 사라지기 전까지 얼마나 표시될지 설정합니다.";
-	FWL.DISPLAY_TYPES7 = "해로운 주문 표시";
+	FWL.DISPLAY_TYPES7 = "본인의 공격 주문 표시";
 	FWL.DISPLAY_TYPES7_TT = "플레이어가 시전하는 해로운 주문을 타이머 바로 표시합니다.";
-	FWL.DISPLAY_TYPES8 = "도트힐 표시";
+	FWL.DISPLAY_TYPES8 = "지속 치유 주문 표시";
 	FWL.DISPLAY_TYPES8_TT = "지속적으로 들어오는 도트 힐을 타이머 바로 표시합니다.";
 	FWL.DISPLAY_TYPES9 = "아군 주문 표시";
 	FWL.DISPLAY_TYPES9_TT = "아군이 시전하는 주문을 표시합니다.";
 	FWL.DISPLAY_TYPES10 = "소환수 주문 표시";
 	FWL.DISPLAY_TYPES10_TT = "소환수의 주문이나 기술을 표시합니다.";
-	FWL.DISPLAY_TYPES11 = "보스 숨기지 않음";
+	FWL.DISPLAY_TYPES11 = "보스에게 걸린것은 숨기지 않음";
 	FWL.DISPLAY_TYPES11_TT = "보스에게 건 모든 주문은 사리지지 않습니다.";
 	
-	FWL.FADING1 = "종료 알림";
+	FWL.FADING1 = "종료 깜빡임 알림";
 	FWL.FADING1_TT = "주문 타이머 바가 종료되기 3초 전부터 깜빡이기 시작합니다. 처음엔 천천히 동작하다가 후엔 점점 빨라질 것입니다. 실제로 색을 바꾸지 않아도 종료를 미리 알아챌 수 있는 좋은 효과입니다.";
 	FWL.FADING2 = "바 서서히 사라짐";
 	FWL.FADING2_TT = "타이머 바가 종료시 서서히 사라집니다. 특정 즉시시전 주문의 경우 쿨다운이 주문 타이머로 추적되고 있을때 쿨다운이 끝난 직후 바로 사용시 쿨다운 바가 재생되지않고 누락되는 버그가 있을 수 있습니다. (예를들면 점화)";
-	FWL.FADING3 = "종료 후 지연";
-	FWL.FADING3_TT = "타이머 바가 종료된 후 서서히 사라지기 전까지 지연되는 시간입니다.";
-	FWL.FADING4 = "사라지는 시간";
+	FWL.FADING3 = "서서히 사라지는 효과 지연";
+	FWL.FADING3_TT = "이미 종료가 된 타이머 바가 서서히 사라지기 전까지 시간을 의미합니다.";
+	FWL.FADING4 = "사라지는 시간(애니메이션 동작)";
 	FWL.FADING4_TT = "종료 후 서서히 사라지는 총 시간입니다.";
 	FWL.FADING5 = "최근 시전 강조";
 	FWL.FADING5_TT = "가장 최근에 시전한 주문으로 인해 타이머 바가 생성시 0.5 초간 밝은 색깔을 띄어서 확인할 수 있게 합니다.";
-	FWL.FADING6 = "유닛 간 투명화 구분";
+	FWL.FADING6 = "유닛 간 투명화로 구분";
 	FWL.FADING6_TT = "대상(/대상)이나 주시대상(/주시) 유닛이 아닌 기타에 속한 유닛 타이머 바 경우 투명화 효과를 주어 구분하기 쉽게 만듭니다.";
 	FWL.EXTRA1 = "공격대 아이콘 표시";
 	FWL.EXTRA1_TT = "각 유닛의 타이머 바 배경에 공격대 아이콘을 표시합니다."..FWL._EDITBOX_TRANSPARENCY;
 	FWL.EXTRA2 = "공격대 아이콘 투명값";
 	FWL.EXTRA2_TT = "공격대 아이콘을 표시할 때 얼마나 투명할지 설정합니다.";
-	FWL.EXTRA3 = "개선: 지속효과 추적 사용";
+	FWL.EXTRA3 = "개선: 지속피해 효과(도트 틱) 사용";
 	FWL.EXTRA3_TT = "전투기록을 참고하여 지속 데미지 효과를 추적합니다. 좀 더 정확하게 활성화 여부를 판가름할 수 있습니다.";
 	FWL.EXTRA4 = "개션: 파티/공격대 대상 사용";
-	FWL.EXTRA4_TT = "파티/공격대 동료의 대상 정보를 참고하여 효과를 추적합니다.";
-	FWL.EXTRA5 = "추적 동기화";
-	FWL.EXTRA5_TT = "주문 타이머의 지속시간 추적을 대상의 실제 디버프/버프 지속시간과 동기화합니다. 일부 디버프가 다른 기술에 의해서 지속시간이 초기화될 때 필요합니다. 이 애드온이 현재 활용하는 것과는 다른 방법이나 대상의 디버프/버프 정보가 더 신뢰할만 합니다.";
+	FWL.EXTRA4_TT = "파티/공격대 동료의 대상 정보를 참고하여 효과를 추적합니다. 사라지지 않는 주문을 효과적으로 제거할 수 있습니다.";
+	FWL.EXTRA5 = "지속 시간 동기화";
+	FWL.EXTRA5_TT = "주문 타이머의 지속시간 추적을 대상의 실제 디버프/버프 지속시간과 동기화합니다. 일부 디버프가 다른 기술에 의해서 지속시간이 초기화될 때 필요할 수 있습니다. 하지만 대상의 디버프/버프 정보가 더 신뢰성이 있습니다.";
 	FWL.EXTRA6 = "전투 종료 후 강제 소거";
 	FWL.EXTRA6_TT = "매번 전투가 종료될 때마다 남은 지속시간 여부와 상관없이 NPCs 와 관련된 타이머 바를 강제로 제거합니다. 일부상황에서 맞지 않을 가능성이 있으므로 추천하지 않습니다.";
 
-	FWL.HIGHLIGHT = "강조";
-	FWL.FAIL = "실패";
-	FWL.MAGIC_DOT = "마법 지속데미지 효과";
+	FWL.HIGHLIGHT = "최근 주문 강조";
+	FWL.FAIL = "실패한 주문";
+	FWL.MAGIC_DOT = "마법 지속 피해(도트) 효과";
 	FWL.CURSE = "저주";
-	--FWL.CC = "군중제어";
-	FWL.POWERUP_BUFFS = "일시적 강화효과";
-	FWL.HEAL = "치유효과";
-	FWL.FRIENDLY_BUFFS = "아군버프";
+	--FWL.CC = "군중제어 효과";
+	FWL.POWERUP_BUFFS = "일시적 강화 효과";
+	FWL.HEAL = "치유 효과";
+	FWL.FRIENDLY_BUFFS = "아군 버프 효과";
 
-	FWL.ST_CUSTOMIZE_TT = "주문이나 기술에 대해 세부적으로 설정합니다.";
+	FWL.ST_CUSTOMIZE_TT = "개별적으로 설정합니다.";
 	FWL.FAILED_MESSAGE_COLOR = "실패 주문 메시지";
-	FWL.SHOW_FAILED = "실패한주문 보기";
+	FWL.SHOW_FAILED = "실패한 주문 보기";
 	FWL.SHOW_FAILED_TT = "저항이나 면역으로 인해 실패한 주문을 표시합니다.";
 
-	FWL.SHORT_HIDE = "숨기";
+	FWL.SHORT_HIDE = "숨기기";
 	FWL.SHORT_FADE = "사라짐";
 	FWL.SHORT_REMOVED = "제거";
 	FWL.SHORT_RESISTED = "저항";
@@ -1173,28 +1329,28 @@ elseif GetLocale() == "koKR" then
 	FWL.SHORT_EVADED = "회피";
 	FWL.SHORT_REFLECTED = "반사";
 
-	FWL.UPDATE_INTERVAL_SPELL_TIMER = "주문 타이머 업데이트 간격";
+	FWL.UPDATE_INTERVAL_SPELL_TIMER = "주문 타이머 업데이트 주기";
 	FWL.DELAY_TARGET_DEBUFF_CHECK = "대상 디버프 추적 지연시간";
 	FWL.DELAY_DOT_TICKS_INIT = "초기 지속효과 틱 지연";
 	FWL.DELAY_DOT_TICKS = "지속효과 틱 지연";
 	
 	FWL.TIME_LEFT = "사라짐 시간 알림";
 	
-	FWL.NORMAL_TYPE = "일반 주문";
+	FWL.NORMAL_TYPE = "일반 형태";
 	FWL.NORMAL_TYPE_TT = "일반적으로 사용되는 대다수의 주문이나 기술을 말합니다.";
-	FWL.SHARED_TYPE = "공유 주문";
+	FWL.SHARED_TYPE = "공유 형태(1)";
 	FWL.SHARED_TYPE_TT = "한 대상에 오로지 한 종류만 시전 가능한 주문이나 기술을 말합니다. (예를들면 저주)";
-	FWL.OTHER_DEBUFFS = "기타 디버프";
-	FWL.OTHER_DEBUFFS_TT = "다른 사람이 시전한 중요한 디버프나 본인이 직접 시전을 통해 발생하지는 않지만 부가적으로 발생하는 디버프를 추적합니다.(예를들면 불태우기 연마나 어둠의 화살 연마. 이 둘은 어둠의 화살이나 불태우기 기술을 시전시 간접적으로 발생하는 것들입니다) 오로지 대상(/대상)에게 걸린 것만 타이머 바로 표시됩니다.";
-	--FWL.CC_TT = "정신지배 혹은 침묵";
+	FWL.OTHER_DEBUFFS = "레이드 디버프";
+	FWL.OTHER_DEBUFFS_TT = "다른 사람이 시전한 중요한 디버프나 본인이 직접 시전을 통해 발생하지는 않지만 부가적으로 발생하는 디버프를 추적합니다.(예를들면 임계질량이나 어둠과 불길 이 둘은 어둠의 화살,소각 혹은불태우기 기술을 시전시 간접적으로 발생하는 것들입니다) 오로지 대상(/대상)에게 걸린 것만 타이머 바로 표시됩니다.";
+	--FWL.CC_TT = "군중제어 기술 혹은 침묵 효과 주문을 의미합니다.";
 
 	FWL.TICKS = "틱 표시";
 	FWL.TICKS_TT = "타이머 바에 지속 효과의 틱을 표시합니다.";
 	FWL.TICKS_NEXT = "다음 틱만 표시";
 	FWL.TICKS_NEXT_TT = "타이머 바에 다음에 적용될 틱만 표시합니다.";
 	
-	FWL.DRAIN = "흡수 주문";
-	FWL.DRAIN_TT = "가속 효과를 받는 흡수 계열 주문을 표시합니다.";
+	FWL.DRAIN = "흡수 및 채널링 형태";
+	FWL.DRAIN_TT = "흡수 계열 주문을 표시합니다.";
 	
 	FWL.FADE = "사라짐";
 	FWL.BREAK = "풀림";
@@ -1209,7 +1365,7 @@ elseif GetLocale() == "koKR" then
 	FWL.TEST_BARS_TT = "테스트 용 타이머 바를 생성합니다. 여전히 대상(/대상)이나 주시대상(/주시) 유닛에 관련된 타이머 바는 직접 선택해야 합니다.";
 
 	FWL.CAST_GLOW = "시전 시간 미리 알림";
---[[>>]]FWL.CAST_GLOW_TT = "타이머 바를 통해 해당 주문을 다시 시전하기 위해 필요한 시간이나 얼마나 글로벌 쿨타임이 필요한지 알려줍니다. 이 설정은 주문을 다시 적용하기 아주 편리하게 만듭니다. 글로벌 쿨다운은 '"..FWL.ONEMAX.."'이 설정되었을때만 지원이 됩니다.";
+	FWL.CAST_GLOW_TT = "타이머 바를 통해 해당 주문을 다시 시전하기 위해 필요한 시간이나 얼마나 글로벌 쿨타임이 필요한지 알려줍니다. 이 설정은 주문을 다시 적용하기 아주 편리하게 만듭니다. 글로벌 쿨다운은 '"..FWL.ONEMAX.."'이 설정되었을때만 지원이 됩니다.";
 
 	FWL.CUSTOM_TAG = "임의 이름표 제작";
 	FWL.CUSTOM_TAG_TT = "타이머 바에 표시될 임의의 이름표를 만듭니다.\n|cff00ff00id|r 는 대상의 ID .\n|cff00ff00target|r 는 대상의 이름.\n|cff00ff00spell|r 는 주문의 이름 .\n|cff00ff00stacks|r 는 주문의 중첩횟수를 의미합니다.";
@@ -1229,12 +1385,12 @@ elseif GetLocale() == "koKR" then
 	FWL.TIMER_SHOW_TARGET_TT = "대상에게 걸린 주문을 추적하여 표시합니다.";
 	FWL.TIMER_SHOW_FOCUS = "주시대상 유닛 표시";
 	FWL.TIMER_SHOW_FOCUS_TT = "현재 주시대상에게 걸린 주문을 추적하여 표시합니다.";
-	FWL.TIMER_SHOW_OTHER = "기타 유닛 표시";
-	FWL.TIMER_SHOW_OTHER_TT = "대상과 주시대상을 제외한 기타 대상에게 걸린 주문을 추적하여 표시합니다.";
+	FWL.TIMER_SHOW_OTHER = "모든 기타 유닛 표시";
+	FWL.TIMER_SHOW_OTHER_TT = "대상과 주시대상을 제외한 모든 기타 대상에게 걸린 주문을 추적하여 표시합니다.";
 
 	FWL.COOLDOWNS = "쿨다운 표시";
 	FWL.COOLDOWNS_TT = "임의로 지정한 주문의 쿨다운을 표시합니다.";
-	FWL.DEBUFFS = "나에게 걸린 디버프";
+	FWL.DEBUFFS = "q본인에게 걸린 디버프";
 	FWL.DEBUFFS_TT = "본인에게 걸린 디버프의 지속시간을 표시합니다.";
 
 	FWL.TARGET_BACKGROUND = "대상 배경";
@@ -1245,12 +1401,43 @@ elseif GetLocale() == "koKR" then
 
 	FWL._RIGHTCLICK_FOR_OPTIONS = "(오른쪽 클릭 옵션 열기)"
 	
---[[>>]]FWL.CLONES_WORKING = "CLONES AREN'T FULLY WORKING. YOU CANNOT CHANGE WHAT IS DISPLAYED IN THEM YET.";
---[[>>]]FWL.SHOW_WITHOUT_UNIT = "Show without target";
---[[>>]]FWL.TIMER_SORT_ORDER = "Spell Type sort order";
---[[>>]]FWL.TIMER_SORT_ORDER_TT =  "Customize the order in which the different spell types appear on the Spell Timer. The most left tag will appear the closest to the header/anchor. This setting is only used when 'Group by unit' is enabled.\n|cff00ff00buff|r are your self (powerup) buffs.\n|cff00ff00selfdebuff|r are the debuffs on yourself.\n|cff00ff00debuff|r are the raid debuffs on your current target.\n|cff00ff00cooldown|r are your cooldowns.\n|cff00ff00notarget|r are spells that don't have a target (or still need to find/correct their target).\n|cff00ff00target|r are all the other spells that have been cast on units.";
+	FWL.CLONES_WORKING = "복사본 기능은 현재 제대로 작동하고 있지 않습니다. 무엇이 표시되어야할 지 변경할 수 없습니다. 추후 업데이트 될 것입니다.";
+	FWL.SHOW_WITHOUT_UNIT = "유닛 구분과 무관하게 표시";
+	FWL.TIMER_SORT_ORDER = "주문형태 분류순서";
+	FWL.TIMER_SORT_ORDER_TT =  "서로 다른 주문 형태를 임의의 순서로 분류하여 주문 타이머에 표시합니다. 가장 왼쪽에 위치한 태그는 헤더/앵커에 가장 가깝게 표시될 것입니다.이 설정은 '그룹 별로 유닛 표시' 설정이 활성화되었을 때만 제대로 작동합니다. \n|cff00ff00버프|r 은 자신에게 걸린 강화 효과를 의미합니다.\n|cff00ff00걸린디버프|r 는 자신에게 걸린 디버프를 의미합니다.\n|cff00ff00디버프|r 는 자신의 현재 대상에 걸린 디버프를 의미합니다.\n|cff00ff00쿨다운|r 은 자신의 디버프를 의미합니다.\n|cff00ff00대상없음|r 은 대상이 없는 주문이나 대상을 찾거나 수정해야할 필요가 있는 주문이 표시 됩니다.\n|cff00ff00대상|r 은 각 유닛들에게 시전된 기타 모든 주문을 의미합니다.";
 
---[[>>]]FWL.TIMER_SPARK_TT = "Show sparks at the appropriate place in the bars.";
+	FWL.TIMER_SPARK_TT = "바 사이에 적절한 공간에 스파크 효과를 표시합니다.";
+	
+	FWL.SHARED_TYPE2 = "공유형태(2)";
+	FWL.SHARED_TYPE2_TT = "오로지 한 대상에 한종류의 형태만 허용이 되는 주문 계열을 의미합니다. (예를 들면, 파멸).";
+
+	FWL.SHARED_TYPE3 = "공유형태(3)";
+	FWL.SHARED_TYPE3_TT = "오로지 한 대상에 한종류의 형태만 허용이 되는 주문 계열을 의미합니다.";
+
+	FWL.TIMER_SHOW_UKNOWN = "파악하지 못한 유닛의 타이머 표시";
+	FWL.TIMER_SHOW_YOU = "본인에게 걸린 것/쿨다운 표시";
+	FWL.TIMER_RAID_DEBUFFS = "레이드 디버프를 표시";
+
+	FWL.SMART_COUNTDOWN_WIDTH = "스마트 카운트다운 텍스트 기능 사용";
+	FWL.SMART_COUNTDOWN_WIDTH_TT = "이 옵션을 켜면 카운트다운 텍스트가 우측에 배치될 시, 차지하고 있는 너비와 이름표 너비 간의 충돌을 최소화 해줍니다.";
+
+	FWL.TIMER_SMOOTHING = "지속시간 변경 반영 속도";
+	FWL.TIMER_SMOOTHING_TT = "1 은 변경된 지속시간이 즉시 반영이 되며, 20 은 아주 부드럽게 반영이 이루어집니다.";
+
+	FWL.TIMER_HIDE = "전투 종료시 타이머 숨김";
+	FWL.TIMER_HIDE_TT = "전투에서 벗어나면 타이머를 숨깁니다.";
+	FWL.TIMER_COUNTDOWN = "카운트다운 텍스트 표시";
+	FWL.TIMER_COUNTDOWN_TT = "바에 남은 시간을 표시합니다.";
+
+	FWL.TIMER_ICONS = "아이콘 표시";
+	FWL.TIMER_ICONS_TT = "바에 아이콘을 표시합니다.";
+	FWL.TIMER_ICONS_RIGHT = "아이콘을 우측에 배치";
+	FWL.TIMER_ICONS_RIGHT_TT = "아이콘을 원하는 곳에 배치할 수 있습니다.";
+
+	FWL.TIMER_STACKS = "아이콘에 중첩 효과 표시";
+	FWL.TIMER_STACKS_TT = "이름표 대신 아이콘에 중첩 효과를 숫자로 표시합니다.";
+	FWL.TIMER_BAR_LABELS = "유닛/주문 이름 텍스트 표시";
+	FWL.TIMER_BAR_LABELS_TT = "정말 조그마한 바에 도움이 될 것입니다.";
 
 -- ENGLISH
 else	-- standard english version
@@ -1301,7 +1488,7 @@ else	-- standard english version
 	FWL.DISPLAY_MODES7_TT = "Groups timers belonging to the same units together.";
 	FWL.DISPLAY_MODES8 = "Show unit #";
 	FWL.DISPLAY_MODES8_TT = "Shows the 'id' number of each unit in front of its name. This way you can distinguish between units with the same name.";
-	FWL.DISPLAY_MODES9 = "Show spell names";
+	FWL.DISPLAY_MODES9 = "Show spell names instead";
 	FWL.DISPLAY_MODES9_TT = "This will display the names of your spells on the timer bars, instead of the target name.";
 	FWL.DISPLAY_MODES10 = "Show name tags/headers";
 	FWL.DISPLAY_MODES10_TT = "With the '"..FWL.DISPLAY_MODES7.."' option on, unit name tags will appear for each bar group.";
@@ -1456,14 +1643,35 @@ else	-- standard english version
 	FWL.TIMER_SORT_ORDER_TT =  "Customize the order in which the different spell types appear on the Spell Timer. The most left tag will appear the closest to the header/anchor. This setting is only used when 'Group by unit' is enabled.\n|cff00ff00buff|r are your self (powerup) buffs.\n|cff00ff00selfdebuff|r are the debuffs on yourself.\n|cff00ff00debuff|r are the raid debuffs on your current target.\n|cff00ff00cooldown|r are your cooldowns.\n|cff00ff00notarget|r are spells that don't have a target (or still need to find/correct their target).\n|cff00ff00target|r are all the other spells that have been cast on units.";
 
 	FWL.TIMER_SPARK_TT = "Show sparks at the appropriate place in the bars.";
+
+	FWL.SHARED_TYPE2 = "Shared Type (2)";
+	FWL.SHARED_TYPE2_TT = "Types of spells that allow only one spell of this kind up on one target (for example Banes).";
+
+	FWL.SHARED_TYPE3 = "Shared Type (3)";
+	FWL.SHARED_TYPE3_TT = "Types of spells that allow only one spell of this kind up on one target.";
+
+	FWL.TIMER_SHOW_UKNOWN = "Show unknown units";
+	FWL.TIMER_SHOW_YOU = "Show on you / cooldowns";
+	FWL.TIMER_RAID_DEBUFFS = "Show raid debuffs";
+
+	FWL.SMART_COUNTDOWN_WIDTH = "Use smart countdown text width";
+	FWL.SMART_COUNTDOWN_WIDTH_TT = "With this option enabled the width that the countdown text takes up, and therefore also the width of the name label, will remain the same for X seconds. This avoids erratic changes in long names and the position of the countdown texts when on the right side.";
+
+	FWL.TIMER_SMOOTHING = "Duration update smoothing";
+	FWL.TIMER_SMOOTHING_TT = "1 means timers are changed to their new duration instantly, 20 means a very smooth transition.";
+
+	FWL.TIMER_HIDE = "Hide when out of combat";
+	FWL.TIMER_HIDE_TT = "Hide the frame when you get out of combat.";
+	FWL.TIMER_COUNTDOWN = "Show Count down text";
+	FWL.TIMER_COUNTDOWN_TT = "Show the remaining time on the bars.";
+
+	FWL.TIMER_ICONS = "Show icons";
+	FWL.TIMER_ICONS_TT = "Show the spell icons on the bars.";
+	FWL.TIMER_ICONS_RIGHT = "Icons on right";
+	FWL.TIMER_ICONS_RIGHT_TT = "You can display the spell icons on the left or right of the bars.";
+
+	FWL.TIMER_STACKS = "Show stacks on icons";
+	FWL.TIMER_STACKS_TT = "Show the spell stacks on the icons instead of in the bar name label.";
+	FWL.TIMER_BAR_LABELS = "Show unit/spell name text";
+	FWL.TIMER_BAR_LABELS_TT = "Show the bar unit/spell name labels. This may be useful for really small bars.";
 end
-
-FWL.SHARED_TYPE2 = "Shared Type (2)";
-FWL.SHARED_TYPE2_TT = "Types of spells that allow only one spell of this kind up on one target (for example Banes).";
-
-FWL.SHARED_TYPE3 = "Shared Type (3)";
-FWL.SHARED_TYPE3_TT = "Types of spells that allow only one spell of this kind up on one target.";
-
-FWL.TIMER_SHOW_UKNOWN = "Show unknown units";
-FWL.TIMER_SHOW_YOU = "Show on you / cooldowns";
-FWL.TIMER_RAID_DEBUFFS = "Show raid debuffs";

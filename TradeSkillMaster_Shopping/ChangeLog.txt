@@ -1,3 +1,6 @@
+v0.1.8
+*Added a few more bug fixes.
+
 v0.1.7
 *Fixed a bug with Dealfinding occasionally giving an error.
 *Localization files should now be loaded correctly.

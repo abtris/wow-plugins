@@ -513,7 +513,7 @@ function Destroying:RunScan(item)
 				-- add the pigment to the queue
 				name = TSM:GetItemName(data.pigment)
 				if name then
-					tinsert(queue, {itemID=sID, name=name})
+					tinsert(queue, {itemID=data.pigment, name=name})
 				else
 					Destroying.runDelay.timeLeft = 0.1
 					Destroying.runDelay.item = item
@@ -573,7 +573,8 @@ function Destroying:RunScan(item)
 		end
 	end
 	
-	foreach(queue, function(i, v) if type(v) == "table" then v = "table:XXXXX" end debug(i, v) end)
+	--foreach(queue, function(i, v) if type(v) == "table" then foreach(v, debug) v = "TABLE:XXXXX" end debug(i, v) end)
+	debug("start scan", #queue)
 	TSM.Scan:StartScan(queue, "Destroying")
 end
 

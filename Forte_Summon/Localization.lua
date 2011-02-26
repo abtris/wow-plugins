@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+﻿-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 
 --[[
 "frFR": French
@@ -285,8 +285,8 @@ elseif GetLocale() == "koKR" then
 	FWL.SUMMON_REQUEST_FOR = "<< %s 소환 요청 >>";
 	FWL.SUMMON_REQUEST_BY = "<<  %s 소환 요청 >>";
 
-	FWL.FAR_ = "멀리 ";
-	FWL._ALL = " 모두";
+	FWL.FAR_ = "너무 멀리 있음";
+	FWL._ALL = "모두 위치";
 
 --[[>>]]FWL.UPDATE_INTERVAL_SUMMON = "Update interval summon assistant";	
 	

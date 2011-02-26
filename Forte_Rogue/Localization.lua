@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+﻿-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 
 --[[
 "frFR": French
@@ -48,8 +48,8 @@ if FW.CLASS == "ROGUE" then
 		
 	--Korean
 	elseif GetLocale() == "koKR" then
-	--[[>>]]FWL.SAP_BREAK = "Sap Break";
-	--[[>>]]FWL.SAP_FADE = "Sap Fade";	
+		FWL.SAP_BREAK = "기절 효과 깨짐";
+		FWL.SAP_FADE = "기절 효과 풀림";
 		
 	-- ENGLISH
 	else	-- standard english version

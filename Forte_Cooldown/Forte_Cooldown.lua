@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 
 local CD = FW:Module("Cooldown");
 local FW = FW;
@@ -980,6 +980,7 @@ function CD:RegisterCasterPowerupCooldowns()
 	
 	CD:RegisterHiddenCooldown(59326,91007,100); -- Bell of Enraging Resonance, Dire Magic
 	CD:RegisterHiddenCooldown(59519,91024,90); -- Theralion's Mirror, Revelation
+	CD:RegisterHiddenCooldown(62472,91192,50); -- Mandala of Stirring Patterns, Pattern of Light
 
 	CD:RegisterHiddenCooldown(nil,59626,35); -- Black Magic
 	CD:RegisterHiddenCooldown(nil,55637,45); -- Lightweave
@@ -1183,7 +1184,8 @@ local function NewBar(parent,n)
 	bar.icon.texture:SetTexCoord(0.133,0.867,0.133,0.867);
 	
 	bar.tag = bar.icon:CreateFontString(nil,"OVERLAY","GameFontHighlightSmall");
-	bar.tag:SetJustifyH("CENTER");	
+	bar.tag:SetJustifyH("CENTER");
+	bar.tag:SetPoint("BOTTOMLEFT", bar.icon, "BOTTOMLEFT", 0, 0);
 	
 	--scripts
 	bar.icon:SetScript("OnClick",function(self,button) 
@@ -1224,7 +1226,7 @@ local function NewBar(parent,n)
 		self.texture:SetTexture(s.Texture);
 		self.icon:SetWidth(ih);
 		self.icon:SetHeight(ih);
-		
+
 		if s.SparkEnable then
 			self.icon.spark:SetWidth((ih)*2.2);
 			self.icon.spark:SetHeight((ih)*2.2);
@@ -1233,8 +1235,12 @@ local function NewBar(parent,n)
 		else
 			self.icon.spark:Hide();
 		end
-		self.tag:SetFont(s.IconFont,s.IconFontSize,"OUTLINE");
-		
+		if s.IconText then
+			self.tag:SetFont(s.IconFont,s.IconFontSize,"OUTLINE");
+			self.tag:Show();
+		else
+			self.tag:Hide();
+		end		
 		self:SetPoint("TOPLEFT", self.parent, "TOPLEFT", s.Backdrop[6],-s.Backdrop[6]);
 		self:SetPoint("BOTTOMRIGHT", self.parent, "BOTTOMRIGHT", -s.Backdrop[6],s.Backdrop[6]);
 		
@@ -1421,11 +1427,13 @@ local function CD_NewCooldownFrame(name,displayname)
 			if self:GetAlpha()<s.alpha then
 				self:SetAlpha(self:GetAlpha()+0.1);
 			end
-			self:Show();
+			if not self:IsShown() then
+				self:Show();
+			end
 		else
 			if self:GetAlpha()>0.1 then
 				self:SetAlpha(self:GetAlpha()-0.1);
-			else
+			elseif self:IsShown() then
 				self:Hide();
 			end
 		end
@@ -1464,9 +1472,9 @@ local function CD_NewCooldownFrame(name,displayname)
 					bar.splashicon:Hide();
 					bar.splashiconspark:Hide();
 				end
-				if t2>60 then t2=ceil(t2/60) else t2=floor(t2) end;
+				--if t2>60 then t2=ceil(t2/60) else t2=floor(t2) end;
 				bar.icon:SetNormalTexture(t5);
-				bar.tag:SetText(t2);
+				bar.tag:SetText(FW:SecToTimeD(t2));
 				bar:SetAlpha(t14);
 				local r,g,b = ColorVal(self,t6,t1,t18);
 				--local a = 1-(1-s.Alpha)*t7;
@@ -1484,10 +1492,12 @@ local function CD_NewCooldownFrame(name,displayname)
 				end
 				bar.icon.spark:SetVertexColor(r,g,b);
 				bar.splashiconspark:SetVertexColor(r,g,b);
-				if s.IconTextEnable then
-					bar.tag:SetTextColor(unpack(s.IconTextColor));
-				else
-					bar.tag:SetTextColor(r,g,b);
+				if s.IconText then
+					if s.IconTextEnable then
+						bar.tag:SetTextColor(unpack(s.IconTextColor));
+					else
+						bar.tag:SetTextColor(r,g,b);
+					end
 				end
 				bar.texture:ClearAllPoints();
 				if s.Vertical then
@@ -1496,13 +1506,11 @@ local function CD_NewCooldownFrame(name,displayname)
 						bar.texture:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", 0, s.Width-t9);
 						bar.texture:SetPoint("TOPRIGHT", bar, "TOPRIGHT", 0, -t12);	
 						bar.icon:SetPoint("CENTER", bar, "TOP", 0, -t10);
-						bar.tag:SetPoint("CENTER", bar, "TOP", 0, -t10);
 					else
 						bar.texture:SetTexCoord(t7,0,t8,0, t7,1, t8,1);
 						bar.texture:SetPoint("TOPLEFT", bar, "TOPLEFT", 0, t9-s.Width);
 						bar.texture:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", 0, t12);	
 						bar.icon:SetPoint("CENTER", bar, "BOTTOM", 0, t10);
-						bar.tag:SetPoint("CENTER", bar, "BOTTOM", 0, t10);
 					end
 				else
 					if s.Flip then
@@ -1510,13 +1518,11 @@ local function CD_NewCooldownFrame(name,displayname)
 						bar.texture:SetPoint("TOPRIGHT", bar, "TOPRIGHT",-t12, 0);
 						bar.texture:SetPoint("BOTTOMLEFT", bar, "BOTTOMLEFT", s.Width-t9, 0);
 						bar.icon:SetPoint("CENTER",bar, "RIGHT", -t10, 0);
-						bar.tag:SetPoint("CENTER", bar, "RIGHT", -t10, 0);	
 					else
 						bar.texture:SetTexCoord(t8,0, t8,1, t7,0, t7,1);
 						bar.texture:SetPoint("TOPLEFT", bar, "TOPLEFT", t12, 0);
 						bar.texture:SetPoint("BOTTOMRIGHT", bar, "BOTTOMRIGHT", t9-s.Width, 0);
 						bar.icon:SetPoint("CENTER", bar, "LEFT", t10, 0);
-						bar.tag:SetPoint("CENTER", bar, "LEFT", t10, 0);
 					end
 				end
 				bar:Show();
@@ -1644,9 +1650,11 @@ FW:SetMainCategory(FWL.COOLDOWN_TIMER,FW.ICON.CD,4,"COOLDOWN","Cooldown","Cooldo
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.MASTER_ICONS,	FWL.MASTER_ICONS_TT,	"GroupOverride",CD_MakeMasters);
 		FW:RegisterOption(FW.NU2,1,FW.NON,FWL.SHOW_GLOW, 	FWL.SHOW_GLOW_TT..FWL._EDITBOX_TRANSPARENCY,		"Spark",		CD_CooldownShow,0,1);
 		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.CD_WARNING,	FWL.CD_WARNING_TT,		"Warn",			CD_RegisterSpellFailed);
-		FW:RegisterOption(FW.CO2,1,FW.NON,FWL.ICON_TEXT,	FWL.ICON_TEXT_TT,		"IconText",	CD_CooldownShow);
+		FW:RegisterOption(FW.NIL,1,FW.NON);
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.CD_SPECIFIC9,	FWL.CD_SPECIFIC9_TT,	"Alpha",		nil,			0,1);
 		FW:RegisterOption(FW.NUM,1,FW.NON,FWL.CD_SPECIFIC10,FWL.CD_SPECIFIC10_TT,	"AlphaMax",		nil,			0,1);
+		FW:RegisterOption(FW.CHK,1,FW.NON,FWL.ICON_TEXT,	FWL.ICON_TEXT_TT,		"IconText",	CD_CooldownShow);
+		FW:RegisterOption(FW.CO2,1,FW.NON,FWL.ICON_TEXT_COLOR,FWL.ICON_TEXT_COLOR_TT,"IconText",CD_CooldownShow);
 		FW:RegisterOption(FW.FNT,2,FW.NON,FWL.ICON_FONT,	FWL.ICON_TEXT_TT,		"IconFont",	CD_CooldownShow);
 	
 	FW:SetSubCategory(FWL.CD_SPLASH,FW.ICON.GLOW,3);
@@ -1738,8 +1746,8 @@ FW.Default.SplashStrata = FW.Default.Strata;
 FW.Default.Cooldown = {};
 FW.Default.Cooldown.Enable = true;
 FW.Default.Cooldown.Width = 250;
-FW.Default.Cooldown.Height = 16;
-FW.Default.Cooldown.IconSize = 16;
+FW.Default.Cooldown.Height = 24;
+FW.Default.Cooldown.IconSize = 36;
 FW.Default.Cooldown.IconSizeEnable = false;
 FW.Default.Cooldown.Font = FW.Default.Font;
 FW.Default.Cooldown.FontSize = FW.Default.FontSize;
@@ -1747,7 +1755,7 @@ FW.Default.Cooldown.Texture = FW.Default.Texture;
 FW.Default.Cooldown.Vertical = false;
 FW.Default.Cooldown.Flip = false;
 FW.Default.Cooldown.IconFont = FW.Default.Font;
-FW.Default.Cooldown.IconFontSize = FW.Default.FontSize;
+FW.Default.Cooldown.IconFontSize = FW.Default.FontSize-1;
 FW.Default.Cooldown.Splash = true;
 FW.Default.Cooldown.SplashFactor = 4;
 FW.Default.Cooldown.Hide = false;
@@ -1778,9 +1786,11 @@ FW.Default.Cooldown.Tags = 6;
 FW.Default.Cooldown.CustomTags = true;
 FW.Default.Cooldown.CustomTagsMsg = "0 1 10 30 60 120 300 600"; --[[900 1200 1800 2700 3600 5400]]
 
+FW.Default.Cooldown.IconText = true;
+
 FW.Default.Cooldown.TextColor = 		{1.00,1.00,1.00,0.20};
-FW.Default.Cooldown.IconTextColor =	{1.00,1.00,1.00,0.00};
-FW.Default.Cooldown.IconTextEnable =	true;
+FW.Default.Cooldown.IconTextColor =	{1.00,1.00,1.00,1.00};
+FW.Default.Cooldown.IconTextEnable =	false;
 FW.Default.Cooldown.BgColor = 		{0.00,0.00,0.00,0.50};
 FW.Default.Cooldown.BarColor = 		{1.00,1.00,1.00,0.20};
 

@@ -26,7 +26,7 @@ function Post:StartScan()
 		if TSMAuc:IsValidBag(bag) then
 			for slot=1, GetContainerNumSlots(bag) do
 				local itemID = TSMAuc:GetItemString(GetContainerItemLink(bag, slot))
-				if itemID and TSMAuc.itemReverseLookup[itemID] then
+				if itemID and TSMAuc.itemReverseLookup[itemID] and TSMAuc.Config:ShouldScan(itemID, isCancel) then
 					tempList[itemID] = true
 				end
 			end
@@ -77,7 +77,6 @@ function Post:StartScan()
 			TSMAPI:UpdateSidebarStatusBar(postStatus)
 		end, 0.3)
 	
-	
 	TSMAuc.Scan:StartItemScan(scanList)
 end
 
@@ -95,6 +94,10 @@ function Post:MessageHandler(msg, ...)
 		local interrupted = ...
 		if interrupted or #(postQueue) == 0 then
 			Post:StopPosting()
+		else
+			if TSMAuc.db.global.enableSounds then
+				PlaySound("ReadyCheck")
+			end
 		end
 	elseif msg == "TSMAuc_AH_CLOSED" then
 		Post:StopPosting()
@@ -146,12 +149,7 @@ function Post:ProcessItem(itemID)
 	-- Check if we're going to go below the threshold
 	if buyout and TSMAuc.Config:GetConfigValue(itemID, "reset") == "none" then
 		-- Smart undercutting is enabled, and the auction is for at least 1 gold, round it down to the nearest gold piece
-		local testBuyout = buyout
-		if TSMAuc.db.global.smartUndercut and testBuyout > COPPER_PER_GOLD then
-			testBuyout = math.floor(buyout / COPPER_PER_GOLD) * COPPER_PER_GOLD
-		else
-			testBuyout = testBuyout - TSMAuc.Config:GetConfigValue(itemID, "undercut")
-		end
+		local testBuyout = buyout - TSMAuc.Config:GetConfigValue(itemID, "undercut")
 		
 		if testBuyout < threshold and buyout <= threshold then
 			msgTable.scanData={action="Skip", actionReason="below threshold", postedAmount = activeAuctions, totalPostingAmount = postCap, lowestBuyout=buyout}

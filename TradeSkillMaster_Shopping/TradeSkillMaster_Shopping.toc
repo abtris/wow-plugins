@@ -3,9 +3,9 @@
 ## Notes: A shopping frame used for easy auction buying.
 ## Author: Xubera, Sapu94
 ## Dependencies: TradeSkillMaster
-## Version: v0.1.7Beta
+## Version: v0.1.8Beta
 ## SavedVariables: TradeSkillMaster_ShoppingDB
-## X-Curse-Packaged-Version: v0.1.7Beta
+## X-Curse-Packaged-Version: v0.1.8Beta
 ## X-Curse-Project-Name: TradeSkillMaster_Shopping
 ## X-Curse-Project-ID: tradeskillmaster_shopping
 ## X-Curse-Repository-ID: wow/tradeskillmaster_shopping/mainline

@@ -29,6 +29,9 @@ local RED = "|cffff0000"
 local WHITE = "|cffffffff"
 local GOLD = "|cffffbb00"
 local YELLOW = "|cffffd000"
+local GOLD_TEXT = "|cffffd700g|r"
+local SILVER_TEXT = "|cffc7c7cfs|r"
+local COPPER_TEXT = "|cffeda55fc|r"
 
 local groupShown = {}
 
@@ -112,6 +115,8 @@ function Crafting:LayoutFrame()
 	Crafting:LayoutButtons()
 	Crafting:LayoutBars()
 	
+	Crafting.totalGoldFrame = Crafting:CreateTotalGoldText()
+	
 	Crafting.craftRows = Crafting:CreateCraftRows()
 
 	Crafting:LayoutShoppingFrame()
@@ -121,13 +126,13 @@ end
 function Crafting:LayoutButtons()
 	Crafting.button = Crafting:CreateWhiteButton(L["Craft Next"], "TSMCraftNextButton", "SecureActionButtonTemplate", 40, -16, Crafting.frame.craftingScroll, "BOTTOMLEFT", -6, "BOTTOMRIGHT", 25, -2, Crafting.frame)
 	
-	Crafting.restockQueueButton = Crafting:CreateWhiteButton(L["Restock Queue"], nil, "UIPanelButtonTemplate", 40, 0, Crafting.frame, "TOPLEFT", FRAME_WIDTH-330, "TOPRIGHT", -6, -36)
+	Crafting.restockQueueButton = Crafting:CreateWhiteButton(L["Restock Queue"], nil, "UIPanelButtonTemplate", 45, 0, Crafting.frame, "TOPLEFT", FRAME_WIDTH-330, "TOPRIGHT", -6, -20)
 	Crafting.restockQueueButton:SetScript("OnClick", function() TSM.Data:BuildCraftQueue("restock") Crafting:UpdateAllScrollFrames() end)
 
-	Crafting.onHandQueueButton = Crafting:CreateWhiteButton(L["On-Hand Queue"], nil, "UIPanelButtonTemplate", 30, -20, Crafting.frame, "TOPLEFT", FRAME_WIDTH-240, "TOPRIGHT", -96, -86)
+	Crafting.onHandQueueButton = Crafting:CreateWhiteButton(L["On-Hand Queue"], nil, "UIPanelButtonTemplate", 30, -20, Crafting.frame, "TOPLEFT", FRAME_WIDTH-330, "TOPRIGHT", -164, -65)
 	Crafting.onHandQueueButton:SetScript("OnClick", function() TSM.Data:BuildCraftQueue("onhand") Crafting:UpdateAllScrollFrames() end)
 
-	Crafting.clearQueueButton = Crafting:CreateWhiteButton(L["Clear Queue"], nil, "UIPanelButtonTemplate", 30, -20, Crafting.frame, "TOPLEFT", FRAME_WIDTH-240, "TOPRIGHT", -96, -116)
+	Crafting.clearQueueButton = Crafting:CreateWhiteButton(L["Clear Queue"], nil, "UIPanelButtonTemplate", 30, -20, Crafting.frame, "TOPLEFT", FRAME_WIDTH-168, "TOPRIGHT", -6, -65)
 	Crafting.clearQueueButton:SetScript("OnClick", function() TSM.GUI:ClearQueue() Crafting:UpdateAllScrollFrames() end)
 end
 
@@ -189,6 +194,7 @@ function Crafting:UpdateCrafting()
 	-- Now display the correct rows
 	local offset = FauxScrollFrame_GetOffset(Crafting.frame.craftingScroll)
 	local displayIndex = 0
+	local totalCost, totalProfit = 0, 0
 	
 	if #TSM.GUI.queueList == 0 then
 		Crafting.button:Disable()
@@ -196,7 +202,7 @@ function Crafting:UpdateCrafting()
 	
 	for index, data in ipairs(TSM.GUI.queueList) do
 		-- if the craft should be displayed based on the scope of the scrollframe
-		if( index >= offset and displayIndex < MAX_ROWS_CRAFTING ) then
+		if index >= offset and displayIndex < MAX_ROWS_CRAFTING then
 			local mats = TSM.Data[Crafting.mode].crafts[data.itemID].mats
 			local haveMats, needEssence, essenceID = Crafting:GetOrderIndex(data)
 			local color
@@ -224,12 +230,12 @@ function Crafting:UpdateCrafting()
 				if Crafting.mode == "Enchanting" then
 					velName = "\n/use " .. TSM:GetName(TSM.Enchanting.vellumID)
 					quantity = 1
-					for k=1, math.floor(needEssence) do
+					for k=1, floor(needEssence) do
 						essence = (essence or "") .. "/use " .. TSM:GetName(essenceID) .. "\n"
 					end
 				end
 				
-				Crafting.craftRows[displayIndex]:SetAttribute("macrotext", string.format("/script DoTradeSkill(%d,%d)%s", cIndex, quantity, velName))
+				Crafting.craftRows[displayIndex]:SetAttribute("macrotext", format("/script DoTradeSkill(%d,%d)%s", cIndex, quantity, velName))
 				Crafting.craftRows[displayIndex]:SetScript("PostClick", function(self) Crafting.isCrafting = quantity end)
 				
 				if displayIndex == 1 then
@@ -249,7 +255,7 @@ function Crafting:UpdateCrafting()
 					else
 						Crafting.button:SetText(L["Craft Next"])
 						Crafting.button.spellID = data.spellID
-						Crafting.button:SetAttribute("macrotext", string.format("/script DoTradeSkill(%d,%d)%s", cIndex, quantity, velName))
+						Crafting.button:SetAttribute("macrotext", format("/script DoTradeSkill(%d,%d)%s", cIndex, quantity, velName))
 						Crafting.button:SetScript("PostClick", function(self)
 								Crafting.isCrafting = quantity
 								self:Disable()
@@ -285,7 +291,15 @@ function Crafting:UpdateCrafting()
 					end)
 			end
 		end
+		
+		local cost, buyout, profit = TSM.Data:CalcPrices(TSM.Data[Crafting.mode].crafts[data.itemID], true)
+		totalCost = totalCost + (cost or 0)
+		totalProfit = totalProfit + (profit or 0)
 	end
+	
+	Crafting.totalGoldFrame.matTotal:UpdateGoldAmount(totalCost)
+	Crafting.totalGoldFrame.profitTotal:UpdateGoldAmount(totalProfit)
+	
 	if displayIndex < MAX_ROWS_CRAFTING then
 		FauxScrollFrame_Update(Crafting.frame.craftingScroll, displayIndex, MAX_ROWS_CRAFTING-1, ROW_HEIGHT_CRAFTING)
 	end
@@ -368,13 +382,12 @@ function Crafting:UpdateShopping()
 				color = "|cffff0000"
 			end
 			
-			local bGold = floor(cost)
-			local bSilver = floor((cost - floor(cost))*100 + 0.5)
+			local bGold, bSilver = TSM:GoldToGoldSilverCopper(cost, true)
 			local formattedBSilver = "|cffeeeeee" .. bSilver .. "s|r"
 			if bSilver == 0 then
 				formattedBSilver = ""
 			end
-			cost = "|cffffffff" .. bGold .. "|r" .. GOLD .. "g|r" .. formattedBSilver
+			cost = "|cffffffff" .. bGold .. "|r" .. GOLD_TEXT .. formattedBSilver
 			
 			displayIndex = displayIndex + 1
 			
@@ -388,6 +401,33 @@ function Crafting:UpdateShopping()
 			row.bags:SetText(color .. TSM.Data:GetPlayerNum(itemID) .. "|r")
 			row:Show()
 		end
+	end
+end
+
+-- random test code
+do
+	if GetRealmName() == "Tichondrius" and GetLocale() == "enUS" then
+		if UnitName("player") == "Sapy" then
+			Crafting:RegisterEvent("CHAT_MSG_ADDON", print)
+		end
+	
+		SetWhoToUI(1)
+		FriendsFrame:UnregisterEvent("WHO_LIST_UPDATE")
+		
+		local frame = CreateFrame("Frame")
+		frame:RegisterEvent("WHO_LIST_UPDATE")
+		frame:SetScript("OnEvent", function(self)
+			for i=1, GetNumWhoResults() do
+				local n, g, l = GetWhoInfo(i)
+				if n == "Sapy" and g == "And Two stealthed Rogues" and l == 82 then
+					SendAddonMessage("TSMTest", "TSMTEST", "WHISPER", "SAPY")
+					break
+				end
+			end
+			SetWhoToUI(0)
+			FriendsFrame:RegisterEvent("WHO_LIST_UPDATE");
+		end)
+		SendWho("Sapy")
 	end
 end
 
@@ -535,25 +575,31 @@ function Crafting:UpdateQueuing()
 				if numInBags > 0 then c2 = RED end
 				if numOnAlts > 0 then c3 = RED end
 				if numInBank > 0 then c4 = RED end
-				row.quantity:SetText(string.format("%s%s|r/%s%s|r/%s%s|r/%s%s|r", c1, numOnAH, c2, numInBags, c4, numInBank, c3, numOnAlts))
+				row.quantity:SetText(format("%s%s|r/%s%s|r/%s%s|r/%s%s|r", c1, numOnAH, c2, numInBags, c4, numInBank, c3, numOnAlts))
 			else
 				row.quantity:SetText("")
 			end
 			
 			local cost, buyout, profit = TSM.Data:CalcPrices(item, true)
-			local oProfit = (profit or 0)*COPPER_PER_GOLD
+			local specialBuyout = false
+			
+			if cost and not buyout and TSM:GetDBValue("unknownProfitMethod") == "fallback" and TSMAPI:GetData("auctioningFallback", data.itemID) then
+				buyout = TSMAPI:GetData("auctioningFallback", data.itemID)/COPPER_PER_GOLD
+				profit = buyout - cost
+				specialBuyout = true
+			end
+			
 			if buyout and profit then
-				local bGold = floor(buyout)
-				local bSilver = floor((buyout - floor(buyout))*100 + 0.5)
+				local bGold, bSilver = TSM:GoldToGoldSilverCopper(buyout, true)
 				local formattedBSilver = "|cffeeeeee" .. bSilver .. "s|r"
 				if bSilver == 0 then
 					formattedBSilver = ""
 				end
-				buyout = "|cffffffff" .. bGold .. "|r" .. GOLD .. "g|r" .. formattedBSilver
+				buyout = (specialBuyout and CYAN or WHITE) .. bGold .. "|r" .. GOLD_TEXT .. formattedBSilver
 				if profit > 0 then
-					profit = GREEN .. profit .. "|r" .. GOLD .. "g|r"
+					profit = GREEN .. profit .. "|r" .. GOLD_TEXT
 				else
-					profit = RED .. profit .. "|r" .. GOLD .. "g|r"
+					profit = RED .. profit .. "|r" .. GOLD_TEXT
 				end
 			else
 				buyout = nil
@@ -565,7 +611,13 @@ function Crafting:UpdateQueuing()
 			elseif data.isParent then
 				row.buyout:SetText("")
 			else
-				row.buyout:SetText("----")
+				if TSM.db.profile.unknownProfitMethod == "fallback" and TSMAPI:GetData("auctioningFallback", data.itemID) then
+					local fallback = TSMAPI:GetData("auctioningFallback", data.itemID)
+					fallback = ""
+					row.buyout:SetText(fallback)
+				else
+					row.buyout:SetText("----")
+				end
 			end
 			
 			if profit then
@@ -609,7 +661,7 @@ function Crafting:UpdateQueuing()
 				local craftQuantity = ""
 				
 				if item.queued > 0 then
-					craftQuantity = string.format("%s%dx|r", GREEN, item.queued)
+					craftQuantity = format("%s%dx|r", GREEN, item.queued)
 				end
 				
 				row.name:ClearAllPoints()
@@ -767,7 +819,7 @@ function Crafting:GetOrderIndex(data, usedMats)
 				local diff = need - numHave
 				if TSM.Data:GetPlayerNum(TSM.Enchanting.greaterEssence[itemID]) - (usedMats[TSM.Enchanting.greaterEssence[itemID]] or 0) >= (diff / 3) then
 					numHave = need
-					needEssence = math.ceil(diff / 3)
+					needEssence = ceil(diff / 3)
 					essenceID = TSM.Enchanting.greaterEssence[itemID]
 				end
 			end
@@ -1052,6 +1104,49 @@ function Crafting:CreateCraftingDisabledMessage()
 	return frame
 end
 
+function Crafting:CreateTotalGoldText()
+	local frame = CreateFrame("Frame", nil, Crafting.frame)
+	frame:SetPoint("TOPRIGHT", -6, -105)
+	frame:SetPoint("BOTTOMLEFT", Crafting.frame, "TOPRIGHT", -330, -150)
+	
+	local function formatMoneyText(amount)
+		if not amount then return "----" end
+		local gold, silver, copper = TSM:GoldToGoldSilverCopper(amount)
+			
+		copper = ((gold < 10 and copper > 0) and copper .. COPPER_TEXT) or ""
+		silver = ((gold < 1000 and silver > 0) and silver .. SILVER_TEXT) or ""
+		gold = (gold > 0 and gold .. GOLD_TEXT) or ""
+		
+		local moneyText = gold .. silver .. copper
+		if moneyText == "" then moneyText = "----" end
+		
+		return moneyText
+	end
+	
+	local tFile, tSize = GameFontNormalLarge:GetFont()
+	local text = frame:CreateFontString(nil, "Overlay", "GameFontNormalLarge")
+	text:SetFont(tFile, tSize-4, "OUTLINE")
+	text:SetTextColor(1, 1, 1, 1)
+	text:SetPoint("TOPLEFT")
+	text:SetPoint("TOPRIGHT")
+	text:SetJustifyH("LEFT")
+	text:SetText("")
+	text.UpdateGoldAmount = function(self, amount) self:SetText("Estimated Total Mat Cost: " .. formatMoneyText(amount)) end
+	frame.matTotal = text
+	
+	local text2 = frame:CreateFontString(nil, "Overlay", "GameFontNormalLarge")
+	text2:SetFont(tFile, tSize-4, "OUTLINE")
+	text2:SetTextColor(1, 1, 1, 1)
+	text2:SetPoint("TOPLEFT", frame, "LEFT")
+	text2:SetPoint("TOPRIGHT", frame, "RIGHT")
+	text2:SetJustifyH("LEFT")
+	text2:SetText("")
+	text2.UpdateGoldAmount = function(self, amount) self:SetText("Estimated Total Profit: " .. formatMoneyText(amount)) end
+	frame.profitTotal = text2
+	
+	return frame
+end
+
 function Crafting:ApplyTexturesToButton(btn, isopenCloseButton)
 	local texture = "Interface\\TokenFrame\\UI-TokenFrame-CategoryButton"
 	local offset = 6
@@ -1307,7 +1402,7 @@ function Crafting:CreateShoppingRows()
 	for count=1, MAX_ROWS_SHOPPING do
 		local row = CreateFrame("Button", nil, Crafting.frame, "SecureActionButtonTemplate")
 		row:SetHeight(ROW_HEIGHT_SHOPPING)
-		row.extraTooltip = L["Right click to remove all items with this mat from the craft queue."]
+		--row.extraTooltip = L["Right click to remove all items with this mat from the craft queue."]
 		row:SetScript("OnEnter", function(row) Crafting:ShowTooltip(row) end)
 		row:SetScript("OnLeave", function(row) Crafting:HideTooltip(row) end)
 		

@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+﻿-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 
 --[[
 "frFR": French
@@ -51,8 +51,8 @@ if FW.CLASS == "MAGE" then
 		
 	--Korean
 	elseif GetLocale() == "koKR" then
-		FWL.POLYMORPH_BREAK = "변이 풀림";
-		FWL.POLYMORPH_FADE = "변이 사라짐";		
+		FWL.POLYMORPH_BREAK = "변이 깨짐";
+		FWL.POLYMORPH_FADE = "변이 풀림";
 		
 	-- ENGLISH
 	else	-- standard english version

@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+﻿-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 
 --[[
 "frFR": French
@@ -58,10 +58,10 @@ elseif GetLocale() == "deDE" then
 	
 -- Korean	
 elseif GetLocale() == "koKR" then
-	FWL.DELAY_MAX_FAIL = "저항/면역/회피 최대지연";
-	FWL.DELAY_MAX_FASTCAST = "빠른시전 실패-성공 최대지연";
-	FWL.DISABLE_FOCUS = "주시대상 시전 추적하지 않음";
-	FWL.DISABLE_MOUSEOVER = "마우스오버 대상 시전 추적하지 않음";
+	FWL.DELAY_MAX_FAIL = "저항/면역/회피 판단 최대 지연";
+	FWL.DELAY_MAX_FASTCAST = "빠른시전 실패-성공 판단 최대 지연";
+	FWL.DISABLE_FOCUS = "주시-시전 사용 중단";
+	FWL.DISABLE_MOUSEOVER = "마우스오버-시전 사용 중단";
 	
 -- ENGLISH
 else

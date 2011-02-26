@@ -2133,7 +2133,7 @@ function PowaAuras:CustomTexturesChecked()
 		aura.textaura = false;
 		PowaBarAuraTextureSlider:Hide();
 		PowaBarCustomTexName:Show();
-		PowaBarCustomTexName:SetText(self.Auras[auraId].customname);
+		PowaBarCustomTexName:SetText(self.Auras[aura.id].customname);
 		PowaOwntexButton:SetChecked(false);
 		PowaWowTextureButton:SetChecked(false);
 		PowaTextAuraButton:SetChecked(false);

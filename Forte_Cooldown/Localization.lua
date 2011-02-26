@@ -1,4 +1,4 @@
-﻿-- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+﻿-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 
 --[[
 "frFR": French
@@ -8,7 +8,7 @@
 "enGB": British english
 "zhCN": Simplified Chinese
 "zhTW": Traditional Chinese
-"ruRU": Russian
+"ruRU": Russia
 "koKR": Korean
 
 !! Make sure to keep this saved as UTF-8 format !!
@@ -74,9 +74,9 @@ elseif GetLocale() == "zhTW" then
 -- KoKR
 elseif GetLocale() == "koKR" then
 
-	FWL.MANA_POTION = "마나물약$"; -- is All types
-	FWL.HEALING_POTION = "치유물약$"; -- is All types
-	FWL.PROTECTION_POTION = "보호물약$"; -- is All types
+	FWL.MANA_POTION = "마나 물약$"; -- is All types
+	FWL.HEALING_POTION = "치유 물약$"; -- is All types
+	FWL.PROTECTION_POTION = "보호 물약$"; -- is All types
 	FWL.SOULSTONE = "영혼석$"; -- is All types
 	FWL.HEALTHSTONE = "생명석$"; -- is All types
 
@@ -141,9 +141,8 @@ if GetLocale() == "frFR" then
 	FWL.BUFF = "Buff";
 	FWL.DEBUFF = "Debuff";
 
-	FWL.ICON_FONT = "Icon Font";
-	FWL.ICON_TEXT = "Icon text";
-	FWL.ICON_TEXT_TT = "This is the time text on the cooldown icons themselves. To show these, change the text color transparency.";
+	FWL.ICON_TEXT = "Show Icon text";
+	FWL.ICON_TEXT_TT = "Enable to show the time text on the cooldown icons themselves.";
 
 	FWL.UPDATE_INTERVAL_BUFFS = "Update interval buffs";
 	
@@ -185,7 +184,14 @@ if GetLocale() == "frFR" then
 	FWL.MIN_DURATION_TT = "Minimum total duration cooldowns must have to be displayed in this cooldown timer instance.";
 	FWL.MAX_DURATION = "Maximum duration";
 	FWL.MAX_DURATION_TT = "Maximum total duration cooldowns must have to be displayed in this cooldown timer instance.";
-	
+
+	FWL.MIN_REMAINING = "Minimum remaining";
+	FWL.MIN_REMAINING_TT = "Minimum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
+	FWL.MAX_REMAINING = "Maximum remaining";
+	FWL.MAX_REMAINING_TT = "Maximum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
+
+	FWL.ICON_TEXT_COLOR = "Icon text color";
+	FWL.ICON_TEXT_COLOR_TT = "Use a custom icon text color. If unchecked, the the text will take the color of the icon.";
 -- Russian
 elseif GetLocale() == "ruRU" then
 	FWL.COOLDOWN_TIMER = "Таймер восстановления";
@@ -236,9 +242,8 @@ elseif GetLocale() == "ruRU" then
 	FWL.SS = "Камень души";
 --[[>>]]FWL.DEBUFF = "Debuff";
 
-	FWL.ICON_FONT = "Шрифт значка";
-	FWL.ICON_TEXT = "Текст значка";
-	FWL.ICON_TEXT_TT = "Это время, отображаемое на самих значках. Для его отображения, измените прознрачность текста.";
+	--[[>>]]FWL.ICON_TEXT = "Текст значка";
+	--[[>>]]FWL.ICON_TEXT_TT = "Это время, отображаемое на самих значках. Для его отображения, измените прознрачность текста.";
 
 --[[>>]]FWL.SHOW_GLOW = "Show icon Glow";
 --[[>>]]FWL.SHOW_GLOW_TT = "Show a glow around the icons that matches the bar color.";
@@ -277,6 +282,14 @@ elseif GetLocale() == "ruRU" then
 --[[>>]]FWL.MIN_DURATION_TT = "Minimum total duration cooldowns must have to be displayed in this cooldown timer instance.";
 --[[>>]]FWL.MAX_DURATION = "Maximum duration";
 --[[>>]]FWL.MAX_DURATION_TT = "Maximum total duration cooldowns must have to be displayed in this cooldown timer instance.";
+	
+--[[>>]]FWL.MIN_REMAINING = "Minimum remaining";
+--[[>>]]FWL.MIN_REMAINING_TT = "Minimum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
+--[[>>]]FWL.MAX_REMAINING = "Maximum remaining";
+--[[>>]]FWL.MAX_REMAINING_TT = "Maximum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
+
+--[[>>]]FWL.ICON_TEXT_COLOR = "Icon text color";
+--[[>>]]FWL.ICON_TEXT_COLOR_TT = "Use a custom icon text color. If unchecked, the the text will take the color of the icon.";
 
 -- Simple Chinese
 elseif GetLocale() == "zhCN" then
@@ -329,9 +342,8 @@ elseif GetLocale() == "zhCN" then
 	FWL.BUFF = "Buff";
 	FWL.DEBUFF = "Debuff";
 
-	FWL.ICON_FONT = "冷却字体";
-	FWL.ICON_TEXT = "冷却时间";
-	FWL.ICON_TEXT_TT = "这个显示技能冷却的时间,想显示具体时间,请设置好文字颜色的透明度.";
+	--[[>>]]FWL.ICON_TEXT = "冷却时间";
+	--[[>>]]FWL.ICON_TEXT_TT = "这个显示技能冷却的时间,想显示具体时间,请设置好文字颜色的透明度.";
 
 	FWL.UPDATE_INTERVAL_BUFFS = "更新buff扫描间隔";
 	
@@ -372,6 +384,14 @@ elseif GetLocale() == "zhCN" then
 --[[>>]]FWL.MIN_DURATION_TT = "Minimum total duration cooldowns must have to be displayed in this cooldown timer instance.";
 --[[>>]]FWL.MAX_DURATION = "Maximum duration";
 --[[>>]]FWL.MAX_DURATION_TT = "Maximum total duration cooldowns must have to be displayed in this cooldown timer instance.";
+	
+--[[>>]]FWL.MIN_REMAINING = "Minimum remaining";
+--[[>>]]FWL.MIN_REMAINING_TT = "Minimum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
+--[[>>]]FWL.MAX_REMAINING = "Maximum remaining";
+--[[>>]]FWL.MAX_REMAINING_TT = "Maximum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
+
+--[[>>]]FWL.ICON_TEXT_COLOR = "Icon text color";
+--[[>>]]FWL.ICON_TEXT_COLOR_TT = "Use a custom icon text color. If unchecked, the the text will take the color of the icon.";
 
 -- tradition Chinese
 elseif GetLocale() == "zhTW" then	
@@ -425,9 +445,8 @@ elseif GetLocale() == "zhTW" then
 	FWL.BUFF = "Buff";
 	FWL.DEBUFF = "Debuff";
 
-	FWL.ICON_FONT = "冷卻字體";
-	FWL.ICON_TEXT = "冷卻時間";
-	FWL.ICON_TEXT_TT = "這個顯示技能冷卻的時間,想顯示具體時間,請設置好文字顏色的透明度.";
+	--[[>>]]FWL.ICON_TEXT = "冷卻時間";
+	--[[>>]]FWL.ICON_TEXT_TT = "這個顯示技能冷卻的時間,想顯示具體時間,請設置好文字顏色的透明度.";
 
 	FWL.UPDATE_INTERVAL_BUFFS = "更新buffs掃描間隔";
 
@@ -468,6 +487,14 @@ elseif GetLocale() == "zhTW" then
 --[[>>]]FWL.MIN_DURATION_TT = "Minimum total duration cooldowns must have to be displayed in this cooldown timer instance.";
 --[[>>]]FWL.MAX_DURATION = "Maximum duration";
 --[[>>]]FWL.MAX_DURATION_TT = "Maximum total duration cooldowns must have to be displayed in this cooldown timer instance.";
+	
+--[[>>]]FWL.MIN_REMAINING = "Minimum remaining";
+--[[>>]]FWL.MIN_REMAINING_TT = "Minimum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
+--[[>>]]FWL.MAX_REMAINING = "Maximum remaining";
+--[[>>]]FWL.MAX_REMAINING_TT = "Maximum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
+
+--[[>>]]FWL.ICON_TEXT_COLOR = "Icon text color";
+--[[>>]]FWL.ICON_TEXT_COLOR_TT = "Use a custom icon text color. If unchecked, the the text will take the color of the icon.";
 
 -- DE by DeaTHCorE (found a error? have a better translation? send me a email at dhaft@gmx.de)
 elseif GetLocale() == "deDE" then	
@@ -516,9 +543,8 @@ elseif GetLocale() == "deDE" then
 	FWL.BUFF = "Buff";
 	FWL.DEBUFF = "Debuff";
 
-	FWL.ICON_FONT = "Icon Schriftart";
-	FWL.ICON_TEXT = "Icon Textfarbe";
-	FWL.ICON_TEXT_TT = "Dies ist der Text auf dem Cooldownicon selbst. Um diesen zu sehen, ändere den Alphawert der Icon Textfarbe.";
+	--[[>>]]FWL.ICON_TEXT = "Icon Textfarbe";
+	--[[>>]]FWL.ICON_TEXT_TT = "Dies ist der Text auf dem Cooldownicon selbst. Um diesen zu sehen, ändere den Alphawert der Icon Textfarbe.";
 
 	FWL.UPDATE_INTERVAL_BUFFS = "Buffs-Aktualisierungsintervall";
 	
@@ -560,6 +586,14 @@ elseif GetLocale() == "deDE" then
 --[[>>]]FWL.MIN_DURATION_TT = "Minimum total duration cooldowns must have to be displayed in this cooldown timer instance.";
 --[[>>]]FWL.MAX_DURATION = "Maximum duration";
 --[[>>]]FWL.MAX_DURATION_TT = "Maximum total duration cooldowns must have to be displayed in this cooldown timer instance.";
+	
+--[[>>]]FWL.MIN_REMAINING = "Minimum remaining";
+--[[>>]]FWL.MIN_REMAINING_TT = "Minimum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
+--[[>>]]FWL.MAX_REMAINING = "Maximum remaining";
+--[[>>]]FWL.MAX_REMAINING_TT = "Maximum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
+
+--[[>>]]FWL.ICON_TEXT_COLOR = "Icon text color";
+--[[>>]]FWL.ICON_TEXT_COLOR_TT = "Use a custom icon text color. If unchecked, the the text will take the color of the icon.";
 
 -- koKR
 elseif GetLocale() == "koKR" then	
@@ -567,61 +601,58 @@ elseif GetLocale() == "koKR" then
 	FWL.COOLDOWN_TIMER = "쿨다운 타이머";
 
 	FWL.CD_HINT1 = "색상 설정에 있는 알파값을 통해서 텍스트나 다른 부분을 표시하거나 숨길 수 있습니다.";
-	FWL.CD_HINT2 = "'Customize 설정을 사용해서 쿨다운을 무시하서나 색상을 바꿀 수 있다. 아이콘을 오른클릭하면 무시할 수 있습니다.";
-    FWL.CD_HINT3 = "쿨다운 바가 잠겨있을 경우 이를 통과해서 클릭할 수 있습니다.";
+	FWL.CD_HINT2 = "[세부설정 - 표시여부 및 임의 색지정]메뉴를 사용하여 특정 쿨다운을 무시하서나 색상을 바꿀 수 있습니다. 아이콘을 오른클릭하면 관련 설정창을 열 수 있습니다.";
+    FWL.CD_HINT3 = "쿨다운 바가 잠겨있을 경우 이를 통과해서 뒤에 있는 것을 클릭할 수 있습니다.";
 
-	FWL.CD_BASIC1_TT = "시각적으로 쿨다운 타이머를 표시";		
-	FWL.CD_CUSTOMIZE_TT = "각각의 쿨다운을 세부적으로 설정할 수 있습니다.";
+	FWL.CD_BASIC1_TT = "쿨다운 타이머를 사용합니다.";		
+	FWL.CD_CUSTOMIZE_TT = "주문, 기술, 도구 등에 대한 재사용 대기시간을 개별적으로 설정할 수 있습니다. 우측 목록 아이콘을 클릭하면 설정 목록을 볼 수 있습니다.";
 
-	FWL.CD_SPECIFIC1 = "무시하려면 아이콘을 우클릭.";
-	FWL.CD_SPECIFIC1_TT = "쿨다운 바 위에 있는 특정 주문의 아이콘을 우클릭하면 무시를 하게 됩니다. Customize 설정에서 재조정 가능합니다.";
-	FWL.CD_SPECIFIC2 = "가로세로 변환";
-	FWL.CD_SPECIFIC2_TT = "쿨다운 바의 형태를 가로에서 세로로 변경할 수 있습니다.";
-	FWL.CD_SPECIFIC3 = "쿨다운바 자동숨김";
-	FWL.CD_SPECIFIC3_TT = "표시할 주문의 쿨다운이 없을경우 쿨다운 바가 자동으로 사라집니다.";
-	FWL.CD_SPECIFIC5 = "스케일 세분화";
-	FWL.CD_SPECIFIC5_TT = "쿨다운 표시가 좀 더 세분화 됩니다. 60분보다 훨씬 작은 규모의 쿨다운들을 다룬다면 유용할 것 입니다.";
-	FWL.CD_SPECIFIC6 = "쿨다운 최대시간 (초)";
+	FWL.CD_SPECIFIC1 = "무시하려면 아이콘을 오른클릭.";
+	FWL.CD_SPECIFIC1_TT = "쿨다운 바위의 아이콘을 오른 클릭하면 해당 대기시간을 무시할 수 있습니다. 이는 [세부설정 - 표시여부 및 임의 색지정]에서 다시 조정이 가능합니다.";
+	FWL.CD_SPECIFIC2 = "가로/세로 변환";
+	FWL.CD_SPECIFIC2_TT = "이 옵션을 설정하면 쿨다운 바의 위치가 세로로 변경됩니다.";
+	FWL.CD_SPECIFIC3 = "자동숨김";
+	FWL.CD_SPECIFIC3_TT = "표시할 쿨다운이 없을경우 쿨다운 바가 자동으로 사라집니다.";
+	FWL.CD_SPECIFIC5 = "눈금표시 세분화";
+	FWL.CD_SPECIFIC5_TT = "쿨다운 구분이 좀 더 세분화 됩니다. 60분보다 훨씬 작은 규모의 쿨다운들을 다룬다면 유용할 것 입니다.";
+	FWL.CD_SPECIFIC6 = "재사용 대기시간 최대시간 (초)";
 	FWL.CD_SPECIFIC6_TT = "쿨다운 바가 표현할 수있는 가장 큰 시간을 설정합니다. 이보다 더 큰 주문의 쿨다운은 가장 끝자락에 위치하고 있을 것입니다.";
 	FWL.CD_SPECIFIC7 = "버프 표시";
 	FWL.CD_SPECIFIC7_TT = "쿨다운 타이머를 통해 플레이어의 특정한 버프를 표시합니다.";
-	FWL.CD_SPECIFIC8 = "쿨다운 바 반대로";
-	FWL.CD_SPECIFIC8_TT = "바의 방향을 반대로 돌립니다.";
-	FWL.CD_SPECIFIC8 = "쿨다운 바 반대로";
-	FWL.CD_SPECIFIC8_TT = "바의 방향을 반대로 돌립니다.";
-	FWL.CD_SPECIFIC9 = "쿨다운 투명도 설정";
-	FWL.CD_SPECIFIC9_TT = "쿨다운 바가 가질 수 있는 투명도입니다.";
+	FWL.CD_SPECIFIC8 = "좌/우 반대로 표시";
+	FWL.CD_SPECIFIC8_TT = "쿨다운 바의 흐름이 반대로 바뀝니다";
+	FWL.CD_SPECIFIC9 = "투명도 설정";
+	FWL.CD_SPECIFIC9_TT = "쿨다운 바의 투명도에 관한 설정입니다.";
 
-	FWL.CD_SPLASH = "스플래쉬 기능 : 아이콘이 번쩍거리며 확대됨";
-	FWL.CD_SPLASH1 = "준비된 쿨다운을 스플래쉬로 표시";
-	FWL.CD_SPLASH1_TT = "이 설정을 통해서 쿨다운 바에 있는 쿨다운이 종료가 되면 끝에서 아이콘이 스플래쉬됩니다";
-	FWL.CD_SPLASH2 = "스플래쉬 아이콘의 크기";
-	FWL.CD_SPLASH2_TT = "아이콘이 스플래쉬 될때 크기를 설정합니다.";
-	FWL.CD_SPLASH3 = "별도의 스플래쉬 아이콘 활성화";
-	FWL.CD_SPLASH3_TT = "별도의 스플래쉬 아이콘을 생성하여 표시합니다. 잠금을 해제하면 원하는 곳 어디에나 배치할 수 있습니다.";
-	FWL.CD_SPLASH4 = "별도의 스플래쉬 아이콘 위치잠금";
-	FWL.CD_SPLASH4_TT = "이 설정을 하면 위치를 잠급니다.";
-	FWL.CD_SPLASH5 = "별도의 스플래쉬 효과 최소 크기";
-	FWL.CD_SPLASH5_TT = "이 최소 크기는 별도의 스플래쉬 아이콘이 커지기 시작했다가 잠깐 돌아오는 순간의 크기를 말합니다.";
+	FWL.CD_SPLASH = "종료 알림";
+	FWL.CD_SPLASH1 = "번쩍임 기능 활성화";
+	FWL.CD_SPLASH1_TT = "재사용 대기시간이 끝나면 해당 아이콘이 확대되면서 번쩍거립니다.";
+	FWL.CD_SPLASH2 = "확대되는 아이콘의 크기";
+	FWL.CD_SPLASH2_TT = "아이콘이 확대 될때 될때 크기를 설정합니다.";
+	FWL.CD_SPLASH3 = "별도의 종료 알림 활성화";
+	FWL.CD_SPLASH3_TT = "별도로 종료되는 재사용 대기시간에 대한 아이콘을 표시합니다. 잠금을 해제하면 원하는 곳 어디에나 배치할 수 있습니다.";
+	FWL.CD_SPLASH4 = "별도의 종료알림 아이콘 위치잠금";
+	FWL.CD_SPLASH4_TT = "위치를 잠급니다.";
+	FWL.CD_SPLASH5 = "별도의 종료알림 효과 최소 크기";
+	FWL.CD_SPLASH5_TT = "이 최소 크기는 별도의 알림 아이콘이 커지기 시작했다가 잠깐 돌아오는 순간의 크기를 말합니다.";
 	FWL.CD_SPLASH6 = "별도의 스플래쉬 효과 최대 크기";
-	FWL.CD_SPLASH6_TT = "이 최대 크기는 별도의 스플래쉬 아이콘이 커지기 시작했다가 다시 사라지는 순간의 크기를 말합니다.";
+	FWL.CD_SPLASH6_TT = "이 최대 크기는 별도의 알림 아이콘이 커지기 시작했다가 다시 사라지는 순간의 크기를 말합니다.";
 	
 	FWL.RESURRECT_TIMER = "부활 타이머";
     FWL.SS = "영혼의 조각";
 	FWL.BUFF = "버프";
 	FWL.DEBUFF = "디버프";
 
-	FWL.ICON_FONT = "아이콘 폰트";
 	FWL.ICON_TEXT = "아이콘 텍스트";
 	FWL.ICON_TEXT_TT = "쿨다운 아이콘에 표시되는 시간 텍스트에 관한 설정입니다. 이 텍스트의 색상이나 가시설정을 하십시오.";
 
 	FWL.UPDATE_INTERVAL_BUFFS = "버프 업데이트 간격";
 
 	FWL.SHOW_GLOW = "쿨다운 바에 아이콘 주변에 빛나는 효과";
-	FWL.SHOW_GLOW_TT = "아이콘에 쿨다운 바 색깔에 맞는 빛나는 효과를 부가합니다.";
+	FWL.SHOW_GLOW_TT = "아이콘에 쿨다운 바 색깔에 맞는 빛나는 효과를 부여합니다.";
 	FWL.WEAPON_ENCHANT = "무기강화";
 
-	FWL.COOLDOWN_LEFT = "쿨다운 시간을 표시합니다.";
+	FWL.COOLDOWN_LEFT = "쿨다운 시간을 아이콘에 표시";
 
 	FWL.MASTER_ICONS = "그룹 마스터 아이콘";
 	FWL.MASTER_ICONS_TT = "같은 쿨을 공유하는 기술들은 하나의 아이콘 아래에 묶여서 표시합니다. (별도로 사라지지 않음)";
@@ -634,27 +665,35 @@ elseif GetLocale() == "koKR" then
 	FWL.CD_WARNING = "이미 쿨다운 중인 주문 아이콘을 강조";
 	FWL.CD_WARNING_TT = "이미 사용하여 쿨다운에 있는 주문을 재차 시전시 쿨다운 바 상의 아이콘이 강조됩니다.";
 
-	FWL.CD_WEAPON_ENCHANT_MAIN = "무기 강화 (main-hand)";
-	FWL.CD_WEAPON_ENCHANT_OFFHAND = "무기 강화 (off-hand)";
+	FWL.CD_WEAPON_ENCHANT_MAIN = "무기 강화 (주 장비)";
+	FWL.CD_WEAPON_ENCHANT_OFFHAND = "무기 강화 (보조 장비)";
 	
-   	FWL.CD_SPECIFIC10 = "바 투명도 설정";
-    FWL.CD_SPECIFIC10_TT = "쿨다운 바가 가질 수 있는 투명도입니다.";    
+   	FWL.CD_SPECIFIC10 = "쿨다운 바 투명도 설정";
+    FWL.CD_SPECIFIC10_TT = "쿨다운 바의 투명를 조정합니다.";    
     FWL.USE_POWER_OF = "쿨다운 속도 계수";
     FWL.USE_POWER_OF_TT = "계수가 0 에 가까울수록 쿨다운 시간이 종료시 빠르게 점멸합니다. 계수가 1 이면 항상 일정한 속도로 흘러갑니다.";
     FWL.NUM_TIME_TAGS = "시간 분기점 수량";
     FWL.NUM_TIME_TAGS_TT = "쿨다운 바 상에서 분기점 개수를 설정합니다.";
-    FWL.CUSTOM_TAGS = "분기점 임의제작";
-    FWL.CUSTOM_TAGS_TT = "애드온이 동등한 간격으로 시간 태그를 제작하는 대신 플레이어가 특정한 분기점을 지정할 수 있습니다.";
+    FWL.CUSTOM_TAGS = "분기점 임의설정";
+    FWL.CUSTOM_TAGS_TT = "플레이어가 특정한 분기점을 임의로 지정할 수 있습니다.";
     
---[[>>]]FWL.TIME_RANGE = "Time Range";
---[[>>]]FWL.MIN_DURATION = "Min Duration";
+	FWL.TIME_RANGE = "시간 영역";
+	FWL.MIN_DURATION = "최소 [지속]시간";
 
---[[>>]]FWL.ICON_SIZE = "Icon size";
---[[>>]]FWL.ICON_SIZE_TT = "Set the icon sizes independently from the bar height.";
---[[>>]]FWL.MIN_DURATION = "Minimum duration";
---[[>>]]FWL.MIN_DURATION_TT = "Minimum total duration cooldowns must have to be displayed in this cooldown timer instance.";
---[[>>]]FWL.MAX_DURATION = "Maximum duration";
---[[>>]]FWL.MAX_DURATION_TT = "Maximum total duration cooldowns must have to be displayed in this cooldown timer instance.";
+	FWL.ICON_SIZE = "아이콘 크기";
+	FWL.ICON_SIZE_TT = "바의 높이 설정과 독립적으로 아이콘 크기를 설정합니다.";
+	FWL.MIN_DURATION = "최소 [지속]시간";
+	FWL.MIN_DURATION_TT = "해당 쿨다운 바에 표시되기 위해서 남아있어야 할 최소한의 총 [지속] 시간을 의미합니다.";
+	FWL.MAX_DURATION = "최대 [지속]시간";
+	FWL.MAX_DURATION_TT = "해당 쿨다운 바에 표시되기 위해서 남아있어야 할 최대한의 총 [지속] 시간을 의미합니다.";
+	
+	FWL.MIN_REMAINING = "최소 [남은] 시간";
+	FWL.MIN_REMAINING_TT = "해당 쿨다운 바에 표시되기 위해서 남아있어야 할 최소한의 [남은] 시간을 의미합니다.";
+	FWL.MAX_REMAINING = "최대 [남은] 시간";
+	FWL.MAX_REMAINING_TT = "해당 쿨다운 바에 표시되기 위해서 남아있어야 할 최대한의 [남은] 시간을 의미합니다.";
+
+	FWL.ICON_TEXT_COLOR = "아이콘 글씨 색상";
+	FWL.ICON_TEXT_COLOR_TT = "아이콘에 부여된 글씨에 임의로 지정한 색상을 부여합니다. 체크가 되어 있지 않으면 글씨는 아이콘의 색상을 따릅니다.";
 
 else
 
@@ -705,10 +744,9 @@ else
 	FWL.BUFF = "Buff";
 	FWL.DEBUFF = "Debuff";
 
-	FWL.ICON_FONT = "Icon Font";
-	FWL.ICON_TEXT = "Icon text";
-	FWL.ICON_TEXT_TT = "This is the time text on the cooldown icons themselves. To show these, change the text color transparency.";
-
+	FWL.ICON_TEXT = "Show Icon text";
+	FWL.ICON_TEXT_TT = "Enable to show the time text on the cooldown icons themselves.";
+	
 	FWL.UPDATE_INTERVAL_BUFFS = "Update interval buffs";
 	
 	FWL.SHOW_GLOW = "Show icon Glow";
@@ -750,9 +788,11 @@ else
 	FWL.MAX_DURATION = "Maximum duration";
 	FWL.MAX_DURATION_TT = "Maximum total duration cooldowns must have to be displayed in this cooldown timer instance.";
 
+	FWL.MIN_REMAINING = "Minimum remaining";
+	FWL.MIN_REMAINING_TT = "Minimum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
+	FWL.MAX_REMAINING = "Maximum remaining";
+	FWL.MAX_REMAINING_TT = "Maximum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
+
+	FWL.ICON_TEXT_COLOR = "Icon text color";
+	FWL.ICON_TEXT_COLOR_TT = "Use a custom icon text color. If unchecked, the the text will take the color of the icon.";
 end
-FWL.MIN_REMAINING = "Minimum remaining";
-FWL.MIN_REMAINING_TT = "Minimum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
-FWL.MAX_REMAINING = "Maximum remaining";
-FWL.MAX_REMAINING_TT = "Maximum remaining time cooldowns must have to be displayed in this cooldown timer instance.";
-	

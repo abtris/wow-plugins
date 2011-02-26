@@ -1,4 +1,4 @@
--- ForteXorcist v1.974.5 by Xus 14-02-2011 for 4.0.6
+-- ForteXorcist v1.974.7 by Xus 22-02-2011 for 4.0.6
 -- Module started by Destard/Stormstalker fixes by Caleb & Xus
 
 if FW.CLASS == "HUNTER" then

@@ -446,7 +446,7 @@ function GUI:DrawSubCrafts(container, slot)
 						
 						if value < (TSM.db.profile.minRestockQuantity[itemID] or TSM.db.profile.minRestockQuantity.default) then
 							value = TSM.db.profile.minRestockQuantity[itemID] or TSM.db.profile.minRestockQuantity.default
-							TSM:Print(string.format(L["Can not set a max restock quantity below the minimum restock quantity of %d."], value))
+							TSM:Print(format(L["Can not set a max restock quantity below the minimum restock quantity of %d."], value))
 						end
 						TSM.db.profile.maxRestockQuantity[itemID] = value
 				
@@ -501,7 +501,7 @@ function GUI:DrawSubCrafts(container, slot)
 						local value = (TSM.db.profile.minRestockQuantity[itemID] or 0) + 1
 						if value > (TSM.db.profile.maxRestockQuantity[itemID] or TSM.db.profile.maxRestockQuantity.default) then
 							value = TSM.db.profile.maxRestockQuantity[itemID] or TSM.db.profile.maxRestockQuantity.default
-							TSM:Print(string.format("Can not set a min restock quantity above the max restock quantity of %d.", value))
+							TSM:Print(format("Can not set a min restock quantity above the max restock quantity of %d.", value))
 						end
 						TSM.db.profile.minRestockQuantity[itemID] = value
 				
@@ -569,16 +569,47 @@ function GUI:DrawSubCrafts(container, slot)
 			end
 			tinsert(page, 3, {
 					type = "Label",
-					text = string.format(L["This item is already in the \"%s\" Auctioning group."], inAuctioningGroup),
+					text = format(L["This item is already in the \"%s\" Auctioning group."], inAuctioningGroup),
 					relativeWidth = 1,
-					fontObject = GameFontNormal,
 				})
 		end
 		
 		TSMAPI:BuildPage(window, page)
 	end
 	
-	local sortedData = TSM.Data:GetSortedData(TSM.Data[TSM.mode].crafts, function(a, b) return a.name < b.name end)
+	local sortMethod = TSM:GetDBValue("craftSortMethod", TSM.mode)
+	local sortOrder = TSM:GetDBValue("craftSortOrder", TSM.mode)
+	local sortedData = TSM.Data:GetSortedData(TSM.Data[TSM.mode].crafts, function(a, b)
+			if sortOrder == "ascending" then
+				if sortMethod == "name" then
+					return a.name < b.name
+				elseif sortMethod == "cost" then
+					return (TSM.Data:CalcPrices(a) or 0) < (TSM.Data:CalcPrices(b) or 0)
+				elseif sortMethod == "profit" then
+					return (select(3, TSM.Data:CalcPrices(a)) or 1/0) < (select(3, TSM.Data:CalcPrices(b)) or 1/0)
+				elseif sortMethod == "scount" then
+					return (TSM.Data:GetSeenCount(a.originalIndex) or 0) < (TSM.Data:GetSeenCount(b.originalIndex) or 0)
+				elseif sortMethod == "ccount" then
+					return (TSM.db.profile.craftHistory[a.spellID] or 0) < (TSM.db.profile.craftHistory[b.spellID] or 0)
+				elseif sortMethod == "ilvl" then
+					return (select(4, GetItemInfo(a.originalIndex)) or 0) < (select(4, GetItemInfo(b.originalIndex)) or 0)
+				end
+			else
+				if sortMethod == "name" then
+					return a.name > b.name
+				elseif sortMethod == "cost" then
+					return (TSM.Data:CalcPrices(a) or 0) > (TSM.Data:CalcPrices(b) or 0)
+				elseif sortMethod == "profit" then
+					return (select(3, TSM.Data:CalcPrices(a)) or 1/0) > (select(3, TSM.Data:CalcPrices(b)) or 1/0)
+				elseif sortMethod == "scount" then
+					return (TSM.Data:GetSeenCount(a.originalIndex) or 0) > (TSM.Data:GetSeenCount(b.originalIndex) or 0)
+				elseif sortMethod == "ccount" then
+					return (TSM.db.profile.craftHistory[a.spellID] or 0) > (TSM.db.profile.craftHistory[b.spellID] or 0)
+				elseif sortMethod == "ilvl" then
+					return (select(4, GetItemInfo(a.originalIndex)) or 0) > (select(4, GetItemInfo(b.originalIndex)) or 0)
+				end
+			end
+		end)
 	
 	local function DrawCreateAuctioningGroups(parent)
 		if GUI.OpenWindow then GUI.OpenWindow:Hide() end
@@ -616,7 +647,6 @@ function GUI:DrawSubCrafts(container, slot)
 		local page = {
 			{
 				type = "Label",
-				fontObject = GameFontNormal,
 				text = L["Select the crafts you would like to add to Auctioning and use the settings / buttons below to do so."],
 				relativeWidth = 1,
 			},
@@ -748,7 +778,6 @@ function GUI:DrawSubCrafts(container, slot)
 						{	-- label at the top of the page
 							type = "Label",
 							text = L["The checkboxes in next to each craft determine enable / disable the craft being shown in the Craft Management Window."],
-							fontObject = GameFontNormal,
 							relativeWidth = 1,
 						},
 						{	-- add all button
@@ -800,7 +829,12 @@ function GUI:DrawSubCrafts(container, slot)
 	}
 	
 	if not select(4, GetAddOnInfo("TradeSkillMaster_Auctioning")) then
-		tremove(page[1].children[1].children, 4)
+		for i, v in ipairs(page[1].children[1].children) do
+			if v.text == L["Create Auctioning Groups"] then
+				tremove(page[1].children[1].children, i)
+				break
+			end
+		end
 	end
 	
 	-- local variable to store the parent table to add children widgets to
@@ -883,7 +917,6 @@ function GUI:DrawSubCrafts(container, slot)
 		tinsert(inline, {
 				type = "Label",
 				text = text,
-				fontObject = GameFontNormal,
 				fullWidth=true,
 			})
 	else
@@ -970,7 +1003,6 @@ function GUI:DrawMaterials(container)
 		tinsert(inline, {
 				type = "InteractiveLabel",
 				text = select(2, GetItemInfo(matList[num])) or TSM.db.profile[TSM.mode].mats[matList[num]].name,
-				fontObject = GameFontNormal,
 				relativeWidth = 0.35,
 				callback = function() SetItemRef("item:".. matList[num], matList[num]) end,
 			})
@@ -994,13 +1026,123 @@ function GUI:DrawProfessionOptions(container)
 				{
 					type = "InlineGroup",
 					layout = "flow",
+					title = L["General Setting Overrides"],
+					fullWidth = true,
+					children = {
+						{
+							type = "Label",
+							text = L["Here, you can override general settings."],
+							fullWidth = true,
+						},
+						{
+							type = "HeadingLine",
+						},
+						{
+							type = "CheckBox",
+							label = L["Override Craft Sort Method"],
+							value = TSM.db.profile.craftSortMethod[TSM.mode] and true,
+							relativeWidth = 0.5,
+							callback = function(self, _, value)
+									if value then
+										TSM.db.profile.craftSortMethod[TSM.mode] = TSM.db.profile.craftSortMethod.default
+									else
+										TSM.db.profile.craftSortMethod[TSM.mode] = nil
+									end
+									
+									local i = getIndex(self.parent.children, self)
+									self.parent.children[i+1]:SetDisabled(not value)
+								end,
+							tooltip = L["Allows you to set a different craft sort method for this profession."],
+						},
+						{
+							type = "Dropdown",
+							label = L["Sort Crafts By"],
+							list = {["name"]=L["Name"], ["cost"]=L["Cost to Craft"], ["profit"]=L["Profit"], ["scount"]=L["Seen Count"], ["ccount"]=L["Times Crafted"], ["ilvl"]=L["Item Level"]},
+							value = TSM.db.profile.craftSortMethod[TSM.mode],
+							disabled = TSM.db.profile.craftSortMethod[TSM.mode] == nil,
+							relativeWidth = 0.49,
+							callback = function(_,_,value)
+									TSM.db.profile.craftSortMethod[TSM.mode] = value
+								end,
+							tooltip = L["This setting determines how crafts are sorted in the craft group pages (NOT the Craft Management Window)."],
+						},
+						{
+							type = "CheckBox",
+							label = L["Override Craft Sort Order"],
+							value = TSM.db.profile.craftSortOrder[TSM.mode] and true,
+							relativeWidth = 0.5,
+							callback = function(self, _, value)
+									if value then
+										TSM.db.profile.craftSortOrder[TSM.mode] = TSM.db.profile.craftSortOrder.default
+									else
+										TSM.db.profile.craftSortOrder[TSM.mode] = nil
+									end
+									
+									local siblings = self.parent.children
+									local i = getIndex(siblings, self)
+									if value then
+										siblings[i+1]:SetColor(1, 1, 1)
+									else
+										siblings[i+1]:SetColor(0.5, 0.5, 0.5)
+									end
+									siblings[i+2]:SetDisabled(not value)
+									siblings[i+2]:SetValue(TSM.db.profile.craftSortOrder[TSM.mode] == "ascending")
+									siblings[i+3]:SetDisabled(not value)
+									siblings[i+3]:SetValue(TSM.db.profile.craftSortOrder[TSM.mode] == "descending")
+								end,
+							tooltip = L["Allows you to set a different craft sort order for this profession."],
+						},
+						{
+							type = "Label",
+							text = L["Sort Order:"],
+							relativeWidth = 0.12,
+							colorRed = TSM.db.profile.craftSortOrder[TSM.mode] == nil and 0.5 or 1,
+							colorGreen = TSM.db.profile.craftSortOrder[TSM.mode] == nil and 0.5 or 1,
+							colorBlue = TSM.db.profile.craftSortOrder[TSM.mode] == nil and 0.5 or 1,
+						},
+						{
+							type = "CheckBox",
+							label = L["Ascending"],
+							cbType = "radio",
+							relativeWidth = 0.16,
+							value = TSM.db.profile.craftSortOrder[TSM.mode] == "ascending",
+							disabled = TSM.db.profile.craftSortOrder[TSM.mode] == nil,
+							callback = function(self,_,value)
+									if value then
+										TSM.db.profile.craftSortOrder[TSM.mode] = "ascending"
+										local i = getIndex(self.parent.children, self)
+										self.parent.children[i+1]:SetValue(false)
+									end
+								end,
+							tooltip = L["Sort crafts in ascending order."],
+						},
+						{
+							type = "CheckBox",
+							label = L["Descending"],
+							cbType = "radio",
+							relativeWidth = 0.16,
+							value = TSM.db.profile.craftSortOrder[TSM.mode] == "descending",
+							disabled = TSM.db.profile.craftSortOrder[TSM.mode] == nil,
+							callback = function(self,_,value)
+									if value then
+										TSM.db.profile.craftSortOrder[TSM.mode] = "descending"
+										local i = getIndex(self.parent.children, self)
+										self.parent.children[i-1]:SetValue(false)
+									end
+								end,
+							tooltip = L["Sort crafts in descending order."],
+						},
+					}
+				},
+				{
+					type = "InlineGroup",
+					layout = "flow",
 					title = L["Restock Queue Overrides"],
 					fullWidth = true,
 					children = {
 						{
 							type = "Label",
 							text = L["Here, you can override default restock queue settings."],
-							fontObject = GameFontNormal,
 							fullWidth = true,
 						},
 						{
@@ -1073,7 +1215,7 @@ function GUI:DrawProfessionOptions(container)
 									
 									if value < (TSM.db.profile.minRestockQuantity[TSM.mode] or TSM.db.profile.minRestockQuantity.default) then
 										value = TSM.db.profile.minRestockQuantity[TSM.mode] or TSM.db.profile.minRestockQuantity.default
-										TSM:Print(string.format(L["Can not set a max restock quantity below the minimum restock quantity of %d."], value))
+										TSM:Print(format(L["Can not set a max restock quantity below the minimum restock quantity of %d."], value))
 									end
 									TSM.db.profile.maxRestockQuantity[TSM.mode] = value
 							
@@ -1129,7 +1271,7 @@ function GUI:DrawProfessionOptions(container)
 									local value = (TSM.db.profile.minRestockQuantity[TSM.mode] or 0) + 1
 									if value > (TSM.db.profile.maxRestockQuantity[TSM.mode] or TSM.db.profile.maxRestockQuantity.default) then
 										value = TSM.db.profile.maxRestockQuantity[TSM.mode] or TSM.db.profile.maxRestockQuantity.default
-										TSM:Print(string.format("Can not set a min restock quantity above the max restock quantity of %d.", value))
+										TSM:Print(format("Can not set a min restock quantity above the max restock quantity of %d.", value))
 									end
 									TSM.db.profile.minRestockQuantity[TSM.mode] = value
 							
@@ -1204,7 +1346,7 @@ function GUI:DrawProfessionOptions(container)
 							isPercent = true,
 							disabled = TSM.db.profile.queueProfitMethod[TSM.mode] == nil or TSM.db.profile.queueProfitMethod[TSM.mode] == "none" or TSM.db.profile.queueProfitMethod[TSM.mode] == "gold",
 							callback = function(_,_,value)
-									TSM.db.profile.queueMinProfitPercent[TSM.mode] = math.floor(value*100)/100
+									TSM.db.profile.queueMinProfitPercent[TSM.mode] = floor(value*100)/100
 								end,
 						},
 						{
@@ -1219,7 +1361,7 @@ function GUI:DrawProfessionOptions(container)
 							relativeWidth = 0.49,
 							disabled = TSM.db.profile.queueProfitMethod[TSM.mode] == nil or TSM.db.profile.queueProfitMethod[TSM.mode] == "none" or TSM.db.profile.queueProfitMethod[TSM.mode] == "percent",
 							callback = function(_,_,value)
-									TSM.db.profile.queueMinProfitGold[TSM.mode] = math.floor(value)
+									TSM.db.profile.queueMinProfitGold[TSM.mode] = floor(value)
 								end,
 						},
 					},
@@ -1273,22 +1415,22 @@ function GUI:DrawOptions(container)
 	container:AddChild(tg)
 	
 	local ddList1 = {["Manual"] = L["Manual Entry"]}
-	local ddList2 = {}
 	if select(4, GetAddOnInfo("Auc-Advanced")) == 1 then
 		ddList1["AucMarket"]=L["Auctioneer - Market Value"]
 		ddList1["AucAppraiser"]=L["Auctioneer - Appraiser"]
 		ddList1["AucMinBuyout"]=L["Auctioneer - Minimum Buyout"]
-		ddList2["AucMarket"]=L["Auctioneer - Market Value"]
-		ddList2["AucAppraiser"]=L["Auctioneer - Appraiser"]
-		ddList2["AucMinBuyout"]=L["Auctioneer - Minimum Buyout"]
+	end
+	
+	if select(4, GetAddOnInfo("Auctionator")) == 1 then
+		ddList1["AtrValue"]=L["Auctionator - Auction Value"]
 	end
 		
 	if select(4, GetAddOnInfo("TradeSkillMaster_AuctionDB")) == 1 then
 		ddList1["DBMarket"]=L["AuctionDB - Market Value"]
 		ddList1["DBMinBuyout"]=L["AuctionDB - Minimum Buyout"]
-		ddList2["DBMarket"]=L["AuctionDB - Market Value"]
-		ddList2["DBMinBuyout"]=L["AuctionDB - Minimum Buyout"]
 	end
+	local ddList2 = CopyTable(ddList1)
+	ddList2["Manual"] = nil
 	
 	local function GetTab(num)
 		local altCharacters, altGuilds, altCharactersValue, altGuildsValue = {}, {}, {}, {}
@@ -1351,7 +1493,66 @@ function GUI:DrawOptions(container)
 				type = "ScrollFrame",
 				layout = "List",
 				children = {
-					{ 	-- holds the second group of options (profit deduction label + slider)
+					{
+						type = "InlineGroup",
+						layout = "flow",
+						title = L["General Settings"],
+						fullWidth = true,
+						children = {
+							{
+								type = "Dropdown",
+								label = L["Sort Crafts By"],
+								list = {["name"]=L["Name"], ["cost"]=L["Cost to Craft"], ["profit"]=L["Profit"], ["scount"]=L["Seen Count"], ["ccount"]=L["Times Crafted"], ["ilvl"]=L["Item Level"]},
+								value = TSM.db.profile.craftSortMethod.default,
+								relativeWidth = 0.49,
+								callback = function(_,_,value)
+										TSM.db.profile.craftSortMethod.default = value
+									end,
+								tooltip = L["This setting determines how crafts are sorted in the craft group pages (NOT the Craft Management Window)."],
+							},
+							{
+								type = "Label",
+								text = "",
+								relativeWidth = 0.06,
+							},
+							{
+								type = "Label",
+								text = L["Sort Order:"],
+								relativeWidth = 0.12,
+							},
+							{
+								type = "CheckBox",
+								label = L["Ascending"],
+								cbType = "radio",
+								relativeWidth = 0.16,
+								value = TSM.db.profile.craftSortOrder.default == "ascending",
+								callback = function(self,_,value)
+										if value then
+											TSM.db.profile.craftSortOrder.default = "ascending"
+											local i = getIndex(self.parent.children, self)
+											self.parent.children[i+1]:SetValue(false)
+										end
+									end,
+								tooltip = L["Sort crafts in ascending order."],
+							},
+							{
+								type = "CheckBox",
+								label = L["Descending"],
+								cbType = "radio",
+								relativeWidth = 0.16,
+								value = TSM.db.profile.craftSortOrder.default == "descending",
+								callback = function(self,_,value)
+										if value then
+											TSM.db.profile.craftSortOrder.default = "descending"
+											local i = getIndex(self.parent.children, self)
+											self.parent.children[i-1]:SetValue(false)
+										end
+									end,
+								tooltip = L["Sort crafts in descending order."],
+							},
+						},
+					},
+					{ 	
 						type = "InlineGroup",
 						layout = "flow",
 						title = L["Price Settings"],
@@ -1362,7 +1563,7 @@ function GUI:DrawOptions(container)
 								label = L["Get Mat Prices From:"],
 								list = ddList1,
 								value = TSM.db.profile.matCostSource,
-								relativeWidth = 0.45,
+								relativeWidth = 0.49,
 								callback = function(_,_,value)
 										TSM.db.profile.matCostSource = value
 										TSM.Data:CalculateCosts()
@@ -1374,17 +1575,12 @@ function GUI:DrawOptions(container)
 								label = L["Get Craft Prices From:"],
 								list = ddList2,
 								value = TSM.db.profile.craftCostSource,
-								relativeWidth = 0.45,
+								relativeWidth = 0.49,
 								callback = function(_,_,value)
 										TSM.db.profile.craftCostSource = value
 										TSM.Data:CalculateCosts()
 									end,
 								tooltip = L["This is where TradeSkillMaster_Crafting will get prices for crafted items. AuctionDB is the integrated TSM Addon, whereas Auctioneer requires Auc-Advanced to be enabled for functionality."],
-							},
-							{	-- just a spacer to seperate the dropdown from the slider
-								type = "Label",
-								text = "",
-								relativeWidth = 0.09,
 							},
 							{	-- slider to set the % to deduct from profits
 								type = "Slider",
@@ -1394,7 +1590,7 @@ function GUI:DrawOptions(container)
 								min = 0,
 								max = 0.25,
 								step = 0.01,
-								relativeWidth = 0.45,
+								relativeWidth = 0.49,
 								callback = function(_,_,value) TSM.db.profile.profitPercent = value end,
 								tooltip = L["Percent to subtract from buyout when calculating profits (5% will compensate for AH cut)."],
 							},
@@ -1414,7 +1610,6 @@ function GUI:DrawOptions(container)
 								text = L["TradeSkillMaster_Crafting can use TradeSkillMaster_Gathering or DataStore_Containers " ..
 									"to provide data for a number of different places inside TradeSkillMaster_Crafting. Use the " ..
 									"settings below to set this up."],
-								fontObject = GameFontNormal,
 								fullWidth = true,
 							},
 							{
@@ -1464,6 +1659,11 @@ function GUI:DrawOptions(container)
 				},
 			},
 		}
+		
+		local unknownProfitList = {["unknown"]=L["Mark as Unknown (\"----\")"]}
+		if not select(2, TSMAPI:GetData("auctioningFallback")) then
+			unknownProfitList["fallback"] = L["Set Market Value to Auctioning Fallback"]
+		end
 	
 		page[2] = {
 			{	-- scroll frame to contain everything
@@ -1483,6 +1683,17 @@ function GUI:DrawOptions(container)
 								relativeWidth = 1,
 								callback = function(_,_,value) TSM.db.profile.closeTSMWindow = value end,
 								tooltip = L["If checked, the main TSM frame will close when you open the craft management window."],
+							},
+							{	-- dropdown to select the method for setting the Minimum profit for the main crafts page
+								type = "Dropdown",
+								label = L["Unknown Profit Queuing"],
+								list = unknownProfitList,
+								value = TSM.db.profile.unknownProfitMethod.default,
+								relativeWidth = 0.49,
+								callback = function(self,_,value)
+										TSM.db.profile.unknownProfitMethod.default = value
+									end,
+								tooltip = L["This will determine how items with unknown profit are dealth with in the Craft Management Window. If you have the Auctioning module installed and an item is in an Auctioning group, the fallback for the item can be used as the market value of the crafted item (will show in light blue in the Craft Management Window)."],
 							},
 							{	-- slider to set the stock number
 								type = "Slider",
@@ -1531,7 +1742,6 @@ function GUI:DrawOptions(container)
 							{
 								type = "Label",
 								text = L["These options control the \"Restock Queue\" button in the craft management window."],
-								fontObject = GameFontNormal,
 								fullWidth = true,
 							},
 							{
@@ -1623,7 +1833,7 @@ function GUI:DrawOptions(container)
 								isPercent = true,
 								disabled = TSM.db.profile.queueProfitMethod.default == "none" or TSM.db.profile.queueProfitMethod.default == "gold",
 								callback = function(_,_,value)
-										TSM.db.profile.queueMinProfitPercent.default = math.floor(value*100)/100
+										TSM.db.profile.queueMinProfitPercent.default = floor(value*100)/100
 									end,
 							},
 							{
@@ -1638,7 +1848,7 @@ function GUI:DrawOptions(container)
 								relativeWidth = 0.49,
 								disabled = TSM.db.profile.queueProfitMethod.default == "none" or TSM.db.profile.queueProfitMethod.default == "percent",
 								callback = function(_,_,value)
-										TSM.db.profile.queueMinProfitGold.default = math.floor(value)
+										TSM.db.profile.queueMinProfitGold.default = floor(value)
 									end,
 							},
 							{
@@ -1799,13 +2009,11 @@ function GUI:DrawOptions(container)
 					{
 						type = "Label",
 						text = text["intro"] .. "\n" .. "\n",
-						fontObject = GameFontNormal,
 						fullWidth = true,
 					},
 					{
 						type = "Label",
 						text = text["reset_desc"],
-						fontObject = GameFontNormal,
 						fullWidth = true,
 					},
 					{	--simplegroup1 for the reset button / current profile text
@@ -1821,7 +2029,6 @@ function GUI:DrawOptions(container)
 							{
 								type = "Label",
 								text = text["current"],
-								fontObject = GameFontNormal,
 							},
 						},
 					},
@@ -1832,7 +2039,6 @@ function GUI:DrawOptions(container)
 					{
 						type = "Label",
 						text = text["choose_desc"],
-						fontObject = GameFontNormal,
 						fullWidth = true,
 					},
 					{	--simplegroup2 for the new editbox / existing profiles dropdown
@@ -1870,7 +2076,6 @@ function GUI:DrawOptions(container)
 					{
 						type = "Label",
 						text = text["copy_desc"],
-						fontObject = GameFontNormal,
 						fullWidth = true,
 					},
 					{
@@ -1893,7 +2098,6 @@ function GUI:DrawOptions(container)
 					{
 						type = "Label",
 						text = text["delete_desc"],
-						fontObject = GameFontNormal,
 						fullWidth = true,
 					},
 					{

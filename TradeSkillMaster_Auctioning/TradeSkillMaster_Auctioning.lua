@@ -10,7 +10,7 @@ local status = TSMAuc.status
 local statusLog, logIDs, lastSeenLogID = {}, {}
 
 -- versionKey is used to ensure inter-module compatibility when new features are added
-local versionKey = 1
+local versionKey = 2
 
 
 function TSMAuc:CopySettings(otherDB)
@@ -29,7 +29,6 @@ function TSMAuc:CopySettings(otherDB)
 	}
 	local globalSettings = {
 		showStatus = false,
-		smartUndercut = false,
 		smartCancel = true,
 		cancelWithBid = false,
 		hideHelp = false,
@@ -97,19 +96,21 @@ function TSMAuc:OnInitialize()
 			ignoreStacksUnder = {default = 1},
 			reset = {default = "none"},
 			resetPrice = {default = 30000},
+			disabled = {default = false},
 			groups = {},
 			categories = {},
 		},
 		global = {
 			infoID = -1,
 			showStatus = false,
-			smartUndercut = false,
 			smartCancel = true,
 			cancelWithBid = false,
 			hideHelp = false,
 			hideGray = false,
+			blockAuc = true,
+			smartScanning = true,
 			hideAdvanced = nil,
-			addItemsAsIcons = 3,
+			enableSounds = false,
 			treeGroupStatus = {treewidth = 200, groups={[2]=true}},
 		},
 		factionrealm = {
@@ -197,6 +198,8 @@ function TSMAuc:OnInitialize()
 	TSMAPI:RegisterData("auctioningGroups", TSMAuc.GetGroups)
 	TSMAPI:RegisterData("auctioningCategories", TSMAuc.GetCategories)
 	TSMAPI:RegisterData("auctioningGroupItems", TSMAuc.GetGroupItems)
+	TSMAPI:RegisterData("auctioningThreshold", TSMAuc.GetThresholdPrice)
+	TSMAPI:RegisterData("auctioningFallback", TSMAuc.GetFallbackPrice)
 end
 
 function TSMAuc:OnDisable()
@@ -493,4 +496,19 @@ function TSMAuc:GetMarketValue(group, percent, method)
 	end
 	
 	return cost*(percent or 1)
+end
+
+function TSMAuc:GetThresholdPrice(itemID)
+	if not itemID then return end
+	local itemString = TSMAuc:GetItemString(itemID)
+	if not TSMAuc.itemReverseLookup[itemString] then return end
+	return TSMAuc.Config:GetConfigValue(itemString, "threshold")
+end
+
+function TSMAuc:GetFallbackPrice(itemID)
+	if not itemID then return end
+	TSMAuc:UpdateItemReverseLookup()
+	local itemString = TSMAuc:GetItemString(itemID)
+	if not TSMAuc.itemReverseLookup[itemString] then return end
+	return TSMAuc.Config:GetConfigValue(itemString, "fallback")
 end

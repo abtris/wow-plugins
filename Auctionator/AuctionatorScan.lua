@@ -1,7 +1,7 @@
 
-local addonName, addonTable = ...; 
-local zc = addonTable.zc;
-local zz = zc.md;
+local addonName, addonTable = ...
+local zc = addonTable.zc
+local zz = zc.md
 
 KM_NULL_STATE	= 0;
 KM_PREQUERY		= 1;
@@ -22,7 +22,9 @@ local ATR_SORTBY_NAME_DES = 1;
 local ATR_SORTBY_PRICE_ASC = 2;
 local ATR_SORTBY_PRICE_DES = 3;
 
-gScanHistDayZero	= time({year=2010, month=11, day=15, hour=0});		-- never ever change
+gScanHistDayZero = time({year=2010, month=11, day=15, hour=0});		-- never ever change
+
+local gNumNilItemLinks
 
 -----------------------------------------
 
@@ -284,7 +286,7 @@ function AtrSearch:Start ()
 			if (zc.StringContains (name, self.searchText)) then
 				if (type(info) == "table" and info.id) then
 					local itemID, suffixID = strsplit(":", info.id);
-					if (suffixID == nil) then		-- for now; seems problematic for many grean "of the" items
+					if (suffixID == nil) then		-- for now; seems problematic for many green "of the" items
 						itemLink = zc.PullItemIntoMemory (itemID, suffixID);
 						numpulled = numpulled + 1;
 					end
@@ -293,8 +295,13 @@ function AtrSearch:Start ()
 		end
 	end
 
-
+	gNumNilItemLinks = 0
+	
 	self.processing_state = KM_SETTINGSORT;
+	
+	if (Atr_ILevelHist_Init) then
+		Atr_ILevelHist_Init()
+	end
 	
 	SortAuctionClearSort ("list");
 
@@ -370,8 +377,8 @@ function AtrSearch:AnalyzeResultsPage()
 
 	-- analyze
 
-	local k, g, f;
-	local numNilOwners = 0;
+	local k, g, f
+	local numNilOwners = 0
 
 	if (numBatchAuctions > 0) then
 
@@ -382,36 +389,45 @@ function AtrSearch:AnalyzeResultsPage()
 			local name, texture, count, quality, canUse, level, minBid, minIncrement, buyoutPrice, bidAmount, highBidder, owner = GetAuctionItemInfo("list", x);
 
 			local itemLink = GetAuctionItemLink("list", x);
-			local IDstring = zc.ItemIDStrfromLink (itemLink);
 			
-			local OKitemLevel = true
-			if (self.minItemLevel or self.maxItemLevel) then
-				local _, _, _, iLevel, _ = GetItemInfo(itemLink);
-				if ((self.minItemLevel and iLevel < self.minItemLevel) or (self.maxItemLevel and iLevel > self.maxItemLevel)) then
-					OKitemLevel = false
+			if (itemLink) then
+				local IDstring = zc.ItemIDStrfromLink (itemLink);
+				
+				if (Atr_ILevelHist_Update) then
+					Atr_ILevelHist_Update(itemLink)
 				end
-			end
-			
-			if (OKitemLevel) then
-				if (owner == nil) then
-					numNilOwners = numNilOwners + 1
-				end
-
-				if (self.exactMatchText == nil or zc.StringSame (name, self.exactMatchText)) then
-
-					if (self.items[IDstring] == nil) then
-						self.items[IDstring] = Atr_FindScanAndInit (IDstring, name)
-					end
-					
-					local curpage = (tonumber(self.current_page)-1)
-
-					local scn = self.items[IDstring]
-
-					if (scn) then
-						scn:AddScanItem (count, buyoutPrice, owner, 1, curpage)
-						scn:UpdateItemLink (itemLink)
+				
+				local OKitemLevel = true
+				if (self.minItemLevel or self.maxItemLevel) then
+					local _, _, _, iLevel, _ = GetItemInfo(itemLink);
+					if ((self.minItemLevel and iLevel < self.minItemLevel) or (self.maxItemLevel and iLevel > self.maxItemLevel)) then
+						OKitemLevel = false
 					end
 				end
+				
+				if (OKitemLevel) then
+					if (owner == nil) then
+						numNilOwners = numNilOwners + 1
+					end
+
+					if (self.exactMatchText == nil or zc.StringSame (name, self.exactMatchText)) then
+
+						if (self.items[IDstring] == nil) then
+							self.items[IDstring] = Atr_FindScanAndInit (IDstring, name)
+						end
+						
+						local curpage = (tonumber(self.current_page)-1)
+
+						local scn = self.items[IDstring]
+
+						if (scn) then
+							scn:AddScanItem (count, buyoutPrice, owner, 1, curpage)
+							scn:UpdateItemLink (itemLink)
+						end
+					end
+				end
+			else
+				gNumNilItemLinks = gNumNilItemLinks + 1
 			end
 		end
 	end
@@ -711,7 +727,7 @@ function AtrSearch:Finish()
 				if (zc.StringContains (name, self.searchText)) then
 					if (info.id and self.items[info.id] == nil) then
 						local itemID, suffixID = strsplit(":", info.id);
-						if (suffixID == nil) then		-- for now; seems problematic for many grean "of the" items
+						if (suffixID == nil) then		-- for now; seems problematic for many green "of the" items
 							self.items[info.id] = Atr_FindScanAndInit (info.id, name);
 							local itemLink = zc.LinkFromItemID (itemID, suffixID);
 							if (itemLink) then
@@ -777,7 +793,15 @@ function AtrSearch:Finish()
 		end
 	end
 
+	if (gNumNilItemLinks > 0) then
+		zc.msg_anm ("Number of nil links found during scan: ", gNumNilItemLinks)
+	end
+
 	Atr_Broadcast_DBupdated (#broadcastInfo, "partialscan", broadcastInfo);
+
+	if (Atr_ILevelHist_Print) then
+		Atr_ILevelHist_Print()
+	end
 	
 	Atr_ClearBrowseListings();
 	
@@ -1112,6 +1136,7 @@ gAtr_FullScanState		= ATR_FS_NULL;
 local gAtr_FullScanPosition;
 
 local gAtr_FullScanNumNullItemNames;
+local gAtr_FullScanNumNullItemLinks;
 local gAtr_FullScanNumNullOwners;
 
 local gAtr_FullScanStart;
@@ -1154,6 +1179,7 @@ function Atr_FullScanStart()
 		gAtr_FullScanDur   = nil;
 		
 		gAtr_FullScanNumNullItemNames = 0;
+		gAtr_FullScanNumNullItemLinks = 0;
 		gAtr_FullScanNumNullOwners = 0;
 
 		SortAuctionClearSort ("list");
@@ -1209,6 +1235,10 @@ function Atr_FullScanMoreDetails ()
 		zc.msg_anm (string.format ("|cffff3333%d auctions returned empty results (out of %d)|r", gAtr_FullScanNumNullItemNames, gScanDetails.numBatchAuctions));
 	end
 		
+	if (gAtr_FullScanNumNullItemLinks > 0) then
+		zc.msg_anm (string.format ("|cffff3333%d auctions returned null itemLinks (out of %d)|r", gAtr_FullScanNumNullItemLinks, gScanDetails.numBatchAuctions));
+	end
+		
 	zc.msg (" ");
 end
 
@@ -1245,7 +1275,7 @@ function Atr_FullScanAnalyze()
 
 			name, texture, count, quality, canUse, level, minBid,
 					minIncrement, buyoutPrice, bidAmount, highBidder, owner, saleStatus   = GetAuctionItemInfo("list", x);
-			
+
 			-- waste some time so that it's less likely we cause disconnects
 			
 			if (AUCTIONATOR_DC_PAUSE == nil) then
@@ -1259,6 +1289,10 @@ function Atr_FullScanAnalyze()
 			end
 			
 			-----------------------
+			
+--			if (itemLink == nil) then
+--				gAtr_FullScanNumNullItemLinks = gAtr_FullScanNumNullItemLinks + 1;
+--			end
 			
 			if (name == nil) then
 				gAtr_FullScanNumNullItemNames = gAtr_FullScanNumNullItemNames + 1;
@@ -1380,6 +1414,7 @@ function Atr_FullScanAnalyze()
 	Atr_ClearBrowseListings();
 	
 	lowprices = {};
+
 	collectgarbage ("collect");
 end
 
@@ -1838,6 +1873,7 @@ function Atr_GetScanDay_Today()
 	return (math.floor ((time() - gScanHistDayZero) / (86400)));
 
 end
+
 
 
 

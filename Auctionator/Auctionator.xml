@@ -781,6 +781,7 @@
 				<Scripts>
 					<OnEnter>Atr_ShowRecTooltip();</OnEnter>
 					<OnLeave>Atr_HideRecTooltip();</OnLeave>
+					<OnClick>Atr_ClickRecItemTexture()</OnClick>
 				</Scripts>
 			</Button>
 

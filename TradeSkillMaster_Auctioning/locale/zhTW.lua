@@ -5,12 +5,12 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("TradeSkillMaster_Auctioning", "zhTW")
 if not L then return end
 
--- L["% of AuctionDB Market Value"] = ""
--- L["% of AuctionDB Minimum Buyout"] = ""
+L["% of AuctionDB Market Value"] = "% 拍賣行數據庫市場價"
+L["% of AuctionDB Minimum Buyout"] = "% 拍賣行數據庫最低一口價"
 -- L["% of Auctioneer Appraiser"] = ""
--- L["% of Auctioneer Market Value"] = ""
--- L["% of Auctioneer Minimum Buyout"] = ""
--- L["% of Crafting cost"] = ""
+L["% of Auctioneer Market Value"] = "% 拍賣行市場價"
+L["% of Auctioneer Minimum Buyout"] = "% 拍賣行最低一口價"
+L["% of Crafting cost"] = "% 製造成本"
 -- L["% of ItemAuditor cost"] = ""
 L["12 hours"] = "12小時"
 L["24 hours"] = "24小時"
